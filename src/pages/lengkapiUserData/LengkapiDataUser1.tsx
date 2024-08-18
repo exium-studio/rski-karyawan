@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import HorizontalSliderIndicator from "../../components/dependent/HorizontalSliderIndicator";
 import DatePickerDrawer from "../../components/dependent/input/DatePickerDrawer";
@@ -27,11 +27,11 @@ import RequiredForm from "../../components/form/RequiredForm";
 import CContainer from "../../components/independent/wrapper/CContainer";
 import Container from "../../components/independent/wrapper/Container";
 import useScrollToTop from "../../hooks/useScrollToTop";
+import formatDate from "../../lib/formatDate";
 import formatNumber from "../../lib/formatNumber";
 import getUserDataCookie from "../../lib/getUserData";
 import parseNumber from "../../lib/parseNumber";
 import req from "../../lib/req";
-import formatDate from "../../lib/formatDate";
 
 export default function LengkapiDataUser1() {
   useScrollToTop();
@@ -97,7 +97,7 @@ export default function LengkapiDataUser1() {
         .post(`/api/input-personal`, payload)
         .then((r) => {
           if (r.status === 200) {
-            // navigate("/lengkapi-data-personal-2");
+            navigate("/lengkapi-data-personal-2");
             toast({
               status: "success",
               title: r.data.message,

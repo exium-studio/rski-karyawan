@@ -22,7 +22,7 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [dcs, setDcs] = useState(1);
+  const [dcs, setDcs] = useState<number | undefined>(1);
 
   useEffect(() => {
     setLoading(true);
@@ -51,6 +51,28 @@ export default function LoginForm() {
     }
   }, []);
 
+  useEffect(() => {
+    if (dcs) {
+      switch (dcs) {
+        case 0:
+          navigate("/beranda");
+          return;
+        case 1:
+          navigate("/lengkapi-data-personal-1");
+          return;
+        case 2:
+          navigate("/lengkapi-data-personal-2");
+          return;
+        case 3:
+          navigate("/lengkapi-data-personal-3");
+          return;
+        case 4:
+          navigate("/lengkapi-data-personal-4");
+          return;
+      }
+    }
+  }, [dcs]);
+
   const formik = useFormik({
     validateOnChange: false,
     initialValues: { email: "", password: "" },
@@ -74,23 +96,7 @@ export default function LoginForm() {
             setCookie("__auth_token", userData.arrtoken.token);
             localStorage.setItem("__user_data", JSON.stringify(userData));
 
-            switch (userData.data_completion_step) {
-              case 0:
-                navigate("/beranda");
-                return;
-              case 1:
-                navigate("/lengkapi-data-personal-1");
-                return;
-              case 2:
-                navigate("/lengkapi-data-personal-2");
-                return;
-              case 3:
-                navigate("/lengkapi-data-personal-3");
-                return;
-              case 4:
-                navigate("/lengkapi-data-personal-4");
-                return;
-            }
+            setDcs(r.data.data.data_completion_step);
           }
         })
         .catch((e) => {
