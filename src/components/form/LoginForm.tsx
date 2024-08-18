@@ -32,7 +32,7 @@ export default function LoginForm() {
         .get("/api/getuserinfo")
         .then((r) => {
           if (r.status === 200) {
-            setDcs(r.data.data.data_completion_step);
+            localStorage.setItem("dcs", r.data.data.data_completion_step);
           }
         })
         .catch((e) => {

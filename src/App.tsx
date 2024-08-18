@@ -1,11 +1,13 @@
 import { ChakraProvider, useToast } from "@chakra-ui/react";
 import "leaflet/dist/leaflet.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { getCookie } from "typescript-cookie";
 import NavContainer from "./components/independent/wrapper/NavContainer";
 import TukarJadwal from "./components/independent/wrapper/TukarJadwal";
 import UbahData from "./components/independent/wrapper/UbahData";
 import "./globalStyle.css";
+import req from "./lib/req";
 import useStatusBarColor from "./lib/statusBarColor";
 import InternalServerErrorPage from "./pages/errorPage/InternalServerErrorPage";
 import MaintenancePage from "./pages/errorPage/MaintenancePage";
@@ -29,6 +31,7 @@ import Koperasi from "./pages/main/Beranda/Koperasi";
 import Laporan from "./pages/main/Beranda/Laporan";
 import Lembur from "./pages/main/Beranda/Lembur";
 import PengajuanTukarJadwal from "./pages/main/Beranda/PengajuanTukarJadwal";
+import Pengumuman from "./pages/main/Beranda/Pengumuman";
 import SlipGajiku from "./pages/main/Beranda/SlipGajiku";
 import DetailJadwal from "./pages/main/Jadwal/DetailJadwal";
 import Jadwal from "./pages/main/Jadwal/Jadwal";
@@ -44,9 +47,6 @@ import EmailVerfication from "./pages/resetPassword/EmailVerfication";
 import ForgotPassword from "./pages/resetPassword/ForgotPassword";
 import NewPassword from "./pages/resetPassword/NewPassword";
 import { globalTheme } from "./theme/globalTheme";
-import Pengumuman from "./pages/main/Beranda/Pengumuman";
-import { getCookie } from "typescript-cookie";
-import req from "./lib/req";
 
 function disableRightClick(event: MouseEvent) {
   event.preventDefault();
@@ -79,11 +79,9 @@ const EndpointWrapper = ({ children }: { children: React.ReactNode }) => {
 };
 
 export const App = () => {
-  const [loading, setLoading] = useState<boolean>(false);
   const toast = useToast();
 
   useEffect(() => {
-    setLoading(true);
     const authToken = getCookie("__auth_token");
     if (authToken) {
       req
@@ -103,11 +101,7 @@ export const App = () => {
             isClosable: true,
           });
         })
-        .finally(() => {
-          setLoading(false);
-        });
-    } else {
-      setLoading(false);
+        .finally(() => {});
     }
   }, []);
 

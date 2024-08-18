@@ -27,26 +27,6 @@ export default function LengkapiDataUser2() {
   useScrollToTop();
 
   const navigate = useNavigate();
-  const dummy = [
-    {
-      id: "1123123124",
-      nama: "Yanto Selep",
-      hubungan_keluarga: { value: 2, label: "Ayah" },
-      status_hidup: { value: 1, label: "Hidup" },
-      pekerjaan: "Dokter",
-      telepon: "0861726513",
-      email: "yantoslp@gmail.com",
-    },
-    {
-      id: "223423423422",
-      nama: "Yanti Selep",
-      hubungan_keluarga: { value: 1, label: "Ibu" },
-      status_hidup: { value: 1, label: "Hidup" },
-      pekerjaan: "Perawat",
-      telepon: "0876162344",
-      email: "yantislp@gmail.com",
-    },
-  ];
 
   const [newItemAdded, setNewItemAdded] = useState(false);
 
@@ -57,7 +37,7 @@ export default function LengkapiDataUser2() {
     validateOnChange: false,
 
     initialValues: {
-      keluarga: dummy as any[],
+      keluarga: undefined as any,
     },
 
     validationSchema: yup.object().shape({
@@ -130,7 +110,7 @@ export default function LengkapiDataUser2() {
 
           <CContainer flex={0} gap={0}>
             <AnimatePresence>
-              {formik.values.keluarga.map((anggota, i) => (
+              {formik.values.keluarga.map((anggota: any, i: number) => (
                 <motion.div
                   key={anggota.id}
                   initial={{
@@ -185,7 +165,7 @@ export default function LengkapiDataUser2() {
                               formik.setFieldValue(
                                 "keluarga",
                                 formik.values.keluarga.filter(
-                                  (_, i) => i !== index
+                                  (_: any, i: number) => i !== index
                                 )
                               );
                             }, 50);
