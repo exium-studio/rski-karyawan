@@ -11,19 +11,45 @@ import {
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import { useState } from "react";
-import { setCookie } from "typescript-cookie";
+import { useEffect, useState } from "react";
+import { getCookie, setCookie } from "typescript-cookie";
 import PasswordInput from "../dependent/input/PasswordInput";
 import StringInput from "../dependent/input/StringInput";
 import req from "../../lib/req";
-// import clientRequest from "../../const/clientRequest";
-// import reqWithHeader from "../../const/reqWithHeader";
-// import { setCookie } from "typescript-cookie";
 
 export default function LoginForm() {
   const toast = useToast();
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
+
+  const [dcs, setDcs] = useState(1);
+
+  useEffect(() => {
+    setLoading(true);
+    const authToken = getCookie("__auth_token");
+    if (authToken) {
+      req
+        .get("/api/getuserinfo")
+        .then((r) => {
+          if (r.status === 200) {
+            setDcs(r.data.data.data_completion_step);
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          toast({
+            status: "error",
+            title:
+              e.response.data.message || "Maaf terjadi kesalahan pada sistem",
+            position: "bottom-right",
+            isClosable: true,
+          });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, []);
 
   const formik = useFormik({
     validateOnChange: false,
@@ -45,6 +71,7 @@ export default function LoginForm() {
         .then((r) => {
           if (r.status === 200) {
             const userData = r.data.data;
+            setCookie("__auth_token", userData.arrtoken.token);
             localStorage.setItem("__user_data", JSON.stringify(userData));
 
             switch (userData.data_completion_step) {
@@ -71,9 +98,11 @@ export default function LoginForm() {
           toast({
             status: "error",
             title:
-              e.response.data.message || "Maaf terjadi kesalahan pada sistem",
-            position: "bottom-right",
+              (typeof e?.response?.data?.message === "string" &&
+                (e?.response?.data?.message as string)) ||
+              "Maaf terjadi kesalahan pada sistem",
             isClosable: true,
+            position: "bottom-right",
           });
         })
         .finally(() => {

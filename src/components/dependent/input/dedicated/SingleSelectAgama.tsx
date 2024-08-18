@@ -1,5 +1,6 @@
 import { ButtonProps } from "@chakra-ui/react";
 import { Interface__SelectOption } from "../../../../constant/interfaces";
+import { optionsAgama } from "../../../../constant/selectOptions";
 import SingleSelectDrawer from "../SingleSelectDrawer";
 
 interface Props extends ButtonProps {
@@ -28,19 +29,11 @@ export default function SelectAgama({
   nonNullable,
   ...props
 }: Props) {
-  const options = [
-    { value: 1, label: "Islam" },
-    { value: 2, label: "Kristen" },
-    { value: 3, label: "Katolik" },
-    { value: 4, label: "Budha" },
-    { value: 5, label: "Hindu" },
-  ];
-
   return (
     <SingleSelectDrawer
       id={id}
       name={name}
-      options={options}
+      options={optionsAgama}
       onConfirm={onConfirm}
       inputValue={inputValue}
       withSearch={withSearch}

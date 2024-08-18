@@ -28,9 +28,10 @@ import CContainer from "../../components/independent/wrapper/CContainer";
 import Container from "../../components/independent/wrapper/Container";
 import useScrollToTop from "../../hooks/useScrollToTop";
 import formatNumber from "../../lib/formatNumber";
-import getUserDataCookie from "../../lib/getUserDataCookie";
+import getUserDataCookie from "../../lib/getUserData";
 import parseNumber from "../../lib/parseNumber";
 import req from "../../lib/req";
+import formatDate from "../../lib/formatDate";
 
 export default function LengkapiDataUser1() {
   useScrollToTop();
@@ -45,28 +46,27 @@ export default function LengkapiDataUser1() {
   const formik = useFormik({
     validateOnChange: false,
     initialValues: {
-      nama: undefined,
-      tempat_lahir: undefined,
-      tgl_lahir: undefined,
-      telepon: undefined,
-      jenis_kelamin: undefined,
-      nik: undefined,
-      nik_ktp: undefined,
-      agama: undefined,
-      golongan_darah: undefined,
-      tinggi_badan: undefined,
-      alamat: undefined,
-      no_ijazah: undefined,
-      tahun_lulus: undefined,
+      nama: undefined as any,
+      tempat_lahir: undefined as any,
+      tgl_lahir: undefined as any,
+      telepon: undefined as any,
+      jenis_kelamin: undefined as any,
+      nik_ktp: undefined as any,
+      no_kk: undefined as any,
+      agama: undefined as any,
+      golongan_darah: undefined as any,
+      tinggi_badan: undefined as any,
+      alamat: undefined as any,
+      no_ijazah: undefined as any,
+      tahun_lulus: undefined as any,
     },
     validationSchema: yup.object().shape({
-      nama: yup.string().required("Harus diisi"),
       tempat_lahir: yup.string().required("Harus diisi"),
       tgl_lahir: yup.date().required("Harus diisi"),
       telepon: yup.string().required("Harus diisi"),
       jenis_kelamin: yup.object().required("Harus diisi"),
-      nik: yup.string().required("Harus diisi"),
       nik_ktp: yup.string().required("Harus diisi"),
+      no_kk: yup.string().required("Harus diisi"),
       agama: yup.object().required("Harus diisi"),
       golongan_darah: yup.object().required("Harus diisi"),
       tinggi_badan: yup.string().required("Harus diisi"),
@@ -78,12 +78,32 @@ export default function LengkapiDataUser1() {
       console.log(values);
       setLoading(true);
 
-      const payload = {};
+      const payload = {
+        tempat_lahir: values.tempat_lahir,
+        tanggal_lahir: formatDate(values.tgl_lahir as string, "short2"),
+        no_hp: values.telepon,
+        jenis_kelamin: values.jenis_kelamin.value,
+        nik_ktp: values.nik_ktp,
+        no_kk: values.no_kk,
+        agama: values.agama?.value,
+        golongan_darah: values.agama?.value,
+        tinggi_badan: values.tinggi_badan,
+        alamat: values.alamat,
+        no_ijazah: values.no_ijazah,
+        tahun_lulus: values.tahun_lulus,
+      };
 
       req
         .post(`/api/input-personal`, payload)
         .then((r) => {
           if (r.status === 200) {
+            // navigate("/lengkapi-data-personal-2");
+            toast({
+              status: "success",
+              title: r.data.message,
+              isClosable: true,
+              position: "bottom-right",
+            });
           }
         })
         .catch((e) => {
@@ -91,16 +111,16 @@ export default function LengkapiDataUser1() {
           toast({
             status: "error",
             title:
-              e.response.data.message || "Maaf terjadi kesalahan pada sistem",
-            position: "bottom-right",
+              (typeof e?.response?.data?.message === "string" &&
+                (e?.response?.data?.message as string)) ||
+              "Maaf terjadi kesalahan pada sistem",
             isClosable: true,
+            position: "bottom-right",
           });
         })
         .finally(() => {
           setLoading(false);
         });
-
-      // navigate("/lengkapi-data-personal-2");
     },
   });
 
@@ -141,7 +161,9 @@ export default function LengkapiDataUser1() {
                 defaultValue={user?.nama}
                 isDisabled
               />
-              <FormErrorMessage>{formik.errors.nama}</FormErrorMessage>
+              <FormErrorMessage>
+                {formik.errors.nama as string}
+              </FormErrorMessage>
             </FormControl>
 
             <FormControl mb={4} isInvalid={!!formik.errors.tempat_lahir}>
@@ -154,7 +176,9 @@ export default function LengkapiDataUser1() {
                 placeholder="Semarang"
                 onChange={formik.handleChange}
               />
-              <FormErrorMessage>{formik.errors.tempat_lahir}</FormErrorMessage>
+              <FormErrorMessage>
+                {formik.errors.tempat_lahir as string}
+              </FormErrorMessage>
             </FormControl>
 
             <FormControl mb={4} isInvalid={!!formik.errors.tgl_lahir}>
@@ -193,7 +217,9 @@ export default function LengkapiDataUser1() {
                   onChange={formik.handleChange}
                 />
               </InputGroup>
-              <FormErrorMessage>{formik.errors.telepon}</FormErrorMessage>
+              <FormErrorMessage>
+                {formik.errors.telepon as string}
+              </FormErrorMessage>
             </FormControl>
 
             <FormControl mb={4} isInvalid={!!formik.errors.jenis_kelamin}>
@@ -203,9 +229,9 @@ export default function LengkapiDataUser1() {
               </FormLabel>
               <SelectGender
                 id="lengkapi-data-user-1-select-gender"
-                name="kelamin"
+                name="jenis_kelamin"
                 onConfirm={(inputValue) => {
-                  formik.setFieldValue("kelamin", inputValue);
+                  formik.setFieldValue("jenis_kelamin", inputValue);
                 }}
                 inputValue={formik.values.jenis_kelamin}
                 isError={!!formik.errors.jenis_kelamin}
@@ -216,22 +242,9 @@ export default function LengkapiDataUser1() {
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl mb={4} isInvalid={!!formik.errors.nik}>
-              <FormLabel>
-                Nomor Induk Kependudukan
-                <RequiredForm />
-              </FormLabel>
-              <StringInput
-                name="nik"
-                placeholder="3301************"
-                onChange={formik.handleChange}
-              />
-              <FormErrorMessage>{formik.errors.nik}</FormErrorMessage>
-            </FormControl>
-
             <FormControl mb={4} isInvalid={!!formik.errors.nik_ktp}>
               <FormLabel>
-                Nomor Kartu Keluarga
+                Nomor Induk Kependudukan
                 <RequiredForm />
               </FormLabel>
               <StringInput
@@ -239,7 +252,24 @@ export default function LengkapiDataUser1() {
                 placeholder="3301************"
                 onChange={formik.handleChange}
               />
-              <FormErrorMessage>{formik.errors.nik_ktp}</FormErrorMessage>
+              <FormErrorMessage>
+                {formik.errors.nik_ktp as string}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl mb={4} isInvalid={!!formik.errors.no_kk}>
+              <FormLabel>
+                Nomor Kartu Keluarga
+                <RequiredForm />
+              </FormLabel>
+              <StringInput
+                name="no_kk"
+                placeholder="3301************"
+                onChange={formik.handleChange}
+              />
+              <FormErrorMessage>
+                {formik.errors.no_kk as string}
+              </FormErrorMessage>
             </FormControl>
 
             <FormControl mb={4} isInvalid={!!formik.errors.agama}>
@@ -269,9 +299,9 @@ export default function LengkapiDataUser1() {
               </FormLabel>
               <SelectGoldar
                 id="lengkapi-data-user-1-select"
-                name="goldar"
+                name="golongan_darah"
                 onConfirm={(inputValue) => {
-                  formik.setFieldValue("goldar", inputValue);
+                  formik.setFieldValue("golongan_darah", inputValue);
                 }}
                 inputValue={formik.values.golongan_darah}
                 placeholder="Pilih Golongan Darah"
@@ -323,7 +353,9 @@ export default function LengkapiDataUser1() {
                 name="alamat"
                 placeholder="Jalan Soekarno Hatta no.123"
               />
-              <FormErrorMessage>{formik.errors.alamat}</FormErrorMessage>
+              <FormErrorMessage>
+                {formik.errors.alamat as string}
+              </FormErrorMessage>
             </FormControl>
 
             <FormControl mb={4} isInvalid={!!formik.errors.no_ijazah}>
@@ -336,7 +368,9 @@ export default function LengkapiDataUser1() {
                 placeholder="1101************"
                 onChange={formik.handleChange}
               />
-              <FormErrorMessage>{formik.errors.no_ijazah}</FormErrorMessage>
+              <FormErrorMessage>
+                {formik.errors.no_ijazah as string}
+              </FormErrorMessage>
             </FormControl>
 
             <FormControl isInvalid={formik.errors.tahun_lulus ? true : false}>
@@ -347,7 +381,9 @@ export default function LengkapiDataUser1() {
                 onChange={formik.handleChange}
                 value={formik.values.tahun_lulus}
               />
-              <FormErrorMessage>{formik.errors.tahun_lulus}</FormErrorMessage>
+              <FormErrorMessage>
+                {formik.errors.tahun_lulus as string}
+              </FormErrorMessage>
             </FormControl>
           </form>
 
@@ -359,21 +395,9 @@ export default function LengkapiDataUser1() {
               className="btn-ap clicky"
               w={"100%"}
               h={"50px"}
+              isLoading={loading}
             >
               Selanjutnya
-            </Button>
-
-            <Button
-              w={"100%"}
-              variant={"ghost"}
-              colorScheme="ap"
-              as={Link}
-              to={"/lengkapi-data-personal-2"}
-              color="p.500"
-              fontWeight={500}
-              mx={"auto"}
-            >
-              Next Step (Debug)
             </Button>
           </VStack>
         </VStack>

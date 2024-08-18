@@ -15,7 +15,7 @@ import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor } from "../../../constant/colors";
 import useScrollToTop from "../../../hooks/useScrollToTop";
 import formatDate from "../../../lib/formatDate";
-import getUserDataCookie from "../../../lib/getUserDataCookie";
+import getUserDataCookie from "../../../lib/getUserData";
 import timeIs from "../../../lib/timeIs";
 import PengumumanBeranda from "../../../components/independent/PengumumanBeranda";
 
