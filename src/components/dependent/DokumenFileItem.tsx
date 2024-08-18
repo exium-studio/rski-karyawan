@@ -97,8 +97,10 @@ const MoreOptions = ({ data }: Props) => {
                 <StringInput
                   name="nama"
                   placeholder="File Berharga"
-                  onChange={formik.handleChange}
-                  value={formik.values.nama}
+                  onChangeSetter={(input) => {
+                    formik.setFieldValue("nama", input);
+                  }}
+                  inputValue={formik.values.nama}
                 />
                 <FormErrorMessage>
                   {formik.errors.nama as string}

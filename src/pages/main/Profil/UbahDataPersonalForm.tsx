@@ -65,7 +65,7 @@ export default function EditDataPersonalForm({ data }: Props) {
       tinggi_badan: data?.tinggi_badan || undefined,
       alamat: data?.alamat || undefined,
       no_ijazah: data?.no_ijazah || undefined,
-      tahun_lulus: data?.tahun_lulus || undefined,
+      tahun_lulus: data?.tahun_lulus.toString() || "",
     },
     validationSchema: yup.object().shape({
       foto_profil: yup.mixed().required("Harus diisi"),
@@ -155,8 +155,10 @@ export default function EditDataPersonalForm({ data }: Props) {
           <StringInput
             name="tempat_lahir"
             placeholder="Semarang"
-            onChange={formik.handleChange}
-            value={formik.values.tempat_lahir}
+            onChangeSetter={(input) => {
+              formik.setFieldValue("tempat_lahir", input);
+            }}
+            inputValue={formik.values.tempat_lahir}
           />
           <RequestPatchDataButton
             validator={() => {
@@ -214,8 +216,10 @@ export default function EditDataPersonalForm({ data }: Props) {
               pl={12}
               name="telepon"
               placeholder="8***********"
-              onChange={formik.handleChange}
-              value={formik.values.telepon}
+              onChangeSetter={(input) => {
+                formik.setFieldValue("telepon", input);
+              }}
+              inputValue={formik.values.telepon}
             />
             <RequestPatchDataButton
               validator={() => {
@@ -267,8 +271,10 @@ export default function EditDataPersonalForm({ data }: Props) {
           <StringInput
             name="nik"
             placeholder="3301************"
-            onChange={formik.handleChange}
-            value={formik.values.nik}
+            onChangeSetter={(input) => {
+              formik.setFieldValue("nik", input);
+            }}
+            inputValue={formik.values.nik}
           />
           <RequestPatchDataButton
             validator={() => {
@@ -290,8 +296,10 @@ export default function EditDataPersonalForm({ data }: Props) {
           <StringInput
             name="nik_ktp"
             placeholder="3301************"
-            onChange={formik.handleChange}
-            value={formik.values.nik_ktp}
+            onChangeSetter={(input) => {
+              formik.setFieldValue("nik_ktp", input);
+            }}
+            inputValue={formik.values.nik_ktp}
           />
           <RequestPatchDataButton
             validator={() => {
@@ -431,8 +439,10 @@ export default function EditDataPersonalForm({ data }: Props) {
           <StringInput
             name="no_ijazah"
             placeholder="1101************"
-            onChange={formik.handleChange}
-            value={formik.values.no_ijazah}
+            onChangeSetter={(input) => {
+              formik.setFieldValue("no_ijazah", input);
+            }}
+            inputValue={formik.values.no_ijazah}
           />
           <RequestPatchDataButton
             validator={() => {
@@ -454,14 +464,10 @@ export default function EditDataPersonalForm({ data }: Props) {
           <StringInput
             name="tahun_lulus"
             placeholder="2024"
-            onChange={(e) => {
-              formik.setFieldValue("tahun_lulus", parseNumber(e.target.value));
+            onChangeSetter={(input) => {
+              formik.setFieldValue("tahun_lulus", input);
             }}
-            value={
-              formik.values.tahun_lulus === 0
-                ? ""
-                : formatNumber(formik.values.tahun_lulus)
-            }
+            inputValue={formik.values.tahun_lulus}
           />
           <RequestPatchDataButton
             validator={() => {

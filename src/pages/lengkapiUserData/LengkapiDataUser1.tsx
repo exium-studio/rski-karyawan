@@ -157,8 +157,10 @@ export default function LengkapiDataUser1() {
               <StringInput
                 name="nama"
                 placeholder="Jolitos Kurniawan"
-                onChange={formik.handleChange}
-                defaultValue={user?.nama}
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("nama_disabled", input);
+                }}
+                inputValue={formik.values.nama}
                 isDisabled
               />
               <FormErrorMessage>
@@ -174,7 +176,10 @@ export default function LengkapiDataUser1() {
               <StringInput
                 name="tempat_lahir"
                 placeholder="Semarang"
-                onChange={formik.handleChange}
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("tempat_lahir", input);
+                }}
+                inputValue={formik.values.tempat_lahir}
               />
               <FormErrorMessage>
                 {formik.errors.tempat_lahir as string}
@@ -250,7 +255,10 @@ export default function LengkapiDataUser1() {
               <StringInput
                 name="nik_ktp"
                 placeholder="3301************"
-                onChange={formik.handleChange}
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("nik_ktp", input);
+                }}
+                inputValue={formik.values.nik_ktp}
               />
               <FormErrorMessage>
                 {formik.errors.nik_ktp as string}
@@ -265,7 +273,10 @@ export default function LengkapiDataUser1() {
               <StringInput
                 name="no_kk"
                 placeholder="3301************"
-                onChange={formik.handleChange}
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("no_kk", input);
+                }}
+                inputValue={formik.values.no_kk}
               />
               <FormErrorMessage>
                 {formik.errors.no_kk as string}
@@ -366,7 +377,10 @@ export default function LengkapiDataUser1() {
               <StringInput
                 name="no_ijazah"
                 placeholder="1101************"
-                onChange={formik.handleChange}
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("no_ijazah", input);
+                }}
+                inputValue={formik.values.no_ijazah}
               />
               <FormErrorMessage>
                 {formik.errors.no_ijazah as string}
@@ -378,8 +392,10 @@ export default function LengkapiDataUser1() {
               <StringInput
                 name="tahun_lulus"
                 placeholder="2024"
-                onChange={formik.handleChange}
-                value={formik.values.tahun_lulus}
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("tahun_lulus", input);
+                }}
+                inputValue={formik.values.tahun_lulus}
               />
               <FormErrorMessage>
                 {formik.errors.tahun_lulus as string}

@@ -128,8 +128,10 @@ export default function AddFamily({
               <StringInput
                 name="nama"
                 placeholder="Karlitos Kurniawan"
-                onChange={formik.handleChange}
-                value={formik.values.nama || ""}
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("nama", input);
+                }}
+                inputValue={formik.values.nama}
               />
               <FormErrorMessage>{formik.errors.nama}</FormErrorMessage>
             </FormControl>
@@ -162,8 +164,10 @@ export default function AddFamily({
               <StringInput
                 name="pekerjaan"
                 placeholder="Dokter"
-                onChange={formik.handleChange}
-                value={formik.values.pekerjaan || ""}
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("pekerjaan", input);
+                }}
+                inputValue={formik.values.pekerjaan}
               />
               <FormErrorMessage>{formik.errors.pekerjaan}</FormErrorMessage>
             </FormControl>
@@ -181,8 +185,10 @@ export default function AddFamily({
                   pl={12}
                   name="telepon"
                   placeholder="8***********"
-                  onChange={formik.handleChange}
-                  value={formik.values.telepon || ""}
+                  onChangeSetter={(input) => {
+                    formik.setFieldValue("telepn", input);
+                  }}
+                  inputValue={formik.values.telepon}
                 />
               </InputGroup>
               <FormErrorMessage>{formik.errors.telepon}</FormErrorMessage>
@@ -196,8 +202,10 @@ export default function AddFamily({
               <StringInput
                 name="email"
                 placeholder="contoh@email.com"
-                onChange={formik.handleChange}
-                value={formik.values.email || ""}
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("email", input);
+                }}
+                inputValue={formik.values.email}
               />
               <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
             </FormControl>

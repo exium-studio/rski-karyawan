@@ -1,14 +1,37 @@
 import {
+  Box,
+  BoxProps,
   Input as ChakraInput,
   InputProps,
+  Text,
   useColorMode,
 } from "@chakra-ui/react";
 import { css, Global } from "@emotion/react";
 
-interface Props extends InputProps {}
+interface Props extends InputProps {
+  fRef?: any;
+  name: string;
+  onChangeSetter: (inputValue: string | undefined) => void;
+  inputValue: string | undefined;
+  isError?: boolean;
+  placeholder?: string;
+  boxProps?: BoxProps;
+}
 
-export default function StringInput({ ...props }: Props) {
-  // SX
+export default function StringInput({
+  fRef,
+  name,
+  onChangeSetter,
+  inputValue,
+  isError,
+  placeholder = "",
+  boxProps,
+  ...props
+}: Props) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    onChangeSetter(e.target.value);
+  }
+
   const { colorMode } = useColorMode();
   const darkLightColorManual = colorMode === "light" ? "white" : "var(--dark)";
 
@@ -16,6 +39,9 @@ export default function StringInput({ ...props }: Props) {
     <>
       <Global
         styles={css`
+          input:-webkit-autofill {
+            border: 10px solid var(--divider3) !important;
+          }
           input:-webkit-autofill,
           input:-webkit-autofill:hover,
           input:-webkit-autofill:focus,
@@ -26,13 +52,37 @@ export default function StringInput({ ...props }: Props) {
         `}
       />
 
-      <ChakraInput
-        _focus={{
-          border: "1px solid var(--p500) !important",
-          boxShadow: "none !important",
-        }}
-        {...props}
-      />
+      <Box position={"relative"} w={"100%"} overflow={"visible"} {...boxProps}>
+        <ChakraInput
+          ref={fRef}
+          name={name}
+          border={"1px solid var(--divider3) !important"}
+          _focus={{
+            border: "1px solid var(--p500) !important",
+            boxShadow: "none !important",
+          }}
+          onChange={handleChange}
+          value={inputValue}
+          placeholder=" "
+          {...props}
+        />
+        {!inputValue && (
+          <Text
+            w={"calc(100% - 32px)"}
+            position={"absolute"}
+            top={"8px"}
+            left={props?.pl || 4}
+            pr={props?.pr}
+            whiteSpace={"nowrap"}
+            overflow={"hidden"}
+            textOverflow={"ellipsis"}
+            color={`#96969691`}
+            pointerEvents={"none"}
+          >
+            {placeholder}
+          </Text>
+        )}
+      </Box>
     </>
   );
 }

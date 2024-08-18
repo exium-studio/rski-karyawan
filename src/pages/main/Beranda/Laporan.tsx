@@ -91,8 +91,10 @@ export default function Laporan() {
               <StringInput
                 name="pelaku"
                 placeholder="Jolitos Kurniawan"
-                onChange={formik.handleChange}
-                value={formik.values.pelaku}
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("pelaku", input);
+                }}
+                inputValue={formik.values.pelaku}
               />
               <FormErrorMessage>
                 {formik.errors.pelaku as string}
@@ -127,8 +129,10 @@ export default function Laporan() {
               <StringInput
                 name="lokasi"
                 placeholder="Dekat tangga gudang obat lt. 2"
-                onChange={formik.handleChange}
-                value={formik.values.lokasi}
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("lokasi", input);
+                }}
+                inputValue={formik.values.lokasi}
               />
               <FormErrorMessage>
                 {formik.errors.lokasi as string}

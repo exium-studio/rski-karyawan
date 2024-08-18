@@ -22,7 +22,7 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [dcs, setDcs] = useState<number | undefined>(1);
+  const [dcs, setDcs] = useState<number | undefined>(undefined);
 
   useEffect(() => {
     setLoading(true);
@@ -48,6 +48,8 @@ export default function LoginForm() {
         .finally(() => {
           setLoading(false);
         });
+    } else {
+      setLoading(false);
     }
   }, []);
 
@@ -135,7 +137,10 @@ export default function LoginForm() {
         <FormLabel>Email</FormLabel>
         <StringInput
           name="email"
-          onChange={formik.handleChange}
+          onChangeSetter={(input) => {
+            formik.setFieldValue("email", input);
+          }}
+          inputValue={formik.values.email}
           placeholder="email@gmail.com"
         />
         <FormErrorMessage>{formik.errors.email}</FormErrorMessage>

@@ -24,11 +24,12 @@ export default function PasswordInput({
   return (
     <Box position={"relative"}>
       <StringInput
+        name={name}
         placeholder={placeholder || "*******"}
-        onChange={(e) => {
-          onChangeSetter(e.target.value);
+        onChangeSetter={(inputValue) => {
+          onChangeSetter(inputValue);
         }}
-        value={inputValue}
+        inputValue={inputValue}
         type={showPassword ? "text" : "password"}
         pr={"40px !important"}
         {...props}
@@ -44,6 +45,7 @@ export default function PasswordInput({
         _active={{ bg: "transparent" }}
         position={"absolute"}
         right={0}
+        top={0}
         zIndex={2}
         onClick={() => {
           setShowPassword((ps) => !ps);
