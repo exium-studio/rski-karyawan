@@ -1,0 +1,232 @@
+import {
+  Box,
+  Button,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  HStack,
+  Icon,
+  IconButton,
+  InputGroup,
+  InputLeftElement,
+  Text,
+  useDisclosure,
+  VStack,
+} from "@chakra-ui/react";
+import { RiEditLine } from "@remixicon/react";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { Interface__InputDataKeluarga } from "../../../../constant/interfaces";
+import { iconSize } from "../../../../constant/sizes";
+import backOnClose from "../../../../lib/backOnClose";
+import RequiredForm from "../../../form/RequiredForm";
+import BackOnCloseButton from "../../../independent/BackOnCloseButton";
+import CustomDrawer from "../../../independent/wrapper/CustomDrawer";
+import StringInput from "../StringInput";
+import SelectHubunganKeluarga from "./SingleSelectHubunganKeluarga";
+import SelectStatusHidup from "./SingleSelectStatusHidup";
+
+interface Props {
+  data: Interface__InputDataKeluarga;
+  id: string;
+  name: string;
+  onConfirm: (inputValue: any) => void;
+  placement?: "top" | "bottom" | "left" | "right";
+}
+
+export default function EditFamily({
+  data,
+  id,
+  name,
+  onConfirm,
+  placement = "bottom",
+  ...props
+}: Props) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const formik = useFormik({
+    validateOnChange: false,
+    initialValues: {
+      hubungan_keluarga: data.hubungan_keluarga,
+      nama: data.nama,
+      status_hidup: data.status_hidup,
+      pekerjaan: data.pekerjaan,
+      telepon: data.telepon,
+      email: data.email,
+    },
+    validationSchema: yup.object().shape({
+      hubungan_keluarga: yup.object().required("Harus diisi"),
+      nama: yup.string().required("Harus diisi"),
+      status_hidup: yup.object().required("Harus diisi"),
+      pekerjaan: yup.string().required("Harus diisi"),
+      telepon: yup.string().required("Harus diisi"),
+      email: yup.string().required("Harus diisi"),
+    }),
+    onSubmit: (values, { resetForm }) => {
+      onConfirm(values);
+      backOnClose();
+    },
+  });
+
+  // SX
+
+  return (
+    <>
+      <IconButton
+        aria-label="edit anggota keluarga"
+        icon={<Icon as={RiEditLine} fontSize={iconSize} />}
+        size={"sm"}
+        className="clicky"
+        colorScheme="ap"
+        variant={"ghost"}
+        onClick={onOpen}
+      />
+
+      <CustomDrawer
+        id={id}
+        name={name}
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+        header={
+          <Box pt={"18px"} pr={5} pb={5} pl={6}>
+            <HStack justify={"space-between"}>
+              <Text fontSize={20} fontWeight={600}>
+                {"Edit Data Keluarga"}
+              </Text>
+              <BackOnCloseButton aria-label="back on close button" />
+            </HStack>
+          </Box>
+        }
+      >
+        <Box px={6}>
+          <form id="tambahDataKeluargaForm" onSubmit={formik.handleSubmit}>
+            <FormControl mb={4} isInvalid={!!formik.errors.hubungan_keluarga}>
+              <FormLabel>
+                Hubungan Keluarga
+                <RequiredForm />
+              </FormLabel>
+              <SelectHubunganKeluarga
+                id="lengkapi-data-user-2-select-hubungan-keluarga"
+                name="hubungan_keluarga"
+                onConfirm={(inputValue) => {
+                  formik.setFieldValue("hubungan_keluarga", inputValue);
+                }}
+                inputValue={formik.values.hubungan_keluarga}
+                placeholder="Pilih Hubungan Keluarga"
+                isError={!!formik.errors.hubungan_keluarga}
+              />
+              <FormErrorMessage>
+                {formik.errors.hubungan_keluarga as string}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl mb={4} isInvalid={!!formik.errors.nama}>
+              <FormLabel>
+                Nama
+                <RequiredForm />
+              </FormLabel>
+              <StringInput
+                name="nama"
+                placeholder="Karlitos Kurniawan"
+                onChange={formik.handleChange}
+                value={formik.values.nama || ""}
+              />
+              <FormErrorMessage>{formik.errors.nama}</FormErrorMessage>
+            </FormControl>
+
+            <FormControl mb={4} isInvalid={!!formik.errors.status_hidup}>
+              <FormLabel>
+                Status Hidup
+                <RequiredForm />
+              </FormLabel>
+              <SelectStatusHidup
+                id="lengkapi-data-user-2-select-status-hidup"
+                name="status_hidup"
+                onConfirm={(inputValue) => {
+                  formik.setFieldValue("status_hidup", inputValue);
+                }}
+                inputValue={formik.values.status_hidup}
+                placeholder="Pilih Status Hidup"
+                isError={!!formik.errors.status_hidup}
+              />
+              <FormErrorMessage>
+                {formik.errors.status_hidup as string}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl mb={4} isInvalid={!!formik.errors.pekerjaan}>
+              <FormLabel>
+                Pekerjaan
+                <RequiredForm />
+              </FormLabel>
+              <StringInput
+                name="pekerjaan"
+                placeholder="Dokter"
+                onChange={formik.handleChange}
+                value={formik.values.pekerjaan || ""}
+              />
+              <FormErrorMessage>{formik.errors.pekerjaan}</FormErrorMessage>
+            </FormControl>
+
+            <FormControl mb={4} isInvalid={!!formik.errors.telepon}>
+              <FormLabel>
+                Nomor Telepon
+                <RequiredForm />
+              </FormLabel>
+              <InputGroup>
+                <InputLeftElement ml={2}>
+                  <Text>+62</Text>
+                </InputLeftElement>
+                <StringInput
+                  pl={12}
+                  name="telepon"
+                  placeholder="8***********"
+                  onChange={formik.handleChange}
+                  value={formik.values.telepon || ""}
+                />
+              </InputGroup>
+              <FormErrorMessage>{formik.errors.telepon}</FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={!!formik.errors.email}>
+              <FormLabel>
+                Email
+                <RequiredForm />
+              </FormLabel>
+              <StringInput
+                name="email"
+                placeholder="contoh@email.com"
+                onChange={formik.handleChange}
+                value={formik.values.email || ""}
+              />
+              <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+            </FormControl>
+          </form>
+
+          <VStack w={"100%"} pb={placement === "bottom" ? 8 : 6} mt={6}>
+            <Button
+              className="btn-solid clicky"
+              w={"100%"}
+              onClick={() => {
+                formik.resetForm();
+              }}
+            >
+              Clear
+            </Button>
+
+            <Button
+              type="submit"
+              form="tambahDataKeluargaForm"
+              colorScheme="ap"
+              className="btn-ap clicky"
+              w={"100%"}
+            >
+              Update
+            </Button>
+          </VStack>
+        </Box>
+      </CustomDrawer>
+    </>
+  );
+}

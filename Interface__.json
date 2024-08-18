@@ -1,0 +1,13 @@
+{
+    "id": 1,
+    "user_id": 101,
+    "shift_id": 1,
+    "tgl_pengajuan": "2024-07-03",
+    "kompensasi": 200000,
+    "tipe": "Lembur Rutin",
+    "durasi": 3,
+    "catatan": "Lembur proyek tambahan",
+    "status_lembur": "Disetujui",
+    "created_at": "2024-07-03 09:00:00",
+    "updated_at": "2024-07-03 15:30:00"
+  }

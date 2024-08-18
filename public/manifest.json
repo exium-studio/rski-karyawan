@@ -1,0 +1,46 @@
+{
+  "short_name": "RSKI Karyawan",
+  "name": "RSKI Karyawan",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "lang": "id",
+  "scope": ".",
+  "orientation": "portrait",
+  "display_override": [
+    "standalone",
+    "fullscreen",
+    "window-controls-overlay"
+  ],
+  "dir": "ltr",
+  "categories": [
+    "education",
+    "medical",
+    "personalization"
+  ],
+  "edge_side_panel": {
+    "preferred_width": 0
+  },
+  "iarc_rating_id": "3",
+  "prefer_related_applications": false,
+  "id": "rski-karyawan",
+  "description": "Aplikasi pintar untuk karyawan RSKI"
+}
