@@ -1,6 +1,6 @@
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, useToast } from "@chakra-ui/react";
 import "leaflet/dist/leaflet.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import NavContainer from "./components/independent/wrapper/NavContainer";
 import TukarJadwal from "./components/independent/wrapper/TukarJadwal";
@@ -45,11 +45,14 @@ import ForgotPassword from "./pages/resetPassword/ForgotPassword";
 import NewPassword from "./pages/resetPassword/NewPassword";
 import { globalTheme } from "./theme/globalTheme";
 import Pengumuman from "./pages/main/Beranda/Pengumuman";
+import { getCookie } from "typescript-cookie";
+import req from "./lib/req";
 
 function disableRightClick(event: MouseEvent) {
   event.preventDefault();
 }
 
+// styling notif bar color
 const EndpointWrapper = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   const setStatusBarPrimary = useStatusBarColor("#16b3ac", "#191919");
@@ -76,6 +79,38 @@ const EndpointWrapper = ({ children }: { children: React.ReactNode }) => {
 };
 
 export const App = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const toast = useToast();
+
+  useEffect(() => {
+    setLoading(true);
+    const authToken = getCookie("__auth_token");
+    if (authToken) {
+      req
+        .get("/api/getuserinfo")
+        .then((r) => {
+          if (r.status === 200) {
+            localStorage.setItem("dcs", r.data.data.data_completion_step);
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          toast({
+            status: "error",
+            title:
+              e.response.data.message || "Maaf terjadi kesalahan pada sistem",
+            position: "bottom-right",
+            isClosable: true,
+          });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     // Tambahkan event listener ke objek document saat komponen dimuat
     document.addEventListener("contextmenu", disableRightClick);

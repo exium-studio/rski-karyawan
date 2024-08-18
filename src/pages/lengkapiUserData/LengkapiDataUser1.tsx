@@ -29,7 +29,6 @@ import Container from "../../components/independent/wrapper/Container";
 import useScrollToTop from "../../hooks/useScrollToTop";
 import formatDate from "../../lib/formatDate";
 import formatNumber from "../../lib/formatNumber";
-import getUserDataCookie from "../../lib/getUserData";
 import parseNumber from "../../lib/parseNumber";
 import req from "../../lib/req";
 
@@ -37,8 +36,6 @@ export default function LengkapiDataUser1() {
   useScrollToTop();
 
   const navigate = useNavigate();
-
-  const user = getUserDataCookie();
 
   const [loading, setLoading] = useState<boolean>(false);
   const toast = useToast();
@@ -75,7 +72,6 @@ export default function LengkapiDataUser1() {
       tahun_lulus: yup.string().required("Harus diisi"),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
       setLoading(true);
 
       const payload = {

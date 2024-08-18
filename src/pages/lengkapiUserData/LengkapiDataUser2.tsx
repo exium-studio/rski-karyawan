@@ -4,22 +4,24 @@ import {
   FormErrorMessage,
   HStack,
   Text,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { AnimatePresence, motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
-import * as yup from "yup";
-import HorizontalSliderIndicator from "../../components/dependent/HorizontalSliderIndicator";
-import LengkapiDataUserHeader from "../../components/dependent/LengkapiDataUserHeader";
-import Container from "../../components/independent/wrapper/Container";
 import { useState } from "react";
-import useScrollToTop from "../../hooks/useScrollToTop";
-import CContainer from "../../components/independent/wrapper/CContainer";
-import EditFamily from "../../components/dependent/input/dedicated/EditFamily";
+import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
 import DeleteAnggotaKeluarga from "../../components/dependent/DeleteAnggotaKeluarga";
-import FlexLine from "../../components/independent/FlexLine";
+import HorizontalSliderIndicator from "../../components/dependent/HorizontalSliderIndicator";
 import AddFamily from "../../components/dependent/input/dedicated/AddFamily";
+import EditFamily from "../../components/dependent/input/dedicated/EditFamily";
+import LengkapiDataUserHeader from "../../components/dependent/LengkapiDataUserHeader";
+import FlexLine from "../../components/independent/FlexLine";
+import CContainer from "../../components/independent/wrapper/CContainer";
+import Container from "../../components/independent/wrapper/Container";
+import useScrollToTop from "../../hooks/useScrollToTop";
+import req from "../../lib/req";
 
 export default function LengkapiDataUser2() {
   useScrollToTop();
@@ -47,6 +49,10 @@ export default function LengkapiDataUser2() {
   ];
 
   const [newItemAdded, setNewItemAdded] = useState(false);
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const toast = useToast();
+
   const formik = useFormik({
     validateOnChange: false,
 
@@ -62,10 +68,40 @@ export default function LengkapiDataUser2() {
     }),
 
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
-      // TODO hit api simpan data personal 2
+      setLoading(true);
 
-      navigate("/lengkapi-data-personal-3");
+      const payload = {
+        keluarga: values,
+      };
+
+      req
+        .post(`/api/input-personal`, payload)
+        .then((r) => {
+          if (r.status === 200) {
+            navigate("/lengkapi-data-personal-3");
+            toast({
+              status: "success",
+              title: r.data.message,
+              isClosable: true,
+              position: "bottom-right",
+            });
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          toast({
+            status: "error",
+            title:
+              (typeof e?.response?.data?.message === "string" &&
+                (e?.response?.data?.message as string)) ||
+              "Maaf terjadi kesalahan pada sistem",
+            isClosable: true,
+            position: "bottom-right",
+          });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     },
   });
 
@@ -220,11 +256,12 @@ export default function LengkapiDataUser2() {
               className="btn-ap clicky"
               w={"100%"}
               h={"50px"}
+              isLoading={loading}
             >
               Selanjutnya
             </Button>
 
-            <Button
+            {/* <Button
               w={"100%"}
               variant={"ghost"}
               colorScheme="ap"
@@ -235,7 +272,7 @@ export default function LengkapiDataUser2() {
               mx={"auto"}
             >
               Next Step (Debug)
-            </Button>
+            </Button> */}
           </VStack>
         </VStack>
       </CContainer>
