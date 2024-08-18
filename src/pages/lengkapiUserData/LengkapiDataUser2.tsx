@@ -75,7 +75,7 @@ export default function LengkapiDataUser2() {
       };
 
       req
-        .post(`/api/input-personal`, payload)
+        .post(`/api/input-keluarga`, payload)
         .then((r) => {
           if (r.status === 200) {
             navigate("/lengkapi-data-personal-3");
