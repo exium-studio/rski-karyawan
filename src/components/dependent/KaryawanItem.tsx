@@ -9,7 +9,6 @@ import {
 } from "@chakra-ui/react";
 import { RiArrowRightSLine } from "@remixicon/react";
 import { useLightDarkColor } from "../../constant/colors";
-import { Interface__Karyawan } from "../../constant/interfaces";
 import karyawanStatusColor from "../../lib/karyawanStatusColor";
 
 interface Props extends StackProps {
