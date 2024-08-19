@@ -45,8 +45,6 @@ export default function DataCompletionStepMiddleware({ ldp, children }: Props) {
     }
   }, [authToken, dcs, navigate]);
 
-  console.log(dcs);
-
   return (
     <>
       {loading && <FullPageSpinner />}
