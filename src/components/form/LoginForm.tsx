@@ -42,6 +42,14 @@ export default function LoginForm() {
         .then((r) => {
           if (r.status === 200) {
             const userData = r.data.data;
+            toast({
+              status: "success",
+              title: r.data.message,
+              description: `Semangat bekerja ${userData?.nama}`,
+              position: "top",
+              isClosable: true,
+            });
+
             setCookie("__auth_token", userData.arrtoken.token);
             localStorage.setItem("__user_data", JSON.stringify(userData));
             navigate("/beranda");

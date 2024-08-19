@@ -1,19 +1,27 @@
 import { useColorModeValue } from "@chakra-ui/react";
 
 const useContentBgColor = () => {
-  return useColorModeValue("#f7f7f7", "#151515");
+  return useColorModeValue("#f8f8f8", "#151515");
 };
 
-const usePrimaryAlphaColor = () => {
-  return useColorModeValue("teal.100", "rgba(129, 230, 217, 0.16)");
+const useTableStripedColor = () => {
+  return useColorModeValue("#fbfbfb", "#161616");
+};
+
+const useBodyColor = () => {
+  return useColorModeValue("white", "#191919");
+};
+
+const useWhiteDarkColor = () => {
+  return useColorModeValue("white", "dark");
 };
 
 const useLightDarkColor = () => {
-  return useColorModeValue("#ffffff", "#191919");
+  return useColorModeValue("white", "#191919");
 };
 
 const useDarkLightColor = () => {
-  return useColorModeValue("#191919", "#ffffff");
+  return useColorModeValue("dark", "white");
 };
 
 const useErrorColor = () => {
@@ -24,8 +32,12 @@ const useWarningColor = () => {
   return useColorModeValue("#C05621", "#FBD38D");
 };
 
-const useRedaColor = () => {
-  return useColorModeValue("#FED7D7", "#FEB2B229");
+const useErrorAlphaColor = () => {
+  return useColorModeValue("red.50", "rgba(254, 178, 178, 0.12)");
+};
+
+const useWarningAlphaColor = () => {
+  return useColorModeValue("orange.50", "rgba(251, 211, 141, 0.12)");
 };
 
 const statusKaryawanColorScheme = {
@@ -35,15 +47,20 @@ const statusKaryawanColorScheme = {
   Kontrak: "purple",
   magang: "green",
   Magang: "green",
+  training: "green",
+  Training: "green",
 };
 
 export {
   useContentBgColor,
-  usePrimaryAlphaColor,
+  useBodyColor,
+  useWhiteDarkColor,
+  statusKaryawanColorScheme,
   useLightDarkColor,
   useDarkLightColor,
   useErrorColor,
-  useRedaColor,
+  useErrorAlphaColor,
   useWarningColor,
-  statusKaryawanColorScheme,
+  useWarningAlphaColor,
+  useTableStripedColor,
 };

@@ -4,26 +4,67 @@ import {
   HStack,
   Text,
   useDisclosure,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
+import { useErrorAlphaColor } from "../../constant/colors";
 import backOnClose from "../../lib/backOnClose";
 import BackOnCloseButton from "./BackOnCloseButton";
 import CustomDrawer from "./wrapper/CustomDrawer";
+import logout from "../../lib/logout";
+import req from "../../lib/req";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function LogoutProfil() {
+  // SX
+  const errorAlphaColor = useErrorAlphaColor();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const toast = useToast();
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    setLoading(true);
+
+    req
+      .post(`/api/logout`)
+      .then((r) => {
+        if (r.status === 200) {
+          toast({
+            status: "success",
+            title: r.data.message,
+            position: "top",
+            isClosable: true,
+          });
+          logout();
+          navigate("/");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        toast({
+          status: "error",
+          title:
+            e.response.data.message || "Maaf terjadi kesalahan pada sistem",
+          position: "top",
+          isClosable: true,
+        });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
 
   return (
     <>
       <Button
-        // variant={"outline"}
-        // colorScheme="red"
-        className="btn-clear clicky"
-        bg={"var(--reda) !important"}
-        _hover={{ bg: "var(--reda) !important" }}
-        _active={{ bg: "var(--reda) !important" }}
+        variant={"ghost"}
+        colorScheme="red"
+        className="clicky"
+        bg={errorAlphaColor}
         mt={"auto"}
-        color={"red.400"}
         onClick={onOpen}
         size={"lg"}
       >
@@ -54,16 +95,21 @@ export default function LogoutProfil() {
         </Box>
 
         <VStack p={6} pb={8}>
-          <Button onClick={backOnClose} w={"100%"} className="btn-solid clicky">
+          <Button
+            onClick={backOnClose}
+            w={"100%"}
+            className="btn-solid clicky"
+            isDisabled={loading}
+          >
             Tidak
           </Button>
+
           <Button
             w={"100%"}
             className="clicky"
             colorScheme="red"
-            onClick={() => {
-              backOnClose();
-            }}
+            onClick={handleLogout}
+            isLoading={loading}
           >
             Yakin
           </Button>

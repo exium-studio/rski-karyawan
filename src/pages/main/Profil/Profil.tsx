@@ -18,14 +18,14 @@ export default function Profil() {
   const contentBgColor = useContentBgColor();
 
   return (
-    <CContainer>
+    <CContainer flex={1}>
       <Header
         title="Profil"
         borderBottom={"1px solid var(--divider"}
         // right={<NotificationButton aria-label="Notification" />}
       />
 
-      <CContainer bg={contentBgColor} p={5}>
+      <CContainer flex={1} bg={contentBgColor} p={5}>
         <HStack
           borderRadius={12}
           bg={useLightDarkColor()}

@@ -1,7 +1,6 @@
 import { removeCookie } from "typescript-cookie";
 
 export default function logout() {
-  // TODO mungkin ada tambahan userData
-
   removeCookie("__auth_token");
+  localStorage.removeItem("__user_data");
 }

@@ -81,7 +81,11 @@ export default function AttendanceBeranda() {
                   borderRadius={"full"}
                   p={4}
                 >
-                  <Icon as={RiCalendarCloseLine} fontSize={58} color={"dark"} />
+                  <Icon
+                    as={RiCalendarCloseLine}
+                    fontSize={58}
+                    color={"#303030df"}
+                  />
                 </VStack>
               </VStack>
 
