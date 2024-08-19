@@ -11,7 +11,7 @@ import CContainer from "./wrapper/CContainer";
 export default function PengumumanBeranda() {
   const { error, notFound, loading, data, retry } = useDataState({
     initialData: dummyPengumuman,
-    url: "/api/latest-penngumuman",
+    url: "/api/latest-pengumuman",
   });
 
   // SX
