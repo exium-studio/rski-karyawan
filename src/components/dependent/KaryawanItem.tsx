@@ -13,7 +13,7 @@ import { Interface__Karyawan } from "../../constant/interfaces";
 import karyawanStatusColor from "../../lib/karyawanStatusColor";
 
 interface Props extends StackProps {
-  data: Interface__Karyawan;
+  data: any;
   noArrowIcon?: boolean;
   noStatus?: boolean;
   forwardRef?: any;
@@ -46,7 +46,7 @@ export default function KaryawanItem({
             {data.user.nama}
           </Text>
           <Text fontSize={12} opacity={0.4} noOfLines={1}>
-            {data.unit_kerja.nama_unit}
+            {data?.kompetensi?.nama_kompetensi}
           </Text>
         </Box>
       </HStack>

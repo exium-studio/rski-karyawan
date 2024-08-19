@@ -1,28 +1,27 @@
 import { Box, HStack, Icon, IconButton, Text } from "@chakra-ui/react";
 import { RiCloseLine, RiSearchLine } from "@remixicon/react";
 import { useEffect, useRef, useState } from "react";
-import { getCookie } from "typescript-cookie";
-import NoData from "../../../components/independent/NoData";
-import NotFound from "../../../components/independent/NotFound";
+import { Link } from "react-router-dom";
 import SearchComponent from "../../../components/dependent/input/SearchComponent";
 import KaryawanItem from "../../../components/dependent/KaryawanItem";
 import Retry from "../../../components/dependent/Retry";
 import FilterKaryawan from "../../../components/independent/FilterKaryawan";
+import NoData from "../../../components/independent/NoData";
+import NotFound from "../../../components/independent/NotFound";
 import Skeleton from "../../../components/independent/Skeleton";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
-import { dummyKaryawans } from "../../../constant/dummy";
 import { Interface__Karyawan } from "../../../constant/interfaces";
 import { iconSize } from "../../../constant/sizes";
 import useDetailKaryawan from "../../../global/useDetailKaryawan";
 import useDataState from "../../../hooks/useDataState";
 import useScrollToTop from "../../../hooks/useScrollToTop";
-import { Link } from "react-router-dom";
+import getUserData from "../../../lib/getUserData";
 
 export default function Karyawan() {
   useScrollToTop();
 
-  const user: Interface__Karyawan = JSON.parse(getCookie("userData") as string);
+  const user: Interface__Karyawan = getUserData();
 
   const [searchMode, setSearchMode] = useState<boolean>(false);
   const [search, setSearch] = useState<string | undefined>("");
@@ -30,7 +29,7 @@ export default function Karyawan() {
 
   const { error, loading, data, retry } = useDataState<Interface__Karyawan[]>({
     initialData: undefined,
-    url: "",
+    url: "/api/user-unit-kerja",
   });
 
   const fd = data?.filter((item) => {
@@ -54,7 +53,7 @@ export default function Karyawan() {
   const contentBgColor = useContentBgColor();
 
   return (
-    <CContainer>
+    <CContainer flex={1}>
       <Box
         position={"sticky"}
         top={"0"}
@@ -87,7 +86,7 @@ export default function Karyawan() {
               fontWeight={600}
               fontSize={[16, null, 18]}
             >
-              {`Karyawan ${user.unit_kerja.nama_unit}`}
+              {`Karyawan ${user?.unit_kerja?.nama_unit || ""} `}
             </Text>
           )}
 
@@ -139,7 +138,7 @@ export default function Karyawan() {
         <FilterKaryawan transform={"translateY(10px)"} />
       </Box>
 
-      <CContainer p={5} gap={3} bg={contentBgColor}>
+      <CContainer flex={1} p={5} gap={3} bg={contentBgColor}>
         {error && (
           <Box my={"auto"}>
             <Retry loading={loading} retry={retry} />
