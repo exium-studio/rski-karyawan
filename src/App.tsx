@@ -157,17 +157,21 @@ export const App = () => {
             <Route
               path="/inbox"
               element={
-                <NavContainer active={3}>
-                  <Inbox />
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={3}>
+                    <Inbox />
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route
               path="/presensi/foto"
               element={
-                <NavContainer active={0} noNavs>
-                  <AmbilFoto />
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={0} noNavs>
+                    <AmbilFoto />
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route
@@ -183,147 +187,183 @@ export const App = () => {
             <Route
               path="/beranda/tukar-jadwal"
               element={
-                <NavContainer active={0} noNavs>
-                  <TukarJadwal title="Pengajuan Tukar Jadwal" active={0}>
-                    <PengajuanTukarJadwal />
-                  </TukarJadwal>
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={0} noNavs>
+                    <TukarJadwal title="Pengajuan Tukar Jadwal" active={0}>
+                      <PengajuanTukarJadwal />
+                    </TukarJadwal>
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route
               path="/beranda/lembur"
               element={
-                <NavContainer active={0} noNavs>
-                  <Lembur />
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={0} noNavs>
+                    <Lembur />
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route
               path="/beranda/event-diklat"
               element={
-                <NavContainer active={0} noNavs>
-                  <EventDiklat />
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={0} noNavs>
+                    <EventDiklat />
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route
               path="/beranda/slip-gajiku"
               element={
-                <NavContainer active={0} noNavs>
-                  <SlipGajiku />
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={0} noNavs>
+                    <SlipGajiku />
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route
               path="/beranda/dokumen"
               element={
-                <NavContainer active={0} noNavs>
-                  <Dokumen />
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={0} noNavs>
+                    <Dokumen />
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route
               path="/beranda/feedback"
               element={
-                <NavContainer active={0} noNavs>
-                  <Feedback />
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={0} noNavs>
+                    <Feedback />
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route
               path="/beranda/feedback/:user_id"
               element={
-                <NavContainer active={0} noNavs>
-                  <FeedbackKuisioner />
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={0} noNavs>
+                    <FeedbackKuisioner />
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route
               path="/beranda/koperasi"
               element={
-                <NavContainer active={0} noNavs>
-                  <Koperasi />
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={0} noNavs>
+                    <Koperasi />
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route
               path="/beranda/laporan"
               element={
-                <NavContainer active={0} noNavs>
-                  <Laporan />
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={0} noNavs>
+                    <Laporan />
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route
               path="/beranda/pengumuman"
               element={
-                <NavContainer active={0} noNavs>
-                  <Pengumuman />
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={0} noNavs>
+                    <Pengumuman />
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route
               path="/jadwal"
               element={
-                <NavContainer active={1}>
-                  <Jadwal />
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={1}>
+                    <Jadwal />
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route
               path="/jadwal/:currentJadwalId"
               element={
-                <NavContainer active={1} noNavs>
-                  <DetailJadwal />
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={1} noNavs>
+                    <DetailJadwal />
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route
               path="/karyawan"
               element={
-                <NavContainer active={2}>
-                  <Karyawan />
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={2}>
+                    <Karyawan />
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route
               path="/karyawan/detail"
               element={
-                <NavContainer active={2} noNavs>
-                  <DetailKaryawan />
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={2} noNavs>
+                    <DetailKaryawan />
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route
               path="/beranda/aktivitas"
               element={
-                <NavContainer active={0} noNavs>
-                  <Aktivitas />
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={0} noNavs>
+                    <Aktivitas />
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route
               path="/profil"
               element={
-                <NavContainer active={4}>
-                  <Profil />
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={4}>
+                    <Profil />
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route
               path="/profil/ubah"
               element={
-                <NavContainer active={4} noNavs>
-                  <UbahData title="Ubah Data Personal" active={0} />
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={4} noNavs>
+                    <UbahData title="Ubah Data Personal" active={0} />
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route
               path="/profil/edit/riwayat"
               element={
-                <NavContainer active={4} noNavs>
-                  <RiwayatPerubahanData />
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={4} noNavs>
+                    <RiwayatPerubahanData />
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route
