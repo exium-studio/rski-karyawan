@@ -84,7 +84,7 @@ export interface Interface__User {
   role_id: number | null;
   foto_profil: string | null;
   data_completion_step: number;
-  unit_kerja?: Interface__UnitKerja;
+  unit_kerja?: Interface__UnitKerja[];
   status_aktif: number;
   created_at: Date | string;
   updated_at: Date | string | null;
@@ -158,7 +158,7 @@ export interface Interface__Karyawan {
   user: Interface__User;
   nik: string;
   no_rm: number;
-  unit_kerja: Interface__UnitKerja;
+  unit_kerja: Interface__UnitKerja[];
   status_karyawan: string;
   status_kerja?: Interface__ValidStatusKerja;
   jadwals?: Interface__Jadwal[];
@@ -169,10 +169,7 @@ export interface Interface__Karyawan {
 export interface Interface__UnitKerja {
   id: number;
   nama_unit: string;
-  jenis_karyawan: {
-    id: number;
-    label: string;
-  };
+  jenis_karyawan: number | boolean;
   created_at: Date | string;
   updated_at: Date | string | null;
 }

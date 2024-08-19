@@ -86,7 +86,7 @@ export default function Karyawan() {
               fontWeight={600}
               fontSize={[16, null, 18]}
             >
-              {`Karyawan ${user?.unit_kerja?.nama_unit || ""} `}
+              {`Karyawan ${user?.unit_kerja?.[0]?.nama_unit || ""} `}
             </Text>
           )}
 

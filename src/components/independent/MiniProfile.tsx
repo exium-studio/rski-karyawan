@@ -14,7 +14,7 @@ export default function MiniProfile({ data, ...props }: Props) {
           {data?.nama}
         </Text>
         <Text fontSize={14} opacity={0.4}>
-          {data?.unit_kerja?.nama_unit}
+          {data?.unit_kerja?.[0]?.nama_unit}
         </Text>
       </Box>
     </HStack>

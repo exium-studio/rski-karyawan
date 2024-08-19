@@ -49,16 +49,15 @@ export default function FeedbackKuisioner() {
         status_aktif: 1,
         created_at: new Date(),
         updated_at: null,
-        unit_kerja: {
-          id: 2,
-          nama_unit: "Sumber Daya Manusia",
-          jenis_karyawan: {
+        unit_kerja: [
+          {
             id: 2,
-            label: "Paruh Waktu",
+            nama_unit: "Sumber Daya Manusia",
+            jenis_karyawan: 1,
+            created_at: new Date(),
+            updated_at: new Date(),
           },
-          created_at: new Date(),
-          updated_at: new Date(),
-        },
+        ],
       },
       kuisioner: dummyKuisioner,
     },

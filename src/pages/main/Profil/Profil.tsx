@@ -1,7 +1,7 @@
-import { Avatar, Badge, HStack, Icon, Text } from "@chakra-ui/react";
+import { Avatar, HStack, Icon, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { getCookie } from "typescript-cookie";
 import Header from "../../../components/dependent/Header";
+import JenisKaryawanBadge from "../../../components/dependent/JenisKaryawanBadge";
 import LogoutProfil from "../../../components/independent/LogoutProfil";
 import { ProfilColorModeSwitcher } from "../../../components/independent/ProfilColorModeSwitcher";
 import CContainer from "../../../components/independent/wrapper/CContainer";
@@ -9,9 +9,10 @@ import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
 import { Interface__User } from "../../../constant/interfaces";
 import profilMenus from "../../../constant/profilMenus";
 import { iconSize } from "../../../constant/sizes";
+import getUserData from "../../../lib/getUserData";
 
 export default function Profil() {
-  const user: Interface__User = JSON.parse(getCookie("userData") as string);
+  const user: Interface__User = getUserData();
 
   // SX
   const lightDarkColor = useLightDarkColor();
@@ -36,28 +37,25 @@ export default function Profil() {
           position={"relative"}
         >
           <HStack p={4} gap={3}>
-            <Avatar name={user.nama} src={user.foto_profil || ""} />
+            <Avatar name={user?.nama} src={user?.foto_profil || ""} />
             <CContainer justify={"center"}>
               <Text fontSize={14} fontWeight={500} mb={"2px"}>
                 {user.nama}
               </Text>
               <Text fontSize={12} opacity={0.4}>
-                {user.unit_kerja?.nama_unit}
+                {user.unit_kerja?.[0]?.nama_unit}
               </Text>
             </CContainer>
           </HStack>
 
-          <Badge
-            borderRadius={"8px 0 0 0"}
-            colorScheme="green"
-            size={"sm"}
-            textAlign={"center"}
-            position={"absolute"}
-            bottom={0}
-            right={0}
-          >
-            Best Employee
-          </Badge>
+          <JenisKaryawanBadge
+            mt={"auto"}
+            ml={"auto"}
+            borderRadius={"10px 0 10px 0"}
+            w={"100px"}
+            h={"fit-content"}
+            data={user?.unit_kerja?.[0]?.jenis_karyawan}
+          />
         </HStack>
 
         {profilMenus.map((menu, i) => (

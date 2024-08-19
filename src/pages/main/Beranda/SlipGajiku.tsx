@@ -212,7 +212,7 @@ export default function SlipGajiku() {
                 {user.nama}
               </Text>
               <Text fontSize={12} opacity={0.4}>
-                {user.unit_kerja?.nama_unit}
+                {user.unit_kerja?.[0]?.nama_unit}
               </Text>
             </CContainer>
           </CContainer>

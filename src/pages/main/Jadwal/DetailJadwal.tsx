@@ -113,7 +113,7 @@ export default function DetailJadwal() {
             </Box>
 
             <Text fontWeight={600} px={6} mt={6} mb={4}>
-              Karyawan {user.unit_kerja.nama_unit || "Unit Kerja"}
+              Karyawan {user.unit_kerja?.[0]?.nama_unit || "Unit Kerja"}
             </Text>
 
             {loading && (
