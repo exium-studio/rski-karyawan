@@ -64,7 +64,8 @@ export default function AuthMiddleware({ ldp, children }: Props) {
         >
           <ComponentSpinner
             position={"absolute"}
-            spinnerProps={{ size: "xl" }}
+            spinnerProps={{ size: "xl", w: "80px", h: "80px" }}
+            opacity={0.4}
           />
 
           <Icon as={RiShieldUserFill} fontSize={32} opacity={0.4} />

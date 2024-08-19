@@ -48,7 +48,7 @@ export default function ListLembur() {
 
           {!error && (
             <>
-              {data && data?.data?.lengh > 0 ? (
+              {data && data?.data?.length > 0 ? (
                 <>
                   {data?.data?.map((lembur: any, i: number) => (
                     <CContainer
