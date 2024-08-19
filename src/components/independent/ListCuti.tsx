@@ -1,13 +1,13 @@
 import { Button, Center, HStack, SimpleGrid, Text } from "@chakra-ui/react";
 import { useLightDarkColor } from "../../constant/colors";
+import useFilterCuti from "../../global/useFilterCuti";
 import useDataState from "../../hooks/useDataState";
 import formatDate from "../../lib/formatDate";
-import BooleanBadge from "../dependent/BooleanBadge";
+import Retry from "../dependent/Retry";
+import StatusApprovalBadge from "../dependent/StatusApprovalBadge";
+import NoData from "./NoData";
 import Skeleton from "./Skeleton";
 import CContainer from "./wrapper/CContainer";
-import useFilterCuti from "../../global/useFilterCuti";
-import NoData from "./NoData";
-import Retry from "../dependent/Retry";
 
 export default function ListCuti() {
   // SX
@@ -47,7 +47,7 @@ export default function ListCuti() {
 
           {!error && (
             <>
-              {data && data?.data?.lengh > 0 ? (
+              {data && data?.data?.length > 0 ? (
                 <>
                   {data?.data?.map((cuti: any, i: number) => (
                     <CContainer
@@ -60,17 +60,14 @@ export default function ListCuti() {
                       <HStack justify={"space-between"} align={"start"}>
                         <CContainer gap={1}>
                           <Text opacity={0.4} fontSize={12}>
-                            Kategori Cuti
+                            Tipe Cuti
                           </Text>
-                          <Text fontWeight={500}>{cuti.kategori.label}</Text>
+                          <Text fontWeight={500}>
+                            {cuti?.tipe_cuti?.label || "-"}
+                          </Text>
                         </CContainer>
 
-                        <BooleanBadge
-                          data={cuti.status_cuti}
-                          trueValue="Disetujui"
-                          falseValue="Tidak DIsetujui"
-                          borderRadius={"full"}
-                        />
+                        <StatusApprovalBadge data={cuti?.status_cuti_id} />
                       </HStack>
 
                       <CContainer gap={1}>
@@ -78,12 +75,9 @@ export default function ListCuti() {
                           Tanggal Cuti
                         </Text>
                         <Text fontWeight={500}>{`${formatDate(
-                          cuti.tanggal_from,
+                          cuti.tgl_from,
                           "basicShort"
-                        )} - ${formatDate(
-                          cuti.tanggal_to,
-                          "basicShort"
-                        )}`}</Text>
+                        )} - ${formatDate(cuti.tgl_to, "basicShort")}`}</Text>
                       </CContainer>
 
                       <SimpleGrid columns={2} gap={6}>
