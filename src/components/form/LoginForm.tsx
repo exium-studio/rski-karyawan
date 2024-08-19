@@ -9,71 +9,18 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { setCookie } from "typescript-cookie";
 import * as yup from "yup";
-import { useEffect, useState } from "react";
-import { getCookie, setCookie } from "typescript-cookie";
+import req from "../../lib/req";
 import PasswordInput from "../dependent/input/PasswordInput";
 import StringInput from "../dependent/input/StringInput";
-import req from "../../lib/req";
 
 export default function LoginForm() {
   const toast = useToast();
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
-
-  const [dcs, setDcs] = useState<number | undefined>(undefined);
-
-  useEffect(() => {
-    setLoading(true);
-    const authToken = getCookie("__auth_token");
-    if (authToken) {
-      req
-        .get("/api/getuserinfo")
-        .then((r) => {
-          if (r.status === 200) {
-            localStorage.setItem("dcs", r.data.data.data_completion_step);
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-          toast({
-            status: "error",
-            title:
-              e.response.data.message || "Maaf terjadi kesalahan pada sistem",
-            position: "bottom-right",
-            isClosable: true,
-          });
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    } else {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (dcs) {
-      switch (dcs) {
-        case 0:
-          navigate("/beranda");
-          return;
-        case 1:
-          navigate("/lengkapi-data-personal-1");
-          return;
-        case 2:
-          navigate("/lengkapi-data-personal-2");
-          return;
-        case 3:
-          navigate("/lengkapi-data-personal-3");
-          return;
-        case 4:
-          navigate("/lengkapi-data-personal-4");
-          return;
-      }
-    }
-  }, [dcs]);
 
   const formik = useFormik({
     validateOnChange: false,
@@ -97,8 +44,7 @@ export default function LoginForm() {
             const userData = r.data.data;
             setCookie("__auth_token", userData.arrtoken.token);
             localStorage.setItem("__user_data", JSON.stringify(userData));
-
-            setDcs(r.data.data.data_completion_step);
+            navigate("/beranda");
           }
         })
         .catch((e) => {

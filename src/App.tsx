@@ -1,13 +1,12 @@
-import { ChakraProvider, useToast } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import "leaflet/dist/leaflet.css";
 import { useEffect } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import { getCookie } from "typescript-cookie";
+import DataCompletionStepMiddleware from "./components/independent/wrapper/DataCompletionStepMiddleware";
 import NavContainer from "./components/independent/wrapper/NavContainer";
 import TukarJadwal from "./components/independent/wrapper/TukarJadwal";
 import UbahData from "./components/independent/wrapper/UbahData";
 import "./globalStyle.css";
-import req from "./lib/req";
 import useStatusBarColor from "./lib/statusBarColor";
 import InternalServerErrorPage from "./pages/errorPage/InternalServerErrorPage";
 import MaintenancePage from "./pages/errorPage/MaintenancePage";
@@ -79,32 +78,6 @@ const EndpointWrapper = ({ children }: { children: React.ReactNode }) => {
 };
 
 export const App = () => {
-  const toast = useToast();
-
-  useEffect(() => {
-    const authToken = getCookie("__auth_token");
-    if (authToken) {
-      req
-        .get("/api/getuserinfo")
-        .then((r) => {
-          if (r.status === 200) {
-            localStorage.setItem("dcs", r.data.data.data_completion_step);
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-          toast({
-            status: "error",
-            title:
-              e.response.data.message || "Maaf terjadi kesalahan pada sistem",
-            position: "bottom-right",
-            isClosable: true,
-          });
-        })
-        .finally(() => {});
-    }
-  }, []);
-
   useEffect(() => {
     // Tambahkan event listener ke objek document saat komponen dimuat
     document.addEventListener("contextmenu", disableRightClick);
@@ -131,11 +104,19 @@ export const App = () => {
             <Route path="/new-password" element={<NewPassword />} />
             <Route
               path="/lengkapi-data-personal-1"
-              element={<LengkapiDataUser1 />}
+              element={
+                <DataCompletionStepMiddleware ldp={1}>
+                  <LengkapiDataUser1 />
+                </DataCompletionStepMiddleware>
+              }
             />
             <Route
               path="/lengkapi-data-personal-2"
-              element={<LengkapiDataUser2 />}
+              element={
+                <DataCompletionStepMiddleware ldp={2}>
+                  <LengkapiDataUser2 />
+                </DataCompletionStepMiddleware>
+              }
             />
             <Route
               path="/lengkapi-data-personal-3"
@@ -148,9 +129,11 @@ export const App = () => {
             <Route
               path="/beranda"
               element={
-                <NavContainer active={0}>
-                  <Beranda />
-                </NavContainer>
+                <DataCompletionStepMiddleware>
+                  <NavContainer active={0}>
+                    <Beranda />
+                  </NavContainer>
+                </DataCompletionStepMiddleware>
               }
             />
             <Route
