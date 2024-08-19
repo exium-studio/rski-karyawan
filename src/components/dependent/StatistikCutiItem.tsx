@@ -1,4 +1,5 @@
 import {
+  Badge,
   Button,
   HStack,
   Icon,
@@ -56,7 +57,7 @@ export default function StatistikCutiItem({
 
         <HStack align={"end"} gap={1}>
           <Text fontSize={24} lineHeight={1} fontWeight={600} mt={"auto"}>
-            {data.terpakai}
+            {data.used}
           </Text>
           {data.kuota ? (
             <>
@@ -89,6 +90,30 @@ export default function StatistikCutiItem({
         }
       >
         <CContainer px={6}>
+          <HStack>
+            {data.is_need_requirement && (
+              <Badge
+                w={"fit-content"}
+                borderRadius={"full"}
+                mb={2}
+                colorScheme="ap"
+              >
+                Perlu Syarat
+              </Badge>
+            )}
+
+            {data.cuti_administratif && (
+              <Badge
+                w={"fit-content"}
+                borderRadius={"full"}
+                mb={2}
+                colorScheme="ap"
+              >
+                Dihitung Masuk
+              </Badge>
+            )}
+          </HStack>
+
           <Text opacity={0.4} mb={4}>
             {data.keterangan}
           </Text>
@@ -102,7 +127,7 @@ export default function StatistikCutiItem({
 
             <HStack align={"end"} gap={1}>
               <Text fontSize={52} lineHeight={1} fontWeight={600} mt={"auto"}>
-                {data.terpakai}
+                {data.used}
               </Text>
 
               {data.kuota ? (

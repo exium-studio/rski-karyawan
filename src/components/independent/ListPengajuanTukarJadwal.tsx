@@ -1,14 +1,13 @@
 import { Box, Button, StackProps, Text } from "@chakra-ui/react";
 import { dummyPengajuanTukarJadwals } from "../../constant/dummy";
-import { Interface__TukarJadwal } from "../../constant/interfaces";
 import useFilterCuti from "../../global/useFilterCuti";
 import useDataState from "../../hooks/useDataState";
-import NoData from "./NoData";
 import Retry from "../dependent/Retry";
 import TukarJadwalItem from "../dependent/TukarJadwalItem";
+import AjukanTukarJadwal from "./AjukanTukarJadwal";
+import NoData from "./NoData";
 import Skeleton from "./Skeleton";
 import CContainer from "./wrapper/CContainer";
-import AjukanTukarJadwal from "./AjukanTukarJadwal";
 
 interface Props extends StackProps {}
 

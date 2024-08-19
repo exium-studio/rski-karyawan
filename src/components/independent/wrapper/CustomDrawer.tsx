@@ -148,6 +148,7 @@ export default function CustomDrawer({
       initialFocusRef={initialRef}
       placement={placement}
       size={size}
+      blockScrollOnMount={false}
     >
       <DrawerOverlay />
       <DrawerContent

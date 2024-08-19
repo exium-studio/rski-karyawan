@@ -1,7 +1,4 @@
-import {
-  Interface__EventDiklat,
-  Interface__ValidStatusKerja,
-} from "./interfaces";
+import { Interface__ValidStatusKerja } from "./interfaces";
 
 const dummyActivity = [
   {
@@ -2052,19 +2049,19 @@ const dummyPengumuman = [
 ];
 
 export {
-  dummyMySchedules,
   dummyActivity,
   dummyCutis,
-  dummyPengajuanTukarJadwals,
-  dummyPermintaanTukarJadwals,
-  dummyKaryawans,
-  dummyLemburs,
+  dummyDataBerkas,
+  dummyDetailKaryawan,
+  dummyDokumens,
   dummyEventDiklats,
+  dummyKaryawans,
+  dummyKuisioner,
+  dummyLemburs,
+  dummyMySchedules,
+  dummyPengajuanTukarJadwals,
+  dummyPengumuman,
+  dummyPermintaanTukarJadwals,
   dummySlipGaji,
   dummyTipeCutis,
-  dummyDetailKaryawan,
-  dummyDataBerkas,
-  dummyDokumens,
-  dummyKuisioner,
-  dummyPengumuman,
 };

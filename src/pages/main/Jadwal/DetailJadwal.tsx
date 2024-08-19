@@ -3,10 +3,7 @@ import { useRef, useState } from "react";
 import Header from "../../../components/dependent/Header";
 import JadwalItem from "../../../components/dependent/JadwalItem";
 import Skeleton from "../../../components/independent/Skeleton";
-import {
-  Interface__Jadwal,
-  Interface__Karyawan,
-} from "../../../constant/interfaces";
+import { Interface__Karyawan } from "../../../constant/interfaces";
 import useScrollToTop from "../../../hooks/useScrollToTop";
 
 import { getCookie } from "typescript-cookie";

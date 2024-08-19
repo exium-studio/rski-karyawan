@@ -116,7 +116,7 @@ export default function Cuti() {
                   Statistik Cuti
                 </Text>
 
-                <StatistikCuti loading={loading} data={data.statistik} />
+                <StatistikCuti  />
 
                 <Text mx={1} fontWeight={600} mt={5} mb={2}>
                   Riwayat
