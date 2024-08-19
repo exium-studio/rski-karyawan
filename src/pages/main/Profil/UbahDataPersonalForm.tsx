@@ -18,7 +18,6 @@ import * as yup from "yup";
 import DatePickerDrawer from "../../../components/dependent/input/DatePickerDrawer";
 import SelectAgama from "../../../components/dependent/input/dedicated/SingleSelectAgama";
 import SelectGender from "../../../components/dependent/input/dedicated/SingleSelectGender";
-
 import SelectGoldar from "../../../components/dependent/input/dedicated/SIngleSelectGoldar";
 import StringInput from "../../../components/dependent/input/StringInput";
 import Textarea from "../../../components/dependent/input/Textareaold";
