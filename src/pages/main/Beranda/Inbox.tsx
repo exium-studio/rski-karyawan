@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import SearchComponent from "../../../components/dependent/input/SearchComponent";
 import Retry from "../../../components/dependent/Retry";
 import NoData from "../../../components/independent/NoData";
+import NotFound from "../../../components/independent/NotFound";
 import Skeleton from "../../../components/independent/Skeleton";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
@@ -12,101 +13,15 @@ import { iconSize } from "../../../constant/sizes";
 import useDataState from "../../../hooks/useDataState";
 import useScrollToTop from "../../../hooks/useScrollToTop";
 import timeSince from "../../../lib/timeSince";
-import NotFound from "../../../components/independent/NotFound";
 
 export default function Inbox() {
   useScrollToTop();
-
-  const dummy = [
-    {
-      id: 1,
-      is_read: false,
-      kategori: {
-        id: 3,
-        label: "Permintaan Tukar Jadwal",
-        link: "/beranda/tukar-jadwal?tabindex=1",
-      },
-      sender: {
-        // User Interface
-        id: 1,
-        nama: "Jolitos Kurniawan",
-        foto_profil: "/images/gear5.jpg",
-      },
-      message: "Jolitos Kurniawan ingin tukar jadwal dengan Anda",
-      created_at: "2024-07-11",
-    },
-    {
-      id: 2,
-      is_read: false,
-      kategori: {
-        id: 4,
-        label: "Lembur",
-        link: "/beranda/lembur",
-      },
-      sender: {
-        id: 1,
-        nama: "Jolitos Kurniawan",
-        foto_profil: "/images/gear5.jpg",
-      },
-      message: "Kepala ruang mejadwalkan lembur untuk Anda",
-      created_at: "2024-07-10",
-    },
-    {
-      id: 3,
-      is_read: true,
-      kategori: {
-        id: 5,
-        label: "Event & Diklat",
-        link: "/beranda/event-diklat",
-      },
-      sender: {
-        id: 1,
-        nama: "Jolitos Kurniawan",
-        foto_profil: "/images/gear5.jpg",
-      },
-      message: "Kepala ruang mejadwalkan lembur untuk Anda",
-      created_at: "2024-07-4",
-    },
-    {
-      id: 4,
-      is_read: true,
-      kategori: {
-        id: 5,
-        label: "Pengumuman",
-        link: "/beranda/pengumuman",
-      },
-      sender: {
-        id: 1,
-        nama: "Jolitos Kurniawan",
-        foto_profil: "/images/gear5.jpg",
-      },
-      message: "Ada pengumuman baru, segera dicek ya",
-      created_at: "2024-07-4",
-    },
-    {
-      id: 5,
-      is_read: true,
-      kategori: {
-        id: 3,
-        label: "Pengajuan Tukar Jadwal",
-        link: "/beranda/tukar-jadwal?tabindex=0",
-      },
-      sender: {
-        // User Interface
-        id: 1,
-        nama: "Jolitos Kurniawan",
-        foto_profil: "/images/gear5.jpg",
-      },
-      message: "Tukar jadwal anda sudah disetujui manajer",
-      created_at: "2024-07-1",
-    },
-  ];
 
   const [searchMode, setSearchMode] = useState<boolean>(false);
   const [search, setSearch] = useState<string | undefined>("");
 
   const { error, loading, data, retry } = useDataState<any>({
-    initialData: dummy,
+    initialData: undefined,
     url: "",
   });
 
