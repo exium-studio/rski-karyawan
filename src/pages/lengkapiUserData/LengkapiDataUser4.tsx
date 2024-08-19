@@ -68,8 +68,8 @@ export default function LengkapiDataUser4() {
         .post(`/api/input-personal-file`, payload)
         .then((r) => {
           if (r.status === 200) {
-            setDcs(4);
-            navigate("/lengkapi-data-personal-4");
+            setDcs(5);
+            navigate("/lengkapi-data-personal-5");
             toast({
               status: "success",
               title: r.data.message,
@@ -105,7 +105,7 @@ export default function LengkapiDataUser4() {
 
         <VStack gap={0} flex={1} align={"stretch"} mt={4}>
           <HorizontalSliderIndicator
-            length={4}
+            length={5}
             active={4}
             justify={"center"}
             activeW="16px"

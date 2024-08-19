@@ -57,6 +57,8 @@ export default function DataCompletionStepMiddleware({ ldp, children }: Props) {
             <>
               {ldp && (
                 <>
+                  {dcs === 0 && <Navigate to={"/beranda"} />}
+
                   {ldp !== dcs && (
                     <Navigate to={`/lengkapi-data-personal-${dcs}`} />
                   )}

@@ -132,7 +132,7 @@ export default function LengkapiDataUser1() {
 
         <VStack gap={0} flex={1} align={"stretch"} mt={4}>
           <HorizontalSliderIndicator
-            length={4}
+            length={5}
             active={1}
             justify={"center"}
             activeW="16px"

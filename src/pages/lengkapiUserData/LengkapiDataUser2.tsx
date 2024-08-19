@@ -97,7 +97,7 @@ export default function LengkapiDataUser2() {
 
         <VStack gap={0} flex={1} align={"stretch"} mt={4}>
           <HorizontalSliderIndicator
-            length={4}
+            length={5}
             active={2}
             justify={"center"}
             activeW="16px"

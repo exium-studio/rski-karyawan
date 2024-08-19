@@ -3,7 +3,6 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Input,
   Text,
   useToast,
   VStack,
@@ -14,14 +13,15 @@ import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import HorizontalSliderIndicator from "../../components/dependent/HorizontalSliderIndicator";
 import DatePickerDrawer from "../../components/dependent/input/DatePickerDrawer";
+import StringInput from "../../components/dependent/input/StringInput";
 import LengkapiDataUserHeader from "../../components/dependent/LengkapiDataUserHeader";
 import RequiredForm from "../../components/form/RequiredForm";
 import CContainer from "../../components/independent/wrapper/CContainer";
 import Container from "../../components/independent/wrapper/Container";
 import useDcs from "../../global/useDcs";
 import useScrollToTop from "../../hooks/useScrollToTop";
-import req from "../../lib/req";
 import formatDate from "../../lib/formatDate";
+import req from "../../lib/req";
 
 export default function LengkapiDataUser3() {
   useScrollToTop();
@@ -102,7 +102,7 @@ export default function LengkapiDataUser3() {
 
         <VStack gap={0} flex={1} align={"stretch"} mt={4}>
           <HorizontalSliderIndicator
-            length={4}
+            length={5}
             active={3}
             justify={"center"}
             activeW="16px"
@@ -119,10 +119,13 @@ export default function LengkapiDataUser3() {
                 No. STR
                 <RequiredForm />
               </FormLabel>
-              <Input
+              <StringInput
                 name="str"
                 placeholder="231*****"
-                onChange={formik.handleChange}
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("str", input);
+                }}
+                inputValue={formik.values.str}
               />
               <FormErrorMessage>{formik.errors.str}</FormErrorMessage>
             </FormControl>
@@ -154,10 +157,13 @@ export default function LengkapiDataUser3() {
                 No. SIP
                 <RequiredForm />
               </FormLabel>
-              <Input
+              <StringInput
                 name="sip"
                 placeholder="231*****"
-                onChange={formik.handleChange}
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("sip", input);
+                }}
+                inputValue={formik.values.sip}
               />
               <FormErrorMessage>{formik.errors.sip}</FormErrorMessage>
             </FormControl>
@@ -192,10 +198,13 @@ export default function LengkapiDataUser3() {
                 BPJS Kesehatan
                 <RequiredForm />
               </FormLabel>
-              <Input
+              <StringInput
                 name="bpjsKesehatan"
                 placeholder="231*****"
-                onChange={formik.handleChange}
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("bpjsKesehatan", input);
+                }}
+                inputValue={formik.values.bpjsKesehatan}
               />
               <FormErrorMessage>{formik.errors.bpjsKesehatan}</FormErrorMessage>
             </FormControl>
@@ -208,10 +217,13 @@ export default function LengkapiDataUser3() {
                 BPJS Ketenagakerjaan
                 <RequiredForm />
               </FormLabel>
-              <Input
+              <StringInput
                 name="bpjsKetenagakerjaan"
                 placeholder="231*****"
-                onChange={formik.handleChange}
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("bpjsKetenagakerjaan", input);
+                }}
+                inputValue={formik.values.bpjsKetenagakerjaan}
               />
               <FormErrorMessage>
                 {formik.errors.bpjsKetenagakerjaan}

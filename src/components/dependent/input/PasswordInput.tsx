@@ -38,7 +38,11 @@ export default function PasswordInput({
       <IconButton
         aria-label="show password button"
         icon={
-          <Icon as={showPassword ? RiEyeOffLine : RiEyeLine} fontSize={20} />
+          <Icon
+            as={showPassword ? RiEyeOffLine : RiEyeLine}
+            fontSize={20}
+            opacity={0.4}
+          />
         }
         bg={"transparent"}
         _hover={{ bg: "transparent" }}

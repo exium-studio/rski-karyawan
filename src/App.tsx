@@ -46,6 +46,7 @@ import EmailVerfication from "./pages/resetPassword/EmailVerfication";
 import ForgotPassword from "./pages/resetPassword/ForgotPassword";
 import NewPassword from "./pages/resetPassword/NewPassword";
 import { globalTheme } from "./theme/globalTheme";
+import LengkapiDataUser5 from "./pages/lengkapiUserData/LengkapiDataUser5";
 
 function disableRightClick(event: MouseEvent) {
   event.preventDefault();
@@ -126,6 +127,11 @@ export const App = () => {
               path="/lengkapi-data-personal-4"
               element={<LengkapiDataUser4 />}
             />
+            <Route
+              path="/lengkapi-data-personal-5"
+              element={<LengkapiDataUser5 />}
+            />
+
             <Route
               path="/beranda"
               element={
