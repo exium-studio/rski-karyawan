@@ -1,5 +1,6 @@
 import {
   Box,
+  Center,
   HStack,
   Icon,
   IconButton,
@@ -8,23 +9,22 @@ import {
 } from "@chakra-ui/react";
 import { RiCloseLine, RiSearchLine } from "@remixicon/react";
 import { useEffect, useRef, useState } from "react";
-import NoData from "../../../components/independent/NoData";
 import DokumenFileItem from "../../../components/dependent/DokumenFileItem";
 import SearchComponent from "../../../components/dependent/input/SearchComponent";
 import Retry from "../../../components/dependent/Retry";
 import BackButton from "../../../components/independent/BackButton";
+import NoData from "../../../components/independent/NoData";
+import NotFound from "../../../components/independent/NotFound";
 import Skeleton from "../../../components/independent/Skeleton";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
-import { dummyDokumens } from "../../../constant/dummy";
 import { iconSize } from "../../../constant/sizes";
 import useDataState from "../../../hooks/useDataState";
-import NotFound from "../../../components/independent/NotFound";
 
 export default function Dokumen() {
-  const { error, loading, data, retry } = useDataState<any>({
-    initialData: dummyDokumens,
-    url: "",
+  const { error, notFound, loading, data, retry } = useDataState<any>({
+    initialData: undefined,
+    url: `/api/get-all-berkas-karyawan`,
     dependencies: [],
   });
   const [searchMode, setSearchMode] = useState<boolean>(false);
@@ -50,7 +50,7 @@ export default function Dokumen() {
   const lightDarkColor = useLightDarkColor();
 
   return (
-    <CContainer>
+    <CContainer flex={1}>
       <Box
         position={"sticky"}
         top={"0"}
@@ -132,12 +132,19 @@ export default function Dokumen() {
         </HStack>
       </Box>
 
-      <CContainer bg={contentBgColor} p={5} pb={8}>
+      <CContainer flex={1} bg={contentBgColor} p={5} pb={8}>
         {error && (
-          <Box my={"auto"}>
-            <Retry loading={loading} retry={retry} />
-          </Box>
+          <>
+            {notFound && <NoData minH={"132px"} label="Tidak ada diklat" />}
+
+            {!notFound && (
+              <Center my={"auto"} minH={"300px"}>
+                <Retry loading={loading} retry={retry} />
+              </Center>
+            )}
+          </>
         )}
+
         {!error && (
           <>
             {loading && (
@@ -147,6 +154,7 @@ export default function Dokumen() {
                 ))}
               </SimpleGrid>
             )}
+
             {!loading && (
               <>
                 {(!data || (data && data.length === 0)) && <NoData />}
