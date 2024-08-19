@@ -111,7 +111,7 @@ export default function LogoutProfil() {
             onClick={handleLogout}
             isLoading={loading}
           >
-            Yakin
+            Ya
           </Button>
         </VStack>
       </CustomDrawer>

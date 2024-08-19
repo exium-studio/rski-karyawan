@@ -45,7 +45,7 @@ export default function LoginForm() {
             toast({
               status: "success",
               title: r.data.message,
-              description: `Semangat bekerja ${userData?.nama}`,
+              description: `Selamat datang kembali ${userData?.nama}`,
               position: "top",
               isClosable: true,
             });
