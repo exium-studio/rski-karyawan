@@ -6,39 +6,83 @@ import {
   FormLabel,
   HStack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Header from "../../../components/dependent/Header";
 import DatePickerDrawer from "../../../components/dependent/input/DatePickerDrawer";
+import FileInput from "../../../components/dependent/input/FileInput";
 import StringInput from "../../../components/dependent/input/StringInput";
 import Textarea from "../../../components/dependent/input/Textarea";
 import TimePickerDrawer from "../../../components/dependent/input/TimePickerDrawer";
 import RequiredForm from "../../../components/form/RequiredForm";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
+import { useState } from "react";
+import req from "../../../lib/req";
+import formatDate from "../../../lib/formatDate";
 
 export default function Laporan() {
+  const [loading, setLoading] = useState<boolean>(false);
+  const toast = useToast();
+
   const formik = useFormik({
     validateOnChange: false,
     initialValues: {
-      pelaku: undefined,
-      tanggal_kejadian: undefined,
-      lokasi: undefined,
-      waktu: undefined,
-      kronologi: undefined,
-      upload_foto: undefined,
+      pelaku: "",
+      tgl_kejadian: undefined as any,
+      lokasi: "",
+      waktu: undefined as any,
+      kronologi: "",
+      foto: undefined as any,
     },
     validationSchema: yup.object().shape({
       pelaku: yup.string().required("Harus diisi"),
-      tanggal_kejadian: yup.date().required("Harus diisi"),
+      tgl_kejadian: yup.date().required("Harus diisi"),
       lokasi: yup.string().required("Harus diisi"),
       waktu: yup.string().required("Harus diisi"),
       kronologi: yup.string().required("Harus diisi"),
-      upload_foto: yup.array().required("Harus diisi"),
+      foto: yup.mixed().required("Harus diisi"),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
+      setLoading(true);
+
+      const payload = new FormData();
+      payload.append("pelaku", values.pelaku);
+      payload.append("tgl_kejadian", formatDate(values.tgl_kejadian, "short2"));
+      payload.append("lokasi", values.lokasi);
+      payload.append("waktu", values.waktu);
+      payload.append("kronologi", values.kronologi);
+      payload.append("foto", values.foto);
+
+      req
+        .post(`/api/store-laporan`, payload)
+        .then((r) => {
+          if (r.status === 200) {
+            toast({
+              status: "success",
+              title: r.data.message,
+              position: "top",
+              isClosable: true,
+            });
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          toast({
+            status: "error",
+            title:
+              (typeof e?.response?.data?.message === "string" &&
+                (e?.response?.data?.message as string)) ||
+              "Maaf terjadi kesalahan pada sistem",
+            isClosable: true,
+            position: "top",
+          });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     },
   });
 
@@ -47,7 +91,7 @@ export default function Laporan() {
   const contentBgColor = useContentBgColor();
 
   return (
-    <CContainer>
+    <CContainer flex={1}>
       <Header
         left={"back"}
         title="Laporan"
@@ -56,6 +100,7 @@ export default function Laporan() {
       />
 
       <CContainer
+        flex={1}
         p={5}
         bg={contentBgColor}
         gap={3}
@@ -101,23 +146,23 @@ export default function Laporan() {
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl mb={4} isInvalid={!!formik.errors.tanggal_kejadian}>
+            <FormControl mb={4} isInvalid={!!formik.errors.tgl_kejadian}>
               <FormLabel>
                 Tanggal Kejadian
                 <RequiredForm />
               </FormLabel>
               <DatePickerDrawer
                 id="laporan-date-picker"
-                name="tanggal_kejadian"
+                name="tgl_kejadian"
                 placeholder=""
                 onConfirm={(inputValue) => {
-                  formik.setFieldValue("tanggal_kejadian", inputValue);
+                  formik.setFieldValue("tgl_kejadian", inputValue);
                 }}
-                inputValue={formik.values.tanggal_kejadian}
-                isError={!!formik.errors.tanggal_kejadian}
+                inputValue={formik.values.tgl_kejadian}
+                isError={!!formik.errors.tgl_kejadian}
               />
               <FormErrorMessage>
-                {formik.errors.tanggal_kejadian as string}
+                {formik.errors.tgl_kejadian as string}
               </FormErrorMessage>
             </FormControl>
 
@@ -158,7 +203,7 @@ export default function Laporan() {
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl isInvalid={!!formik.errors.kronologi}>
+            <FormControl mb={4} isInvalid={!!formik.errors.kronologi}>
               <FormLabel>
                 Kronologi
                 <RequiredForm />
@@ -175,6 +220,24 @@ export default function Laporan() {
                 {formik.errors.kronologi as string}
               </FormErrorMessage>
             </FormControl>
+
+            <FormControl isInvalid={!!formik.errors.kronologi}>
+              <FormLabel>
+                Foto
+                <RequiredForm />
+              </FormLabel>
+              <FileInput
+                name="foto"
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("foto", input);
+                }}
+                inputValue={formik.values.foto}
+                isError={!!formik.errors.foto}
+              />
+              <FormErrorMessage>
+                {formik.errors.kronologi as string}
+              </FormErrorMessage>
+            </FormControl>
           </form>
         </CContainer>
 
@@ -185,6 +248,7 @@ export default function Laporan() {
           colorScheme="ap"
           mt={"auto"}
           size={"lg"}
+          isLoading={loading}
         >
           Kirim
         </Button>
