@@ -14,7 +14,7 @@ export default function AttendanceBeranda() {
   const { error, notFound, loading, data, retry } =
     useDataState<AttendanceDataInterface>({
       initialData: undefined,
-      url: "/api/get-today-jadwal",
+      url: "",
       dependencies: [],
     });
 

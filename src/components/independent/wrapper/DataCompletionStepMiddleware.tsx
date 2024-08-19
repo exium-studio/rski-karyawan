@@ -15,12 +15,13 @@ export default function DataCompletionStepMiddleware({ ldp, children }: Props) {
   const authToken = getCookie("__auth_token");
   const { dcs, setDcs } = useDcs();
 
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const toast = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (authToken && typeof dcs !== "number") {
+      setLoading(true);
       req
         .get("/api/getuserinfo")
         .then((r) => {
