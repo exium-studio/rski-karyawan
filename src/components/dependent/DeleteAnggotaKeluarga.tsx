@@ -76,7 +76,7 @@ export default function DeleteAnggotaKeluarga({
               onDelete(index);
             }}
           >
-            Yakin
+            Ya
           </Button>
         </VStack>
       </CustomDrawer>

@@ -84,7 +84,7 @@ const BatalkanTukarJadwal = ({ data }: Props) => {
               w={"100%"}
               onClick={batalkan}
             >
-              Yakin
+              Ya
             </Button>
           </>
         }
