@@ -46,7 +46,7 @@ export default function UbahDataKeluarga() {
       bg={contentBgColor}
       minW={"100%"}
       scrollSnapAlign={"center"}
-      h={"calc(100vh - 56px - 40px)"}
+      // h={"calc(100vh - 56px - 40px)"}
       overflowY={"auto"}
     >
       {error && (
