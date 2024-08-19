@@ -1,10 +1,11 @@
-import { useEffect, ReactNode, useState } from "react";
+import { Icon, useToast, VStack } from "@chakra-ui/react";
+import { RiShieldUserFill } from "@remixicon/react";
+import { ReactNode, useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { getCookie } from "typescript-cookie";
-import FullPageSpinner from "../FullPageSpinner";
 import useAuth from "../../../global/useAuth";
 import req from "../../../lib/req";
-import { useToast } from "@chakra-ui/react";
+import ComponentSpinner from "../ComponentSpinner";
 
 interface Props {
   ldp?: number;
@@ -49,9 +50,26 @@ export default function AuthMiddleware({ ldp, children }: Props) {
     }
   }, [authToken, dcs, navigate]);
 
+  console.log(statusAktif, dcs);
+
   return (
     <>
-      {loading && <FullPageSpinner />}
+      {loading && (
+        <VStack
+          p={5}
+          h={"100vh"}
+          justify={"center"}
+          flex={1}
+          position={"relative"}
+        >
+          <ComponentSpinner
+            position={"absolute"}
+            spinnerProps={{ size: "xl" }}
+          />
+
+          <Icon as={RiShieldUserFill} fontSize={32} opacity={0.4} />
+        </VStack>
+      )}
 
       {!loading && (
         <>
