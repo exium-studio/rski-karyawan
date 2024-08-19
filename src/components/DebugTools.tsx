@@ -36,6 +36,7 @@ import useDebugLoadingState from "../global/useDebugLoadingState";
 import useDebugNoDataState from "../global/useDebugNoDataState";
 import useBackOnClose from "../hooks/useBackOnClose";
 import getLocation from "../lib/getLocation";
+import DisclosureHeader from "./dependent/DisclosureHeader";
 
 export default function DebugTools() {
   //! DEBUG
@@ -83,7 +84,9 @@ export default function DebugTools() {
         <ModalOverlay />
 
         <ModalContent>
-          <ModalHeader>Debug Tools</ModalHeader>
+          <ModalHeader>
+            <DisclosureHeader title="Debug Tools" />
+          </ModalHeader>
 
           <ModalBody>
             <VStack align={"stretch"}>
