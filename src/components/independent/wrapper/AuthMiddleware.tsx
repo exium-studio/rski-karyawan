@@ -73,11 +73,13 @@ export default function AuthMiddleware({ ldp, children }: Props) {
 
               {!ldp && (
                 <>
+                  {dcs === 0 && statusAktif !== 2 && <Navigate to={"/"} />}
+
+                  {dcs === 0 && statusAktif === 2 && children}
+
                   {dcs !== 0 && (
                     <Navigate to={`/lengkapi-data-personal-${dcs}`} />
                   )}
-
-                  {dcs === 0 && statusAktif === 1 && children}
                 </>
               )}
             </>
