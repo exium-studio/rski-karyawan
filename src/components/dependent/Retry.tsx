@@ -10,7 +10,7 @@ export default function Retry({ loading, retry, ...props }: Props) {
   return (
     <VStack p={4}>
       <Icon opacity={0.2} as={RiErrorWarningLine} fontSize={64} />
-      <Text opacity={0.2} textAlign={"center"} fontWeight={600} mb={2}>
+      <Text opacity={0.2} textAlign={"center"} fontWeight={500} mb={2}>
         Maaf, data gagal dimuat
       </Text>
 

@@ -1,6 +1,5 @@
-import { Box, Button, StackProps, Text } from "@chakra-ui/react";
-import { dummyPengajuanTukarJadwals } from "../../constant/dummy";
-import useFilterCuti from "../../global/useFilterCuti";
+import { Box, Button, Center, StackProps, Text } from "@chakra-ui/react";
+import useFilterTukarJadwal from "../../global/useFilterTukarJadwal";
 import useDataState from "../../hooks/useDataState";
 import Retry from "../dependent/Retry";
 import TukarJadwalItem from "../dependent/TukarJadwalItem";
@@ -12,11 +11,13 @@ import CContainer from "./wrapper/CContainer";
 interface Props extends StackProps {}
 
 export default function ListPengajuanTukarJadwal({ ...props }: Props) {
-  const { filterCuti } = useFilterCuti();
-  const { error, loading, data, retry } = useDataState<any[]>({
-    initialData: dummyPengajuanTukarJadwals,
-    url: "",
-    dependencies: [filterCuti],
+  const { filterTukarJadwal } = useFilterTukarJadwal();
+
+  const { error, notFound, loading, data, retry } = useDataState<any>({
+    initialData: undefined,
+    url: `/api/get-pengajuan-swap`,
+    payload: { ...filterTukarJadwal },
+    dependencies: [filterTukarJadwal],
   });
 
   // SX
@@ -45,24 +46,50 @@ export default function ListPengajuanTukarJadwal({ ...props }: Props) {
             </CContainer>
           )}
 
-          {!loading && !data && <NoData />}
-
-          {!loading && data && (
+          {!loading && (
             <>
-              <CContainer gap={3} {...props}>
-                {data.map((tukarJadwal, i) => (
-                  <TukarJadwalItem key={i} data={tukarJadwal} />
-                ))}
+              {error && (
+                <>
+                  {notFound && (
+                    <NoData
+                      minH={"300px"}
+                      label="Tidak ada riwayat pengajuan tukar jadwal"
+                    />
+                  )}
 
-                <Button
-                  flexShrink={0}
-                  colorScheme="ap"
-                  variant={"ghost"}
-                  className="clicky"
-                >
-                  Tampilkan Lebih Banyak
-                </Button>
-              </CContainer>
+                  {!notFound && (
+                    <Center my={"auto"} minH={"300px"}>
+                      <Retry loading={loading} retry={retry} />
+                    </Center>
+                  )}
+                </>
+              )}
+
+              {!error && (
+                <>
+                  {data?.data?.length > 0 ? (
+                    <CContainer gap={3} {...props}>
+                      {data?.data?.map((tukarJadwal: any, i: number) => (
+                        <TukarJadwalItem key={i} data={tukarJadwal} />
+                      ))}
+
+                      <Button
+                        flexShrink={0}
+                        colorScheme="ap"
+                        variant={"ghost"}
+                        className="clicky"
+                      >
+                        Tampilkan Lebih Banyak
+                      </Button>
+                    </CContainer>
+                  ) : (
+                    <NoData
+                      minH={"300px"}
+                      label="Tidak ada riwayat pengajuan tukar jadwal"
+                    />
+                  )}
+                </>
+              )}
             </>
           )}
         </>
