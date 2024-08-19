@@ -58,7 +58,7 @@ export default function Beranda() {
       h={"100vh"}
       bg={attendancePanelBg}
       flex={0}
-      maxH={"calc(100vh - 85px)"}
+      maxH={"calc(100vh - 75px)"}
     >
       <CContainer
         minH={"520px"}
@@ -116,7 +116,7 @@ export default function Beranda() {
         bg={contentBgColor}
         borderRadius={"16px 16px 0 0"}
         minH={"calc(100vh - 80px)"}
-        pb={"95px"}
+        // pb={"95px"}
         overflowY={isScrollToBottom ? "auto" : "clip"}
       >
         <BerandaMenus />

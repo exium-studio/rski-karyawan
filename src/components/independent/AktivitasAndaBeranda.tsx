@@ -1,4 +1,4 @@
-import { Box, HStack, Text } from "@chakra-ui/react";
+import { Box, Center, HStack, Text } from "@chakra-ui/react";
 import { dummyActivity } from "../../constant/dummy";
 import useDataState from "../../hooks/useDataState";
 import AktivitasItem from "../dependent/AktivitasItem";
@@ -9,15 +9,15 @@ import NoData from "./NoData";
 import { Link } from "react-router-dom";
 
 export default function AktivitasAndaBeranda() {
-  const { error, loading, data, retry } = useDataState({
+  const { error, notFound, loading, data, retry } = useDataState({
     initialData: dummyActivity,
-    url: "",
+    url: "/get-activity-presensi",
   });
 
   // SX
 
   return (
-    <CContainer px={5}>
+    <CContainer px={5} flex={1}>
       <HStack mb={4} justify={"space-between"}>
         <Text fontWeight={600}>Aktivitas Anda</Text>
 
@@ -32,11 +32,19 @@ export default function AktivitasAndaBeranda() {
         </Text>
       </HStack>
 
-      <CContainer align={"stretch"} gap={3}>
+      <CContainer align={"stretch"} gap={3} flex={1}>
         {error && (
-          <Box my={"auto"}>
-            <Retry loading={loading} retry={retry} />
-          </Box>
+          <>
+            {notFound && (
+              <NoData m={"auto"} label="Tidak ada aktivitas presensi" />
+            )}
+
+            {!notFound && (
+              <Center my={"auto"} minH={"300px"}>
+                <Retry loading={loading} retry={retry} />
+              </Center>
+            )}
+          </>
         )}
 
         {!error &&

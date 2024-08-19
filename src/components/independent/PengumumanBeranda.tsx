@@ -35,7 +35,7 @@ export default function PengumumanBeranda() {
       <CContainer flex={0} align={"stretch"} gap={3}>
         {error && (
           <>
-            {notFound && <NoData label="Tidak ada pengumuman" />}
+            {notFound && <NoData minH={"132px"} label="Tidak ada pengumuman" />}
 
             {!notFound && (
               <Center my={"auto"} minH={"300px"}>
