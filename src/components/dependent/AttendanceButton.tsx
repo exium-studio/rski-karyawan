@@ -1,12 +1,12 @@
 import { Button, Icon, VStack } from "@chakra-ui/react";
 import { RiLoginBoxLine } from "@remixicon/react";
 import { useRef, useState } from "react";
-import { AttendanceDataInterface } from "../../constant/interfaces";
+import { Interface__AttendanceData } from "../../constant/interfaces";
 import ConfirmMyLocation from "../../pages/main/Beranda/ConfirmMyLocation";
 import ripple from "../../lib/ripple";
 
 interface Props {
-  data: AttendanceDataInterface;
+  data: Interface__AttendanceData;
 }
 
 export default function AttendanceButton({ data }: Props) {

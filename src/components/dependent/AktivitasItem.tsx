@@ -2,7 +2,7 @@ import { Box, Center, HStack, Icon, Text } from "@chakra-ui/react";
 import { RiLoginBoxLine, RiLogoutBoxRLine } from "@remixicon/react";
 import { useLightDarkColor } from "../../constant/colors";
 import formatDate from "../../lib/formatDate";
-import formatTime from "../../constant/formatTime";
+import formatTime from "../../lib/formatTimeOld";
 
 interface Props {
   data: any;

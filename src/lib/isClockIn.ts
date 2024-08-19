@@ -1,10 +1,16 @@
 export default function isClockIn(waktuMasuk: string): boolean {
-  // Waktu masuk dalam bentuk objek Date
-  const waktuMasukObj: Date = new Date(waktuMasuk);
+  const [jam, menit, detik] = waktuMasuk.split(":").map(Number);
 
-  // Waktu saat ini
-  const waktuSekarang: Date = new Date();
+  // Buat objek Date dengan tanggal saat ini, tapi gunakan jam, menit, dan detik dari waktuMasuk
+  const sekarang = new Date();
+  const waktuMasukObj = new Date(
+    sekarang.getFullYear(),
+    sekarang.getMonth(),
+    sekarang.getDate(),
+    jam,
+    menit,
+    detik
+  );
 
-  // Bandingkan waktu saat ini dengan waktu masuk
-  return waktuSekarang >= waktuMasukObj;
+  return sekarang >= waktuMasukObj;
 }

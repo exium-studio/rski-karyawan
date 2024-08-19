@@ -1,14 +1,14 @@
 import { Icon, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { RiHourglass2Fill, RiTimeLine } from "@remixicon/react";
-import formatTime from "../../constant/formatTime";
+import formatTime from "../../lib/formatTime";
 import CountDownDurationShort from "./CountDownDurationShort";
 import calculateDuration from "../../lib/calculateDuration";
 import isClockIn from "../../lib/isClockIn";
-import { AttendanceDataInterface } from "../../constant/interfaces";
+import { Interface__AttendanceData } from "../../constant/interfaces";
 import isClockOut from "../../lib/isClockOut";
 
 interface Props {
-  data: AttendanceDataInterface | null;
+  data: Interface__AttendanceData;
 }
 
 export default function AttendanceData({ data }: Props) {
@@ -17,7 +17,7 @@ export default function AttendanceData({ data }: Props) {
       <VStack gap={0}>
         <Icon as={RiTimeLine} fontSize={32} mb={2} transform={"scaleX(-1)"} />
         <Text fontSize={[16, null, 18]} className="num" fontWeight={500}>
-          {data && data.masuk ? formatTime(data.masuk) : "-"}
+          {formatTime(data.shift?.jam_from)}
         </Text>
         <Text fontSize={14}>Masuk</Text>
       </VStack>
@@ -25,19 +25,16 @@ export default function AttendanceData({ data }: Props) {
       <VStack gap={0}>
         <Icon as={RiTimeLine} fontSize={32} mb={2} />
         <Text fontSize={[16, null, 18]} className="num" fontWeight={500}>
-          {data && data.keluar ? formatTime(data.keluar) : "-"}
+          {data.shift?.jam_to ? formatTime(data.shift?.jam_to) : "-"}
         </Text>
         <Text fontSize={14}>Keluar</Text>
       </VStack>
 
       <VStack gap={0}>
         <Icon as={RiHourglass2Fill} fontSize={32} mb={2} />
-        {data &&
-        data.jam_kerja &&
-        isClockIn(data.masuk) &&
-        !isClockOut(data.keluar) ? (
+        {isClockIn(data.shift?.jam_from) && !isClockOut(data.shift?.jam_to) ? (
           <CountDownDurationShort
-            seconds={calculateDuration(data.keluar)}
+            seconds={calculateDuration(data.shift?.jam_to)}
             isFinishToZero={"stop"}
             fontWeight={500}
           />

@@ -50,7 +50,7 @@ export default function AuthMiddleware({ ldp, children }: Props) {
     }
   }, [authToken, dcs, navigate]);
 
-  console.log(statusAktif, dcs);
+  // console.log(statusAktif, dcs);
 
   return (
     <>

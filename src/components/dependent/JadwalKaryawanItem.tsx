@@ -21,7 +21,7 @@ import { getWeekOfMonth } from "date-fns";
 import { useEffect, useState } from "react";
 import { useLightDarkColor } from "../../constant/colors";
 import { dummyMySchedules } from "../../constant/dummy";
-import formatTime from "../../constant/formatTime";
+import formatTime from "../../lib/formatTimeOld";
 import { Interface__Jadwal } from "../../constant/interfaces";
 import { iconSize } from "../../constant/sizes";
 import formatDate from "../../lib/formatDate";

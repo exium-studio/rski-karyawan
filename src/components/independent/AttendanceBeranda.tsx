@@ -13,7 +13,7 @@ import {
   RiTimeLine,
 } from "@remixicon/react";
 import { useRef } from "react";
-import { AttendanceDataInterface } from "../../constant/interfaces";
+import { Interface__AttendanceData } from "../../constant/interfaces";
 import useDataState from "../../hooks/useDataState";
 import ripple from "../../lib/ripple";
 import AlertLocationPermission from "../dependent/AlertLocationPermission";
@@ -27,7 +27,7 @@ import CContainer from "./wrapper/CContainer";
 
 export default function AttendanceBeranda() {
   const { error, notFound, loading, data, retry } =
-    useDataState<AttendanceDataInterface>({
+    useDataState<Interface__AttendanceData>({
       initialData: undefined,
       url: "/api/get-today-jadwal",
       dependencies: [],

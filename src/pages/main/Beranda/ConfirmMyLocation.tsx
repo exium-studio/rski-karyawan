@@ -17,7 +17,7 @@ import AlertOutsidePresenceRadius from "../../../components/dependent/AlertOutsi
 import LeafletMap from "../../../components/dependent/LeafletMap";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useLightDarkColor } from "../../../constant/colors";
-import { AttendanceDataInterface } from "../../../constant/interfaces";
+import { Interface__AttendanceData } from "../../../constant/interfaces";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
 import calculateDistance from "../../../lib/calculateDistance";
@@ -31,7 +31,7 @@ interface Props {
   onOpen: () => void;
   onClose: () => void;
   data: any;
-  attendanceData: AttendanceDataInterface;
+  attendanceData: Interface__AttendanceData;
 }
 export default function ConfirmMyLocation({
   isOpen,
@@ -160,11 +160,11 @@ export default function ConfirmMyLocation({
                       lng: myLocation.long,
                     }}
                     officeCenter={{
-                      lat: attendanceData.office_lat,
-                      lng: attendanceData.office_lng,
+                      lat: attendanceData?.office_lat,
+                      lng: attendanceData?.office_long,
                     }}
                     zoom={20}
-                    presence_radius={attendanceData.presence_radius}
+                    presence_radius={attendanceData?.presence_radius}
                   />
 
                   <VStack

@@ -17,7 +17,7 @@ import {
 import { getWeekOfMonth } from "date-fns";
 import { Link } from "react-router-dom";
 import { useLightDarkColor } from "../../constant/colors";
-import formatTime from "../../constant/formatTime";
+import formatTime from "../../lib/formatTimeOld";
 import { Interface__Jadwal } from "../../constant/interfaces";
 import formatDate from "../../lib/formatDate";
 

@@ -1,6 +1,6 @@
 import { Box, Center, HStack, Icon, StackProps, Text } from "@chakra-ui/react";
 import { RiLoginBoxLine, RiLogoutBoxLine } from "@remixicon/react";
-import formatTime from "../../constant/formatTime";
+import formatTime from "../../lib/formatTimeOld";
 import { Interface__Jadwal } from "../../constant/interfaces";
 import formatDate from "../../lib/formatDate";
 

@@ -1,10 +1,25 @@
-export interface AttendanceDataInterface {
-  masuk: string;
-  keluar: string;
-  jam_kerja: number;
+export interface Interface__AttendanceData {
+  id: number;
+  user_id: number;
+  tgl_mulai: Date;
+  tgl_selesai: Date;
+  shift_id: number;
+  created_at: Date;
+  updated_at: Date;
+  shift: Interface__Shift;
   office_lat: number;
-  office_lng: number;
+  office_long: number;
   presence_radius: number;
+}
+
+export interface Interface__Shift {
+  id: number;
+  nama: string;
+  jam_from: string;
+  jam_to: string;
+  deleted_at: null;
+  created_at: Date;
+  updated_at: Date;
 }
 
 export interface Interface__ChartDoughnut {
