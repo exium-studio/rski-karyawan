@@ -3,6 +3,7 @@ import { RiLoginBoxLine } from "@remixicon/react";
 import { useRef, useState } from "react";
 import { AttendanceDataInterface } from "../../constant/interfaces";
 import ConfirmMyLocation from "../../pages/main/Beranda/ConfirmMyLocation";
+import ripple from "../../lib/ripple";
 
 interface Props {
   data: AttendanceDataInterface;
@@ -11,18 +12,6 @@ interface Props {
 export default function AttendanceButton({ data }: Props) {
   const attendanceButtonRef = useRef<HTMLDivElement>(null);
   const [confirmLocation, setConfrimLocation] = useState<boolean>(false);
-
-  // SX
-  const ripple = () => {
-    if (attendanceButtonRef.current) {
-      attendanceButtonRef.current.classList.remove("ripple");
-      setTimeout(() => {
-        if (attendanceButtonRef.current) {
-          attendanceButtonRef.current.classList.add("ripple");
-        }
-      }, 10);
-    }
-  };
 
   return (
     <>
@@ -55,7 +44,7 @@ export default function AttendanceButton({ data }: Props) {
         className="clicky"
         transition={"200ms"}
         onClick={() => {
-          ripple();
+          ripple(attendanceButtonRef);
           setTimeout(() => {
             setConfrimLocation(true);
           }, 200);

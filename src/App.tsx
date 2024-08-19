@@ -2,7 +2,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import "leaflet/dist/leaflet.css";
 import { useEffect } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import DataCompletionStepMiddleware from "./components/independent/wrapper/DataCompletionStepMiddleware";
+import AuthMiddleware from "./components/independent/wrapper/AuthMiddleware";
 import NavContainer from "./components/independent/wrapper/NavContainer";
 import TukarJadwal from "./components/independent/wrapper/TukarJadwal";
 import UbahData from "./components/independent/wrapper/UbahData";
@@ -106,40 +106,52 @@ export const App = () => {
             <Route
               path="/lengkapi-data-personal-1"
               element={
-                <DataCompletionStepMiddleware ldp={1}>
+                <AuthMiddleware ldp={1}>
                   <LengkapiDataUser1 />
-                </DataCompletionStepMiddleware>
+                </AuthMiddleware>
               }
             />
             <Route
               path="/lengkapi-data-personal-2"
               element={
-                <DataCompletionStepMiddleware ldp={2}>
+                <AuthMiddleware ldp={2}>
                   <LengkapiDataUser2 />
-                </DataCompletionStepMiddleware>
+                </AuthMiddleware>
               }
             />
             <Route
               path="/lengkapi-data-personal-3"
-              element={<LengkapiDataUser3 />}
+              element={
+                <AuthMiddleware ldp={3}>
+                  <LengkapiDataUser3 />
+                </AuthMiddleware>
+              }
             />
             <Route
               path="/lengkapi-data-personal-4"
-              element={<LengkapiDataUser4 />}
+              element={
+                <AuthMiddleware ldp={4}>
+                  <LengkapiDataUser4 />
+                </AuthMiddleware>
+              }
             />
             <Route
               path="/lengkapi-data-personal-5"
-              element={<LengkapiDataUser5 />}
+              element={
+                <AuthMiddleware ldp={5}>
+                  <LengkapiDataUser5 />
+                </AuthMiddleware>
+              }
             />
 
             <Route
               path="/beranda"
               element={
-                <DataCompletionStepMiddleware>
+                <AuthMiddleware>
                   <NavContainer active={0}>
                     <Beranda />
                   </NavContainer>
-                </DataCompletionStepMiddleware>
+                </AuthMiddleware>
               }
             />
             <Route
@@ -161,9 +173,11 @@ export const App = () => {
             <Route
               path="/beranda/cuti"
               element={
-                <NavContainer active={0} noNavs>
-                  <Cuti />
-                </NavContainer>
+                <AuthMiddleware>
+                  <NavContainer active={0} noNavs>
+                    <Cuti />
+                  </NavContainer>
+                </AuthMiddleware>
               }
             />
             <Route

@@ -9,12 +9,12 @@ export default function Login() {
 
   return (
     <Container px={5}>
-      <CContainer>
+      <CContainer flex={1}>
         <HStack py={4}>
           <BantuanButton />
         </HStack>
 
-        <CContainer align={"center"} justify={"center"}>
+        <CContainer flex={1} align={"center"} justify={"center"}>
           <Image src={`/images/logo.webp`} w={"100%"} maxW={"280px"} />
         </CContainer>
 

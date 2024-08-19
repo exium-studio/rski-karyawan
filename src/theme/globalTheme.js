@@ -255,9 +255,10 @@ export const globalTheme = extendTheme({
         },
         content: {
           fontSize: 14,
-          // pr: 5,
+          p: 1,
           bg: props.colorMode === "dark" ? "dark" : "white",
           color: props.colorMode === "dark" ? "white" : "dark",
+          borderRadius: 12,
         },
         body: {
           pr: 8,

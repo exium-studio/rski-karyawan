@@ -16,7 +16,7 @@ import FileInput from "../../components/dependent/input/FileInput";
 import LengkapiDataUserHeader from "../../components/dependent/LengkapiDataUserHeader";
 import CContainer from "../../components/independent/wrapper/CContainer";
 import Container from "../../components/independent/wrapper/Container";
-import useDcs from "../../global/useDcs";
+import useDcs from "../../global/useAuth";
 import useScrollToTop from "../../hooks/useScrollToTop";
 import req from "../../lib/req";
 

@@ -2,7 +2,7 @@ import { useEffect, ReactNode, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { getCookie } from "typescript-cookie";
 import FullPageSpinner from "../FullPageSpinner";
-import useDcs from "../../../global/useDcs";
+import useAuth from "../../../global/useAuth";
 import req from "../../../lib/req";
 import { useToast } from "@chakra-ui/react";
 
@@ -11,11 +11,11 @@ interface Props {
   children?: ReactNode;
 }
 
-export default function DataCompletionStepMiddleware({ ldp, children }: Props) {
+export default function AuthMiddleware({ ldp, children }: Props) {
   const authToken = getCookie("__auth_token");
-  const { dcs, setDcs } = useDcs();
+  const { dcs, setDcs, statusAktif, setStatusAktif } = useAuth();
 
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -28,6 +28,7 @@ export default function DataCompletionStepMiddleware({ ldp, children }: Props) {
           if (r.status === 200) {
             const newDcs = r.data.data.data_completion_step;
             setDcs(newDcs);
+            setStatusAktif(r.data.data.status_aktif);
           }
         })
         .catch((e) => {
@@ -43,6 +44,8 @@ export default function DataCompletionStepMiddleware({ ldp, children }: Props) {
         .finally(() => {
           setLoading(false);
         });
+    } else {
+      setLoading(false);
     }
   }, [authToken, dcs, navigate]);
 
@@ -60,7 +63,7 @@ export default function DataCompletionStepMiddleware({ ldp, children }: Props) {
                 <>
                   {dcs === 0 && <Navigate to={"/beranda"} />}
 
-                  {ldp !== dcs && (
+                  {ldp !== dcs && dcs !== 0 && (
                     <Navigate to={`/lengkapi-data-personal-${dcs}`} />
                   )}
 
@@ -74,7 +77,7 @@ export default function DataCompletionStepMiddleware({ ldp, children }: Props) {
                     <Navigate to={`/lengkapi-data-personal-${dcs}`} />
                   )}
 
-                  {dcs === 0 && children}
+                  {dcs === 0 && statusAktif === 1 && children}
                 </>
               )}
             </>

@@ -22,7 +22,7 @@ import CContainer from "../../components/independent/wrapper/CContainer";
 import Container from "../../components/independent/wrapper/Container";
 import useScrollToTop from "../../hooks/useScrollToTop";
 import req from "../../lib/req";
-import useDcs from "../../global/useDcs";
+import useDcs from "../../global/useAuth";
 
 export default function LengkapiDataUser2() {
   useScrollToTop();

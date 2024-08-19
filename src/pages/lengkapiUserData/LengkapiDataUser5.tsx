@@ -17,7 +17,7 @@ import LengkapiDataUserHeader from "../../components/dependent/LengkapiDataUserH
 import RequiredForm from "../../components/form/RequiredForm";
 import CContainer from "../../components/independent/wrapper/CContainer";
 import Container from "../../components/independent/wrapper/Container";
-import useDcs from "../../global/useDcs";
+import useDcs from "../../global/useAuth";
 import useScrollToTop from "../../hooks/useScrollToTop";
 import req from "../../lib/req";
 import { getCookie } from "typescript-cookie";

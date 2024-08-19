@@ -31,7 +31,7 @@ import formatDate from "../../lib/formatDate";
 import formatNumber from "../../lib/formatNumber";
 import parseNumber from "../../lib/parseNumber";
 import req from "../../lib/req";
-import useDcs from "../../global/useDcs";
+import useDcs from "../../global/useAuth";
 
 export default function LengkapiDataUser1() {
   useScrollToTop();

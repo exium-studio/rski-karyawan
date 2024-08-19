@@ -72,8 +72,14 @@ export default function Beranda() {
           <MiniProfile data={user} />
         </HStack>
 
-        <CContainer color={"white"} px={5} pb={2}>
-          <CContainer align={"center"} zIndex={2} justify={"center"} mb={5}>
+        <CContainer flex={1} color={"white"} px={5} pb={2}>
+          <CContainer
+            flex={1}
+            align={"center"}
+            zIndex={2}
+            justify={"center"}
+            mb={5}
+          >
             <DigitalClock fontSize={32} lineHeight={1.2} />
 
             <Text>{todayDate}</Text>
