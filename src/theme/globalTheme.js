@@ -220,7 +220,7 @@ export const globalTheme = extendTheme({
     Modal: {
       baseStyle: (props) => ({
         dialogContainer: {
-          p: 4,
+          // p: 4,
           className: "scrollY",
         },
         dialog: {
@@ -231,7 +231,7 @@ export const globalTheme = extendTheme({
           backdropFilter: "blur(40px)",
           boxShadow: "none",
           borderRadius: 12,
-          // m: 4,
+          m: 4,
           border: "1px solid var(--divider2)",
           className: "scrollY",
           // maxH: "100%",

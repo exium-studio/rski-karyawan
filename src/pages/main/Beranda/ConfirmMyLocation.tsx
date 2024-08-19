@@ -5,7 +5,6 @@ import {
   Modal,
   ModalBody,
   ModalContent,
-  Spinner,
   Text,
   useToast,
   VStack,
@@ -15,6 +14,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AlertOutsidePresenceRadius from "../../../components/dependent/AlertOutsidePresenceRadius";
 import LeafletMap from "../../../components/dependent/LeafletMap";
+import ComponentSpinner from "../../../components/independent/ComponentSpinner";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useLightDarkColor } from "../../../constant/colors";
 import { Interface__AttendanceData } from "../../../constant/interfaces";
@@ -134,7 +134,7 @@ export default function ConfirmMyLocation({
       <Modal isOpen={isOpen} onClose={backOnClose} size={"full"}>
         <ModalContent m={0} border={"none"}>
           <ModalBody>
-            <CContainer>
+            <CContainer flex={1}>
               {!loading && !myLocation && (
                 <VStack justify={"center"} p={6} flex={1}>
                   <Text mb={4}>Error, silahkan kembali dan coba lagi</Text>
@@ -150,7 +150,7 @@ export default function ConfirmMyLocation({
                 </VStack>
               )}
 
-              {loading && <Spinner mx={"auto"} my={"auto"} />}
+              {loading && <ComponentSpinner m={"auto"} />}
 
               {!loading && myLocation && attendanceData && address && (
                 <>
@@ -160,11 +160,11 @@ export default function ConfirmMyLocation({
                       lng: myLocation.long,
                     }}
                     officeCenter={{
-                      lat: attendanceData?.office_lat,
-                      lng: attendanceData?.office_long,
+                      lat: attendanceData?.office_lat || -7.5626538,
+                      lng: attendanceData?.office_long || 110.8018715,
                     }}
                     zoom={20}
-                    presence_radius={attendanceData?.presence_radius}
+                    presence_radius={attendanceData?.presence_radius || 100}
                   />
 
                   <VStack
