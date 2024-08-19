@@ -450,31 +450,27 @@ export default function DateRangePickerDrawer({
               ))}
             </ButtonGroup>
 
-            <VStack
-              w={"100%"}
-              borderRadius={8}
-              bg={"var(--divider)"}
-              border={"2px dashed var(--divider)"}
-              p={2}
-              px={4}
-              gap={1}
-            >
-              <Text textAlign={"center"} opacity={selected?.from ? 1 : 0.6}>
-                {`${
-                  selected?.from
-                    ? `${formatDate(selected.from, "short")}`
-                    : "Pilih tanggal awal"
-                } - ${
-                  selected?.to
-                    ? `${formatDate(selected.to, "short")}`
-                    : "Pilih tanggal akhir"
-                } ${
-                  selected && selected.from && selected.to
-                    ? `(${countDateRange(selected.from, selected.to)} hari)`
-                    : ""
-                }`}
-              </Text>
-            </VStack>
+            <HStack w={"100%"} position={"relative"}>
+              <Box flex={1}>
+                <VStack borderRadius={8} bg={"var(--divider)"} p={2} gap={1}>
+                  <Text textAlign={"center"} opacity={selected?.from ? 1 : 0.6}>
+                    {`${
+                      selected?.from
+                        ? `${formatDate(selected.from, "basicShort")}`
+                        : "Pilih tanggal awal"
+                    } - ${
+                      selected?.to
+                        ? `${formatDate(selected.to, "basicShort")}`
+                        : "Pilih tanggal akhir"
+                    } ${
+                      selected && selected.from && selected.to
+                        ? `(${countDateRange(selected.from, selected.to)} hari)`
+                        : ""
+                    }`}
+                  </Text>
+                </VStack>
+              </Box>
+            </HStack>
           </VStack>
         </VStack>
       </CustomDrawer>

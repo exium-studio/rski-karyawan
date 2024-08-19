@@ -8,6 +8,7 @@ import Skeleton from "../independent/Skeleton";
 import CContainer from "../independent/wrapper/CContainer";
 import JadwalItem from "./JadwalItem";
 import Retry from "./Retry";
+import formatDate from "../../lib/formatDate";
 
 interface Props extends StackProps {
   dateRange: { from: Date; to: Date };
@@ -22,8 +23,8 @@ export default function ListJadwalSaya({ dateRange, ...props }: Props) {
     initialData: undefined,
     url: "/api/get-jadwal",
     payload: {
-      tgl_mulai: dateRange?.from,
-      tgl_selesai: dateRange?.to,
+      tgl_mulai: formatDate(dateRange?.from, "short2"),
+      tgl_selesai: formatDate(dateRange?.to, "short2"),
     },
     dependencies: [dateRange],
   });
