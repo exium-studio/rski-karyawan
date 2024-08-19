@@ -1,7 +1,6 @@
 import { HStack, StackProps } from "@chakra-ui/react";
-import BackButton from "../independent/BackButton";
-import BantuanButton from "../independent/BantuanButton";
 import { useLightDarkColor } from "../../constant/colors";
+import BantuanButton from "../independent/BantuanButton";
 
 interface Props extends StackProps {
   backLink?: string;
@@ -14,9 +13,8 @@ export default function LengkapiDataUserHeader({ backLink, ...props }: Props) {
   return (
     <HStack
       bg={lightDarkColor}
-      h={"72px"}
       // px={4}
-      py={4}
+      py={5}
       justify={"space-between"}
       position={"sticky"}
       top={0}
@@ -25,7 +23,7 @@ export default function LengkapiDataUserHeader({ backLink, ...props }: Props) {
       zIndex={99}
       {...props}
     >
-      <BackButton backLink={backLink} />
+      {/* <BackButton backLink={backLink} /> */}
 
       <BantuanButton />
     </HStack>

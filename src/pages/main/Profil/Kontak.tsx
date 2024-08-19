@@ -19,7 +19,7 @@ export default function Kontak() {
     <CContainer>
       <Header
         left={"back"}
-        title="Kontak"
+        title="Kontak Bantuan"
         px={4}
         borderBottom={"1px solid var(--divider2)"}
       />

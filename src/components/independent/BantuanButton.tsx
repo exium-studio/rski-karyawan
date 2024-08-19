@@ -9,7 +9,7 @@ export default function BantuanButton({ ...props }: Props) {
   return (
     <Button
       as={Link}
-      to={"/bantuan"}
+      to={"/profil/kontak"}
       leftIcon={<Icon as={RiCustomerServiceLine} fontSize={iconSize} />}
       w={"fit-content"}
       ml={"auto"}
