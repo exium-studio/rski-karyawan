@@ -31,7 +31,7 @@ export default function Dokumen() {
   const [search, setSearch] = useState<string | undefined>("");
   const fd = data?.filter((item: any) => {
     const searchTerm = search?.toLowerCase();
-    return item.nama.toLowerCase().includes(searchTerm as string);
+    return item?.label?.toLowerCase().includes(searchTerm as string);
   });
   const searchInputRef = useRef<HTMLInputElement>(null);
 
