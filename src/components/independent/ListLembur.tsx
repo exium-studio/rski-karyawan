@@ -1,23 +1,27 @@
-import { Box, Button, SimpleGrid, StackProps, Text } from "@chakra-ui/react";
+import { Box, Button, Center, SimpleGrid, Text } from "@chakra-ui/react";
 import { useLightDarkColor } from "../../constant/colors";
-import { Interface__Lembur } from "../../constant/interfaces";
+import useDataState from "../../hooks/useDataState";
 import formatDate from "../../lib/formatDate";
 import formatDuration from "../../lib/formatDuration";
+import isDatePassed from "../../lib/isDatePassed";
 import Skeleton from "./Skeleton";
 import CContainer from "./wrapper/CContainer";
-import isDatePassed from "../../lib/isDatePassed";
+import NoData from "./NoData";
+import Retry from "../dependent/Retry";
 
-interface Props extends StackProps {
-  loading: boolean;
-  data: Interface__Lembur[] | undefined;
-}
-
-export default function ListLembur({ loading, data, ...props }: Props) {
+export default function ListLembur() {
   // SX
   const lightDarkColor = useLightDarkColor();
 
+  const { error, notFound, loading, data, retry } = useDataState<any>({
+    initialData: undefined,
+    url: `/api/get-riwayat-lembur`,
+    payload: {},
+    dependencies: [],
+  });
+
   return (
-    <CContainer gap={3} {...props}>
+    <CContainer flex={1} gap={3}>
       {loading && (
         <>
           {Array.from({ length: 10 }).map((_, i) => (
@@ -25,74 +29,102 @@ export default function ListLembur({ loading, data, ...props }: Props) {
           ))}
         </>
       )}
-      {!loading &&
-        data &&
-        data.map((lembur, i) => (
-          <CContainer
-            key={i}
-            p={4}
-            borderRadius={12}
-            bg={lightDarkColor}
-            flex={0}
-            gap={3}
-            position={"relative"}
-          >
-            {!isDatePassed(lembur.tgl_pengajuan) && (
-              <Box
-                w={"6px"}
-                h={"6px"}
-                borderRadius={"full"}
-                bg={"red.400"}
-                position={"absolute"}
-                top={4}
-                right={4}
-              />
-            )}
-            <SimpleGrid columns={2} gap={6}>
-              <CContainer gap={1}>
-                <Text opacity={0.4} fontSize={12}>
-                  Tanggal Lembur
-                </Text>
-                <Text fontWeight={500}>{`${formatDate(
-                  lembur.tgl_pengajuan,
-                  "basicShort"
-                )}`}</Text>
-              </CContainer>
 
-              <CContainer gap={1}>
-                <Text opacity={0.4} fontSize={12}>
-                  Shift
-                </Text>
-                <Text fontWeight={500}>{lembur.shift_id}</Text>
-              </CContainer>
-            </SimpleGrid>
+      {!loading && (
+        <>
+          {error && (
+            <>
+              {notFound && (
+                <NoData minH={"132px"} label="Tidak ada riwayat lembur" />
+              )}
 
-            <SimpleGrid columns={2} gap={6}>
-              <CContainer gap={1}>
-                <Text opacity={0.4} fontSize={12}>
-                  Durasi
-                </Text>
-                <Text fontWeight={500}>{formatDuration(lembur.durasi)}</Text>
-              </CContainer>
+              {!notFound && (
+                <Center my={"auto"} minH={"300px"}>
+                  <Retry loading={loading} retry={retry} />
+                </Center>
+              )}
+            </>
+          )}
 
-              <CContainer gap={1}>
-                <Text opacity={0.4} fontSize={12}>
-                  Diajukan oleh
-                </Text>
-                <Text fontWeight={500}>{"-"}</Text>
-              </CContainer>
-            </SimpleGrid>
-          </CContainer>
-        ))}
+          {!error && (
+            <>
+              {data && data?.data?.lengh > 0 ? (
+                <>
+                  {data?.data?.map((lembur: any, i: number) => (
+                    <CContainer
+                      key={i}
+                      p={4}
+                      borderRadius={12}
+                      bg={lightDarkColor}
+                      flex={0}
+                      gap={3}
+                      position={"relative"}
+                    >
+                      {!isDatePassed(lembur.tgl_pengajuan) && (
+                        <Box
+                          w={"6px"}
+                          h={"6px"}
+                          borderRadius={"full"}
+                          bg={"red.400"}
+                          position={"absolute"}
+                          top={4}
+                          right={4}
+                        />
+                      )}
+                      <SimpleGrid columns={2} gap={6}>
+                        <CContainer gap={1}>
+                          <Text opacity={0.4} fontSize={12}>
+                            Tanggal Lembur
+                          </Text>
+                          <Text fontWeight={500}>{`${formatDate(
+                            lembur.tgl_pengajuan,
+                            "basicShort"
+                          )}`}</Text>
+                        </CContainer>
 
-      <Button
-        flexShrink={0}
-        colorScheme="ap"
-        variant={"ghost"}
-        className="clicky"
-      >
-        Tampilkan Lebih Banyak
-      </Button>
+                        <CContainer gap={1}>
+                          <Text opacity={0.4} fontSize={12}>
+                            Shift
+                          </Text>
+                          <Text fontWeight={500}>{lembur.shift_id}</Text>
+                        </CContainer>
+                      </SimpleGrid>
+
+                      <SimpleGrid columns={2} gap={6}>
+                        <CContainer gap={1}>
+                          <Text opacity={0.4} fontSize={12}>
+                            Durasi
+                          </Text>
+                          <Text fontWeight={500}>
+                            {formatDuration(lembur.durasi)}
+                          </Text>
+                        </CContainer>
+
+                        <CContainer gap={1}>
+                          <Text opacity={0.4} fontSize={12}>
+                            Diajukan oleh
+                          </Text>
+                          <Text fontWeight={500}>{"-"}</Text>
+                        </CContainer>
+                      </SimpleGrid>
+                    </CContainer>
+                  ))}
+                  <Button
+                    flexShrink={0}
+                    colorScheme="ap"
+                    variant={"ghost"}
+                    className="clicky"
+                  >
+                    Tampilkan Lebih Banyak
+                  </Button>
+                </>
+              ) : (
+                <NoData minH={"300px"} label="Tidak ada riwayat lembur" />
+              )}
+            </>
+          )}
+        </>
+      )}
     </CContainer>
   );
 }

@@ -5,40 +5,16 @@ import ListLembur from "../../../components/independent/ListLembur";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
 import useScrollToTop from "../../../hooks/useScrollToTop";
-import useDataState from "../../../hooks/useDataState";
-import { dummyLemburs } from "../../../constant/dummy";
-import {
-  Interface__Lembur,
-  Interface__StatistikLembur,
-} from "../../../constant/interfaces";
-import Retry from "../../../components/dependent/Retry";
-import NoData from "../../../components/independent/NoData";
 
 export default function Lembur() {
   useScrollToTop();
-
-  const dummy = {
-    statistik: {
-      total_waktu: 4560,
-      total_lembur: 4,
-    },
-    riwayat: dummyLemburs,
-  };
-
-  const { error, loading, data, retry } = useDataState<{
-    statistik: Interface__StatistikLembur;
-    riwayat: Interface__Lembur[];
-  }>({
-    initialData: dummy,
-    url: "",
-  });
 
   // SX
   const lightDarkColor = useLightDarkColor();
   const contentBgColor = useContentBgColor();
 
   return (
-    <CContainer>
+    <CContainer flex={1}>
       <Box
         position={"sticky"}
         top={"0"}
@@ -51,34 +27,18 @@ export default function Lembur() {
         {/* <FilterCuti /> */}
       </Box>
 
-      <CContainer p={5} pb={8} bg={contentBgColor}>
-        {error && (
-          <Box my={"auto"}>
-            <Retry loading={loading} retry={retry} />
-          </Box>
-        )}
+      <CContainer flex={1} p={5} pb={8} bg={contentBgColor}>
+        <Text mx={1} fontWeight={600} mb={2}>
+          Statistik Lembur
+        </Text>
 
-        {!error && (
-          <>
-            {!data && <NoData />}
+        <StatistikLembur />
 
-            {data && (
-              <>
-                <Text mx={1} fontWeight={600} mb={2}>
-                  Statistik Lembur
-                </Text>
+        <Text fontWeight={600} mt={6} mb={2}>
+          Riwayat
+        </Text>
 
-                <StatistikLembur loading={loading} data={data?.statistik} />
-
-                <Text fontWeight={600} mt={6} mb={2}>
-                  Riwayat
-                </Text>
-
-                <ListLembur loading={loading} data={data?.riwayat} />
-              </>
-            )}
-          </>
-        )}
+        <ListLembur />
       </CContainer>
     </CContainer>
   );

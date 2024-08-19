@@ -1,19 +1,22 @@
-import { HStack, Icon, Text, Wrap } from "@chakra-ui/react";
+import { Center, HStack, Icon, Text, Wrap } from "@chakra-ui/react";
 import { RiLineChartFill } from "@remixicon/react";
 import chartColors from "../../constant/chartColors";
 import { useLightDarkColor } from "../../constant/colors";
-import { Interface__StatistikLembur } from "../../constant/interfaces";
-import CContainer from "../independent/wrapper/CContainer";
+import useDataState from "../../hooks/useDataState";
 import Skeleton from "../independent/Skeleton";
+import CContainer from "../independent/wrapper/CContainer";
+import NoData from "../independent/NoData";
+import Retry from "./Retry";
 
-interface Props {
-  loading: boolean;
-  data: Interface__StatistikLembur | undefined;
-}
-
-export default function StatistikLembur({ loading, data }: Props) {
+export default function StatistikLembur() {
   // SX
   const lightDarkColor = useLightDarkColor();
+
+  const { error, notFound, loading, data, retry } = useDataState<any>({
+    initialData: undefined,
+    url: "/api/get-statistik-lembur",
+    dependencies: [],
+  });
 
   return (
     <CContainer flex={0}>
@@ -21,58 +24,96 @@ export default function StatistikLembur({ loading, data }: Props) {
         {loading && (
           <>
             {Array.from({ length: 2 }).map((_, i) => (
-              <Skeleton key={i} h={"101px"} flex={"1 1 150px"} />
+              <Skeleton key={i} h={"109px"} flex={"1 1 150px"} />
             ))}
           </>
         )}
 
-        {!loading && data && (
+        {!loading && (
           <>
-            <CContainer
-              p={4}
-              borderRadius={12}
-              bg={lightDarkColor}
-              minH={"100px"}
-              justify={"center"}
-            >
-              <Icon as={RiLineChartFill} mb={2} color={`${chartColors[0]}`} />
+            {error && (
+              <>
+                {notFound && (
+                  <NoData minH={"132px"} label="Tidak ada statistik lembur" />
+                )}
 
-              <Text fontWeight={500} mb={2} noOfLines={1}>
-                Total Lembur
-              </Text>
+                {!notFound && (
+                  <Center my={"auto"} minH={"300px"}>
+                    <Retry loading={loading} retry={retry} />
+                  </Center>
+                )}
+              </>
+            )}
 
-              <HStack align={"end"} gap={1}>
-                <Text fontSize={24} lineHeight={1} fontWeight={600} mt={"auto"}>
-                  {data?.total_lembur}
-                </Text>
-                <Text lineHeight={1.1} opacity={0.4} fontSize={12}>
-                  kali
-                </Text>
-              </HStack>
-            </CContainer>
+            {!error && (
+              <>
+                <CContainer
+                  p={4}
+                  borderRadius={12}
+                  bg={lightDarkColor}
+                  minH={"100px"}
+                  justify={"center"}
+                  flex={"1 1 150px"}
+                >
+                  <Icon
+                    as={RiLineChartFill}
+                    mb={2}
+                    color={`${chartColors[0]}`}
+                  />
 
-            <CContainer
-              p={4}
-              borderRadius={12}
-              bg={lightDarkColor}
-              minH={"100px"}
-              justify={"center"}
-            >
-              <Icon as={RiLineChartFill} mb={2} color={`${chartColors[1]}`} />
+                  <Text fontWeight={500} mb={2} noOfLines={1}>
+                    Total Lembur
+                  </Text>
 
-              <Text fontWeight={500} mb={2} noOfLines={1}>
-                Total Waktu
-              </Text>
+                  <HStack align={"end"} gap={1}>
+                    <Text
+                      fontSize={24}
+                      lineHeight={1}
+                      fontWeight={600}
+                      mt={"auto"}
+                    >
+                      {data?.total_lembur}
+                    </Text>
+                    <Text lineHeight={1.1} opacity={0.4} fontSize={12}>
+                      kali
+                    </Text>
+                  </HStack>
+                </CContainer>
 
-              <HStack align={"end"} gap={1}>
-                <Text fontSize={24} lineHeight={1} fontWeight={600} mt={"auto"}>
-                  {(data?.total_waktu || 0) / 60}
-                </Text>{" "}
-                <Text lineHeight={1.1} opacity={0.4} fontSize={12}>
-                  menit
-                </Text>
-              </HStack>
-            </CContainer>
+                <CContainer
+                  p={4}
+                  borderRadius={12}
+                  bg={lightDarkColor}
+                  minH={"100px"}
+                  justify={"center"}
+                  flex={"1 1 150px"}
+                >
+                  <Icon
+                    as={RiLineChartFill}
+                    mb={2}
+                    color={`${chartColors[1]}`}
+                  />
+
+                  <Text fontWeight={500} mb={2} noOfLines={1}>
+                    Total Waktu
+                  </Text>
+
+                  <HStack align={"end"} gap={1}>
+                    <Text
+                      fontSize={24}
+                      lineHeight={1}
+                      fontWeight={600}
+                      mt={"auto"}
+                    >
+                      {(data?.total_waktu || 0) / 60}
+                    </Text>{" "}
+                    <Text lineHeight={1.1} opacity={0.4} fontSize={12}>
+                      menit
+                    </Text>
+                  </HStack>
+                </CContainer>
+              </>
+            )}
           </>
         )}
       </Wrap>
