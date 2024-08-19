@@ -1,14 +1,13 @@
-import { Box, StackProps } from "@chakra-ui/react";
-import { dummyMySchedules } from "../../constant/dummy";
+import { Box, Center, StackProps } from "@chakra-ui/react";
 import { Interface__Jadwal } from "../../constant/interfaces";
+import useDetailJadwal from "../../global/useDetailJadwal";
 import useDataState from "../../hooks/useDataState";
 import useScrollToTop from "../../hooks/useScrollToTop";
+import NoData from "../independent/NoData";
 import Skeleton from "../independent/Skeleton";
 import CContainer from "../independent/wrapper/CContainer";
-import NoData from "../independent/NoData";
 import JadwalItem from "./JadwalItem";
 import Retry from "./Retry";
-import useDetailJadwal from "../../global/useDetailJadwal";
 
 interface Props extends StackProps {
   dateRange: { from: Date; to: Date };
@@ -17,20 +16,32 @@ interface Props extends StackProps {
 export default function ListJadwalSaya({ dateRange, ...props }: Props) {
   useScrollToTop();
 
-  const { error, loading, data, retry } = useDataState<Interface__Jadwal[]>({
-    initialData: dummyMySchedules,
-    url: "",
+  const { error, notFound, loading, data, retry } = useDataState<
+    Interface__Jadwal[]
+  >({
+    initialData: undefined,
+    url: "/api/get-jadwal",
+    payload: {
+      tgl_mulai: dateRange?.from,
+      tgl_selesai: dateRange?.to,
+    },
     dependencies: [dateRange],
   });
 
   const { setDetailJadwalIndex } = useDetailJadwal();
 
   return (
-    <CContainer gap={3} {...props}>
+    <CContainer flex={1} gap={3} {...props}>
       {error && (
-        <Box my={"auto"}>
-          <Retry loading={loading} retry={retry} />
-        </Box>
+        <>
+          {notFound && <NoData minH={"132px"} label="Tidak ada jadwal" />}
+
+          {!notFound && (
+            <Center my={"auto"} minH={"300px"}>
+              <Retry loading={loading} retry={retry} />
+            </Center>
+          )}
+        </>
       )}
 
       {!error &&

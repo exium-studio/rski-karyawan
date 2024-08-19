@@ -29,7 +29,7 @@ export default function Karyawan() {
   const { setDetailKaryawanId } = useDetailKaryawan();
 
   const { error, loading, data, retry } = useDataState<Interface__Karyawan[]>({
-    initialData: dummyKaryawans,
+    initialData: undefined,
     url: "",
   });
 

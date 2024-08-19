@@ -7,6 +7,7 @@ import {
   HStack,
   Icon,
   Text,
+  Tooltip,
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
@@ -27,6 +28,8 @@ import CustomDrawer from "../../independent/wrapper/CustomDrawer";
 import MonthYearInputDrawer from "./PeriodPickerDrawer";
 type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 
+type PresetConfig = "thisMonth" | "nextMonth" | "thisWeek" | "nextWeek";
+
 interface Props extends ButtonProps {
   id: string;
   name: string;
@@ -38,6 +41,7 @@ interface Props extends ButtonProps {
   nonNullable?: boolean;
   isError?: boolean;
   maxRange?: number;
+  presetsConfig?: PresetConfig[];
 }
 
 export default function DateRangePickerDrawer({
@@ -51,6 +55,7 @@ export default function DateRangePickerDrawer({
   nonNullable,
   isError,
   maxRange,
+  presetsConfig = ["thisMonth", "thisWeek"],
   ...props
 }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -67,16 +72,12 @@ export default function DateRangePickerDrawer({
   const [selected, setSelected] = useState<any>(inputValue);
 
   function handleSelect(range: any) {
-    if (maxRange && range?.from && range?.to) {
-      const diffTime = Math.abs(range.to - range.from);
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      if (diffDays > maxRange - 1) {
-        // Handle exceeding max range logic here
-        const newTo = new Date(range.from);
-        newTo.setDate(newTo.getDate() + maxRange - 1);
-        range = { from: range.from, to: newTo };
-      }
+    if (maxRange && countDateRange(range?.from, range?.to) > maxRange) {
+      const newTo = new Date(range.from);
+      newTo.setDate(newTo.getDate() + maxRange - 1);
+      range = { from: range.from, to: newTo };
     }
+
     setSelected(range);
   }
 
@@ -95,6 +96,7 @@ export default function DateRangePickerDrawer({
       backOnClose();
     }
   }
+
   function setSelectedToThisWeek() {
     const today = new Date();
 
@@ -116,6 +118,28 @@ export default function DateRangePickerDrawer({
     setBulan(today.getMonth());
     setTahun(today.getFullYear());
   }
+  function setSelectedToNextWeek() {
+    const today = new Date();
+
+    // Get the current day of the week (0 - Sunday, 6 - Saturday)
+    const dayOfWeek = today.getDay();
+
+    // Calculate the date of the start of the next week (Monday)
+    const startOfNextWeek = new Date(today);
+    const dayDiffToNextMonday = dayOfWeek === 0 ? 1 : 8 - dayOfWeek; // if today is Sunday, set the difference to 1, else calculate to next Monday
+    startOfNextWeek.setDate(today.getDate() + dayDiffToNextMonday);
+
+    // Calculate the date of the end of the next week (Sunday)
+    const endOfNextWeek = new Date(startOfNextWeek);
+    endOfNextWeek.setDate(startOfNextWeek.getDate() + 6); // 6 days after Monday is Sunday
+
+    // Set the state with the calculated dates
+    setDate(today);
+    setSelected({ from: startOfNextWeek, to: endOfNextWeek });
+    setBulan(startOfNextWeek.getMonth());
+    setTahun(startOfNextWeek.getFullYear());
+  }
+
   function setSelectedToThisMonth() {
     const today = new Date();
     const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -125,6 +149,29 @@ export default function DateRangePickerDrawer({
     setSelected({ from: startOfMonth, to: endOfMonth });
     setBulan(today.getMonth());
     setTahun(today.getFullYear());
+  }
+  function setSelectedToNextMonth() {
+    const today = new Date();
+
+    // Calculate the date of the start of the next month
+    const startOfNextMonth = new Date(
+      today.getFullYear(),
+      today.getMonth() + 1,
+      1
+    );
+
+    // Calculate the date of the end of the next month
+    const endOfNextMonth = new Date(
+      today.getFullYear(),
+      today.getMonth() + 2,
+      0
+    );
+
+    // Set the state with the calculated dates
+    setDate(today);
+    setSelected({ from: startOfNextMonth, to: endOfNextMonth });
+    setBulan(startOfNextMonth.getMonth());
+    setTahun(startOfNextMonth.getFullYear());
   }
 
   function nextMonth() {
@@ -152,73 +199,133 @@ export default function DateRangePickerDrawer({
     setTahun(prevMonth.getFullYear());
   }
 
+  const renderPresets = {
+    thisMonth: (
+      <Button
+        w={"100%"}
+        className="btn-outline clicky"
+        onClick={setSelectedToThisMonth}
+        isDisabled={!!(maxRange && maxRange < 31)}
+      >
+        Bulan Ini
+      </Button>
+    ),
+    nextMonth: (
+      <Button
+        w={"100%"}
+        className="btn-outline clicky"
+        onClick={setSelectedToNextMonth}
+        isDisabled={!!(maxRange && maxRange < 31)}
+      >
+        Bulan Depan
+      </Button>
+    ),
+    thisWeek: (
+      <Button
+        w={"100%"}
+        className="btn-outline clicky"
+        onClick={setSelectedToThisWeek}
+        isDisabled={!!(maxRange && maxRange < 7)}
+      >
+        Minggu Ini
+      </Button>
+    ),
+    nextWeek: (
+      <Button
+        w={"100%"}
+        className="btn-outline clicky"
+        onClick={setSelectedToNextWeek}
+        isDisabled={!!(maxRange && maxRange < 7)}
+      >
+        Minggu Depan
+      </Button>
+    ),
+  };
+
   // SX
   const errorColor = useErrorColor();
   const warningColor = useWarningColor();
 
   return (
     <>
-      <Button
-        className="btn-clear"
-        w={"100%"}
-        justifyContent={"space-between"}
-        borderRadius={8}
-        border={"1px solid var(--divider3)"}
-        boxShadow={isError ? `0 0 0px 1px ${errorColor}` : ""}
-        px={"16px !important"}
-        h={"40px"}
-        fontWeight={400}
-        cursor={"pointer"}
-        onClick={() => {
-          onOpen();
-          setSelected(inputValue);
-          setDate(inputValue ? inputValue.from : new Date());
-          setBulan(
-            inputValue ? inputValue.from?.getMonth() : new Date().getMonth()
-          );
-          setTahun(
-            inputValue
-              ? inputValue.from?.getFullYear()
-              : new Date().getFullYear()
-          );
-        }}
-        // _focus={{ boxShadow: "0 0 0px 2px var(--p500)" }}
-        _focus={{ border: "1px solid var(--p500)", boxShadow: "none" }}
-        {...props}
+      <Tooltip
+        label={`${
+          inputValue?.from
+            ? `${formatDate(inputValue.from, "basicShort")}`
+            : "Pilih tanggal awal"
+        } - ${
+          inputValue?.to
+            ? `${formatDate(inputValue.to, "basicShort")}`
+            : "Pilih tanggal akhir"
+        } ${
+          inputValue && inputValue.from && inputValue.to
+            ? `(${countDateRange(inputValue.from, inputValue.to)} hari)`
+            : ""
+        }`}
+        openDelay={500}
       >
-        {inputValue ? (
-          <Text
-            overflow={"hidden"}
-            whiteSpace={"nowrap"}
-            textOverflow={"ellipsis"}
-            mr={4}
-          >{`${
-            inputValue?.from
-              ? `${formatDate(inputValue.from, "short")}`
-              : "Pilih tanggal awal"
-          } - ${
-            inputValue?.to
-              ? `${formatDate(inputValue.to, "short")}`
-              : "Pilih tanggal akhir"
-          } ${
-            inputValue && inputValue.from && inputValue.to
-              ? `(${countDateRange(inputValue.from, inputValue.to)} hari)`
-              : ""
-          }`}</Text>
-        ) : (
-          <Text
-            opacity={0.3}
-            overflow={"hidden"}
-            whiteSpace={"nowrap"}
-            textOverflow={"ellipsis"}
-            mr={4}
-          >
-            {placeholder || `Pilih Rentang Tanggal`}
-          </Text>
-        )}
+        <Button
+          className="btn-clear"
+          w={"100%"}
+          justifyContent={"space-between"}
+          borderRadius={8}
+          border={"1px solid var(--divider3)"}
+          boxShadow={isError ? `0 0 0px 1px ${errorColor}` : ""}
+          px={"16px !important"}
+          h={"40px"}
+          fontWeight={400}
+          cursor={"pointer"}
+          onClick={() => {
+            onOpen();
+            setSelected(inputValue);
+            setDate(inputValue ? inputValue.from : new Date());
+            setBulan(
+              inputValue ? inputValue.from?.getMonth() : new Date().getMonth()
+            );
+            setTahun(
+              inputValue
+                ? inputValue.from?.getFullYear()
+                : new Date().getFullYear()
+            );
+          }}
+          // _focus={{ boxShadow: "0 0 0px 2px var(--p500)" }}
+          {...props}
+        >
+          {inputValue ? (
+            <Text
+              overflow={"hidden"}
+              whiteSpace={"nowrap"}
+              textOverflow={"ellipsis"}
+              mr={4}
+            >{`${
+              inputValue?.from
+                ? `${formatDate(inputValue.from, "basicShort")}`
+                : "Pilih tanggal awal"
+            } - ${
+              inputValue?.to
+                ? `${formatDate(inputValue.to, "basicShort")}`
+                : "Pilih tanggal akhir"
+            } ${
+              inputValue && inputValue.from && inputValue.to
+                ? `(${countDateRange(inputValue.from, inputValue.to)} hari)`
+                : ""
+            }`}</Text>
+          ) : (
+            <Text
+              //@ts-ignore
+              color={props?._placeholder?.color || "#96969691"}
+              overflow={"hidden"}
+              whiteSpace={"nowrap"}
+              textOverflow={"ellipsis"}
+              mr={4}
+            >
+              {placeholder || `Pilih Rentang Tanggal`}
+            </Text>
+          )}
 
-        <Icon as={RiCalendarLine} />
-      </Button>
+          <Icon as={RiCalendarLine} />
+        </Button>
+      </Tooltip>
 
       <CustomDrawer
         id={id}
@@ -336,22 +443,11 @@ export default function DateRangePickerDrawer({
 
           <VStack mt={4}>
             <ButtonGroup w={"100%"}>
-              <Button
-                flex={1}
-                className="btn-outline clicky"
-                onClick={setSelectedToThisMonth}
-                isDisabled={!!(maxRange && maxRange < 31)}
-              >
-                Bulan Ini
-              </Button>
-              <Button
-                flex={1}
-                className="btn-outline clicky"
-                onClick={setSelectedToThisWeek}
-                isDisabled={!!(maxRange && maxRange < 7)}
-              >
-                Minggu Ini
-              </Button>
+              {presetsConfig.map((preset, i) => (
+                <Box w={"100%"} key={i}>
+                  {renderPresets[preset]}
+                </Box>
+              ))}
             </ButtonGroup>
 
             <VStack

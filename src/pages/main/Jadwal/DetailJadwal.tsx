@@ -25,7 +25,7 @@ export default function DetailJadwal() {
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const { error, loading, data, retry } = useDataState<Interface__Jadwal[]>({
+  const { error, loading, data, retry } = useDataState<any[]>({
     initialData: dummyMySchedules,
     url: "",
   });

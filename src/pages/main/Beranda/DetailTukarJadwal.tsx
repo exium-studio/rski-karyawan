@@ -111,7 +111,7 @@ export default function DetailTukarJadwal() {
   const { tukar_jadwal_id } = useParams();
   const user = JSON.parse(getCookie("userData") as string);
 
-  const [data] = useState<Interface__TukarJadwal | undefined>(
+  const [data] = useState<any | undefined>(
     user.user.id === 1
       ? dummyPengajuanTukarJadwals[parseInt(tukar_jadwal_id as string) - 1]
       : dummyPermintaanTukarJadwals[parseInt(tukar_jadwal_id as string) - 1]

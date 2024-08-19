@@ -20,7 +20,7 @@ export default function Jadwal() {
   const contentBgColor = useContentBgColor();
 
   return (
-    <CContainer>
+    <CContainer flex={1}>
       <Box
         position={"sticky"}
         top={"0"}
@@ -37,21 +37,22 @@ export default function Jadwal() {
             setDateRange(inputValue);
           }}
           inputValue={dateRange}
-          maxRange={31}
+          maxRange={7}
           nonNullable
           border={"none"}
           borderRadius={0}
           px={"20px !important"}
           fontWeight={600}
           _focus={{ border: "none" }}
+          presetsConfig={["thisWeek", "nextWeek"]}
         />
       </Box>
 
-      <CContainer p={5} bg={contentBgColor}>
+      <CContainer flex={1} p={5} bg={contentBgColor}>
         <Alert status="info" p={4} borderRadius={8} mb={3}>
           <Text fontSize={14}>
-            Sekadar pengingat: HRD memperbarui jadwal kerja Anda setiap Minggu.
-            Selalu perhatikan perubahan terbaru!!!
+            Sekadar pengingat: Kepala Ruang memperbarui jadwal kerja Anda setiap
+            Minggu. Selalu perhatikan perubahan terbaru.
           </Text>
         </Alert>
 

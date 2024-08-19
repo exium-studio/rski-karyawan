@@ -32,13 +32,7 @@ import DrawerHeader from "./DrawerHeader";
 import JadwalDitukarItem from "./JadwalDitukarItem";
 import JadwalItem from "./JadwalItem";
 
-const TukarButton = ({
-  userId,
-  data,
-}: {
-  userId?: number;
-  data: Interface__Jadwal;
-}) => {
+const TukarButton = ({ userId, data }: { userId?: number; data: any }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [mySchedules] = useState<any[] | null>(dummyMySchedules);
   const [selected, setSelected] = useState<Interface__Jadwal | undefined>(
@@ -326,7 +320,7 @@ const TukarButton = ({
 
 interface Props extends StackProps {
   userId?: number;
-  data: Interface__Jadwal;
+  data: any;
   forwardRef?: any;
   noAvatars?: boolean;
   detailOnly?: boolean;

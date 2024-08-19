@@ -572,7 +572,7 @@ const dummyPermintaanTukarJadwals = [
   },
 ];
 
-const dummyKaryawans = [
+const dummyKaryawans: any = [
   {
     id: 1,
     user: {
@@ -1265,7 +1265,7 @@ const dummyKaryawans = [
   },
 ];
 
-const dummyDetailKaryawan = {
+const dummyDetailKaryawan: any = {
   id: 2,
   user: {
     id: 3,
@@ -1577,7 +1577,7 @@ const dummyMySchedules = [
   },
 ];
 
-const dummyEventDiklats: Interface__EventDiklat[] = [
+const dummyEventDiklats: any = [
   {
     id: 1,
     gambar: "/images/diklat.jpg",

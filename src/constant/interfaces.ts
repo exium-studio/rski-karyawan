@@ -93,8 +93,9 @@ export interface Interface__User {
 export interface Interface__Jadwal {
   id: number;
   nama: string | null;
-  jam_from: Date | string;
-  jam_to: Date | string | null;
+  tgl_mulai: Date | string;
+  tgl_selesai: Date | string;
+  shift: Interface__Shift;
   assignees?: Interface__Karyawan[];
   created_at: Date | string;
   updated_at: Date | string | null;

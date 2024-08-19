@@ -17,9 +17,9 @@ import {
 import { getWeekOfMonth } from "date-fns";
 import { Link } from "react-router-dom";
 import { useLightDarkColor } from "../../constant/colors";
-import formatTime from "../../lib/formatTimeOld";
 import { Interface__Jadwal } from "../../constant/interfaces";
 import formatDate from "../../lib/formatDate";
+import formatTime from "../../lib/formatTime";
 
 interface Props extends StackProps {
   data: Interface__Jadwal;
@@ -44,7 +44,7 @@ export default function JadwalItem({
       borderRadius={12}
       bg={useLightDarkColor()}
       transition={"200ms"}
-      cursor={data.jam_to ? "pointer" : ""}
+      cursor={data.tgl_mulai ? "pointer" : ""}
       as={Link}
       to={`/jadwal/detail`}
       _active={{ opacity: 0.6 }}
@@ -52,38 +52,28 @@ export default function JadwalItem({
       {...props}
     >
       <Box>
-        {data.nama && (
-          <>
-            <Text fontSize={12} opacity={0.4} mb={2}>{`${
-              data.nama
-            } - Minggu ${getWeekOfMonth(data.jam_from)}`}</Text>
+        <Text fontSize={12} opacity={0.4} mb={2}>{`${
+          data.shift?.nama || "Libur"
+        } - Minggu ${getWeekOfMonth(data.tgl_mulai)}`}</Text>
 
-            <Text fontWeight={600} opacity={data.jam_to ? 1 : 0.6}>
-              {formatDate(data.jam_from)}
-            </Text>
-          </>
-        )}
+        <Text fontWeight={600} opacity={data.shift?.jam_from ? 1 : 0.6}>
+          {formatDate(data.tgl_mulai)}
+        </Text>
 
-        {/* {data.keterangan && (
-          <Text fontWeight={600} opacity={data.jam_to ? 1 : 0.6}>
-            {data.keterangan}
-          </Text>
-        )} */}
-
-        {data.jam_from && data.jam_to && (
+        {data?.shift?.jam_from && data?.shift?.jam_to && (
           <HStack gap={3} mt={2}>
             <HStack gap={1}>
               <Center p={1} borderRadius={"full"} bg={"var(--p500a4)"}>
                 <Icon as={RiLoginBoxLine} fontSize={10} color={"p.500"} />
               </Center>
-              <Text fontSize={13}>{formatTime(data.jam_from)}</Text>
+              <Text fontSize={13}>{formatTime(data?.shift?.jam_from)}</Text>
             </HStack>
 
             <HStack gap={1}>
               <Center p={1} borderRadius={"full"} bg={"var(--reda)"}>
                 <Icon as={RiLogoutBoxLine} fontSize={10} color={"red.400"} />
               </Center>
-              <Text fontSize={13}>{formatTime(data.jam_to)}</Text>
+              <Text fontSize={13}>{formatTime(data?.shift?.jam_to)}</Text>
             </HStack>
           </HStack>
         )}

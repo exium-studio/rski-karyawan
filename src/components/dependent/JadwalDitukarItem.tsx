@@ -5,7 +5,7 @@ import { Interface__Jadwal } from "../../constant/interfaces";
 import formatDate from "../../lib/formatDate";
 
 interface Props extends StackProps {
-  data: Interface__Jadwal;
+  data: any;
   forwardRef?: any;
   noAvatars?: boolean;
   noArrow?: boolean;

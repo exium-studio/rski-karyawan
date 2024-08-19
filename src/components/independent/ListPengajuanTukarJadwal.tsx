@@ -14,9 +14,7 @@ interface Props extends StackProps {}
 
 export default function ListPengajuanTukarJadwal({ ...props }: Props) {
   const { filterCuti } = useFilterCuti();
-  const { error, loading, data, retry } = useDataState<
-    Interface__TukarJadwal[]
-  >({
+  const { error, loading, data, retry } = useDataState<any[]>({
     initialData: dummyPengajuanTukarJadwals,
     url: "",
     dependencies: [filterCuti],
