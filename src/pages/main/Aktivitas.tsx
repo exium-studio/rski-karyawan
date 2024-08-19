@@ -11,7 +11,7 @@ export default function Aktivitas() {
   const contentBgColor = useContentBgColor();
 
   return (
-    <CContainer>
+    <CContainer flex={1}>
       <Box
         position={"sticky"}
         top={"0"}
@@ -24,7 +24,7 @@ export default function Aktivitas() {
         <FilterAktivitas />
       </Box>
 
-      <CContainer p={5} pb={8} bg={contentBgColor}>
+      <CContainer flex={1} p={5} pb={8} bg={contentBgColor}>
         <ListAktivitas />
       </CContainer>
     </CContainer>

@@ -1,4 +1,4 @@
-import { Box, HStack, Icon, IconButton, Text } from "@chakra-ui/react";
+import { Box, Center, HStack, Icon, IconButton, Text } from "@chakra-ui/react";
 import { RiCloseLine, RiSearchLine } from "@remixicon/react";
 import { useEffect, useRef, useState } from "react";
 import SearchComponent from "../../../components/dependent/input/SearchComponent";
@@ -6,6 +6,7 @@ import PengumumanItem from "../../../components/dependent/PengumumanItem";
 import Retry from "../../../components/dependent/Retry";
 import BackButton from "../../../components/independent/BackButton";
 import NoData from "../../../components/independent/NoData";
+import NotFound from "../../../components/independent/NotFound";
 import Skeleton from "../../../components/independent/Skeleton";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
@@ -13,7 +14,6 @@ import { dummyPengumuman } from "../../../constant/dummy";
 import { iconSize } from "../../../constant/sizes";
 import useDataState from "../../../hooks/useDataState";
 import useScrollToTop from "../../../hooks/useScrollToTop";
-import NotFound from "../../../components/independent/NotFound";
 
 export default function Pengumuman() {
   useScrollToTop();
@@ -21,9 +21,9 @@ export default function Pengumuman() {
   const [searchMode, setSearchMode] = useState<boolean>(false);
   const [search, setSearch] = useState<string | undefined>("");
 
-  const { error, loading, data, retry } = useDataState<any>({
+  const { error, notFound, loading, data, retry } = useDataState<any>({
     initialData: dummyPengumuman,
-    url: "",
+    url: "/api/latest-penngumuman",
   });
 
   const fd = data?.filter((item: any) => {
@@ -47,7 +47,7 @@ export default function Pengumuman() {
   const lightDarkColor = useLightDarkColor();
 
   return (
-    <CContainer>
+    <CContainer flex={1}>
       <Box
         position={"sticky"}
         top={"0"}
@@ -129,11 +129,17 @@ export default function Pengumuman() {
         </HStack>
       </Box>
 
-      <CContainer bg={contentBgColor} p={5} pb={8} gap={3}>
+      <CContainer bg={contentBgColor} p={5} pb={8} gap={3} flex={1}>
         {error && (
-          <Box my={"auto"}>
-            <Retry loading={loading} retry={retry} />
-          </Box>
+          <>
+            {notFound && <NoData minH={"132px"} label="Tidak ada pengumuman" />}
+
+            {!notFound && (
+              <Center my={"auto"} minH={"300px"}>
+                <Retry loading={loading} retry={retry} />
+              </Center>
+            )}
+          </>
         )}
         {!error && (
           <>

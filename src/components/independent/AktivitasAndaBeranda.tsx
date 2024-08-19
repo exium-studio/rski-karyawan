@@ -1,12 +1,12 @@
-import { Box, Center, HStack, Text } from "@chakra-ui/react";
+import { Center, HStack, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import { dummyActivity } from "../../constant/dummy";
 import useDataState from "../../hooks/useDataState";
 import AktivitasItem from "../dependent/AktivitasItem";
 import Retry from "../dependent/Retry";
+import NoData from "./NoData";
 import Skeleton from "./Skeleton";
 import CContainer from "./wrapper/CContainer";
-import NoData from "./NoData";
-import { Link } from "react-router-dom";
 
 export default function AktivitasAndaBeranda() {
   const { error, notFound, loading, data, retry } = useDataState({
