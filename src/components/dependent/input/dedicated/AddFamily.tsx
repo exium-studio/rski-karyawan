@@ -10,13 +10,13 @@ import {
   InputLeftElement,
   Text,
   useDisclosure,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import { RiAddLine } from "@remixicon/react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { iconSize } from "../../../../constant/sizes";
-import backOnClose from "../../../../lib/backOnClose";
 import RequiredForm from "../../../form/RequiredForm";
 import BackOnCloseButton from "../../../independent/BackOnCloseButton";
 import CustomDrawer from "../../../independent/wrapper/CustomDrawer";
@@ -40,15 +40,17 @@ export default function AddFamily({
 }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const toast = useToast();
+
   const formik = useFormik({
     validateOnChange: false,
     initialValues: {
-      hubungan_keluarga: undefined,
-      nama: undefined,
-      status_hidup: undefined,
-      pekerjaan: undefined,
-      telepon: undefined,
-      email: undefined,
+      hubungan_keluarga: undefined as any,
+      nama: "" as any,
+      status_hidup: undefined as any,
+      pekerjaan: "" as any,
+      telepon: "" as any,
+      email: "" as any,
     },
     validationSchema: yup.object().shape({
       hubungan_keluarga: yup.object().required("Harus diisi"),
@@ -60,8 +62,14 @@ export default function AddFamily({
     }),
     onSubmit: (values, { resetForm }) => {
       onConfirm(values);
-      formik.resetForm();
-      backOnClose();
+      toast({
+        status: "success",
+        title: `Data keluarga ${values.hubungan_keluarga?.label} (${values.nama}) ditambahkan`,
+        isClosable: true,
+        position: "top",
+      });
+      // formik.resetForm();
+      // backOnClose();
     },
   });
 
@@ -133,7 +141,9 @@ export default function AddFamily({
                 }}
                 inputValue={formik.values.nama}
               />
-              <FormErrorMessage>{formik.errors.nama}</FormErrorMessage>
+              <FormErrorMessage>
+                {formik.errors.nama as string}
+              </FormErrorMessage>
             </FormControl>
 
             <FormControl mb={4} isInvalid={!!formik.errors.status_hidup}>
@@ -169,7 +179,9 @@ export default function AddFamily({
                 }}
                 inputValue={formik.values.pekerjaan}
               />
-              <FormErrorMessage>{formik.errors.pekerjaan}</FormErrorMessage>
+              <FormErrorMessage>
+                {formik.errors.pekerjaan as string}
+              </FormErrorMessage>
             </FormControl>
 
             <FormControl mb={4} isInvalid={!!formik.errors.telepon}>
@@ -184,14 +196,16 @@ export default function AddFamily({
                 <StringInput
                   pl={12}
                   name="telepon"
-                  placeholder="8***********"
+                  placeholder="8**********"
                   onChangeSetter={(input) => {
-                    formik.setFieldValue("telepn", input);
+                    formik.setFieldValue("telepon", input);
                   }}
                   inputValue={formik.values.telepon}
                 />
               </InputGroup>
-              <FormErrorMessage>{formik.errors.telepon}</FormErrorMessage>
+              <FormErrorMessage>
+                {formik.errors.telepon as string}
+              </FormErrorMessage>
             </FormControl>
 
             <FormControl isInvalid={!!formik.errors.email}>
@@ -207,7 +221,9 @@ export default function AddFamily({
                 }}
                 inputValue={formik.values.email}
               />
-              <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+              <FormErrorMessage>
+                {formik.errors.email as string}
+              </FormErrorMessage>
             </FormControl>
           </form>
 

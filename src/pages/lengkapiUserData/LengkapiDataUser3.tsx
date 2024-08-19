@@ -5,33 +5,41 @@ import {
   FormLabel,
   Input,
   Text,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import HorizontalSliderIndicator from "../../components/dependent/HorizontalSliderIndicator";
-import LengkapiDataUserHeader from "../../components/dependent/LengkapiDataUserHeader";
-import Container from "../../components/independent/wrapper/Container";
-import CContainer from "../../components/independent/wrapper/CContainer";
-import RequiredForm from "../../components/form/RequiredForm";
 import DatePickerDrawer from "../../components/dependent/input/DatePickerDrawer";
+import LengkapiDataUserHeader from "../../components/dependent/LengkapiDataUserHeader";
+import RequiredForm from "../../components/form/RequiredForm";
+import CContainer from "../../components/independent/wrapper/CContainer";
+import Container from "../../components/independent/wrapper/Container";
+import useDcs from "../../global/useDcs";
 import useScrollToTop from "../../hooks/useScrollToTop";
+import req from "../../lib/req";
+import formatDate from "../../lib/formatDate";
 
 export default function LengkapiDataUser3() {
   useScrollToTop();
 
   const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(false);
+  const toast = useToast();
+  const { setDcs } = useDcs();
 
   const formik = useFormik({
     validateOnChange: false,
     initialValues: {
-      str: undefined,
-      masa_berlaku_str: undefined,
-      sip: undefined,
-      masa_berlaku_sip: undefined,
-      bpjsKesehatan: undefined,
-      bpjsKetenagakerjaan: undefined,
+      str: "",
+      masa_berlaku_str: undefined as any,
+      sip: "",
+      masa_berlaku_sip: undefined as any,
+      bpjsKesehatan: "",
+      bpjsKetenagakerjaan: "",
     },
     validationSchema: yup.object().shape({
       str: yup.string().required("Harus diisi"),
@@ -42,10 +50,46 @@ export default function LengkapiDataUser3() {
       bpjsKetenagakerjaan: yup.string().required("Harus diisi"),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
-      // TODO hit api simpan data personal 3
+      setLoading(true);
 
-      navigate("/lengkapi-data-personal-4");
+      const payload = {
+        no_str: values.str,
+        masa_berlaku_str: formatDate(values.masa_berlaku_sip, "short2"),
+        no_sip: values.sip,
+        masa_berlaku_sip: formatDate(values.masa_berlaku_sip, "short2"),
+        no_bpjsksh: values.bpjsKesehatan,
+        no_bpjsktk: values.bpjsKetenagakerjaan,
+      };
+
+      req
+        .post(`/api/input-berkas`, payload)
+        .then((r) => {
+          if (r.status === 200) {
+            setDcs(4);
+            navigate("/lengkapi-data-personal-4");
+            toast({
+              status: "success",
+              title: r.data.message,
+              isClosable: true,
+              position: "top",
+            });
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          toast({
+            status: "error",
+            title:
+              (typeof e?.response?.data?.message === "string" &&
+                (e?.response?.data?.message as string)) ||
+              "Maaf terjadi kesalahan pada sistem",
+            isClosable: true,
+            position: "top",
+          });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     },
   });
 
@@ -101,7 +145,7 @@ export default function LengkapiDataUser3() {
                 isError={!!formik.errors.masa_berlaku_str}
               />
               <FormErrorMessage>
-                {formik.errors.masa_berlaku_str}
+                {formik.errors.masa_berlaku_str as string}
               </FormErrorMessage>
             </FormControl>
 
@@ -136,7 +180,7 @@ export default function LengkapiDataUser3() {
                 isError={!!formik.errors.masa_berlaku_sip}
               />
               <FormErrorMessage>
-                {formik.errors.masa_berlaku_sip}
+                {formik.errors.masa_berlaku_sip as string}
               </FormErrorMessage>
             </FormControl>
 
@@ -183,11 +227,12 @@ export default function LengkapiDataUser3() {
               className="btn-ap clicky"
               w={"100%"}
               h={"50px"}
+              isLoading={loading}
             >
               Selanjutnya
             </Button>
 
-            <Button
+            {/* <Button
               w={"100%"}
               variant={"ghost"}
               colorScheme="ap"
@@ -198,7 +243,7 @@ export default function LengkapiDataUser3() {
               mx={"auto"}
             >
               Next Step (Debug)
-            </Button>
+            </Button> */}
           </VStack>
         </VStack>
       </CContainer>

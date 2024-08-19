@@ -35,7 +35,7 @@ export default function DataCompletionStepMiddleware({ ldp, children }: Props) {
             status: "error",
             title:
               e.response.data.message || "Maaf terjadi kesalahan pada sistem",
-            position: "bottom-right",
+            position: "top",
             isClosable: true,
           });
         })

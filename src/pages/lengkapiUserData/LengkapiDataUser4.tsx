@@ -4,22 +4,29 @@ import {
   FormErrorMessage,
   FormLabel,
   Text,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import HorizontalSliderIndicator from "../../components/dependent/HorizontalSliderIndicator";
-import LengkapiDataUserHeader from "../../components/dependent/LengkapiDataUserHeader";
-import Container from "../../components/independent/wrapper/Container";
-import useScrollToTop from "../../hooks/useScrollToTop";
-import CContainer from "../../components/independent/wrapper/CContainer";
 import FileInput from "../../components/dependent/input/FileInput";
+import LengkapiDataUserHeader from "../../components/dependent/LengkapiDataUserHeader";
+import CContainer from "../../components/independent/wrapper/CContainer";
+import Container from "../../components/independent/wrapper/Container";
+import useDcs from "../../global/useDcs";
+import useScrollToTop from "../../hooks/useScrollToTop";
+import req from "../../lib/req";
 
 export default function LengkapiDataUser4() {
   useScrollToTop();
 
   const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(false);
+  const toast = useToast();
+  const { setDcs } = useDcs();
 
   const fileValidation = yup
     .mixed()
@@ -28,13 +35,13 @@ export default function LengkapiDataUser4() {
   const formik = useFormik({
     validateOnChange: false,
     initialValues: {
-      ktp: undefined,
-      kk: undefined,
-      sip: undefined,
-      bpjsksh: undefined,
-      bpjsktk: undefined,
-      ijazah: undefined,
-      sertifikat_kompetensi: undefined,
+      ktp: undefined as any,
+      kk: undefined as any,
+      sip: undefined as any,
+      bpjsksh: undefined as any,
+      bpjsktk: undefined as any,
+      ijazah: undefined as any,
+      sertifikat_kompetensi: undefined as any,
     },
     validationSchema: yup.object().shape({
       ktp: fileValidation.required("Harus diisi"),
@@ -46,10 +53,46 @@ export default function LengkapiDataUser4() {
       sertifikat_kompetensi: fileValidation.required("Harus diisi"),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
-      // TODO hit api simpan data personal 4
+      setLoading(true);
 
-      navigate("/lengkapi-data-personal-5");
+      const payload = new FormData();
+      payload.append("ktp", values.ktp);
+      payload.append("kk", values.kk);
+      payload.append("sip", values.sip);
+      payload.append("bpjs_kesehatan", values.bpjsksh);
+      payload.append("bpjs_ketenagakerjaan", values.bpjsktk);
+      payload.append("ijazah", values.ijazah);
+      payload.append("sertifikat", values.sertifikat_kompetensi);
+
+      req
+        .post(`/api/input-personal-file`, payload)
+        .then((r) => {
+          if (r.status === 200) {
+            setDcs(4);
+            navigate("/lengkapi-data-personal-4");
+            toast({
+              status: "success",
+              title: r.data.message,
+              isClosable: true,
+              position: "top",
+            });
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          toast({
+            status: "error",
+            title:
+              (typeof e?.response?.data?.message === "string" &&
+                (e?.response?.data?.message as string)) ||
+              "Maaf terjadi kesalahan pada sistem",
+            isClosable: true,
+            position: "top",
+          });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     },
   });
 
@@ -84,7 +127,7 @@ export default function LengkapiDataUser4() {
                 inputValue={formik.values.ktp}
                 isError={!!formik.errors.ktp}
               />
-              <FormErrorMessage>{formik.errors.ktp}</FormErrorMessage>
+              <FormErrorMessage>{formik.errors.ktp as string}</FormErrorMessage>
             </FormControl>
 
             <FormControl mb={4} isInvalid={!!formik.errors.kk}>
@@ -98,7 +141,7 @@ export default function LengkapiDataUser4() {
                 isError={!!formik.errors.kk}
               />
 
-              <FormErrorMessage>{formik.errors.kk}</FormErrorMessage>
+              <FormErrorMessage>{formik.errors.kk as string}</FormErrorMessage>
             </FormControl>
 
             <FormControl mb={4} isInvalid={!!formik.errors.sip}>
@@ -112,7 +155,7 @@ export default function LengkapiDataUser4() {
                 isError={!!formik.errors.sip}
               />
 
-              <FormErrorMessage>{formik.errors.sip}</FormErrorMessage>
+              <FormErrorMessage>{formik.errors.sip as string}</FormErrorMessage>
             </FormControl>
 
             <FormControl mb={4} isInvalid={!!formik.errors.bpjsksh}>
@@ -126,7 +169,9 @@ export default function LengkapiDataUser4() {
                 isError={!!formik.errors.bpjsksh}
               />
 
-              <FormErrorMessage>{formik.errors.bpjsksh}</FormErrorMessage>
+              <FormErrorMessage>
+                {formik.errors.bpjsksh as string}
+              </FormErrorMessage>
             </FormControl>
 
             <FormControl mb={4} isInvalid={!!formik.errors.bpjsktk}>
@@ -140,7 +185,9 @@ export default function LengkapiDataUser4() {
                 isError={!!formik.errors.bpjsktk}
               />
 
-              <FormErrorMessage>{formik.errors.bpjsktk}</FormErrorMessage>
+              <FormErrorMessage>
+                {formik.errors.bpjsktk as string}
+              </FormErrorMessage>
             </FormControl>
 
             <FormControl mb={4} isInvalid={formik.errors.ijazah ? true : false}>
@@ -153,7 +200,9 @@ export default function LengkapiDataUser4() {
                 inputValue={formik.values.ijazah}
                 isError={!!formik.errors.ijazah}
               />
-              <FormErrorMessage>{formik.errors.ijazah}</FormErrorMessage>
+              <FormErrorMessage>
+                {formik.errors.ijazah as string}
+              </FormErrorMessage>
             </FormControl>
 
             <FormControl isInvalid={!!formik.errors.sertifikat_kompetensi}>
@@ -168,7 +217,7 @@ export default function LengkapiDataUser4() {
               />
 
               <FormErrorMessage>
-                {formik.errors.sertifikat_kompetensi}
+                {formik.errors.sertifikat_kompetensi as string}
               </FormErrorMessage>
             </FormControl>
           </form>
@@ -181,11 +230,12 @@ export default function LengkapiDataUser4() {
               className="btn-ap clicky"
               w={"100%"}
               h={"50px"}
+              isLoading={loading}
             >
               Selanjutnya
             </Button>
 
-            <Button
+            {/* <Button
               w={"100%"}
               variant={"ghost"}
               colorScheme="ap"
@@ -196,7 +246,7 @@ export default function LengkapiDataUser4() {
               mx={"auto"}
             >
               Next Step (Debug)
-            </Button>
+            </Button> */}
           </VStack>
         </VStack>
       </CContainer>

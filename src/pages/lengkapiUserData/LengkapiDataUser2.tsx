@@ -22,6 +22,7 @@ import CContainer from "../../components/independent/wrapper/CContainer";
 import Container from "../../components/independent/wrapper/Container";
 import useScrollToTop from "../../hooks/useScrollToTop";
 import req from "../../lib/req";
+import useDcs from "../../global/useDcs";
 
 export default function LengkapiDataUser2() {
   useScrollToTop();
@@ -32,12 +33,13 @@ export default function LengkapiDataUser2() {
 
   const [loading, setLoading] = useState<boolean>(false);
   const toast = useToast();
+  const { setDcs } = useDcs();
 
   const formik = useFormik({
     validateOnChange: false,
 
     initialValues: {
-      keluarga: undefined as any,
+      keluarga: [] as any[],
     },
 
     validationSchema: yup.object().shape({
@@ -58,12 +60,13 @@ export default function LengkapiDataUser2() {
         .post(`/api/input-keluarga`, payload)
         .then((r) => {
           if (r.status === 200) {
+            setDcs(3);
             navigate("/lengkapi-data-personal-3");
             toast({
               status: "success",
               title: r.data.message,
               isClosable: true,
-              position: "bottom-right",
+              position: "top",
             });
           }
         })
@@ -76,7 +79,7 @@ export default function LengkapiDataUser2() {
                 (e?.response?.data?.message as string)) ||
               "Maaf terjadi kesalahan pada sistem",
             isClosable: true,
-            position: "bottom-right",
+            position: "top",
           });
         })
         .finally(() => {
@@ -110,7 +113,7 @@ export default function LengkapiDataUser2() {
 
           <CContainer flex={0} gap={0}>
             <AnimatePresence>
-              {formik.values.keluarga.map((anggota: any, i: number) => (
+              {formik.values?.keluarga?.map((anggota: any, i: number) => (
                 <motion.div
                   key={anggota.id}
                   initial={{
@@ -214,7 +217,9 @@ export default function LengkapiDataUser2() {
                 name="keluarga"
                 onConfirm={(inputValue) => {
                   setNewItemAdded(true);
-                  const newKeluarga = [...formik.values.keluarga];
+                  const newKeluarga = Array.isArray(formik.values.keluarga)
+                    ? [...formik.values.keluarga]
+                    : [];
                   newKeluarga.push({
                     ...inputValue,
                     id: new Date().getTime().toString(),

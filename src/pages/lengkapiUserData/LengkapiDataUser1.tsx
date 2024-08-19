@@ -31,6 +31,7 @@ import formatDate from "../../lib/formatDate";
 import formatNumber from "../../lib/formatNumber";
 import parseNumber from "../../lib/parseNumber";
 import req from "../../lib/req";
+import useDcs from "../../global/useDcs";
 
 export default function LengkapiDataUser1() {
   useScrollToTop();
@@ -39,23 +40,24 @@ export default function LengkapiDataUser1() {
 
   const [loading, setLoading] = useState<boolean>(false);
   const toast = useToast();
+  const { setDcs } = useDcs();
 
   const formik = useFormik({
     validateOnChange: false,
     initialValues: {
       nama: undefined as any,
-      tempat_lahir: undefined as any,
+      tempat_lahir: "" as any,
       tgl_lahir: undefined as any,
-      telepon: undefined as any,
+      telepon: "" as any,
       jenis_kelamin: undefined as any,
-      nik_ktp: undefined as any,
-      no_kk: undefined as any,
+      nik_ktp: "" as any,
+      no_kk: "" as any,
       agama: undefined as any,
       golongan_darah: undefined as any,
-      tinggi_badan: undefined as any,
+      tinggi_badan: "" as any,
       alamat: undefined as any,
-      no_ijazah: undefined as any,
-      tahun_lulus: undefined as any,
+      no_ijazah: "" as any,
+      tahun_lulus: "" as any,
     },
     validationSchema: yup.object().shape({
       tempat_lahir: yup.string().required("Harus diisi"),
@@ -93,12 +95,13 @@ export default function LengkapiDataUser1() {
         .post(`/api/input-personal`, payload)
         .then((r) => {
           if (r.status === 200) {
+            setDcs(2);
             navigate("/lengkapi-data-personal-2");
             toast({
               status: "success",
               title: r.data.message,
               isClosable: true,
-              position: "bottom-right",
+              position: "top",
             });
           }
         })
@@ -111,7 +114,7 @@ export default function LengkapiDataUser1() {
                 (e?.response?.data?.message as string)) ||
               "Maaf terjadi kesalahan pada sistem",
             isClosable: true,
-            position: "bottom-right",
+            position: "top",
           });
         })
         .finally(() => {
