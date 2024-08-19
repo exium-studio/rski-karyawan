@@ -52,7 +52,7 @@ export default function LengkapiDataUser5() {
       const payload = {
         token: getCookie("__auth_token"),
         password: values.new_password,
-        confirm_password: values.confirm_password,
+        password_confirmation: values.confirm_password,
       };
 
       req
