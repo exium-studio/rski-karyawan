@@ -37,11 +37,11 @@ const berandaMenus = [
     link: "/beranda/dokumen",
   },
 
-  {
-    image: "/vectors/icons/Form.png",
-    label: "Feedback",
-    link: "/beranda/feedback",
-  },
+  // {
+  //   image: "/vectors/icons/Form.png",
+  //   label: "Feedback",
+  //   link: "/beranda/feedback",
+  // },
 
   {
     image: "/vectors/icons/System Report.png",

@@ -3,8 +3,8 @@ import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import berandaMenus from "../../constant/berandaMenus";
 import { useLightDarkColor } from "../../constant/colors";
-import useScreenWidth from "../../hooks/useScreenWidth";
 import useDataState from "../../hooks/useDataState";
+import useScreenWidth from "../../hooks/useScreenWidth";
 import NotifCount from "../dependent/NotifCount";
 
 interface ItemProps {
@@ -82,7 +82,7 @@ export default function BerandaMenus() {
     }
   };
 
-  const sw = useScreenWidth();
+  // const sw = useScreenWidth();
 
   return (
     <VStack gap={0} align={"stretch"}>
@@ -107,11 +107,12 @@ export default function BerandaMenus() {
         <Wrap
           px={5}
           spacing={3}
-          w={
-            sw >= 720
-              ? "calc((160px * 5)  + 40px + (12px * 4))"
-              : "calc(((25vw - 20px) * 6) + 12px)"
-          }
+          // w={
+          //   sw >= 720
+          //     ? "calc((160px * 5)  + 40px + (12px * 4))"
+          //     : "calc(((25vw - 20px) * 6) + 12px)"
+          // }
+          w={"100%"}
         >
           {berandaMenus.map((menu, i) => (
             <BerandaMenuItem key={i} menu={menu} notifCount={data?.[i]} />

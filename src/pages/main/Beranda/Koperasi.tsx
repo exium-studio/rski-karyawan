@@ -8,10 +8,16 @@ export default function Koperasi() {
   const contentBgColor = useContentBgColor();
 
   return (
-    <CContainer>
+    <CContainer flex={1}>
       <Header left={"back"} title="Koperasi" px={4} />
 
-      <CContainer p={5} bg={contentBgColor} align={"center"} justify={"center"}>
+      <CContainer
+        flex={1}
+        p={5}
+        bg={contentBgColor}
+        align={"center"}
+        justify={"center"}
+      >
         <Image src="/vectors/error503.webp" maxW={"300px"} mb={6} />
         <Text fontSize={20} fontWeight={600}>
           Maaf, fitur ini belum tersedia
