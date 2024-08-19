@@ -1,4 +1,4 @@
-import { Box, HStack, Text } from "@chakra-ui/react";
+import { Box, Center, HStack, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { dummyPengumuman } from "../../constant/dummy";
 import useDataState from "../../hooks/useDataState";
@@ -9,9 +9,9 @@ import Skeleton from "./Skeleton";
 import CContainer from "./wrapper/CContainer";
 
 export default function PengumumanBeranda() {
-  const { error, loading, data, retry } = useDataState({
+  const { error, notFound, loading, data, retry } = useDataState({
     initialData: dummyPengumuman,
-    url: "",
+    url: "/api/latest-penngumuman",
   });
 
   // SX
@@ -34,9 +34,15 @@ export default function PengumumanBeranda() {
 
       <CContainer flex={0} align={"stretch"} gap={3}>
         {error && (
-          <Box my={"auto"}>
-            <Retry loading={loading} retry={retry} />
-          </Box>
+          <>
+            {notFound && <NoData label="Tidak ada pengumuman" />}
+
+            {!notFound && (
+              <Center my={"auto"} minH={"300px"}>
+                <Retry loading={loading} retry={retry} />
+              </Center>
+            )}
+          </>
         )}
 
         {!error && (
