@@ -7,7 +7,6 @@ import {
   HStack,
   Icon,
   IconButton,
-  Input,
   SimpleGrid,
   StackProps,
   Text,
@@ -20,9 +19,9 @@ import months from "../../../constant/months";
 import { iconSize } from "../../../constant/sizes";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
-import parseNumber from "../../../lib/parseNumber";
 import BackOnCloseButton from "../../independent/BackOnCloseButton";
 import CustomDrawer from "../../independent/wrapper/CustomDrawer";
+import StringInput from "./StringInput";
 
 interface Props extends StackProps {
   id: string;
@@ -214,19 +213,17 @@ export default function PeriodPicker({
                 }}
                 onTouchEnd={handleMouseUpDecrement}
               />
-              <Input
+              <StringInput
                 name="tahun"
                 textAlign={"center"}
                 placeholder="Tahun"
-                onChange={(e) => {
-                  const value = parseNumber(e.target.value);
-                  if (value) {
-                    setTahunLocal(value);
-                  } else if (value === null) {
-                    setTahunLocal(0);
-                  }
+                onChangeSetter={(input) => {
+                  setTahunLocal(parseInt(input as string));
                 }}
-                value={tahunLocal === 0 ? "" : tahunLocal}
+                inputValue={tahunLocal ? tahunLocal.toString() : ""}
+                placeholderprops={{
+                  textAlign: "center",
+                }}
               />
               <IconButton
                 aria-label="year plus button"
