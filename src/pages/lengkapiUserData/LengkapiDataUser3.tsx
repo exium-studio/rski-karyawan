@@ -1,5 +1,6 @@
 import {
   Button,
+  Checkbox,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -31,6 +32,8 @@ export default function LengkapiDataUser3() {
   const toast = useToast();
   const { setDcs } = useDcs();
 
+  const [noLimitStr, setNoLimitStr] = useState<boolean>(false);
+
   const formik = useFormik({
     validateOnChange: false,
     initialValues: {
@@ -43,7 +46,9 @@ export default function LengkapiDataUser3() {
     },
     validationSchema: yup.object().shape({
       str: yup.string().required("Harus diisi"),
-      masa_berlaku_str: yup.string().required("Harus diisi"),
+      masa_berlaku_str: noLimitStr
+        ? yup.mixed()
+        : yup.string().required("Harus diisi"),
       sip: yup.string().required("Harus diisi"),
       masa_berlaku_sip: yup.string().required("Harus diisi"),
       bpjsKesehatan: yup.string().required("Harus diisi"),
@@ -146,7 +151,21 @@ export default function LengkapiDataUser3() {
                 }}
                 inputValue={formik.values.masa_berlaku_str}
                 isError={!!formik.errors.masa_berlaku_str}
+                isDisabled={noLimitStr}
               />
+              <Checkbox
+                colorScheme="ap"
+                onChange={(e) => {
+                  setNoLimitStr(e.target.checked);
+                  if (e.target.checked) {
+                    formik.setFieldValue("masa_berlaku_str", undefined);
+                  }
+                }}
+                mt={2}
+                isChecked={noLimitStr}
+              >
+                <Text mt={"-3px"}>Masa berlaku seumur hidup</Text>
+              </Checkbox>
               <FormErrorMessage>
                 {formik.errors.masa_berlaku_str as string}
               </FormErrorMessage>
@@ -165,13 +184,10 @@ export default function LengkapiDataUser3() {
                 }}
                 inputValue={formik.values.sip}
               />
-              <FormErrorMessage>{formik.errors.sip}</FormErrorMessage>
+              <FormErrorMessage>{formik.errors.sip as string}</FormErrorMessage>
             </FormControl>
 
-            <FormControl
-              mb={4}
-              isInvalid={formik.errors.masa_berlaku_sip ? true : false}
-            >
+            <FormControl mb={4} isInvalid={!!formik.errors.masa_berlaku_sip}>
               <FormLabel>
                 Masa Berlaku SIP
                 <RequiredForm />

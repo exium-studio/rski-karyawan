@@ -92,7 +92,7 @@ export default function LengkapiDataUser2() {
 
   return (
     <Container px={5}>
-      <CContainer>
+      <CContainer flex={1}>
         <LengkapiDataUserHeader />
 
         <VStack gap={0} flex={1} align={"stretch"} mt={4}>
