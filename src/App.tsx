@@ -164,7 +164,7 @@ export const App = () => {
                 </AuthMiddleware>
               }
             />
-            <Route
+            {/* <Route
               path="/presensi/foto"
               element={
                 <AuthMiddleware>
@@ -173,7 +173,7 @@ export const App = () => {
                   </NavContainer>
                 </AuthMiddleware>
               }
-            />
+            /> */}
             <Route
               path="/beranda/cuti"
               element={

@@ -1,9 +1,18 @@
 import {
+  Button,
+  ButtonProps,
   Center,
   HStack,
   Icon,
   IconButton,
   Image,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
   VStack,
 } from "@chakra-ui/react";
 import {
@@ -13,11 +22,20 @@ import {
 } from "@remixicon/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CContainer from "../../../components/independent/wrapper/CContainer";
+import DisclosureHeader from "../../../components/dependent/DisclosureHeader";
 import FotoResultConfirmationModal from "../../../components/dependent/FotoResultConfirmationModal";
-import Header from "../../../components/dependent/Header";
+import CContainer from "../../../components/independent/wrapper/CContainer";
+import useBackOnClose from "../../../hooks/useBackOnClose";
+import backOnClose from "../../../lib/backOnClose";
 
-export default function AmbilFoto() {
+interface Props extends ButtonProps {
+  attendanceData: any;
+}
+
+export default function AmbilFoto({ attendanceData, ...props }: Props) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  useBackOnClose("ambil-foto-modal", isOpen, onOpen, onClose);
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isFrontCamera, setIsFrontCamera] = useState<boolean>(true);
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
@@ -114,8 +132,6 @@ export default function AmbilFoto() {
           "image/jpeg",
           1
         );
-
-        navigate("?foto_checkin_confirmation_modal=1");
       }
     }
   };
@@ -145,90 +161,117 @@ export default function AmbilFoto() {
   // SX
 
   return (
-    <CContainer justify={"space-between"} bg={"dark"} align={"center"}>
-      {data && <FotoResultConfirmationModal imageSrc={data} />}
-
-      <Header
-        left={"back"}
-        title="Ambil Foto"
-        px={4}
-        bg={"dark"}
-        color={"white"}
-      />
-
-      <VStack
-        aspectRatio={1}
-        overflow={"clip"}
-        w={"100% !important"}
-        maxW={"600px !important"}
-        maxH={"600px !important"}
-        h={"100% !important"}
-        justify={"center"}
-        position={"relative"}
+    <>
+      <Button
+        className="btn-ap clicky"
+        colorScheme="ap"
+        w={"50%"}
+        onClick={onOpen}
+        {...props}
+        // isDisabled={outsideRadius}
       >
-        <Image
-          src="/vectors/foto_indicator.svg"
-          position={"absolute"}
-          zIndex={2}
-        />
+        Konfirmasi
+      </Button>
 
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          playsInline
-          className={isFrontCamera ? "mirror-x" : ""}
-          style={{
-            width: "100%",
-            height: "100%", // Set height to 100% to maintain 1:1 aspect ratio
-            objectFit: "cover",
-          }}
-        ></video>
-      </VStack>
+      <Modal
+        isOpen={isOpen}
+        onClose={backOnClose}
+        isCentered
+        blockScrollOnMount={false}
+        size={"full"}
+      >
+        <ModalOverlay />
+        <ModalContent m={0}>
+          <ModalHeader>
+            <DisclosureHeader title={"Ambil Foto"} />
+          </ModalHeader>
+          <ModalBody>
+            <CContainer
+              flex={1}
+              justify={"space-between"}
+              bg={"dark"}
+              align={"center"}
+            >
+              <VStack
+                aspectRatio={1}
+                overflow={"clip"}
+                w={"100% !important"}
+                maxW={"600px !important"}
+                maxH={"600px !important"}
+                h={"100% !important"}
+                justify={"center"}
+                position={"relative"}
+              >
+                <Image
+                  src="/vectors/foto_indicator.svg"
+                  position={"absolute"}
+                  zIndex={2}
+                />
 
-      <HStack justify={"center"} gap={8} p={6} mb={"80px"}>
-        <IconButton
-          aria-label="Switch Camera"
-          icon={<Icon as={RiCameraSwitchFill} fontSize={24} opacity={0.4} />}
-          borderRadius={"full"}
-          className="btn clicky"
-          color={"white"}
-          onClick={switchCamera}
-        />
+                <video
+                  ref={videoRef}
+                  autoPlay
+                  muted
+                  playsInline
+                  className={isFrontCamera ? "mirror-x" : ""}
+                  style={{
+                    width: "100%",
+                    height: "100%", // Set height to 100% to maintain 1:1 aspect ratio
+                    objectFit: "cover",
+                  }}
+                ></video>
+              </VStack>
 
-        <Center p={1} borderRadius={"full"} border={"1px solid white"}>
-          <Center
-            w={"50px"}
-            h={"50px"}
-            borderRadius={"full"}
-            bg={"white"}
-            cursor={"pointer"}
-            className="clicky"
-            onClick={takePhoto}
-          ></Center>
-        </Center>
+              <HStack justify={"center"} gap={8} p={6} mb={"80px"}>
+                <IconButton
+                  aria-label="Switch Camera"
+                  icon={
+                    <Icon as={RiCameraSwitchFill} fontSize={24} opacity={0.4} />
+                  }
+                  borderRadius={"full"}
+                  className="btn clicky"
+                  color={"white"}
+                  onClick={switchCamera}
+                />
 
-        <IconButton
-          aria-label="Disable Camera"
-          icon={
-            <Icon
-              as={isDisabled ? RiCameraFill : RiCameraOffFill}
-              fontSize={24}
-              opacity={0.4}
-            />
-          }
-          borderRadius={"full"}
-          className="btn clicky"
-          color={"white"}
-          onClick={() => {
-            if (isDisabled) {
-              startCamera();
-            } else {
-              stopCamera();
-            }
-          }}
-        />
-      </HStack>
-    </CContainer>
+                <Center p={1} borderRadius={"full"} border={"1px solid white"}>
+                  <Center
+                    w={"50px"}
+                    h={"50px"}
+                    borderRadius={"full"}
+                    bg={"white"}
+                    cursor={"pointer"}
+                    className="clicky"
+                    onClick={takePhoto}
+                  ></Center>
+                </Center>
+
+                <IconButton
+                  aria-label="Disable Camera"
+                  icon={
+                    <Icon
+                      as={isDisabled ? RiCameraFill : RiCameraOffFill}
+                      fontSize={24}
+                      opacity={0.4}
+                    />
+                  }
+                  borderRadius={"full"}
+                  className="btn clicky"
+                  color={"white"}
+                  onClick={() => {
+                    if (isDisabled) {
+                      startCamera();
+                    } else {
+                      stopCamera();
+                    }
+                  }}
+                />
+              </HStack>
+            </CContainer>
+          </ModalBody>
+          <ModalFooter></ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   );
 }

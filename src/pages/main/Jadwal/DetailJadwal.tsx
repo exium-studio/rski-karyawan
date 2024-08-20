@@ -1,4 +1,15 @@
-import { Box, HStack, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  useDisclosure,
+  VStack,
+} from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import Header from "../../../components/dependent/Header";
 import JadwalItem from "../../../components/dependent/JadwalItem";
@@ -14,9 +25,15 @@ import { useContentBgColor } from "../../../constant/colors";
 import { dummyMySchedules } from "../../../constant/dummy";
 import useDetailJadwal from "../../../global/useDetailJadwal";
 import useDataState from "../../../hooks/useDataState";
+import backOnClose from "../../../lib/backOnClose";
+import DisclosureHeader from "../../../components/dependent/DisclosureHeader";
+import useBackOnClose from "../../../hooks/useBackOnClose";
 
 export default function DetailJadwal() {
   useScrollToTop();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  // useBackOnClose(``)
 
   const user: Interface__Karyawan = JSON.parse(getCookie("userData") as string);
 
@@ -55,84 +72,113 @@ export default function DetailJadwal() {
   const contentBgColor = useContentBgColor();
 
   return (
-    <CContainer>
-      <Header title="Detail Jadwal" left={"back"} px={4} />
+    <>
+      <p>Jadwalnya</p>
 
-      <VStack gap={0} align={"stretch"} bg={contentBgColor} flex={1} py={6}>
-        {error && (
-          <Box my={"auto"}>
-            <Retry loading={loading} retry={retry} />
-          </Box>
-        )}
+      <Modal
+        isOpen={isOpen}
+        onClose={backOnClose}
+        isCentered
+        blockScrollOnMount={false}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>
+            <DisclosureHeader title={"Detail Jadwal"} />
+          </ModalHeader>
+          <ModalBody>
+            <CContainer>
+              <Header title="Detail Jadwal" left={"back"} px={4} />
 
-        {!error && (
-          <>
-            <Box
-              ref={containerRef}
-              overflowX={"auto"}
-              w={"100%"}
-              scrollSnapType={"x mandatory"}
-              className="noScroll"
-            >
-              <HStack w={"max-content"} px={5} gap={3}>
-                {loading &&
-                  Array.from({ length: 5 }).map((_, i) => (
-                    <Skeleton key={i} h={"114px"} w={"250px"} />
-                  ))}
+              <VStack
+                gap={0}
+                align={"stretch"}
+                bg={contentBgColor}
+                flex={1}
+                py={6}
+              >
+                {error && (
+                  <Box my={"auto"}>
+                    <Retry loading={loading} retry={retry} />
+                  </Box>
+                )}
 
-                {!loading &&
-                  data &&
-                  data.length > 0 &&
-                  data.map((jadwal, i) => {
-                    return (
-                      <Box
-                        key={i}
-                        ref={i === detailJadwalIndex ? setActiveItemRef : null}
-                        onClick={() => {
-                          setIsInit(false);
-                          setDetailJadwalIndex(i);
-                        }}
-                      >
-                        <JadwalItem
-                          data={jadwal}
-                          h={"114px"}
-                          minW={"250px"}
-                          scrollSnapAlign={"center"}
-                          borderLeft={
-                            i === detailJadwalIndex
-                              ? "5px solid var(--p500)"
-                              : undefined
-                          }
-                          noAvatars
-                          noArrow
-                        />
-                      </Box>
-                    );
-                  })}
-              </HStack>
-            </Box>
+                {!error && (
+                  <>
+                    <Box
+                      ref={containerRef}
+                      overflowX={"auto"}
+                      w={"100%"}
+                      scrollSnapType={"x mandatory"}
+                      className="noScroll"
+                    >
+                      <HStack w={"max-content"} px={5} gap={3}>
+                        {loading &&
+                          Array.from({ length: 5 }).map((_, i) => (
+                            <Skeleton key={i} h={"114px"} w={"250px"} />
+                          ))}
 
-            <Text fontWeight={600} px={6} mt={6} mb={4}>
-              Karyawan {user.unit_kerja?.[0]?.nama_unit || "Unit Kerja"}
-            </Text>
+                        {!loading &&
+                          data &&
+                          data.length > 0 &&
+                          data.map((jadwal, i) => {
+                            return (
+                              <Box
+                                key={i}
+                                ref={
+                                  i === detailJadwalIndex
+                                    ? setActiveItemRef
+                                    : null
+                                }
+                                onClick={() => {
+                                  setIsInit(false);
+                                  setDetailJadwalIndex(i);
+                                }}
+                              >
+                                <JadwalItem
+                                  data={jadwal}
+                                  h={"114px"}
+                                  minW={"250px"}
+                                  scrollSnapAlign={"center"}
+                                  borderLeft={
+                                    i === detailJadwalIndex
+                                      ? "5px solid var(--p500)"
+                                      : undefined
+                                  }
+                                  noAvatars
+                                  noArrow
+                                />
+                              </Box>
+                            );
+                          })}
+                      </HStack>
+                    </Box>
 
-            {loading && (
-              <CContainer gap={3} px={5}>
-                {Array.from({ length: 10 }).map((_, i) => (
-                  <Skeleton key={i} h={"80px"} />
-                ))}
-              </CContainer>
-            )}
+                    <Text fontWeight={600} px={6} mt={6} mb={4}>
+                      Karyawan {user.unit_kerja?.[0]?.nama_unit || "Unit Kerja"}
+                    </Text>
 
-            {!loading && data && (
-              <ListKaryawanByJadwal
-                data={data[detailJadwalIndex].assignees}
-                px={5}
-              />
-            )}
-          </>
-        )}
-      </VStack>
-    </CContainer>
+                    {loading && (
+                      <CContainer gap={3} px={5}>
+                        {Array.from({ length: 10 }).map((_, i) => (
+                          <Skeleton key={i} h={"80px"} />
+                        ))}
+                      </CContainer>
+                    )}
+
+                    {!loading && data && (
+                      <ListKaryawanByJadwal
+                        data={data[detailJadwalIndex].assignees}
+                        px={5}
+                      />
+                    )}
+                  </>
+                )}
+              </VStack>
+            </CContainer>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
   );
 }

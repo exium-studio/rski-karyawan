@@ -25,6 +25,7 @@ import formatNumber from "../../../lib/formatNumber";
 import getCurrentAddress from "../../../lib/getCurrentAddress";
 import getLocation from "../../../lib/getLocation";
 import isWithinRadius from "../../../lib/isWithinRadius";
+import AmbilFoto from "./AmbilFoto";
 
 interface Props {
   isOpen: boolean;
@@ -43,7 +44,6 @@ export default function ConfirmMyLocation({
   useBackOnClose("confirm-my-location-full-modal", isOpen, onOpen, onClose);
 
   const toast = useToast();
-  const navigate = useNavigate();
 
   const [loading, setLoading] = useState<boolean>(false);
   const [outsideRadius, setOutsideRadius] = useState<boolean>(false);
@@ -72,8 +72,8 @@ export default function ConfirmMyLocation({
                   myLocation.lat,
                   myLocation.long,
                   data.office_lat,
-                  data.office_lng,
-                  data.presence_radius
+                  data.office_long,
+                  data.radius
                 )
               ) {
               } else {
@@ -86,15 +86,15 @@ export default function ConfirmMyLocation({
                     description: `myLat: ${myLocation.lat}, myLong:${
                       myLocation.long
                     }, officeLat: ${data.office_lat}, officeLong: ${
-                      data.office_lng
+                      data.office_long
                     }, myDistance: ${formatNumber(
                       calculateDistance(
                         myLocation.lat,
                         myLocation.long,
                         data.office_lat,
-                        data.office_lng
+                        data.office_long
                       )
-                    )} meter, preferredDistance: ${data.presence_radius} meter`,
+                    )} meter, preferredDistance: ${data.radius} meter`,
                     duration: 10000,
                     isClosable: true,
                   });
@@ -164,7 +164,7 @@ export default function ConfirmMyLocation({
                       lng: attendanceData?.office_long || 110.8018715,
                     }}
                     zoom={20}
-                    presence_radius={attendanceData?.presence_radius || 100}
+                    presence_radius={attendanceData?.radius || 100}
                   />
 
                   <VStack
@@ -204,17 +204,10 @@ export default function ConfirmMyLocation({
                           Kembali
                         </Button>
 
-                        <Button
-                          className="btn-ap clicky"
-                          colorScheme="ap"
-                          w={"50%"}
+                        <AmbilFoto
+                          attendanceData={attendanceData}
                           isDisabled={outsideRadius}
-                          onClick={() => {
-                            navigate("/presensi/foto");
-                          }}
-                        >
-                          Konfirmasi
-                        </Button>
+                        />
                       </ButtonGroup>
                     </VStack>
                   </VStack>
