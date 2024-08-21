@@ -79,24 +79,6 @@ export default function AjukanCuti() {
       >
         <CContainer px={6} pb={8}>
           <form id="ajukanCutiForm" onSubmit={formik.handleSubmit}>
-            <FormControl mb={4} isInvalid={!!formik.errors.date_range}>
-              <FormLabel>
-                Rentang Tanggal
-                <RequiredForm />
-              </FormLabel>
-              <DateRangePickerDrawer
-                id="ajukan-cuti-date-range-picker-drawer"
-                name="date_range"
-                onConfirm={(inputValue) => {
-                  formik.setFieldValue("date_range", inputValue);
-                }}
-                inputValue={formik.values.date_range}
-              />
-              <FormErrorMessage>
-                {formik.errors.date_range as string}
-              </FormErrorMessage>
-            </FormControl>
-
             <FormControl mb={4} isInvalid={!!formik.errors.jenis_cuti}>
               <FormLabel>
                 Jenis Cuti
@@ -113,6 +95,24 @@ export default function AjukanCuti() {
               />
               <FormErrorMessage>
                 {formik.errors.jenis_cuti as string}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl mb={4} isInvalid={!!formik.errors.date_range}>
+              <FormLabel>
+                Rentang Tanggal
+                <RequiredForm />
+              </FormLabel>
+              <DateRangePickerDrawer
+                id="ajukan-cuti-date-range-picker-drawer"
+                name="date_range"
+                onConfirm={(inputValue) => {
+                  formik.setFieldValue("date_range", inputValue);
+                }}
+                inputValue={formik.values.date_range}
+              />
+              <FormErrorMessage>
+                {formik.errors.date_range as string}
               </FormErrorMessage>
             </FormControl>
           </form>

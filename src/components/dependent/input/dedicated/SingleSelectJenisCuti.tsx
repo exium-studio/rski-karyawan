@@ -1,7 +1,8 @@
-import { ButtonProps } from "@chakra-ui/react";
+import { ButtonProps, useToast } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { Interface__SelectOption } from "../../../../constant/interfaces";
+import req from "../../../../lib/req";
 import SingleSelectDrawer from "../SingleSelectDrawer";
-import { dummyTipeCutis } from "../../../../constant/dummy";
 
 interface Props extends ButtonProps {
   id: string;
@@ -29,11 +30,38 @@ export default function SingleSelectJenisCuti({
   nonNullable,
   ...props
 }: Props) {
-  //TODO get data tipe cuti
-  const options = dummyTipeCutis.map((tipeCuti) => ({
-    value: tipeCuti.id,
-    label: tipeCuti.nama,
-  }));
+  const toast = useToast();
+  const [options, setOptions] = useState<Interface__SelectOption[] | undefined>(
+    undefined
+  );
+
+  useEffect(() => {
+    if (!options) {
+      req
+        .get("/api/get-list-tipecuti")
+        .then((r) => {
+          if (r.status === 200) {
+            const options = r.data.data.map((item: any) => ({
+              value: item.id,
+              label: item.nama,
+            }));
+            setOptions(options);
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          toast({
+            status: "error",
+            title:
+              (typeof e?.response?.data?.message === "string" &&
+                (e?.response?.data?.message as string)) ||
+              "Maaf terjadi kesalahan pada sistem",
+            isClosable: true,
+            position: "bottom-right",
+          });
+        });
+    }
+  }, [options, toast]);
 
   return (
     <SingleSelectDrawer

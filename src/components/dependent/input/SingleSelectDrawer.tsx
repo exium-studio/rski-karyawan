@@ -14,13 +14,14 @@ import { useErrorColor } from "../../../constant/colors";
 import { Interface__SelectOption } from "../../../constant/interfaces";
 import backOnClose from "../../../lib/backOnClose";
 import BackOnCloseButton from "../../independent/BackOnCloseButton";
-import SearchComponent from "./SearchComponent";
+import ComponentSpinner from "../../independent/ComponentSpinner";
 import CustomDrawer from "../../independent/wrapper/CustomDrawer";
+import SearchComponent from "./SearchComponent";
 
 interface Props {
   id: string;
   name: string;
-  options: Interface__SelectOption[];
+  options?: Interface__SelectOption[];
   onConfirm: (inputValue: Interface__SelectOption | undefined) => void;
   inputValue: Interface__SelectOption | undefined;
   withSearch?: boolean;
@@ -52,7 +53,7 @@ export default function SingleSelectDrawer({
     inputValue
   );
   const fo = search
-    ? options.filter((option) => {
+    ? options?.filter((option) => {
         const searchTerm = search.toLowerCase();
         return (
           option.value.toString().toLowerCase().includes(searchTerm) ||
@@ -156,96 +157,104 @@ export default function SingleSelectDrawer({
           </Box>
         }
         footer={
-          <>
-            <Button
-              className="btn-solid clicky"
-              w={"100%"}
-              onClick={() => {
-                setSelected(undefined);
-              }}
-            >
-              Clear
-            </Button>
+          fo && (
+            <>
+              <Button
+                className="btn-solid clicky"
+                w={"100%"}
+                onClick={() => {
+                  setSelected(undefined);
+                }}
+              >
+                Clear
+              </Button>
 
-            <Button
-              colorScheme="ap"
-              className="btn-ap clicky"
-              w={"100%"}
-              isDisabled={nonNullable ? (selected ? false : true) : false}
-              onClick={confirmSelected}
-            >
-              Konfirmasi
-            </Button>
-          </>
+              <Button
+                colorScheme="ap"
+                className="btn-ap clicky"
+                w={"100%"}
+                isDisabled={nonNullable ? (selected ? false : true) : false}
+                onClick={confirmSelected}
+              >
+                Konfirmasi
+              </Button>
+            </>
+          )
         }
       >
-        {optionsDisplay === "list" && (
-          <VStack
-            align={"stretch"}
-            px={6}
-            overflowY={"auto"}
-            className="scrollY"
-          >
-            {fo.map((option, i) => (
-              <Button
-                flexShrink={0}
-                key={i}
-                justifyContent={"space-between"}
-                className="btn-outline"
-                onClick={() => {
-                  setSelected(option);
-                }}
-                borderColor={
-                  selected && selected.value === option.value ? "p.500" : ""
-                }
-                bg={
-                  selected && selected.value === option.value
-                    ? "var(--p500a4) !important"
-                    : ""
-                }
+        {!fo && <ComponentSpinner />}
+
+        {fo && (
+          <>
+            {optionsDisplay === "list" && (
+              <VStack
+                align={"stretch"}
+                px={6}
+                overflowY={"auto"}
+                className="scrollY"
               >
-                <Text>{option.label}</Text>
+                {fo.map((option, i) => (
+                  <Button
+                    flexShrink={0}
+                    key={i}
+                    justifyContent={"space-between"}
+                    className="btn-outline"
+                    onClick={() => {
+                      setSelected(option);
+                    }}
+                    borderColor={
+                      selected && selected.value === option.value ? "p.500" : ""
+                    }
+                    bg={
+                      selected && selected.value === option.value
+                        ? "var(--p500a4) !important"
+                        : ""
+                    }
+                  >
+                    <Text>{option.label}</Text>
 
-                <Text opacity={0.4}>{option.subLabel}</Text>
-              </Button>
-            ))}
-          </VStack>
-        )}
+                    <Text opacity={0.4}>{option.subLabel}</Text>
+                  </Button>
+                ))}
+              </VStack>
+            )}
 
-        {optionsDisplay === "chip" && (
-          <Wrap overflowY={"auto"} px={6} className="scrollY">
-            {fo.map((option, i) => (
-              <Button
-                flexShrink={0}
-                key={i}
-                justifyContent={"space-between"}
-                className="btn-outline"
-                onClick={() => {
-                  setSelected(option);
-                }}
-                borderColor={
-                  selected && selected.value === option.value ? "p.500" : ""
-                }
-                bg={
-                  selected && selected.value === option.value
-                    ? "var(--p500a4) !important"
-                    : ""
-                }
-                gap={2}
-              >
-                <Text>{option.label}</Text>
-                {/* <Text opacity={0.4}>{option.subLabel}</Text> */}
-              </Button>
-            ))}
-          </Wrap>
-        )}
+            {optionsDisplay === "chip" && (
+              <Wrap overflowY={"auto"} px={6} className="scrollY">
+                {fo.map((option, i) => (
+                  <Button
+                    flexShrink={0}
+                    key={i}
+                    justifyContent={"space-between"}
+                    className="btn-outline"
+                    onClick={() => {
+                      setSelected(option);
+                    }}
+                    borderColor={
+                      selected && selected.value === option.value ? "p.500" : ""
+                    }
+                    bg={
+                      selected && selected.value === option.value
+                        ? "var(--p500a4) !important"
+                        : ""
+                    }
+                    gap={2}
+                  >
+                    <Text>{option.label}</Text>
+                    {/* <Text opacity={0.4}>{option.subLabel}</Text> */}
+                  </Button>
+                ))}
+              </Wrap>
+            )}
 
-        {fo.length === 0 && (
-          <HStack justify={"center"} minH={"100px"} opacity={0.4}>
-            <Text textAlign={"center"} fontWeight={600}>
-              Opsi tidak ditemukan
-            </Text>
-          </HStack>
+            {fo.length === 0 && (
+              <HStack justify={"center"} minH={"100px"} opacity={0.4}>
+                <Text textAlign={"center"} fontWeight={600}>
+                  Opsi tidak ditemukan
+                </Text>
+              </HStack>
+            )}
+          </>
         )}
       </CustomDrawer>
     </>
