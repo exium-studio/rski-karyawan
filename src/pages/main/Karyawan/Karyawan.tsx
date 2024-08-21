@@ -11,7 +11,6 @@ import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
 import { Interface__Karyawan } from "../../../constant/interfaces";
 import { iconSize } from "../../../constant/sizes";
-import useDetailKaryawan from "../../../global/useDetailKaryawan";
 import useDataState from "../../../hooks/useDataState";
 import useScrollToTop from "../../../hooks/useScrollToTop";
 import getUserData from "../../../lib/getUserData";
@@ -24,7 +23,6 @@ export default function Karyawan() {
 
   const [searchMode, setSearchMode] = useState<boolean>(false);
   const [search, setSearch] = useState<string | undefined>("");
-  const { setDetailKaryawanId } = useDetailKaryawan();
 
   const { error, loading, data, retry } = useDataState<Interface__Karyawan[]>({
     initialData: undefined,
