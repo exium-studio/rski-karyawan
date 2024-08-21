@@ -557,6 +557,13 @@ button[aria-label="Close"] > svg {
   margin-bottom: 16px;
 }
 
+.elipsis {
+  width: 100%;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
 /* Date Picker Start */
 .rdp {
   margin: 0 !important;

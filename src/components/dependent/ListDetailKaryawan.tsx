@@ -63,7 +63,7 @@ export default function ListDetailKaryawan({
               }}
             >
               <KaryawanItem
-                w={"280px"}
+                w={"calc(100vw - 72px)"}
                 data={karyawan}
                 borderLeft={
                   i === activeKaryawanIndex

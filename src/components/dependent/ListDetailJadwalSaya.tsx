@@ -64,8 +64,8 @@ export default function ListDetailJadwalSaya({
             >
               <JadwalItem
                 data={jadwal}
+                w={"calc(100vw - 72px)"}
                 h={"114px"}
-                minW={"250px"}
                 scrollSnapAlign={"center"}
                 borderLeft={
                   i === activeJadwalIndex ? "4px solid var(--p500)" : undefined
