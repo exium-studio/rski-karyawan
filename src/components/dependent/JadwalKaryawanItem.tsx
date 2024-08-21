@@ -61,8 +61,7 @@ const TukarButton = ({ userId, data }: { userId?: number; data: any }) => {
       <Button
         colorScheme="ap"
         className="clicky"
-        variant={"outline"}
-        ml={"auto"}
+        variant={"ghost"}
         onClick={onOpen}
         leftIcon={
           <Icon
@@ -71,7 +70,10 @@ const TukarButton = ({ userId, data }: { userId?: number; data: any }) => {
             transform="scaleX(-1)"
           />
         }
-        pl={3}
+        size={"sm"}
+        position={"absolute"}
+        bottom={3}
+        right={3}
       >
         Tukar
       </Button>
@@ -345,6 +347,7 @@ export default function JadwalKaryawanItem({
       borderRadius={12}
       bg={lightDarkColor}
       transition={"200ms"}
+      position={"relative"}
       {...props}
     >
       <Box>
