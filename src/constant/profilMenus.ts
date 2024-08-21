@@ -1,5 +1,6 @@
 import {
   RiEditLine,
+  RiFileListLine,
   RiInformationLine,
   RiPhoneLine,
   RiShieldStarLine,
@@ -10,6 +11,11 @@ const profilMenus = [
     title: "Akun",
     items: [
       // { label: "Penghargaan", link: "", icon: RiAwardLine },
+      {
+        label: "Data Karyawan",
+        link: "/profil/data-karyawan",
+        icon: RiFileListLine,
+      },
       {
         label: "Perubahan Data",
         link: "/profil/ubah",
