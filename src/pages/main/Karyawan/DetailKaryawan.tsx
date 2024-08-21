@@ -2,7 +2,6 @@ import {
   Modal,
   ModalBody,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
   StackProps,
@@ -12,15 +11,15 @@ import {
 import { useEffect, useState } from "react";
 import Header from "../../../components/dependent/Header";
 import KaryawanItem from "../../../components/dependent/KaryawanItem";
+import ListDetailKaryawan from "../../../components/dependent/ListDetailKaryawan";
+import ListJadwalKaryawan from "../../../components/dependent/ListJadwalKaryawan";
 import CContainer from "../../../components/independent/wrapper/CContainer";
+import { useContentBgColor } from "../../../constant/colors";
 import { Interface__Karyawan } from "../../../constant/interfaces";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import useScrollToTop from "../../../hooks/useScrollToTop";
 import backOnClose from "../../../lib/backOnClose";
 import getUserData from "../../../lib/getUserData";
-import ListDetailKaryawan from "../../../components/dependent/ListDetailKaryawan";
-import { useContentBgColor } from "../../../constant/colors";
-import ListJadwalKaryawan from "../../../components/dependent/ListJadwalKaryawan";
 
 interface Props extends StackProps {
   karyawan: Interface__Karyawan;
@@ -95,7 +94,6 @@ export default function DetailKaryawan({
               <ListJadwalKaryawan user_id={activeKaryawan.user.id} px={5} />
             </CContainer>
           </ModalBody>
-          <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>
     </>
