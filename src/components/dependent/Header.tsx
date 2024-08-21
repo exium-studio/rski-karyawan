@@ -29,7 +29,7 @@ export default function Header({
       w={"100%"}
       {...props}
     >
-      <HStack w={"70px"}>
+      <HStack w={"50px"}>
         {left === "back" && (
           <BackButton backLink={backLink} color={props?.color} />
         )}
@@ -39,7 +39,7 @@ export default function Header({
         {title}
       </Text>
 
-      <HStack w={"70px"} justify={"flex-end"}>
+      <HStack w={"50px"} justify={"flex-end"}>
         {right}
       </HStack>
     </HStack>

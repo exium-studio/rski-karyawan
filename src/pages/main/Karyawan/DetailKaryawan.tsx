@@ -6,6 +6,7 @@ import {
   ModalHeader,
   ModalOverlay,
   StackProps,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -17,6 +18,9 @@ import useBackOnClose from "../../../hooks/useBackOnClose";
 import useScrollToTop from "../../../hooks/useScrollToTop";
 import backOnClose from "../../../lib/backOnClose";
 import getUserData from "../../../lib/getUserData";
+import ListDetailKaryawan from "../../../components/dependent/ListDetailKaryawan";
+import { useContentBgColor } from "../../../constant/colors";
+import ListJadwalKaryawan from "../../../components/dependent/ListJadwalKaryawan";
 
 interface Props extends StackProps {
   karyawan: Interface__Karyawan;
@@ -33,19 +37,25 @@ export default function DetailKaryawan({
   const user = getUserData();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  useBackOnClose(`detail-jadwal-${karyawan.id}`, isOpen, onOpen, onClose);
+  useBackOnClose(
+    `detail-karyawan-${karyawan.user.id}`,
+    isOpen,
+    onOpen,
+    onClose
+  );
 
-  const [activeJadwal, setActiveJadwal] =
+  const [activeKaryawan, setActiveKaryawan] =
     useState<Interface__Karyawan>(karyawan);
   useEffect(() => {
     if (isOpen) {
       if (karyawan) {
-        setActiveJadwal(karyawan);
+        setActiveKaryawan(karyawan);
       }
     }
   }, [karyawan, index, isOpen]);
 
   // SX
+  const contentBgColor = useContentBgColor();
 
   return (
     <>
@@ -65,92 +75,24 @@ export default function DetailKaryawan({
             <ModalHeader>
               <Header
                 left={"back"}
-                title="Detail Karyawan"
+                title={`Detail Karyawan ${user?.unit_kerja?.[0]?.nama_unit}`}
                 borderBottom={"1px solid var(--divider2)"}
               />
             </ModalHeader>
           </ModalHeader>
-          <ModalBody>
-            <CContainer>
-              {/* <VStack
-                gap={0}
-                align={"stretch"}
-                bg={contentBgColor}
-                flex={1}
-                py={6}
-              >
-                {error && (
-                  <Box my={"auto"}>
-                    <Retry loading={loading} retry={retry} />
-                  </Box>
-                )}
+          <ModalBody px={0}>
+            <CContainer flex={1} bg={contentBgColor} py={6}>
+              <ListDetailKaryawan
+                data={listKaryawan}
+                setActiveKaryawan={setActiveKaryawan}
+                index={index}
+              />
 
-                {!error && (
-                  <>
-                    <Box
-                      ref={containerRef}
-                      w={"100%"}
-                      overflowX={"auto"}
-                      className="noScroll"
-                      scrollSnapType={"x mandatory"}
-                    >
-                      <HStack w={"max-content"} px={6} gap={3}>
-                        {loading &&
-                          Array.from({ length: 5 }).map((_, i) => (
-                            <Skeleton key={i} h={"80px"} w={"280px"} />
-                          ))}
+              <Text fontWeight={600} px={6} mt={6} mb={4}>
+                Karyawan {user.unit_kerja?.[0]?.nama_unit || "Unit Kerja"}
+              </Text>
 
-                        {!loading &&
-                          data &&
-                          data.length > 0 &&
-                          data?.map((karyawan, i) => (
-                            <Box
-                              key={i}
-                              ref={
-                                karyawan.id === detailKaryawanId
-                                  ? setActiveItemRef
-                                  : null
-                              }
-                              onClick={() => {
-                                setIsInit(false);
-                                setDetailKaryawanId(karyawan.id);
-                                setJadwalKaryawanList(karyawan.jadwals);
-                              }}
-                            >
-                              <KaryawanItem
-                                w={"280px"}
-                                data={karyawan}
-                                borderLeft={
-                                  karyawan.id === detailKaryawanId
-                                    ? "5px solid var(--p500)"
-                                    : ""
-                                }
-                                scrollSnapAlign={"center"}
-                                noArrowIcon
-                              />
-                            </Box>
-                          ))}
-                      </HStack>
-                    </Box>
-
-                    <Text fontWeight={600} px={6} mt={6} mb={4}>
-                      Jadwal Karyawan Minggu Ini
-                    </Text>
-
-                    {loading && (
-                      <CContainer gap={3} px={5}>
-                        {Array.from({ length: 7 }).map((_, i) => (
-                          <Skeleton key={i} h={"114px"} />
-                        ))}
-                      </CContainer>
-                    )}
-
-                    {!loading && data && (
-                      <ListJadwalKaryawan data={jadwalKaryawanList} px={6} />
-                    )}
-                  </>
-                )}
-              </VStack> */}
+              <ListJadwalKaryawan user_id={activeKaryawan.user.id} px={5} />
             </CContainer>
           </ModalBody>
           <ModalFooter></ModalFooter>

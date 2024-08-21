@@ -33,7 +33,6 @@ import PengajuanTukarJadwal from "./pages/main/Beranda/PengajuanTukarJadwal";
 import Pengumuman from "./pages/main/Beranda/Pengumuman";
 import SlipGajiku from "./pages/main/Beranda/SlipGajiku";
 import Jadwal from "./pages/main/Jadwal/Jadwal";
-import DetailKaryawan from "./pages/main/Karyawan/DetailKaryawan";
 import Karyawan from "./pages/main/Karyawan/Karyawan";
 import Faqs from "./pages/main/Profil/Faqs";
 import Kontak from "./pages/main/Profil/Kontak";
