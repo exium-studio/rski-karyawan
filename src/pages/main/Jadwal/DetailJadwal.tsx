@@ -74,20 +74,18 @@ export default function DetailJadwal({
             />
           </ModalHeader>
           <ModalBody px={0}>
-            <CContainer flex={1}>
-              <CContainer bg={contentBgColor} flex={1} py={6}>
-                <ListDetailJadwalSaya
-                  data={listJadwal}
-                  setActiveJadwal={setActiveJadwal}
-                  index={index}
-                />
+            <CContainer flex={1} bg={contentBgColor} py={6}>
+              <ListDetailJadwalSaya
+                data={listJadwal}
+                setActiveJadwal={setActiveJadwal}
+                index={index}
+              />
 
-                <Text fontWeight={600} px={6} mt={6} mb={4}>
-                  Karyawan {user.unit_kerja?.[0]?.nama_unit || "Unit Kerja"}
-                </Text>
+              <Text fontWeight={600} px={6} mt={6} mb={4}>
+                Karyawan {user.unit_kerja?.[0]?.nama_unit || "Unit Kerja"}
+              </Text>
 
-                <ListKaryawanByJadwal jadwal_id={activeJadwal.id} px={5} />
-              </CContainer>
+              <ListKaryawanByJadwal jadwal_id={activeJadwal.id} px={5} />
             </CContainer>
           </ModalBody>
         </ModalContent>
