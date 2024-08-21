@@ -35,12 +35,7 @@ export default function Header({
         )}
       </HStack>
 
-      <Text
-        textAlign={"center"}
-        noOfLines={1}
-        fontWeight={600}
-        fontSize={[16, null, 18]}
-      >
+      <Text textAlign={"center"} noOfLines={1} fontWeight={600} fontSize={16}>
         {title}
       </Text>
 

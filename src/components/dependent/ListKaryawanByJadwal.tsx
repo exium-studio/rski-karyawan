@@ -1,32 +1,58 @@
-import { Box, StackProps } from "@chakra-ui/react";
-import KaryawanItem from "./KaryawanItem";
+import { Box, Center, StackProps } from "@chakra-ui/react";
+import useDataState from "../../hooks/useDataState";
+import NotFound from "../independent/NotFound";
+import Skeleton from "../independent/Skeleton";
 import CContainer from "../independent/wrapper/CContainer";
-import { Interface__Karyawan } from "../../constant/interfaces";
-import NoData from "../independent/NoData";
-import useDetailKaryawan from "../../global/useDetailKaryawan";
+import KaryawanItem from "./KaryawanItem";
+import Retry from "./Retry";
 
 interface Props extends StackProps {
-  data: Interface__Karyawan[] | undefined;
+  jadwal_id: number;
 }
 
-export default function ListKaryawanByJadwal({ data, ...props }: Props) {
-  const { setDetailKaryawanId } = useDetailKaryawan();
+export default function ListKaryawanByJadwal({ jadwal_id, ...props }: Props) {
+  const { error, notFound, loading, data, retry } = useDataState<any>({
+    initialData: undefined,
+    url: `/api/${jadwal_id}/get-karyawan-same-jadwal`,
+    dependencies: [jadwal_id],
+  });
 
   return (
-    <CContainer gap={3} {...props}>
-      {!data && <NoData label="Tidak ada karyawan" />}
+    <CContainer flex={1} gap={3} {...props}>
+      {loading && (
+        <CContainer flex={1} gap={3}>
+          {Array.from({ length: 6 }).map((_, i) => (
+            <Skeleton key={i} h={"80px"} />
+          ))}
+        </CContainer>
+      )}
 
-      {data &&
-        data.map((karyawan, i) => (
-          <Box
-            key={i}
-            onClick={() => {
-              setDetailKaryawanId(karyawan.id);
-            }}
-          >
-            <KaryawanItem key={i} data={karyawan} noStatus />
-          </Box>
-        ))}
+      {!loading && (
+        <>
+          {error && (
+            <>
+              {notFound && <NotFound />}
+
+              {!notFound && (
+                <Center>
+                  <Retry loading={loading} retry={retry} />
+                </Center>
+              )}
+            </>
+          )}
+
+          {!error && (
+            <>
+              {data &&
+                data.map((karyawan: any, i: number) => (
+                  <Box key={i}>
+                    <KaryawanItem key={i} data={karyawan} noStatus />
+                  </Box>
+                ))}
+            </>
+          )}
+        </>
+      )}
     </CContainer>
   );
 }

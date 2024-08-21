@@ -16,9 +16,9 @@ import LengkapiDataUser1 from "./pages/lengkapiUserData/LengkapiDataUser1";
 import LengkapiDataUser2 from "./pages/lengkapiUserData/LengkapiDataUser2";
 import LengkapiDataUser3 from "./pages/lengkapiUserData/LengkapiDataUser3";
 import LengkapiDataUser4 from "./pages/lengkapiUserData/LengkapiDataUser4";
+import LengkapiDataUser5 from "./pages/lengkapiUserData/LengkapiDataUser5";
 import Login from "./pages/Login";
 import Aktivitas from "./pages/main/Aktivitas";
-import AmbilFoto from "./pages/main/Beranda/AmbilFoto";
 import Beranda from "./pages/main/Beranda/Beranda";
 import Cuti from "./pages/main/Beranda/Cuti";
 import Dokumen from "./pages/main/Beranda/Dokumen";
@@ -32,7 +32,6 @@ import Lembur from "./pages/main/Beranda/Lembur";
 import PengajuanTukarJadwal from "./pages/main/Beranda/PengajuanTukarJadwal";
 import Pengumuman from "./pages/main/Beranda/Pengumuman";
 import SlipGajiku from "./pages/main/Beranda/SlipGajiku";
-import DetailJadwal from "./pages/main/Jadwal/DetailJadwal";
 import Jadwal from "./pages/main/Jadwal/Jadwal";
 import DetailKaryawan from "./pages/main/Karyawan/DetailKaryawan";
 import Karyawan from "./pages/main/Karyawan/Karyawan";
@@ -46,7 +45,6 @@ import EmailVerfication from "./pages/resetPassword/EmailVerfication";
 import ForgotPassword from "./pages/resetPassword/ForgotPassword";
 import NewPassword from "./pages/resetPassword/NewPassword";
 import { globalTheme } from "./theme/globalTheme";
-import LengkapiDataUser5 from "./pages/lengkapiUserData/LengkapiDataUser5";
 
 function disableRightClick(event: MouseEvent) {
   event.preventDefault();
@@ -296,7 +294,7 @@ export const App = () => {
                 </AuthMiddleware>
               }
             />
-            <Route
+            {/* <Route
               path="/jadwal/:currentJadwalId"
               element={
                 <AuthMiddleware>
@@ -305,7 +303,7 @@ export const App = () => {
                   </NavContainer>
                 </AuthMiddleware>
               }
-            />
+            /> */}
             <Route
               path="/karyawan"
               element={

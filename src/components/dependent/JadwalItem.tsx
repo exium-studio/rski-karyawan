@@ -15,7 +15,6 @@ import {
   RiLogoutBoxLine,
 } from "@remixicon/react";
 import { getWeekOfMonth } from "date-fns";
-import { Link } from "react-router-dom";
 import { useLightDarkColor } from "../../constant/colors";
 import { Interface__Jadwal } from "../../constant/interfaces";
 import formatDate from "../../lib/formatDate";
@@ -45,8 +44,8 @@ export default function JadwalItem({
       bg={useLightDarkColor()}
       transition={"200ms"}
       cursor={data.tgl_mulai ? "pointer" : ""}
-      as={Link}
-      to={`/jadwal/detail`}
+      // as={Link}
+      // to={`/jadwal/detail`}
       _active={{ opacity: 0.6 }}
       className="clicky"
       {...props}

@@ -1,4 +1,4 @@
-import { Box, BoxProps, HStack, Text } from "@chakra-ui/react";
+import { BoxProps, HStack, Text } from "@chakra-ui/react";
 import BackOnCloseButton from "../independent/BackOnCloseButton";
 
 interface Props extends BoxProps {
@@ -16,11 +16,9 @@ export default function DisclosureHeader({
   ...props
 }: Props) {
   return (
-    <Box pt={"18px"} pr={5} pb={5} pl={6} {...props}>
-      <HStack justify={"space-between"}>
-        <Text fontSize={20} fontWeight={600}>
-          {title}
-        </Text>
+    <HStack align={"center"} w={"100%"} h="56px" pr={5} pl={6} {...props}>
+      <HStack w={"100%"} justify={"space-between"}>
+        <Text fontWeight={600}>{title}</Text>
 
         {addition}
 
@@ -31,6 +29,6 @@ export default function DisclosureHeader({
           />
         )}
       </HStack>
-    </Box>
+    </HStack>
   );
 }

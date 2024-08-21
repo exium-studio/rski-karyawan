@@ -1,14 +1,13 @@
-import { Box, Center, StackProps } from "@chakra-ui/react";
+import { Center, StackProps } from "@chakra-ui/react";
 import { Interface__Jadwal } from "../../constant/interfaces";
-import useDetailJadwal from "../../global/useDetailJadwal";
 import useDataState from "../../hooks/useDataState";
 import useScrollToTop from "../../hooks/useScrollToTop";
+import formatDate from "../../lib/formatDate";
+import DetailJadwal from "../../pages/main/Jadwal/DetailJadwal";
 import NoData from "../independent/NoData";
 import Skeleton from "../independent/Skeleton";
 import CContainer from "../independent/wrapper/CContainer";
-import JadwalItem from "./JadwalItem";
 import Retry from "./Retry";
-import formatDate from "../../lib/formatDate";
 
 interface Props extends StackProps {
   dateRange: { from: Date; to: Date };
@@ -28,8 +27,6 @@ export default function ListJadwalSaya({ dateRange, ...props }: Props) {
     },
     dependencies: [dateRange],
   });
-
-  const { setDetailJadwalIndex } = useDetailJadwal();
 
   return (
     <CContainer flex={1} gap={3} {...props}>
@@ -58,14 +55,15 @@ export default function ListJadwalSaya({ dateRange, ...props }: Props) {
         data &&
         data?.length > 0 &&
         data.map((jadwal, i) => (
-          <Box
-            key={i}
-            onClick={() => {
-              setDetailJadwalIndex(i);
-            }}
-          >
-            <JadwalItem data={jadwal} h={"114px"} />
-          </Box>
+          <DetailJadwal key={i} jadwal={jadwal} listJadwal={data} index={i} />
+          // <Box
+          //   key={i}
+          //   onClick={() => {
+          //     setDetailJadwalIndex(i);
+          //   }}
+          // >
+          //   <JadwalItem data={jadwal} h={"114px"} />
+          // </Box>
         ))}
     </CContainer>
   );
