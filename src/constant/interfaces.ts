@@ -103,7 +103,7 @@ export interface Interface__Jadwal {
 
 export interface Interface__TukarJadwal {
   id: number;
-  jenis_penukaran: Interface__StaticData;
+  kategori_pengajuan: Interface__StaticData;
   user_ditukar: Interface__User;
   jadwal_ditukar: Interface__Jadwal;
   user_pengajuan: Interface__User;

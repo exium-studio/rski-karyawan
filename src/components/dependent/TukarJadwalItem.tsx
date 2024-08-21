@@ -119,7 +119,7 @@ export default function TukarJadwalItem({ data }: Props) {
             <Text opacity={0.4} fontSize={12}>
               Jenis Penukaran
             </Text>
-            <Text fontWeight={500}>{data.jenis_penukaran.label}</Text>
+            <Text fontWeight={500}>{data?.kategori_pengajuan?.label}</Text>
           </CContainer>
 
           <BooleanBadge
@@ -193,7 +193,7 @@ export default function TukarJadwalItem({ data }: Props) {
               <HStack gap={1} flex={0}>
                 <Text opacity={0.4}>Jenis Penukaran</Text>
                 <FlexLine />
-                <Text fontWeight={500}>{data.jenis_penukaran.label}</Text>
+                <Text fontWeight={500}>{data?.kategori_pengajuan?.label}</Text>
               </HStack>
 
               <HStack gap={1} flex={0}>
