@@ -19,6 +19,7 @@ import { useLightDarkColor } from "../../constant/colors";
 import { Interface__Jadwal } from "../../constant/interfaces";
 import formatDate from "../../lib/formatDate";
 import formatTime from "../../lib/formatTime";
+import CContainer from "../independent/wrapper/CContainer";
 
 interface Props extends StackProps {
   data: Interface__Jadwal;
@@ -50,8 +51,8 @@ export default function JadwalItem({
       className="clicky"
       {...props}
     >
-      <Box>
-        <Text fontSize={12} opacity={0.4} mb={2}>{`${
+      <CContainer gap={2}>
+        <Text fontSize={12} opacity={0.4}>{`${
           data.shift?.nama || "Libur"
         } - Minggu ${getWeekOfMonth(data.tgl_mulai)}`}</Text>
 
@@ -60,7 +61,7 @@ export default function JadwalItem({
         </Text>
 
         {data?.shift?.jam_from && data?.shift?.jam_to && (
-          <HStack gap={3} mt={2}>
+          <HStack gap={3}>
             <HStack gap={1}>
               <Center p={1} borderRadius={"full"} bg={"var(--p500a4)"}>
                 <Icon as={RiLoginBoxLine} fontSize={10} color={"p.500"} />
@@ -76,9 +77,9 @@ export default function JadwalItem({
             </HStack>
           </HStack>
         )}
-      </Box>
+      </CContainer>
 
-      <VStack ml={"auto"}>
+      <CContainer gap={2} ml={"auto"}>
         {!noArrow && (
           <Icon
             as={RiArrowRightSLine}
@@ -106,7 +107,7 @@ export default function JadwalItem({
             ))}
           </AvatarGroup>
         )}
-      </VStack>
+      </CContainer>
     </HStack>
   );
 }

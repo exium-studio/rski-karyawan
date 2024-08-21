@@ -24,7 +24,7 @@ export default function ListJadwalKaryawan({ user_id, ...props }: Props) {
     <CContainer flex={1} gap={3} {...props}>
       {loading && (
         <CContainer flex={1} gap={3}>
-          {Array.from({ length: 6 }).map((_, i) => (
+          {Array.from({ length: 5 }).map((_, i) => (
             <Skeleton key={i} h={"106.5px"} />
           ))}
         </CContainer>
