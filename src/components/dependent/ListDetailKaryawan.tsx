@@ -4,7 +4,7 @@ import { Interface__Karyawan } from "../../constant/interfaces";
 import KaryawanItem from "./KaryawanItem";
 
 interface Props {
-  data: Interface__Karyawan[];
+  data?: Interface__Karyawan[];
   setActiveKaryawan: Dispatch<Interface__Karyawan>;
   index: number;
 }
@@ -49,7 +49,7 @@ export default function ListDetailKaryawan({
       className="noScroll"
     >
       <HStack w={"max-content"} px={5} gap={3}>
-        {data.map((karyawan, i) => {
+        {data?.map((karyawan, i) => {
           return (
             <Box
               key={i}

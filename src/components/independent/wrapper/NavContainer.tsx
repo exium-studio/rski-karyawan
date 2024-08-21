@@ -4,6 +4,7 @@ import Container from "./Container";
 import { useLightDarkColor } from "../../../constant/colors";
 import NavItem from "../../dependent/NavItem";
 import useDataState from "../../../hooks/useDataState";
+import CContainer from "./CContainer";
 
 interface Props {
   active: number;
@@ -24,16 +25,15 @@ export default function NavContainer({ children, active, noNavs }: Props) {
 
   return (
     <Container p={0}>
-      <VStack gap={0} minH={"100vh"} align={"stretch"}>
-        <VStack
+      <CContainer minH={"100vh"}>
+        <CContainer
           id="content"
+          overflowX={"clip"}
           flex={1}
           mb={noNavs ? 0 : "75px"}
-          align={"stretch"}
-          gap={0}
         >
           {children}
-        </VStack>
+        </CContainer>
 
         {!noNavs && (
           <VStack
@@ -66,7 +66,7 @@ export default function NavContainer({ children, active, noNavs }: Props) {
             </SimpleGrid>
           </VStack>
         )}
-      </VStack>
+      </CContainer>
     </Container>
   );
 }

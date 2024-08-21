@@ -23,7 +23,7 @@ import getUserData from "../../../lib/getUserData";
 
 interface Props extends StackProps {
   karyawan: Interface__Karyawan;
-  listKaryawan: Interface__Karyawan[];
+  listKaryawan?: Interface__Karyawan[];
   index: number;
 }
 

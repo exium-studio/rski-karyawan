@@ -3,7 +3,6 @@ import { RiCloseLine, RiSearchLine } from "@remixicon/react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import SearchComponent from "../../../components/dependent/input/SearchComponent";
-import KaryawanItem from "../../../components/dependent/KaryawanItem";
 import Retry from "../../../components/dependent/Retry";
 import FilterKaryawan from "../../../components/independent/FilterKaryawan";
 import NoData from "../../../components/independent/NoData";
@@ -17,6 +16,7 @@ import useDetailKaryawan from "../../../global/useDetailKaryawan";
 import useDataState from "../../../hooks/useDataState";
 import useScrollToTop from "../../../hooks/useScrollToTop";
 import getUserData from "../../../lib/getUserData";
+import DetailKaryawan from "./DetailKaryawan";
 
 export default function Karyawan() {
   useScrollToTop();
@@ -163,16 +163,13 @@ export default function Karyawan() {
             {fd && fd.length > 0 && (
               <>
                 {fd.map((karyawan, i) => (
-                  <Box
+                  <DetailKaryawan
                     key={i}
-                    as={Link}
-                    to={`/karyawan/detail`}
-                    onClick={() => {
-                      setDetailKaryawanId(karyawan.id);
-                    }}
-                  >
-                    <KaryawanItem key={i} data={karyawan} bg={lightDarkColor} />
-                  </Box>
+                    karyawan={karyawan}
+                    listKaryawan={data}
+                    index={i}
+                    bg={lightDarkColor}
+                  />
                 ))}
               </>
             )}
