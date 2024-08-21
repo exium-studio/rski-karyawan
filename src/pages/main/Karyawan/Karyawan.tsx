@@ -1,7 +1,6 @@
 import { Box, HStack, Icon, IconButton, Text } from "@chakra-ui/react";
 import { RiCloseLine, RiSearchLine } from "@remixicon/react";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import SearchComponent from "../../../components/dependent/input/SearchComponent";
 import Retry from "../../../components/dependent/Retry";
 import FilterKaryawan from "../../../components/independent/FilterKaryawan";

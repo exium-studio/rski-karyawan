@@ -88,7 +88,7 @@ export default function DetailKaryawan({
               />
 
               <Text fontWeight={600} px={6} mt={6} mb={4}>
-                Karyawan {user.unit_kerja?.[0]?.nama_unit || "Unit Kerja"}
+                Jadwal Minggu Ini
               </Text>
 
               <ListJadwalKaryawan user_id={activeKaryawan.user.id} px={5} />

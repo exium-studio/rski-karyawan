@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Center,
   HStack,
@@ -21,10 +20,10 @@ import { getWeekOfMonth } from "date-fns";
 import { useEffect, useState } from "react";
 import { useLightDarkColor } from "../../constant/colors";
 import { dummyMySchedules } from "../../constant/dummy";
-import formatTime from "../../lib/formatTime";
 import { Interface__Jadwal } from "../../constant/interfaces";
 import { iconSize } from "../../constant/sizes";
 import formatDate from "../../lib/formatDate";
+import formatTime from "../../lib/formatTime";
 import CContainer from "../independent/wrapper/CContainer";
 import CustomDrawer from "../independent/wrapper/CustomDrawer";
 import HorizontalScrollWrapperOnDrawer from "../independent/wrapper/HorizontalScrollWrapperOnDrawer";
@@ -343,15 +342,19 @@ export default function JadwalKaryawanItem({
     <HStack
       ref={forwardRef || null}
       gap={8}
-      p={4}
+      py={4}
+      px={5}
       borderRadius={12}
       bg={lightDarkColor}
       transition={"200ms"}
+      cursor={data.tgl_mulai ? "pointer" : ""}
+      _active={{ opacity: 0.6 }}
+      className="clicky"
       position={"relative"}
       {...props}
     >
-      <Box>
-        <Text fontSize={12} opacity={0.4} mb={2}>{`${
+      <CContainer gap={2}>
+        <Text fontSize={12} opacity={0.4}>{`${
           data.shift?.nama || "Libur"
         } - Minggu ${getWeekOfMonth(data.tgl_mulai)}`}</Text>
 
@@ -360,7 +363,7 @@ export default function JadwalKaryawanItem({
         </Text>
 
         {data?.shift?.jam_from && data?.shift?.jam_to && (
-          <HStack gap={3} mt={2}>
+          <HStack gap={3}>
             <HStack gap={1}>
               <Center p={1} borderRadius={"full"} bg={"var(--p500a4)"}>
                 <Icon as={RiLoginBoxLine} fontSize={10} color={"p.500"} />
@@ -376,7 +379,7 @@ export default function JadwalKaryawanItem({
             </HStack>
           </HStack>
         )}
-      </Box>
+      </CContainer>
 
       {!detailOnly && <TukarButton userId={userId} data={data} />}
     </HStack>

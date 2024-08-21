@@ -24,8 +24,8 @@ export default function ListJadwalKaryawan({ user_id, ...props }: Props) {
     <CContainer flex={1} gap={3} {...props}>
       {loading && (
         <CContainer flex={1} gap={3}>
-          {Array.from({ length: 5 }).map((_, i) => (
-            <Skeleton key={i} h={"106.5px"} />
+          {Array.from({ length: 7 }).map((_, i) => (
+            <Skeleton key={i} h={"114px"} />
           ))}
         </CContainer>
       )}
@@ -48,7 +48,7 @@ export default function ListJadwalKaryawan({ user_id, ...props }: Props) {
             <>
               {data &&
                 data.map((jadwal: any, i: number) => (
-                  <JadwalKaryawanItem key={i} data={jadwal} />
+                  <JadwalKaryawanItem key={i} data={jadwal} h={"114px"} />
                 ))}
             </>
           )}

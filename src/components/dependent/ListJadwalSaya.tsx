@@ -44,7 +44,7 @@ export default function ListJadwalSaya({ dateRange, ...props }: Props) {
 
       {!error &&
         loading &&
-        Array.from({ length: 5 }).map((_, i) => (
+        Array.from({ length: 7 }).map((_, i) => (
           <Skeleton key={i} h={"114px"} />
         ))}
 

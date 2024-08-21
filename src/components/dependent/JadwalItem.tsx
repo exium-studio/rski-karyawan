@@ -1,13 +1,11 @@
 import {
   Avatar,
   AvatarGroup,
-  Box,
   Center,
   HStack,
   Icon,
   StackProps,
   Text,
-  VStack,
 } from "@chakra-ui/react";
 import {
   RiArrowRightSLine,
@@ -35,6 +33,9 @@ export default function JadwalItem({
   forwardRef,
   ...props
 }: Props) {
+  // SX
+  const lightDarkColor = useLightDarkColor();
+
   return (
     <HStack
       ref={forwardRef || null}
@@ -42,11 +43,9 @@ export default function JadwalItem({
       py={4}
       px={5}
       borderRadius={12}
-      bg={useLightDarkColor()}
+      bg={lightDarkColor}
       transition={"200ms"}
       cursor={data.tgl_mulai ? "pointer" : ""}
-      // as={Link}
-      // to={`/jadwal/detail`}
       _active={{ opacity: 0.6 }}
       className="clicky"
       {...props}
