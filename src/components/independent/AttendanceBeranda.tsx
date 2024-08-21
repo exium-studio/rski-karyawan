@@ -65,7 +65,7 @@ export default function AttendanceBeranda() {
                 onClick={() => {
                   ripple(liburButtonRef);
                   toast({
-                    status: "warning",
+                    status: "error",
                     title: "Hari ini tidak ada jadwal kerja",
                     isClosable: true,
                     position: "top",
@@ -163,7 +163,13 @@ export default function AttendanceBeranda() {
         <>
           {loading && (
             <>
-              <Skeleton h={"120px"} w={"120px"} bg={skeletonBg} my={"auto"} />
+              <Skeleton
+                h={"120px"}
+                w={"120px"}
+                bg={skeletonBg}
+                my={"auto"}
+                borderRadius={24}
+              />
 
               <Skeleton bg={skeletonBg} h={"36px"} mb={8} maxW={"280px"} />
 

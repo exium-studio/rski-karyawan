@@ -1,9 +1,9 @@
 import { Center, StackProps } from "@chakra-ui/react";
 import useDataState from "../../hooks/useDataState";
+import DetailKaryawan from "../../pages/main/Karyawan/DetailKaryawan";
 import NotFound from "../independent/NotFound";
 import Skeleton from "../independent/Skeleton";
 import CContainer from "../independent/wrapper/CContainer";
-import KaryawanItem from "./KaryawanItem";
 import Retry from "./Retry";
 
 interface Props extends StackProps {
@@ -45,7 +45,12 @@ export default function ListKaryawanByJadwal({ jadwal_id, ...props }: Props) {
             <>
               {data &&
                 data.map((karyawan: any, i: number) => (
-                  <KaryawanItem key={i} data={karyawan} noStatus />
+                  <DetailKaryawan
+                    key={i}
+                    karyawan={karyawan}
+                    listKaryawan={data}
+                    index={i}
+                  />
                 ))}
             </>
           )}

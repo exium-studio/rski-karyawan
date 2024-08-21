@@ -314,7 +314,7 @@ export const App = () => {
                 </AuthMiddleware>
               }
             />
-            <Route
+            {/* <Route
               path="/karyawan/detail"
               element={
                 <AuthMiddleware>
@@ -323,7 +323,7 @@ export const App = () => {
                   </NavContainer>
                 </AuthMiddleware>
               }
-            />
+            /> */}
             <Route
               path="/beranda/aktivitas"
               element={
