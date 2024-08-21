@@ -37,8 +37,8 @@ export const ProfilColorModeSwitcher: React.FC<ColorModeSwitcherProps> = (
       <Text>Mode Gelap</Text>
 
       <Box
-        h={"10px"}
-        w={"10px"}
+        h={"8px"}
+        w={"8px"}
         borderRadius={"full"}
         bg={colorMode === "dark" ? "green.500" : "var(--divider3)"}
         ml={"auto"}
