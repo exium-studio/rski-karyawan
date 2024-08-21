@@ -70,18 +70,6 @@ export default function LoginForm() {
         .finally(() => {
           setLoading(false);
         });
-
-      const userData = {
-        id: 1,
-        nama: "Very Very Long Name Posible Inputted",
-        foto_profil: "/images/diklat.jpg",
-        unit_kerja: {
-          nama_unit: "Poli Anak",
-        },
-        data_completion_step: 0,
-      };
-
-      setCookie("userData", JSON.stringify(userData));
     },
   });
 
