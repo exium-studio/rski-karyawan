@@ -1,4 +1,4 @@
-import { Box, Center, StackProps } from "@chakra-ui/react";
+import { Center, StackProps } from "@chakra-ui/react";
 import useDataState from "../../hooks/useDataState";
 import NotFound from "../independent/NotFound";
 import Skeleton from "../independent/Skeleton";
@@ -45,9 +45,7 @@ export default function ListKaryawanByJadwal({ jadwal_id, ...props }: Props) {
             <>
               {data &&
                 data.map((karyawan: any, i: number) => (
-                  <Box key={i}>
-                    <KaryawanItem key={i} data={karyawan} noStatus />
-                  </Box>
+                  <KaryawanItem key={i} data={karyawan} noStatus />
                 ))}
             </>
           )}

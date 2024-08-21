@@ -67,7 +67,11 @@ export default function DetailJadwal({
         <ModalOverlay />
         <ModalContent m={0}>
           <ModalHeader>
-            <Header left={"back"} title="Detail Jadwal" />
+            <Header
+              left={"back"}
+              title="Detail Jadwal"
+              borderBottom={"1px solid var(--divider2)"}
+            />
           </ModalHeader>
           <ModalBody px={0}>
             <CContainer flex={1}>
