@@ -125,7 +125,7 @@ export default function FilterTukarJadwal({ ...props }: Props) {
         header={
           <Box pt={"18px"} pr={5} pb={5} pl={6}>
             <HStack justify={"space-between"}>
-              <Text fontSize={20} fontWeight={600}>
+              <Text fontSize={16} fontWeight={600}>
                 Filter Tukar Jadwal
               </Text>
               <BackOnCloseButton aria-label="back on close button" />

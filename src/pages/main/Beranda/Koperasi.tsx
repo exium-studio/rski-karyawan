@@ -19,7 +19,7 @@ export default function Koperasi() {
         justify={"center"}
       >
         <Image src="/vectors/error503.webp" maxW={"300px"} mb={6} />
-        <Text fontSize={20} fontWeight={600}>
+        <Text fontSize={16} fontWeight={600}>
           Maaf, fitur ini belum tersedia
         </Text>
       </CContainer>

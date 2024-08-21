@@ -160,7 +160,7 @@ export default function MultipleSelectDrawer({
         header={
           <Box pt={"18px"} pr={5} pb={5} pl={6}>
             <HStack justify={"space-between"} align={"start"}>
-              <Text fontSize={20} fontWeight={600}>
+              <Text fontSize={16} fontWeight={600}>
                 {placeholder || "Multi Pilih"}
               </Text>
               <BackOnCloseButton aria-label="back on close button" />

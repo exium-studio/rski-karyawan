@@ -220,7 +220,7 @@ export default function DokumenFileItem({ data }: Props) {
         <ModalContent m={0} border={"none"}>
           <ModalHeader ref={initialRef}>
             <HStack justify={"space-between"}>
-              <Text fontSize={20} fontWeight={600}>
+              <Text fontSize={16} fontWeight={600}>
                 Pratinjau
               </Text>
               <BackOnCloseButton aria-label="back on close button" />

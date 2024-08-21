@@ -122,7 +122,7 @@ export default function Laporan() {
           zIndex={4}
         >
           <HStack mb={4}>
-            <Text fontSize={20} fontWeight={600}>
+            <Text fontSize={16} fontWeight={600}>
               Buat Laporan
             </Text>
           </HStack>

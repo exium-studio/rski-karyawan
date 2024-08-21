@@ -9,7 +9,7 @@ interface Props extends IconButtonProps {
 export default function BackOnCloseButton({ onClose, ...props }: Props) {
   return (
     <IconButton
-      icon={<Icon as={RiCloseLine} fontSize={24} className="custom-icon" />}
+      icon={<Icon as={RiCloseLine} fontSize={20} className="custom-icon" />}
       minW="30px !important"
       h="30px !important"
       borderRadius={"full"}

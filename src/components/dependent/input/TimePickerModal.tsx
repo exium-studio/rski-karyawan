@@ -204,7 +204,7 @@ export default function TimePickerModal({
         <ModalContent>
           <ModalHeader ref={initialRef}>
             <HStack align={"start"} justify={"space-between"}>
-              <Text fontSize={20} fontWeight={600}>
+              <Text fontSize={16} fontWeight={600}>
                 {placeholder || "Pilih Waktu"}
               </Text>
 

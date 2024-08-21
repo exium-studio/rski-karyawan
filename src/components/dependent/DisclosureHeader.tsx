@@ -18,7 +18,9 @@ export default function DisclosureHeader({
   return (
     <HStack align={"center"} w={"100%"} h="56px" pr={5} pl={6} {...props}>
       <HStack w={"100%"} justify={"space-between"}>
-        <Text fontWeight={600}>{title}</Text>
+        <Text fontSize={16} fontWeight={600}>
+          {title}
+        </Text>
 
         {addition}
 
