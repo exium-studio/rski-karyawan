@@ -32,9 +32,12 @@ import formatNumber from "../../lib/formatNumber";
 import parseNumber from "../../lib/parseNumber";
 import req from "../../lib/req";
 import useDcs from "../../global/useAuth";
+import getUserData from "../../lib/getUserData";
 
 export default function LengkapiDataUser1() {
   useScrollToTop();
+
+  const user = getUserData();
 
   const navigate = useNavigate();
 
@@ -45,7 +48,7 @@ export default function LengkapiDataUser1() {
   const formik = useFormik({
     validateOnChange: false,
     initialValues: {
-      nama: undefined as any,
+      nama: user.nama,
       tempat_lahir: "" as any,
       tgl_lahir: undefined as any,
       telepon: "" as any,
@@ -161,7 +164,7 @@ export default function LengkapiDataUser1() {
                   formik.setFieldValue("nama_disabled", input);
                 }}
                 inputValue={formik.values.nama}
-                isDisabled
+                isReadOnly
               />
               <FormErrorMessage>
                 {formik.errors.nama as string}
