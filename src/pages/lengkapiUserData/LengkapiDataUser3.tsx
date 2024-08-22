@@ -253,10 +253,7 @@ export default function LengkapiDataUser3() {
               mb={6}
               isInvalid={formik.errors.bpjsKetenagakerjaan ? true : false}
             >
-              <FormLabel>
-                No. BPJS Ketenagakerjaan
-                <RequiredForm />
-              </FormLabel>
+              <FormLabel>No. BPJS Ketenagakerjaan</FormLabel>
               <StringInput
                 name="bpjsKetenagakerjaan"
                 placeholder="231*****"
