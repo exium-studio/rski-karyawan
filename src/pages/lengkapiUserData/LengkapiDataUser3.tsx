@@ -64,9 +64,13 @@ export default function LengkapiDataUser3() {
 
       const payload = {
         no_str: values.str,
-        masa_berlaku_str: formatDate(values.masa_berlaku_sip, "short2"),
+        masa_berlaku_str: values.masa_berlaku_sip
+          ? formatDate(values.masa_berlaku_sip, "short2")
+          : "Seumur Hidup",
         no_sip: values.sip,
-        masa_berlaku_sip: formatDate(values.masa_berlaku_sip, "short2"),
+        masa_berlaku_sip: values.masa_berlaku_sip
+          ? formatDate(values.masa_berlaku_sip, "short2")
+          : "Seumur Hidup",
         no_bpjsksh: values.bpjsKesehatan,
         no_bpjsktk: values.bpjsKetenagakerjaan,
         npwp: values.npwp,
