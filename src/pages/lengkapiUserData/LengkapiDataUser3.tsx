@@ -235,7 +235,7 @@ export default function LengkapiDataUser3() {
               isInvalid={formik.errors.bpjsKesehatan ? true : false}
             >
               <FormLabel>
-                BPJS Kesehatan
+                No. BPJS Kesehatan
                 <RequiredForm />
               </FormLabel>
               <StringInput
@@ -254,7 +254,7 @@ export default function LengkapiDataUser3() {
               isInvalid={formik.errors.bpjsKetenagakerjaan ? true : false}
             >
               <FormLabel>
-                BPJS Ketenagakerjaan
+                No. BPJS Ketenagakerjaan
                 <RequiredForm />
               </FormLabel>
               <StringInput
