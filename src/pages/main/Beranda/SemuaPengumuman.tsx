@@ -71,6 +71,7 @@ export default function SemuaPengumuman() {
         fontWeight={500}
         fontSize={"12px !important"}
         onClick={onOpen}
+        cursor={"pointer"}
       >
         Semua Pengumuman
       </Text>
@@ -81,6 +82,7 @@ export default function SemuaPengumuman() {
         isCentered
         blockScrollOnMount={false}
         size={"full"}
+        scrollBehavior="inside"
       >
         <ModalOverlay />
         <ModalContent m={0} overflowX={"clip"}>
@@ -166,7 +168,7 @@ export default function SemuaPengumuman() {
               </HStack>
             </Box>
           </ModalHeader>
-          <ModalBody px={0}>
+          <ModalBody p={0}>
             <CContainer flex={1}>
               <CContainer bg={contentBgColor} p={5} pb={8} gap={3} flex={1}>
                 {error && (

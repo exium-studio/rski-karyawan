@@ -18,7 +18,7 @@ import LengkapiDataUser3 from "./pages/lengkapiUserData/LengkapiDataUser3";
 import LengkapiDataUser4 from "./pages/lengkapiUserData/LengkapiDataUser4";
 import LengkapiDataUser5 from "./pages/lengkapiUserData/LengkapiDataUser5";
 import Login from "./pages/Login";
-import Aktivitas from "./pages/main/Aktivitas";
+import Aktivitas from "./pages/main/SemuaAktivitas";
 import Beranda from "./pages/main/Beranda/Beranda";
 import Cuti from "./pages/main/Beranda/Cuti";
 import Dokumen from "./pages/main/Beranda/Dokumen";

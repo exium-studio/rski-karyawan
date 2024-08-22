@@ -7,6 +7,7 @@ import Retry from "../dependent/Retry";
 import NoData from "./NoData";
 import Skeleton from "./Skeleton";
 import CContainer from "./wrapper/CContainer";
+import SemuaAktivitas from "../../pages/main/SemuaAktivitas";
 
 export default function AktivitasAndaBeranda() {
   const { error, notFound, loading, data, retry } = useDataState({
@@ -21,15 +22,7 @@ export default function AktivitasAndaBeranda() {
       <HStack mb={4} justify={"space-between"}>
         <Text fontWeight={600}>Aktivitas Anda</Text>
 
-        <Text
-          color={"p.500"}
-          as={Link}
-          to={"/beranda/aktivitas"}
-          fontWeight={500}
-          fontSize={"12px !important"}
-        >
-          Semua Aktivitas
-        </Text>
+        <SemuaAktivitas />
       </HStack>
 
       <CContainer align={"stretch"} gap={3} flex={1}>
