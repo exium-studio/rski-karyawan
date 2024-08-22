@@ -30,7 +30,7 @@ import Koperasi from "./pages/main/Beranda/Koperasi";
 import Laporan from "./pages/main/Beranda/Laporan";
 import Lembur from "./pages/main/Beranda/Lembur";
 import PengajuanTukarJadwal from "./pages/main/Beranda/PengajuanTukarJadwal";
-import Pengumuman from "./pages/main/Beranda/Pengumuman";
+import Pengumuman from "./pages/main/Beranda/SemuaPengumuman";
 import SlipGajiku from "./pages/main/Beranda/SlipGajiku";
 import Jadwal from "./pages/main/Jadwal/Jadwal";
 import Karyawan from "./pages/main/Karyawan/Karyawan";

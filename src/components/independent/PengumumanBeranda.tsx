@@ -1,7 +1,7 @@
 import { Box, Center, HStack, Text } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
 import { dummyPengumuman } from "../../constant/dummy";
 import useDataState from "../../hooks/useDataState";
+import SemuaPengumuman from "../../pages/main/Beranda/SemuaPengumuman";
 import PengumumanItem from "../dependent/PengumumanItem";
 import Retry from "../dependent/Retry";
 import NoData from "./NoData";
@@ -21,15 +21,7 @@ export default function PengumumanBeranda() {
       <HStack mb={4} justify={"space-between"} px={5}>
         <Text fontWeight={600}>Pengumuman</Text>
 
-        <Text
-          color={"p.500"}
-          as={Link}
-          to={"/beranda/pengumuman"}
-          fontWeight={500}
-          fontSize={"12px !important"}
-        >
-          Semua Pengumuman
-        </Text>
+        <SemuaPengumuman />
       </HStack>
 
       <CContainer flex={0} align={"stretch"} gap={3}>
