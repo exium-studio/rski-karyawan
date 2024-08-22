@@ -26,7 +26,13 @@ export default function SemuaAktivitas() {
 
   return (
     <>
-      <Text onClick={onOpen} color={"p.500"} cursor={"pointer"}>
+      <Text
+        color={"p.500"}
+        fontWeight={500}
+        fontSize={"12px !important"}
+        onClick={onOpen}
+        cursor={"pointer"}
+      >
         Semua Aktivitas
       </Text>
 
