@@ -79,7 +79,7 @@ export default function LengkapiDataUser1() {
       alamat: yup.string().required("Harus diisi"),
       no_ijazah: yup.string().required("Harus diisi"),
       tahun_lulus: yup.string().required("Harus diisi"),
-      gelar_depan: yup.string().required("Harus diisi"),
+      gelar_depan: yup.string(),
     }),
     onSubmit: (values, { resetForm }) => {
       setLoading(true);
@@ -94,6 +94,7 @@ export default function LengkapiDataUser1() {
         agama: values.agama?.value,
         golongan_darah: values.golongan_darah?.value,
         tinggi_badan: values.tinggi_badan,
+        berat_badan: values.berat_badan,
         alamat: values.alamat,
         no_ijazah: values.no_ijazah,
         tahun_lulus: values.tahun_lulus,
@@ -430,7 +431,10 @@ export default function LengkapiDataUser1() {
             </FormControl>
 
             <FormControl isInvalid={formik.errors.tahun_lulus ? true : false}>
-              <FormLabel>Tahun Lulus Ijazah Terakhir</FormLabel>
+              <FormLabel>
+                Tahun Lulus Ijazah Terakhir
+                <RequiredForm />
+              </FormLabel>
               <StringInput
                 name="tahun_lulus"
                 placeholder="2024"
