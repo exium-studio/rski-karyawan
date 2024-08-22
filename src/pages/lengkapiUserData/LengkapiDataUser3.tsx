@@ -33,6 +33,7 @@ export default function LengkapiDataUser3() {
   const { setDcs } = useDcs();
 
   const [noLimitStr, setNoLimitStr] = useState<boolean>(false);
+  const [noLimitSip, setNoLimitSip] = useState<boolean>(false);
 
   const formik = useFormik({
     validateOnChange: false,
@@ -161,10 +162,12 @@ export default function LengkapiDataUser3() {
                     formik.setFieldValue("masa_berlaku_str", undefined);
                   }
                 }}
-                mt={2}
+                mt={3}
                 isChecked={noLimitStr}
               >
-                <Text mt={"-3px"}>Masa berlaku seumur hidup</Text>
+                <Text mt={"-2px"} opacity={noLimitStr ? 1 : 0.4}>
+                  Masa berlaku seumur hidup
+                </Text>
               </Checkbox>
               <FormErrorMessage>
                 {formik.errors.masa_berlaku_str as string}
@@ -200,7 +203,23 @@ export default function LengkapiDataUser3() {
                 }}
                 inputValue={formik.values.masa_berlaku_sip}
                 isError={!!formik.errors.masa_berlaku_sip}
+                isDisabled={noLimitSip}
               />
+              <Checkbox
+                colorScheme="ap"
+                onChange={(e) => {
+                  setNoLimitSip(e.target.checked);
+                  if (e.target.checked) {
+                    formik.setFieldValue("masa_berlaku_sip", undefined);
+                  }
+                }}
+                mt={3}
+                isChecked={noLimitSip}
+              >
+                <Text mt={"-2px"} opacity={noLimitSip ? 1 : 0.4}>
+                  Masa berlaku seumur hidup
+                </Text>
+              </Checkbox>
               <FormErrorMessage>
                 {formik.errors.masa_berlaku_sip as string}
               </FormErrorMessage>
