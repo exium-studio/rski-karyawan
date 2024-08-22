@@ -16,11 +16,13 @@ import * as yup from "yup";
 import req from "../../lib/req";
 import PasswordInput from "../dependent/input/PasswordInput";
 import StringInput from "../dependent/input/StringInput";
+import useAuth from "../../global/useAuth";
 
 export default function LoginForm() {
   const toast = useToast();
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
+  const { setDcs, setStatusAktif } = useAuth();
 
   const formik = useFormik({
     validateOnChange: false,
@@ -42,6 +44,14 @@ export default function LoginForm() {
         .then((r) => {
           if (r.status === 200) {
             const userData = r.data.data;
+
+            setDcs(userData.data_completion_step);
+            setStatusAktif(userData.status_aktif);
+
+            setCookie("__auth_token", userData.arrtoken.token);
+            localStorage.setItem("__user_data", JSON.stringify(userData));
+            navigate("/beranda");
+
             toast({
               status: "success",
               title: r.data.message,
@@ -49,10 +59,6 @@ export default function LoginForm() {
               position: "top",
               isClosable: true,
             });
-
-            setCookie("__auth_token", userData.arrtoken.token);
-            localStorage.setItem("__user_data", JSON.stringify(userData));
-            navigate("/beranda");
           }
         })
         .catch((e) => {
