@@ -1,4 +1,4 @@
-import { Box, HStack, Image, Text, VStack, Wrap } from "@chakra-ui/react";
+import { Box, Image, Text, VStack, Wrap } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import berandaMenus from "../../constant/berandaMenus";
@@ -119,7 +119,7 @@ export default function BerandaMenus() {
           ))}
         </Wrap>
       </Box>
-
+      {/* 
       <HStack
         mx={"auto"}
         w={`${indicatorContainerWidth}px`}
@@ -139,7 +139,7 @@ export default function BerandaMenus() {
           position="absolute"
           left={`${indicatorTranslateRight * 5}px`}
         />
-      </HStack>
+      </HStack> */}
     </VStack>
   );
 }
