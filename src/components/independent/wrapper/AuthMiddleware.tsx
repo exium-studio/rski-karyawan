@@ -37,7 +37,9 @@ export default function AuthMiddleware({ ldp, children }: Props) {
           toast({
             status: "error",
             title:
-              e.response.data.message || "Maaf terjadi kesalahan pada sistem",
+              (typeof e?.response?.data?.message === "string" &&
+                (e?.response?.data?.message as string)) ||
+              "Maaf terjadi kesalahan pada sistem",
             position: "top",
             isClosable: true,
           });

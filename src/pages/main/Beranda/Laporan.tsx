@@ -1,78 +1,72 @@
-import { Image, Text, useToast } from "@chakra-ui/react";
-import { useFormik } from "formik";
-import { useState } from "react";
-import * as yup from "yup";
+import { Image, Text } from "@chakra-ui/react";
 import Header from "../../../components/dependent/Header";
 import CContainer from "../../../components/independent/wrapper/CContainer";
-import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
-import formatDate from "../../../lib/formatDate";
-import req from "../../../lib/req";
+import { useContentBgColor } from "../../../constant/colors";
 
 export default function Laporan() {
-  const [loading, setLoading] = useState<boolean>(false);
-  const toast = useToast();
+  // const [loading, setLoading] = useState<boolean>(false);
+  // const toast = useToast();
 
-  const formik = useFormik({
-    validateOnChange: false,
-    initialValues: {
-      pelaku: "",
-      tgl_kejadian: undefined as any,
-      lokasi: "",
-      waktu: undefined as any,
-      kronologi: "",
-      foto: undefined as any,
-    },
-    validationSchema: yup.object().shape({
-      pelaku: yup.string().required("Harus diisi"),
-      tgl_kejadian: yup.date().required("Harus diisi"),
-      lokasi: yup.string().required("Harus diisi"),
-      waktu: yup.string().required("Harus diisi"),
-      kronologi: yup.string().required("Harus diisi"),
-      foto: yup.mixed().required("Harus diisi"),
-    }),
-    onSubmit: (values, { resetForm }) => {
-      setLoading(true);
+  // const formik = useFormik({
+  //   validateOnChange: false,
+  //   initialValues: {
+  //     pelaku: "",
+  //     tgl_kejadian: undefined as any,
+  //     lokasi: "",
+  //     waktu: undefined as any,
+  //     kronologi: "",
+  //     foto: undefined as any,
+  //   },
+  //   validationSchema: yup.object().shape({
+  //     pelaku: yup.string().required("Harus diisi"),
+  //     tgl_kejadian: yup.date().required("Harus diisi"),
+  //     lokasi: yup.string().required("Harus diisi"),
+  //     waktu: yup.string().required("Harus diisi"),
+  //     kronologi: yup.string().required("Harus diisi"),
+  //     foto: yup.mixed().required("Harus diisi"),
+  //   }),
+  //   onSubmit: (values, { resetForm }) => {
+  //     setLoading(true);
 
-      const payload = new FormData();
-      payload.append("pelaku", values.pelaku);
-      payload.append("tgl_kejadian", formatDate(values.tgl_kejadian, "short2"));
-      payload.append("lokasi", values.lokasi);
-      payload.append("waktu", values.waktu);
-      payload.append("kronologi", values.kronologi);
-      payload.append("foto", values.foto);
+  //     const payload = new FormData();
+  //     payload.append("pelaku", values.pelaku);
+  //     payload.append("tgl_kejadian", formatDate(values.tgl_kejadian, "short2"));
+  //     payload.append("lokasi", values.lokasi);
+  //     payload.append("waktu", values.waktu);
+  //     payload.append("kronologi", values.kronologi);
+  //     payload.append("foto", values.foto);
 
-      req
-        .post(`/api/store-laporan`, payload)
-        .then((r) => {
-          if (r.status === 200) {
-            toast({
-              status: "success",
-              title: r.data.message,
-              position: "top",
-              isClosable: true,
-            });
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-          toast({
-            status: "error",
-            title:
-              (typeof e?.response?.data?.message === "string" &&
-                (e?.response?.data?.message as string)) ||
-              "Maaf terjadi kesalahan pada sistem",
-            isClosable: true,
-            position: "top",
-          });
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    },
-  });
+  //     req
+  //       .post(`/api/store-laporan`, payload)
+  //       .then((r) => {
+  //         if (r.status === 200) {
+  //           toast({
+  //             status: "success",
+  //             title: r.data.message,
+  //             position: "top",
+  //             isClosable: true,
+  //           });
+  //         }
+  //       })
+  //       .catch((e) => {
+  //         console.log(e);
+  //         toast({
+  //           status: "error",
+  //           title:
+  //             (typeof e?.response?.data?.message === "string" &&
+  //               (e?.response?.data?.message as string)) ||
+  //             "Maaf terjadi kesalahan pada sistem",
+  //           isClosable: true,
+  //           position: "top",
+  //         });
+  //       })
+  //       .finally(() => {
+  //         setLoading(false);
+  //       });
+  //   },
+  // });
 
   // SX
-  const lightDarkColor = useLightDarkColor();
   const contentBgColor = useContentBgColor();
 
   return (

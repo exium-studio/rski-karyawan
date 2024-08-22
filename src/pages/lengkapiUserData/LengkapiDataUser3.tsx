@@ -44,6 +44,7 @@ export default function LengkapiDataUser3() {
       masa_berlaku_sip: undefined as any,
       bpjsKesehatan: "",
       bpjsKetenagakerjaan: "",
+      npwp: "",
     },
     validationSchema: yup.object().shape({
       str: yup.string().required("Harus diisi"),
@@ -51,9 +52,12 @@ export default function LengkapiDataUser3() {
         ? yup.mixed()
         : yup.string().required("Harus diisi"),
       sip: yup.string().required("Harus diisi"),
-      masa_berlaku_sip: yup.string().required("Harus diisi"),
+      masa_berlaku_sip: noLimitSip
+        ? yup.mixed()
+        : yup.string().required("Harus diisi"),
       bpjsKesehatan: yup.string().required("Harus diisi"),
       bpjsKetenagakerjaan: yup.string().required("Harus diisi"),
+      npwp: yup.string().required("Harus diisi"),
     }),
     onSubmit: (values, { resetForm }) => {
       setLoading(true);
@@ -65,6 +69,7 @@ export default function LengkapiDataUser3() {
         masa_berlaku_sip: formatDate(values.masa_berlaku_sip, "short2"),
         no_bpjsksh: values.bpjsKesehatan,
         no_bpjsktk: values.bpjsKetenagakerjaan,
+        npwp: values.npwp,
       };
 
       req

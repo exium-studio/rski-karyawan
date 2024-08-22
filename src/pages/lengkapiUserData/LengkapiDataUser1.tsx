@@ -59,10 +59,11 @@ export default function LengkapiDataUser1() {
       golongan_darah: undefined as any,
       tinggi_badan: undefined as any,
       berat_badan: undefined as any,
-      // berat_badan: undefined as any,
       alamat: undefined as any,
       no_ijazah: "" as any,
       tahun_lulus: "" as any,
+      gelar_depan: "" as any,
+      // berat_badan: undefined as any,
     },
     validationSchema: yup.object().shape({
       tempat_lahir: yup.string().required("Harus diisi"),
@@ -78,6 +79,7 @@ export default function LengkapiDataUser1() {
       alamat: yup.string().required("Harus diisi"),
       no_ijazah: yup.string().required("Harus diisi"),
       tahun_lulus: yup.string().required("Harus diisi"),
+      gelar_depan: yup.string().required("Harus diisi"),
     }),
     onSubmit: (values, { resetForm }) => {
       setLoading(true);
@@ -90,11 +92,12 @@ export default function LengkapiDataUser1() {
         nik_ktp: values.nik_ktp,
         no_kk: values.no_kk,
         agama: values.agama?.value,
-        golongan_darah: values.agama?.value,
+        golongan_darah: values.golongan_darah?.value,
         tinggi_badan: values.tinggi_badan,
         alamat: values.alamat,
         no_ijazah: values.no_ijazah,
         tahun_lulus: values.tahun_lulus,
+        gelar_depan: values.gelar_depan,
       };
 
       req
@@ -438,6 +441,21 @@ export default function LengkapiDataUser1() {
               />
               <FormErrorMessage>
                 {formik.errors.tahun_lulus as string}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={formik.errors.gelar_depan ? true : false}>
+              <FormLabel>Gelar Depan</FormLabel>
+              <StringInput
+                name="gelar_depan"
+                placeholder="2024"
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("gelar_depan", input);
+                }}
+                inputValue={formik.values.gelar_depan}
+              />
+              <FormErrorMessage>
+                {formik.errors.gelar_depan as string}
               </FormErrorMessage>
             </FormControl>
           </form>
