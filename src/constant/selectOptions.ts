@@ -45,6 +45,12 @@ const optionsStatusKerja = [
   { value: 4, label: "Libur" },
 ];
 
+const optionsStatusKaryawan = [
+  { value: 1, label: "Tetap" },
+  { value: 2, label: "Kontrak" },
+  { value: 3, label: "Training" },
+];
+
 const optionsJenisKaryawan = [
   { value: true, label: "Shift" },
   { value: false, label: "Non-Shift" },
@@ -130,6 +136,7 @@ const optionsInboxType = [
 ];
 
 export {
+  optionsStatusKaryawan,
   optionsAgama,
   optionsKategoriCuti,
   optionsKategoriTukarJadwal,

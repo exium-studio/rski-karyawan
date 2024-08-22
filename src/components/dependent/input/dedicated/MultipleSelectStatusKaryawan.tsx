@@ -1,6 +1,6 @@
 import { ButtonProps, useDisclosure } from "@chakra-ui/react";
 import { Interface__SelectOption } from "../../../../constant/interfaces";
-import { optionsStatusKerja } from "../../../../constant/selectOptions";
+import { optionsStatusKaryawan } from "../../../../constant/selectOptions";
 import MultipleSelectDrawer from "../MultipleSelectDrawer";
 
 interface Props extends ButtonProps {
@@ -17,7 +17,7 @@ interface Props extends ButtonProps {
   nonNullable?: boolean;
 }
 
-export default function MultipleSelectStatusKerja({
+export default function MultipleSelectStatusKaryawan({
   id,
   name,
   onConfirm,
@@ -40,7 +40,7 @@ export default function MultipleSelectStatusKerja({
       isOpen={isOpen}
       onOpen={onOpen}
       onClose={onClose}
-      options={optionsStatusKerja}
+      options={optionsStatusKaryawan}
       onConfirm={onConfirm}
       inputValue={inputValue}
       withSearch={withSearch}

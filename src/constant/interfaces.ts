@@ -132,7 +132,7 @@ export interface Interface__FilterTukarJadwal {
 
 export interface Interface__FilterKaryawan {
   jenis_karyawan?: Interface__SelectOption[] | undefined;
-  status_kerja?: Interface__SelectOption[] | undefined;
+  status_karyawan?: Interface__SelectOption[] | undefined;
 }
 
 export interface Interface__DateRange {

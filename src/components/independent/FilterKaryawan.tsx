@@ -18,7 +18,7 @@ import { iconSize } from "../../constant/sizes";
 import useFilterKaryawan from "../../global/useFilterKaryawan";
 import useCallBackOnNavigate from "../../hooks/useCallBackOnNavigate";
 import backOnClose from "../../lib/backOnClose";
-import MultipleSelectStatusKerja from "../dependent/input/dedicated/MultipleSelectStatusKerja";
+import MultipleSelectStatusKaryawan from "../dependent/input/dedicated/MultipleSelectStatusKaryawan";
 import BackOnCloseButton from "./BackOnCloseButton";
 import CContainer from "./wrapper/CContainer";
 import CustomDrawer from "./wrapper/CustomDrawer";
@@ -40,11 +40,11 @@ export default function FilterKaryawan({ ...props }: Props) {
     validateOnChange: false,
     initialValues: {
       jenis_karyawan: undefined,
-      status_kerja: undefined,
+      status_karyawan: undefined,
     },
     validationSchema: yup.object().shape({
       jenis_karyawan: yup.array(),
-      status_kerja: yup.array(),
+      status_karyawan: yup.array(),
     }),
     onSubmit: (values, { resetForm }) => {
       console.log(values);
@@ -56,8 +56,8 @@ export default function FilterKaryawan({ ...props }: Props) {
     if (values.jenis_karyawan && values.jenis_karyawan.length > 0) {
       count += values.jenis_karyawan.length;
     }
-    if (values.status_kerja && values.status_kerja.length > 0) {
-      count += values.status_kerja.length;
+    if (values.status_karyawan && values.status_karyawan.length > 0) {
+      count += values.status_karyawan.length;
     }
     return count;
   }
@@ -78,7 +78,10 @@ export default function FilterKaryawan({ ...props }: Props) {
         onClick={() => {
           onOpen();
           formik.setFieldValue("jenis_karyawan", filterKaryawan.jenis_karyawan);
-          formik.setFieldValue("status_kerja", filterKaryawan.status_kerja);
+          formik.setFieldValue(
+            "status_karyawan",
+            filterKaryawan.status_karyawan
+          );
         }}
         rightIcon={<Icon as={RiEqualizer3Line} fontSize={iconSize} />}
         w={"100%"}
@@ -138,22 +141,22 @@ export default function FilterKaryawan({ ...props }: Props) {
       >
         <CContainer px={6}>
           <form id="ajukanCutiForm" onSubmit={formik.handleSubmit}>
-            <FormControl isInvalid={!!formik.errors.status_kerja} mb={4}>
-              <FormLabel>Status Kerja</FormLabel>
-              <MultipleSelectStatusKerja
+            <FormControl isInvalid={!!formik.errors.status_karyawan} mb={4}>
+              <FormLabel>Status Kepegawaian</FormLabel>
+              <MultipleSelectStatusKaryawan
                 id="filter-karyawan-select-status-kerja"
-                name="status_kerja"
+                name="status_karyawan"
                 onConfirm={(inputValue) => {
-                  formik.setFieldValue("status_kerja", inputValue);
+                  formik.setFieldValue("status_karyawan", inputValue);
                 }}
-                inputValue={formik.values.status_kerja}
-                placeholder="Multi Pilih Status Kerja"
+                inputValue={formik.values.status_karyawan}
+                placeholder="Filter Status Kepegawaian"
                 optionsDisplay="chip"
                 maxSelectedDisplay={3}
               />
             </FormControl>
 
-            <FormControl isInvalid={!!formik.errors.status_kerja}>
+            <FormControl isInvalid={!!formik.errors.status_karyawan}>
               <FormLabel>Jenis Karyawan</FormLabel>
               <MultipleSelectJenisKaryawan
                 id="filter-karyawan-select-jenis-karyawan"
@@ -162,7 +165,7 @@ export default function FilterKaryawan({ ...props }: Props) {
                   formik.setFieldValue("jenis_karyawan", inputValue);
                 }}
                 inputValue={formik.values.jenis_karyawan}
-                placeholder="Multi Pilih Jenis Karyawan"
+                placeholder="Filter Jenis Karyawan"
                 optionsDisplay="chip"
                 maxSelectedDisplay={3}
               />
