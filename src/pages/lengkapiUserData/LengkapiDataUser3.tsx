@@ -269,6 +269,22 @@ export default function LengkapiDataUser3() {
                 {formik.errors.bpjsKetenagakerjaan}
               </FormErrorMessage>
             </FormControl>
+
+            <FormControl mb={6} isInvalid={formik.errors.npwp ? true : false}>
+              <FormLabel>
+                NPWP
+                <RequiredForm />
+              </FormLabel>
+              <StringInput
+                name="npwp"
+                placeholder="231*****"
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("npwp", input);
+                }}
+                inputValue={formik.values.npwp}
+              />
+              <FormErrorMessage>{formik.errors.npwp}</FormErrorMessage>
+            </FormControl>
           </form>
 
           <VStack align={"stretch"} pt={6} mt={"auto"} w={"100%"}>
