@@ -133,7 +133,7 @@ export default function PeriodPicker({
         }}
         {...props}
       >
-        <Text fontSize={props.fontSize || 17} fontWeight={600}>
+        <Text fontSize={props.fontSize || 16} fontWeight={600}>
           {`${formatDate(new Date(tahun, bulan), {
             month: "long",
             year: "numeric",

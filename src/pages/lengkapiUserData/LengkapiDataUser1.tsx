@@ -21,7 +21,6 @@ import SelectAgama from "../../components/dependent/input/dedicated/SingleSelect
 import SelectGender from "../../components/dependent/input/dedicated/SingleSelectGender";
 import SelectGoldar from "../../components/dependent/input/dedicated/SIngleSelectGoldar";
 import StringInput from "../../components/dependent/input/StringInput";
-import Textarea from "../../components/dependent/input/Textareaold";
 import LengkapiDataUserHeader from "../../components/dependent/LengkapiDataUserHeader";
 import RequiredForm from "../../components/form/RequiredForm";
 import CContainer from "../../components/independent/wrapper/CContainer";
@@ -33,6 +32,7 @@ import parseNumber from "../../lib/parseNumber";
 import req from "../../lib/req";
 import useDcs from "../../global/useAuth";
 import getUserData from "../../lib/getUserData";
+import Textarea from "../../components/dependent/input/Textarea";
 
 export default function LengkapiDataUser1() {
   useScrollToTop();
@@ -58,6 +58,7 @@ export default function LengkapiDataUser1() {
       agama: undefined as any,
       golongan_darah: undefined as any,
       tinggi_badan: undefined as any,
+      berat_badan: undefined as any,
       // berat_badan: undefined as any,
       alamat: undefined as any,
       no_ijazah: "" as any,
@@ -73,6 +74,7 @@ export default function LengkapiDataUser1() {
       agama: yup.object().required("Harus diisi"),
       golongan_darah: yup.object().required("Harus diisi"),
       tinggi_badan: yup.string().required("Harus diisi"),
+      berat_badan: yup.string().required("Harus diisi"),
       alamat: yup.string().required("Harus diisi"),
       no_ijazah: yup.string().required("Harus diisi"),
       tahun_lulus: yup.string().required("Harus diisi"),
@@ -357,15 +359,49 @@ export default function LengkapiDataUser1() {
               </FormErrorMessage>
             </FormControl>
 
+            <FormControl mb={4} isInvalid={!!formik.errors.berat_badan}>
+              <FormLabel>
+                Berat Badan
+                <RequiredForm />
+              </FormLabel>
+              <InputGroup>
+                <InputRightElement mr={1}>
+                  <Text>kg</Text>
+                </InputRightElement>
+                <Input
+                  pr={12}
+                  name="berat_badan"
+                  onChange={(e) => {
+                    formik.setFieldValue(
+                      "berat_badan",
+                      parseNumber(e.target.value)
+                    );
+                  }}
+                  value={
+                    formik.values.berat_badan === 0
+                      ? ""
+                      : formatNumber(formik.values.berat_badan)
+                  }
+                  placeholder="179"
+                />
+              </InputGroup>
+              <FormErrorMessage>
+                {formik.errors.berat_badan as string}
+              </FormErrorMessage>
+            </FormControl>
+
             <FormControl mb={4} isInvalid={!!formik.errors.alamat}>
               <FormLabel>
                 Alamat
                 <RequiredForm />
               </FormLabel>
               <Textarea
-                formik={formik}
                 name="alamat"
-                placeholder="Jalan Soekarno Hatta no.123"
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("alamat", input);
+                }}
+                inputValue={formik.values.alamat}
+                placeholder="Jalan Malaka no.100"
               />
               <FormErrorMessage>
                 {formik.errors.alamat as string}

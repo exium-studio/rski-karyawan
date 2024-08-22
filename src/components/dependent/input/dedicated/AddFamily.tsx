@@ -68,7 +68,7 @@ export default function AddFamily({
         isClosable: true,
         position: "top",
       });
-      // formik.resetForm();
+      formik.resetForm();
       // backOnClose();
     },
   });

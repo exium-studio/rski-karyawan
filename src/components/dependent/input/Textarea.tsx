@@ -1,4 +1,9 @@
-import { Textarea as ChakraTextarea, TextareaProps } from "@chakra-ui/react";
+import {
+  Textarea as ChakraTextarea,
+  TextareaProps,
+  useColorMode,
+} from "@chakra-ui/react";
+import { css, Global } from "@emotion/react";
 import { useCallback, useEffect, useRef } from "react";
 
 interface Props extends TextareaProps {
@@ -32,17 +37,37 @@ export default function Textarea({
     autoResize();
   }, [autoResize, inputValue]);
 
+  const { colorMode } = useColorMode();
+  const darkLightColorManual = colorMode === "light" ? "white" : "var(--dark)";
+
   return (
-    <ChakraTextarea
-      ref={textareaRef}
-      minH={"80px"}
-      name={name}
-      placeholder={placeholder || "Masukkan deskripsi singkat"}
-      onChange={(e) => {
-        onChangeSetter(e.target.value);
-      }}
-      value={inputValue}
-      {...props}
-    />
+    <>
+      <Global
+        styles={css`
+          textarea:-webkit-autofill {
+            border: 1px solid var(--divider3) !important;
+          }
+          textarea:-webkit-autofill,
+          textarea:-webkit-autofill:hover,
+          textarea:-webkit-autofill:focus,
+          textarea:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 100px ${darkLightColorManual} inset !important;
+            box-shadow: 0 0 0 100px ${darkLightColorManual} inset !important;
+          }
+        `}
+      />
+
+      <ChakraTextarea
+        ref={textareaRef}
+        minH={"80px"}
+        name={name}
+        placeholder={placeholder || "Masukkan deskripsi singkat"}
+        onChange={(e) => {
+          onChangeSetter(e.target.value);
+        }}
+        value={inputValue}
+        {...props}
+      />
+    </>
   );
 }
