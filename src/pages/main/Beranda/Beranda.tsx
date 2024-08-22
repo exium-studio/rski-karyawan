@@ -113,7 +113,7 @@ export default function Beranda() {
         zIndex={2}
         gap={5}
         pt={0}
-        bg={contentBgColor} 
+        bg={contentBgColor}
         borderRadius={"16px 16px 0 0"}
         minH={"calc(100vh - 80px)"}
         // pb={"95px"}
