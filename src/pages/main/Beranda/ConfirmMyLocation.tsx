@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import AlertOutsidePresenceRadius from "../../../components/dependent/AlertOutsidePresenceRadius";
 import LeafletMap from "../../../components/dependent/LeafletMap";
 import ComponentSpinner from "../../../components/independent/ComponentSpinner";

@@ -56,7 +56,7 @@ export default function LengkapiDataUser3() {
         ? yup.mixed()
         : yup.string().required("Harus diisi"),
       bpjsKesehatan: yup.string().required("Harus diisi"),
-      bpjsKetenagakerjaan: yup.string().required("Harus diisi"),
+      bpjsKetenagakerjaan: yup.string(),
       npwp: yup.string().required("Harus diisi"),
     }),
     onSubmit: (values, { resetForm }) => {
