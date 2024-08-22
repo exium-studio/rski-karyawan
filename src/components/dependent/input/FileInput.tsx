@@ -200,7 +200,7 @@ export default function FileInput({
                     fontSize={iconSize}
                     /> */}
                 <Icon as={inputValue ? RiFileLine : RiUploadCloud2Line} />
-                <Tooltip label={fileName}>
+                <Tooltip label={fileName} openDelay={500}>
                   <Text
                     overflow={"hidden"}
                     textOverflow={"ellipsis"}
