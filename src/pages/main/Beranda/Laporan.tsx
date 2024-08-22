@@ -1,27 +1,12 @@
-import {
-  Alert,
-  Button,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  HStack,
-  Text,
-  useToast,
-} from "@chakra-ui/react";
+import { Image, Text, useToast } from "@chakra-ui/react";
 import { useFormik } from "formik";
+import { useState } from "react";
 import * as yup from "yup";
 import Header from "../../../components/dependent/Header";
-import DatePickerDrawer from "../../../components/dependent/input/DatePickerDrawer";
-import FileInput from "../../../components/dependent/input/FileInput";
-import StringInput from "../../../components/dependent/input/StringInput";
-import Textarea from "../../../components/dependent/input/Textarea";
-import TimePickerDrawer from "../../../components/dependent/input/TimePickerDrawer";
-import RequiredForm from "../../../components/form/RequiredForm";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
-import { useState } from "react";
-import req from "../../../lib/req";
 import formatDate from "../../../lib/formatDate";
+import req from "../../../lib/req";
 
 export default function Laporan() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -94,12 +79,25 @@ export default function Laporan() {
     <CContainer flex={1}>
       <Header
         left={"back"}
-        title="Laporan"
+        title="Pelaporan"
         px={4}
         borderBottom={"1px solid var(--divider2)"}
       />
 
       <CContainer
+        flex={1}
+        p={5}
+        bg={contentBgColor}
+        align={"center"}
+        justify={"center"}
+      >
+        <Image src="/vectors/error503.webp" maxW={"300px"} mb={6} />
+        <Text fontSize={16} fontWeight={600}>
+          Maaf, fitur ini belum tersedia
+        </Text>
+      </CContainer>
+
+      {/* <CContainer
         flex={1}
         p={5}
         bg={contentBgColor}
@@ -252,7 +250,7 @@ export default function Laporan() {
         >
           Kirim
         </Button>
-      </CContainer>
+      </CContainer> */}
     </CContainer>
   );
 }

@@ -45,7 +45,7 @@ const berandaMenus = [
 
   {
     image: "/vectors/icons/System Report.png",
-    label: "Laporan",
+    label: "Pelaporan",
     link: "/beranda/laporan",
   },
 ];
