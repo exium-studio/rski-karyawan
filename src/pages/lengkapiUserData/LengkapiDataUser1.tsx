@@ -33,6 +33,7 @@ import req from "../../lib/req";
 import useDcs from "../../global/useAuth";
 import getUserData from "../../lib/getUserData";
 import Textarea from "../../components/dependent/input/Textarea";
+import SingleSelectPendidikan from "../../components/dependent/input/dedicated/SingleSelectPendidikan";
 
 export default function LengkapiDataUser1() {
   useScrollToTop();
@@ -62,6 +63,7 @@ export default function LengkapiDataUser1() {
       alamat: undefined as any,
       no_ijazah: "" as any,
       tahun_lulus: "" as any,
+      pendidikan_terakhir: undefined as any,
       gelar_depan: "" as any,
       // berat_badan: undefined as any,
     },
@@ -79,6 +81,7 @@ export default function LengkapiDataUser1() {
       alamat: yup.string().required("Harus diisi"),
       no_ijazah: yup.string().required("Harus diisi"),
       tahun_lulus: yup.string().required("Harus diisi"),
+      pendidikan_terakhir: yup.object().required("Harus diisi"),
       gelar_depan: yup.string(),
     }),
     onSubmit: (values, { resetForm }) => {
@@ -98,6 +101,7 @@ export default function LengkapiDataUser1() {
         alamat: values.alamat,
         no_ijazah: values.no_ijazah,
         tahun_lulus: values.tahun_lulus,
+        pendidikan_terakhir: values.pendidikan_terakhir.value,
         gelar_depan: values.gelar_depan,
       };
 
@@ -445,6 +449,27 @@ export default function LengkapiDataUser1() {
               />
               <FormErrorMessage>
                 {formik.errors.tahun_lulus as string}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl
+              isInvalid={formik.errors.pendidikan_terakhir ? true : false}
+            >
+              <FormLabel>
+                Pendidikan Terakhir
+                <RequiredForm />
+              </FormLabel>
+              <SingleSelectPendidikan
+                id="lengkapi-step-1"
+                name="pendidikan_terakhir"
+                placeholder="Sarjana 1"
+                onConfirm={(input) => {
+                  formik.setFieldValue("pendidikan_terakhir", input);
+                }}
+                inputValue={formik.values.pendidikan_terakhir}
+              />
+              <FormErrorMessage>
+                {formik.errors.pendidikan_terakhir as string}
               </FormErrorMessage>
             </FormControl>
 
