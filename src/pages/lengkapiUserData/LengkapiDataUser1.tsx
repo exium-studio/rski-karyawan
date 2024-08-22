@@ -434,7 +434,10 @@ export default function LengkapiDataUser1() {
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl isInvalid={formik.errors.tahun_lulus ? true : false}>
+            <FormControl
+              mb={4}
+              isInvalid={formik.errors.tahun_lulus ? true : false}
+            >
               <FormLabel>
                 Tahun Lulus Ijazah Terakhir
                 <RequiredForm />
@@ -453,6 +456,7 @@ export default function LengkapiDataUser1() {
             </FormControl>
 
             <FormControl
+              mb={4}
               isInvalid={formik.errors.pendidikan_terakhir ? true : false}
             >
               <FormLabel>
