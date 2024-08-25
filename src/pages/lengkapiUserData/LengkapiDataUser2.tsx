@@ -53,14 +53,7 @@ export default function LengkapiDataUser2() {
       setLoading(true);
 
       const payload = {
-        keluarga: values.keluarga?.map((anggota) => ({
-          hubungan_keluarga: anggota.hubungan_keluarga.label,
-          nama: anggota.nama,
-          status_hidup: anggota.status_hidup.value,
-          pekerjaan: anggota.pekerjaan,
-          telepon: anggota.telepon,
-          email: anggota.email,
-        })),
+        keluarga: values,
       };
 
       req
