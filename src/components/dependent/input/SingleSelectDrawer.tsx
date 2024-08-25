@@ -141,7 +141,7 @@ export default function SingleSelectDrawer({
               <Text fontSize={16} fontWeight={600}>
                 {placeholder || "Pilih Salah Satu"}
               </Text>
-              <BackOnCloseButton aria-label="back on close button" />
+              <BackOnCloseButton aria-label="back on close button" mr={-1} />
             </HStack>
             {withSearch && (
               <Box mt={4}>
@@ -210,6 +210,7 @@ export default function SingleSelectDrawer({
                         ? "var(--p500a4) !important"
                         : ""
                     }
+                    px={4}
                   >
                     <Text>{option.label}</Text>
 
@@ -239,6 +240,7 @@ export default function SingleSelectDrawer({
                         : ""
                     }
                     gap={2}
+                    px={4}
                   >
                     <Text>{option.label}</Text>
                     {/* <Text opacity={0.4}>{option.subLabel}</Text> */}
