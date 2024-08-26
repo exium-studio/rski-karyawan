@@ -38,7 +38,7 @@ export default function StatistikLembur() {
                 )}
 
                 {!notFound && (
-                  <Center my={"auto"} minH={"300px"}>
+                  <Center m={"auto"} minH={"300px"}>
                     <Retry loading={loading} retry={retry} />
                   </Center>
                 )}

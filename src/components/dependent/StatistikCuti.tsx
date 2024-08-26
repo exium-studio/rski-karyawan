@@ -33,7 +33,7 @@ export default function StatistikCuti() {
                 {notFound && <NoData minH={"132px"} label="Tidak ada jadwal" />}
 
                 {!notFound && (
-                  <Center my={"auto"} minH={"300px"}>
+                  <Center m={"auto"} minH={"300px"}>
                     <Retry loading={loading} retry={retry} />
                   </Center>
                 )}
