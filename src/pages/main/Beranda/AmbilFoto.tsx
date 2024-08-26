@@ -13,6 +13,7 @@ import {
   ModalHeader,
   ModalOverlay,
   useDisclosure,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import {
@@ -23,10 +24,171 @@ import {
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DisclosureHeader from "../../../components/dependent/DisclosureHeader";
-import FotoResultConfirmationModal from "../../../components/dependent/FotoResultConfirmationModal";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
+import getLocation from "../../../lib/getLocation";
+import req from "../../../lib/req";
+import useCallBackOnNavigate from "../../../hooks/useCallBackOnNavigate";
+
+interface PhotoConfirmationProps {
+  isTakePhotoPageOpen: boolean;
+  startCamera: any;
+  stopCamera: any;
+  takePhoto: any;
+  imageUrl: any;
+  imageSrc: any;
+}
+
+const PhotoConfirmation = ({
+  isTakePhotoPageOpen,
+  startCamera,
+  stopCamera,
+  takePhoto,
+  imageUrl,
+  imageSrc,
+}: PhotoConfirmationProps) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  useBackOnClose("photo-confirmation", isOpen, onOpen, onClose);
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const toast = useToast();
+  const navigate = useNavigate();
+
+  const startCameraRef = useRef(startCamera);
+  const stopCameraRef = useRef(stopCamera);
+
+  // Update the refs if startCamera or stopCamera changes
+  useEffect(() => {
+    startCameraRef.current = startCamera;
+    stopCameraRef.current = stopCamera;
+  }, [startCamera, stopCamera]);
+
+  useEffect(() => {
+    if (isTakePhotoPageOpen && !isOpen) {
+      startCameraRef.current();
+    } else {
+      stopCameraRef.current();
+    }
+
+    return () => {
+      stopCameraRef.current();
+    };
+  }, [isTakePhotoPageOpen, isOpen]);
+
+  useCallBackOnNavigate(() => {
+    stopCamera();
+  });
+
+  function attendance() {
+    setLoading(true);
+
+    getLocation()
+      .then(({ lat, long }) => {
+        // console.log(lat, long);
+        const payload = new FormData();
+        payload.append("lat", lat.toString());
+        payload.append("long", long.toString());
+        payload.append("foto", imageSrc, "photo.jpg");
+
+        req
+          .post(`/api/check-in-presensi`, payload)
+          .then((r) => {
+            if (r.status === 200) {
+              navigate("/beranda");
+            }
+          })
+          .catch((e) => {
+            console.log(e);
+            toast({
+              status: "error",
+              title:
+                (typeof e?.response?.data?.message === "string" &&
+                  (e?.response?.data?.message as string)) ||
+                "Maaf terjadi kesalahan pada sistem",
+              position: "top",
+              isClosable: true,
+            });
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+  return (
+    <>
+      <Center p={1} borderRadius={"full"}>
+        <Center
+          w={"50px"}
+          h={"50px"}
+          borderRadius={"full"}
+          bg={"white"}
+          cursor={"pointer"}
+          className="clicky"
+          onClick={() => {
+            takePhoto();
+            onOpen();
+            // stopCamera();
+          }}
+        ></Center>
+      </Center>
+
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          backOnClose();
+          // startCamera();
+        }}
+        isCentered
+      >
+        <ModalOverlay />
+
+        <ModalContent border={"none"}>
+          <ModalHeader>
+            <DisclosureHeader
+              title="Konfirmasi Foto"
+              onClose={() => {
+                // startCamera();
+              }}
+            />
+          </ModalHeader>
+
+          <ModalBody p={0}>
+            <Image src={imageUrl} borderRadius={"0 !important"} />
+          </ModalBody>
+
+          <ModalFooter>
+            <CContainer w={"100%"} gap={2}>
+              <Button
+                w={"100%"}
+                className="btn-solid clicky"
+                onClick={() => {
+                  backOnClose();
+                  // startCamera();
+                }}
+              >
+                Ambil Ulang
+              </Button>
+              <Button
+                w={"100%"}
+                colorScheme="ap"
+                className="btn-ap clicky"
+                isLoading={loading}
+                onClick={attendance}
+              >
+                Konfirmasi
+              </Button>
+            </CContainer>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+};
 
 interface Props extends ButtonProps {
   attendanceData: any;
@@ -34,13 +196,16 @@ interface Props extends ButtonProps {
 
 export default function AmbilFoto({ attendanceData, ...props }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  useBackOnClose("ambil-foto-modal", isOpen, onOpen, onClose);
+  useBackOnClose("ambil-foto-modal", isOpen, onOpen, () => {
+    onClose();
+    stopCamera();
+  });
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isFrontCamera, setIsFrontCamera] = useState<boolean>(true);
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
-  const [data, setData] = useState<string | null>(null);
-  const navigate = useNavigate();
+  const [data, setData] = useState<any>(undefined);
+  const [dataUrl, setDataUrl] = useState<any>(undefined);
 
   const startCamera = useCallback(async () => {
     try {
@@ -123,10 +288,11 @@ export default function AmbilFoto({ attendanceData, ...props }: Props) {
           (blob) => {
             if (blob) {
               const imageUrl = URL.createObjectURL(blob);
-              setData(imageUrl);
+              setDataUrl(imageUrl);
+              setData(blob);
 
-              const payload = new FormData();
-              payload.append("photo", blob, "photo.jpg");
+              // const payload = new FormData();
+              // payload.append("photo", blob, "photo.jpg");
             }
           },
           "image/jpeg",
@@ -137,7 +303,9 @@ export default function AmbilFoto({ attendanceData, ...props }: Props) {
   };
 
   useEffect(() => {
-    startCamera();
+    if (isOpen) {
+      startCamera();
+    }
 
     let videoElement: HTMLVideoElement | undefined;
 
@@ -156,7 +324,7 @@ export default function AmbilFoto({ attendanceData, ...props }: Props) {
           });
       }
     };
-  }, [startCamera, videoRef]);
+  }, [isOpen, startCamera, videoRef]);
 
   // SX
 
@@ -175,7 +343,10 @@ export default function AmbilFoto({ attendanceData, ...props }: Props) {
 
       <Modal
         isOpen={isOpen}
-        onClose={backOnClose}
+        onClose={() => {
+          backOnClose();
+          stopCamera();
+        }}
         isCentered
         blockScrollOnMount={false}
         size={"full"}
@@ -183,9 +354,14 @@ export default function AmbilFoto({ attendanceData, ...props }: Props) {
         <ModalOverlay />
         <ModalContent m={0}>
           <ModalHeader>
-            <DisclosureHeader title={"Ambil Foto"} />
+            <DisclosureHeader
+              title={"Ambil Foto"}
+              onClose={() => {
+                stopCamera();
+              }}
+            />
           </ModalHeader>
-          <ModalBody>
+          <ModalBody px={0}>
             <CContainer
               flex={1}
               justify={"space-between"}
@@ -201,9 +377,10 @@ export default function AmbilFoto({ attendanceData, ...props }: Props) {
                 h={"100% !important"}
                 justify={"center"}
                 position={"relative"}
+                my={"auto"}
               >
                 <Image
-                  src="/vectors/foto_indicator.svg"
+                  src="/vectors/photoAlign.svg"
                   position={"absolute"}
                   zIndex={2}
                 />
@@ -235,15 +412,14 @@ export default function AmbilFoto({ attendanceData, ...props }: Props) {
                 />
 
                 <Center p={1} borderRadius={"full"} border={"1px solid white"}>
-                  <Center
-                    w={"50px"}
-                    h={"50px"}
-                    borderRadius={"full"}
-                    bg={"white"}
-                    cursor={"pointer"}
-                    className="clicky"
-                    onClick={takePhoto}
-                  ></Center>
+                  <PhotoConfirmation
+                    isTakePhotoPageOpen={isOpen}
+                    startCamera={startCamera}
+                    stopCamera={stopCamera}
+                    takePhoto={takePhoto}
+                    imageUrl={dataUrl}
+                    imageSrc={data}
+                  />
                 </Center>
 
                 <IconButton
@@ -269,7 +445,6 @@ export default function AmbilFoto({ attendanceData, ...props }: Props) {
               </HStack>
             </CContainer>
           </ModalBody>
-          <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>
     </>

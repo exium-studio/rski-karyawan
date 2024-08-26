@@ -10,7 +10,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useRef } from "react";
-import { Link } from "react-router-dom";
 import useBackOnClose from "../../hooks/useBackOnClose";
 import backOnClose from "../../lib/backOnClose";
 
@@ -64,13 +63,14 @@ export default function AlertOutsidePresenceRadius({
         </ModalBody>
         <ModalFooter gap={4}>
           <Button
-            colorScheme="ap"
-            className="btn-ap clicky"
+            // colorScheme="ap"
+            className="btn-solid clicky"
             w={"100%"}
-            as={Link}
-            to={""}
+            onClick={backOnClose}
+            // as={Link}
+            // to={""}
           >
-            Izin Sekarang
+            Mengerti
           </Button>
         </ModalFooter>
       </ModalContent>

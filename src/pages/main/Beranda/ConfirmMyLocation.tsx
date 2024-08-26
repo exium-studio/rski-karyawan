@@ -19,8 +19,6 @@ import { useLightDarkColor } from "../../../constant/colors";
 import { Interface__AttendanceData } from "../../../constant/interfaces";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
-import calculateDistance from "../../../lib/calculateDistance";
-import formatNumber from "../../../lib/formatNumber";
 import getCurrentAddress from "../../../lib/getCurrentAddress";
 import getLocation from "../../../lib/getLocation";
 import isWithinRadius from "../../../lib/isWithinRadius";
@@ -41,6 +39,8 @@ export default function ConfirmMyLocation({
   attendanceData,
 }: Props) {
   useBackOnClose("confirm-my-location-full-modal", isOpen, onOpen, onClose);
+
+  // console.log(attendanceData);
 
   const toast = useToast();
 
@@ -79,24 +79,24 @@ export default function ConfirmMyLocation({
                 if (myLocation) {
                   setOutsideRadius(true);
                   setAlertOutsideRadius(true);
-                  toast({
-                    status: "error",
-                    title: "Location Info (Debug)",
-                    description: `myLat: ${myLocation.lat}, myLong:${
-                      myLocation.long
-                    }, officeLat: ${data.office_lat}, officeLong: ${
-                      data.office_long
-                    }, myDistance: ${formatNumber(
-                      calculateDistance(
-                        myLocation.lat,
-                        myLocation.long,
-                        data.office_lat,
-                        data.office_long
-                      )
-                    )} meter, preferredDistance: ${data.radius} meter`,
-                    duration: 10000,
-                    isClosable: true,
-                  });
+                  // toast({
+                  //   status: "error",
+                  //   title: "Location Info (Debug)",
+                  //   description: `myLat: ${myLocation.lat}, myLong:${
+                  //     myLocation.long
+                  //   }, officeLat: ${data.office_lat}, officeLong: ${
+                  //     data.office_long
+                  //   }, myDistance: ${formatNumber(
+                  //     calculateDistance(
+                  //       myLocation.lat,
+                  //       myLocation.long,
+                  //       data.office_lat,
+                  //       data.office_long
+                  //     )
+                  //   )} meter, preferredDistance: ${data.radius} meter`,
+                  //   duration: 10000,
+                  //   isClosable: true,
+                  // });
                 }
               }
             })
