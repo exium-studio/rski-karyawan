@@ -1,5 +1,4 @@
 import { Box, Image, Text, VStack, Wrap } from "@chakra-ui/react";
-import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import berandaMenus from "../../constant/berandaMenus";
 import { useLightDarkColor } from "../../constant/colors";
@@ -59,28 +58,28 @@ export default function BerandaMenus() {
     dependencies: [],
   });
 
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const [indicatorTranslateRight, setIndicatorTranslateRight] = useState(0);
-  const [indicatorContainerWidth, setIndicatorContainerWidth] =
-    useState<number>(20);
+  // const containerRef = useRef<HTMLDivElement | null>(null);
+  // const [indicatorTranslateRight, setIndicatorTranslateRight] = useState(0);
+  // const [indicatorContainerWidth, setIndicatorContainerWidth] =
+  //   useState<number>(20);
 
-  const handleScroll = () => {
-    const container = containerRef.current;
-    if (container) {
-      const containerWidth = container.offsetWidth;
-      const containerScrollLeft = container.scrollLeft;
-      const containerScrollWidth = container.scrollWidth;
-      const containerMaxScrollWidth = containerScrollWidth - containerWidth;
+  // const handleScroll = () => {
+  //   const container = containerRef.current;
+  //   if (container) {
+  //     const containerWidth = container.offsetWidth;
+  //     const containerScrollLeft = container.scrollLeft;
+  //     const containerScrollWidth = container.scrollWidth;
+  //     const containerMaxScrollWidth = containerScrollWidth - containerWidth;
 
-      const containerScaleToIndicator = 10 / containerWidth;
-      setIndicatorContainerWidth(
-        10 * 2 + containerMaxScrollWidth * containerScaleToIndicator
-      );
-      setIndicatorTranslateRight(
-        containerScaleToIndicator * containerScrollLeft
-      );
-    }
-  };
+  //     const containerScaleToIndicator = 10 / containerWidth;
+  //     setIndicatorContainerWidth(
+  //       10 * 2 + containerMaxScrollWidth * containerScaleToIndicator
+  //     );
+  //     setIndicatorTranslateRight(
+  //       containerScaleToIndicator * containerScrollLeft
+  //     );
+  //   }
+  // };
 
   // const sw = useScreenWidth();
 
@@ -101,8 +100,8 @@ export default function BerandaMenus() {
         w={"100%"}
         overflowX={"auto"}
         className="noScroll"
-        ref={containerRef}
-        onScroll={handleScroll}
+        // ref={containerRef}
+        // onScroll={handleScroll}
       >
         <Wrap
           px={5}
