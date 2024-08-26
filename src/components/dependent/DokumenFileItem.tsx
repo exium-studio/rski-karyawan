@@ -20,6 +20,7 @@ import {
   Portal,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import {
   RiDeleteBinLine,
@@ -27,19 +28,21 @@ import {
   RiMore2Fill,
 } from "@remixicon/react";
 import { useFormik } from "formik";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
 import { useErrorColor, useLightDarkColor } from "../../constant/colors";
 import { iconSize } from "../../constant/sizes";
+import useRenderTrigger from "../../global/useRenderTrigger";
 import useBackOnClose from "../../hooks/useBackOnClose";
 import backOnClose from "../../lib/backOnClose";
 import formatBytes from "../../lib/formatBytes";
 import formatDate from "../../lib/formatDate";
+import req from "../../lib/req";
 import RequiredForm from "../form/RequiredForm";
-import BackOnCloseButton from "../independent/BackOnCloseButton";
 import CContainer from "../independent/wrapper/CContainer";
 import CustomDrawer from "../independent/wrapper/CustomDrawer";
+import DisclosureHeader from "./DisclosureHeader";
 import DrawerHeader from "./DrawerHeader";
 import FileTypeIcon from "./FileTypeIcon";
 import FileViewer from "./FileViewer";
@@ -53,15 +56,53 @@ const MoreOptions = ({ data }: Props) => {
   // Children
   const RenameDrawer = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [loading, setLoading] = useState<boolean>(false);
+    const toast = useToast();
+    const { rt, setRt } = useRenderTrigger();
 
     const formik = useFormik({
       validateOnChange: false,
-      initialValues: { nama: data.nama },
+      initialValues: { nama: data.label },
       validationSchema: yup
         .object()
         .shape({ nama: yup.string().required("Harus diisi") }),
       onSubmit: (values, { resetForm }) => {
-        console.log(values);
+        setLoading(true);
+
+        const payload = {
+          file_id: data.id,
+          nama: values.nama,
+        };
+
+        req
+          .post(`/api/rename-berkas-karyawan`, payload)
+          .then((r) => {
+            if (r.status === 200) {
+              setRt(!rt);
+              backOnClose();
+              toast({
+                status: "success",
+                title: r?.data?.message,
+                position: "bottom-right",
+                isClosable: true,
+              });
+            }
+          })
+          .catch((e) => {
+            console.log(e);
+            toast({
+              status: "error",
+              title:
+                (typeof e?.response?.data?.message === "string" &&
+                  (e?.response?.data?.message as string)) ||
+                "Maaf terjadi kesalahan pada sistem",
+              position: "bottom-right",
+              isClosable: true,
+            });
+          })
+          .finally(() => {
+            setLoading(false);
+          });
       },
     });
 
@@ -81,7 +122,13 @@ const MoreOptions = ({ data }: Props) => {
           header={<DrawerHeader title="Rename" />}
           footer={
             <>
-              <Button className="btn-ap clicky" colorScheme="ap">
+              <Button
+                className="btn-ap clicky"
+                colorScheme="ap"
+                type="submit"
+                form="renameForm"
+                isLoading={loading}
+              >
                 Simpan
               </Button>
             </>
@@ -190,7 +237,7 @@ export default function DokumenFileItem({ data }: Props) {
         <HStack justify={"space-between"} pl={3} pr={0} py={1}>
           <HStack>
             <Text fontSize={12} fontWeight={500} noOfLines={1}>
-              {data.nama}
+              {data?.label}
             </Text>
           </HStack>
 
@@ -220,10 +267,7 @@ export default function DokumenFileItem({ data }: Props) {
         <ModalContent m={0} border={"none"}>
           <ModalHeader ref={initialRef}>
             <HStack justify={"space-between"}>
-              <Text fontSize={16} fontWeight={600}>
-                Pratinjau
-              </Text>
-              <BackOnCloseButton aria-label="back on close button" />
+              <DisclosureHeader title="Pratinjau" />
             </HStack>
           </ModalHeader>
 
