@@ -36,7 +36,6 @@ import { iconSize } from "../../constant/sizes";
 import useRenderTrigger from "../../global/useRenderTrigger";
 import useBackOnClose from "../../hooks/useBackOnClose";
 import backOnClose from "../../lib/backOnClose";
-import formatBytes from "../../lib/formatBytes";
 import formatDate from "../../lib/formatDate";
 import req from "../../lib/req";
 import RequiredForm from "../form/RequiredForm";
@@ -83,7 +82,7 @@ const MoreOptions = ({ data }: Props) => {
               toast({
                 status: "success",
                 title: r?.data?.message,
-                position: "bottom-right",
+                position: "top",
                 isClosable: true,
               });
             }
@@ -96,7 +95,7 @@ const MoreOptions = ({ data }: Props) => {
                 (typeof e?.response?.data?.message === "string" &&
                   (e?.response?.data?.message as string)) ||
                 "Maaf terjadi kesalahan pada sistem",
-              position: "bottom-right",
+              position: "top",
               isClosable: true,
             });
           })
@@ -250,7 +249,7 @@ export default function DokumenFileItem({ data }: Props) {
 
         <HStack opacity={0.4} p={2} justify={"space-between"}>
           <Text fontSize={11} opacity={0.4}>
-            {formatBytes(data.size)}
+            {data.size}
           </Text>
           <Text fontSize={11}>{formatDate(data.created_at, "short")}</Text>
         </HStack>

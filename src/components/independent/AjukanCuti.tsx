@@ -62,7 +62,6 @@ export default function AjukanCuti() {
 
       <CustomDrawer
         id="ajukan-cuti-drawer"
-        name="ajukan_cuti"
         isOpen={isOpen}
         onOpen={onOpen}
         onClose={onClose}

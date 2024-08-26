@@ -20,6 +20,7 @@ import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
 import { iconSize } from "../../../constant/sizes";
 import useDataState from "../../../hooks/useDataState";
+import TambahDokumen from "../../../components/independent/TambahDokumen";
 
 export default function Dokumen() {
   const { error, notFound, loading, data, retry } = useDataState<any>({
@@ -132,7 +133,7 @@ export default function Dokumen() {
         </HStack>
       </Box>
 
-      <CContainer flex={1} bg={contentBgColor} p={5} pb={8}>
+      <CContainer flex={1} bg={contentBgColor} p={5} pb={"calc(92px)"}>
         {error && (
           <>
             {notFound && <NoData minH={"132px"} label="Tidak ada diklat" />}
@@ -172,6 +173,8 @@ export default function Dokumen() {
             )}
           </>
         )}
+
+        <TambahDokumen />
       </CContainer>
     </CContainer>
   );
