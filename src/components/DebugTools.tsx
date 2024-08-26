@@ -12,6 +12,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Portal,
   SimpleGrid,
   Text,
   useColorMode,
@@ -66,19 +67,21 @@ export default function DebugTools() {
 
   return (
     <>
-      <IconButton
-        aria-label="Debug Tools"
-        icon={<Icon as={RiTerminalBoxFill} fontSize={24} />}
-        borderRadius={"full"}
-        colorScheme="ap"
-        className="btn-ap"
-        position={"fixed"}
-        bottom={"200px"}
-        right={"6px"}
-        zIndex={99}
-        onClick={onOpen}
-        border={"2px solid var(--p600)"}
-      />
+      <Portal>
+        <IconButton
+          aria-label="Debug Tools"
+          icon={<Icon as={RiTerminalBoxFill} fontSize={24} />}
+          borderRadius={"full"}
+          colorScheme="ap"
+          className="btn-ap"
+          position={"fixed"}
+          bottom={"200px"}
+          right={"6px"}
+          zIndex={9999}
+          onClick={onOpen}
+          border={"2px solid var(--p600)"}
+        />
+      </Portal>
 
       <Modal isOpen={isOpen} onClose={handleOnClose} isCentered>
         <ModalOverlay />

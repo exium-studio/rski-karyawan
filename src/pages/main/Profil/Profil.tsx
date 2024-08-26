@@ -1,4 +1,4 @@
-import { Avatar, HStack, Icon, Text } from "@chakra-ui/react";
+import { Avatar, Badge, HStack, Icon, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import Header from "../../../components/dependent/Header";
 import JenisKaryawanBadge from "../../../components/dependent/JenisKaryawanBadge";
@@ -22,7 +22,7 @@ export default function Profil() {
     <CContainer flex={1}>
       <Header
         title="Profil"
-        borderBottom={"1px solid var(--divider"}
+        borderBottom={"1px solid var(--divider2)"}
         // right={<NotificationButton aria-label="Notification" />}
       />
 
@@ -58,8 +58,26 @@ export default function Profil() {
           />
         </HStack>
 
+        <CContainer gap={3} mb={3}>
+          <Text opacity={0.4}>Status</Text>
+          <HStack
+            px={4}
+            h={"48px"}
+            bg={lightDarkColor}
+            borderRadius={8}
+            cursor={"pointer"}
+            justify={"space-between"}
+            // className="clicky"
+          >
+            <Text>Reward Presensi</Text>
+            <Badge colorScheme="green" borderRadius={"full"}>
+              Dapat
+            </Badge>
+          </HStack>
+        </CContainer>
+
         {profilMenus.map((menu, i) => (
-          <CContainer key={i} gap={3} flex={0} mb={3}>
+          <CContainer key={i} gap={3} mb={3}>
             <Text opacity={0.4}>{menu.title}</Text>
             {menu.items.map((item, ii) => (
               <HStack

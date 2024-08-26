@@ -30,6 +30,7 @@ import backOnClose from "../../../lib/backOnClose";
 import getLocation from "../../../lib/getLocation";
 import req from "../../../lib/req";
 import useCallBackOnNavigate from "../../../hooks/useCallBackOnNavigate";
+import Header from "../../../components/dependent/Header";
 
 interface PhotoConfirmationProps {
   isTakePhotoPageOpen: boolean;
@@ -354,11 +355,17 @@ export default function AmbilFoto({ attendanceData, ...props }: Props) {
         <ModalOverlay />
         <ModalContent m={0}>
           <ModalHeader>
-            <DisclosureHeader
+            {/* <DisclosureHeader
               title={"Ambil Foto"}
               onClose={() => {
                 stopCamera();
               }}
+            /> */}
+            <Header
+              left={"back"}
+              title="Ambil Foto"
+              bg={"dark"}
+              color={"white"}
             />
           </ModalHeader>
           <ModalBody px={0}>
