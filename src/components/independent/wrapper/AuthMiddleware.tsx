@@ -50,7 +50,7 @@ export default function AuthMiddleware({ ldp, children }: Props) {
     } else {
       setLoading(false);
     }
-  }, [authToken, dcs, navigate]);
+  }, [authToken, dcs, setDcs, toast, setStatusAktif, navigate]);
 
   // console.log(statusAktif, dcs);
 
