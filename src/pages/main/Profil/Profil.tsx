@@ -1,4 +1,5 @@
-import { Avatar, Badge, HStack, Icon, Text } from "@chakra-ui/react";
+import { Avatar, HStack, Icon, Text } from "@chakra-ui/react";
+import { RiCheckboxCircleFill } from "@remixicon/react";
 import { Link } from "react-router-dom";
 import Header from "../../../components/dependent/Header";
 import JenisKaryawanBadge from "../../../components/dependent/JenisKaryawanBadge";
@@ -67,12 +68,16 @@ export default function Profil() {
             borderRadius={8}
             cursor={"pointer"}
             justify={"space-between"}
+            border={"1px solid"}
+            borderColor={"green.400"}
             // className="clicky"
           >
-            <Text>Reward Presensi</Text>
-            <Badge colorScheme="green" borderRadius={"full"}>
-              Dapat
-            </Badge>
+            <Text color={"green.400"}>Reward Presensi</Text>
+            <HStack>
+              <Text>Rp 300.000</Text>
+              <Icon as={RiCheckboxCircleFill} color={"green.400"} />
+              {/* <Icon as={RiCloseCircleFill} color={"red.400"} /> */}
+            </HStack>
           </HStack>
         </CContainer>
 
