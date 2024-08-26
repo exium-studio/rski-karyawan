@@ -88,12 +88,12 @@ export default function ListCuti() {
                           <Text fontWeight={500}>{cuti.durasi} Hari</Text>
                         </CContainer>
 
-                        <CContainer gap={1}>
+                        {/* <CContainer gap={1}>
                           <Text opacity={0.4} fontSize={12}>
                             Disetujui oleh
                           </Text>
                           <Text fontWeight={500}>{"-"}</Text>
-                        </CContainer>
+                        </CContainer> */}
                       </SimpleGrid>
                     </CContainer>
                   ))}
