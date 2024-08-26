@@ -45,9 +45,9 @@ import ForgotPassword from "./pages/resetPassword/ForgotPassword";
 import NewPassword from "./pages/resetPassword/NewPassword";
 import { globalTheme } from "./theme/globalTheme";
 
-function disableRightClick(event: MouseEvent) {
-  event.preventDefault();
-}
+// function disableRightClick(event: MouseEvent) {
+//   event.preventDefault();
+// }
 
 // styling notif bar color
 const EndpointWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -76,15 +76,15 @@ const EndpointWrapper = ({ children }: { children: React.ReactNode }) => {
 };
 
 export const App = () => {
-  useEffect(() => {
-    // Tambahkan event listener ke objek document saat komponen dimuat
-    document.addEventListener("contextmenu", disableRightClick);
+  // useEffect(() => {
+  //   // Tambahkan event listener ke objek document saat komponen dimuat
+  //   document.addEventListener("contextmenu", disableRightClick);
 
-    // Bersihkan event listener saat komponen dibongkar
-    return () => {
-      document.removeEventListener("contextmenu", disableRightClick);
-    };
-  }, []);
+  //   // Bersihkan event listener saat komponen dibongkar
+  //   return () => {
+  //     document.removeEventListener("contextmenu", disableRightClick);
+  //   };
+  // }, []);
 
   return (
     <ChakraProvider theme={globalTheme}>
