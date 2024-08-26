@@ -9,6 +9,7 @@ import {
   HStack,
   Icon,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import {
   RiArrowLeftSLine,
@@ -17,9 +18,7 @@ import {
 } from "@remixicon/react";
 import { useFormik } from "formik";
 import { Dispatch, useEffect, useState } from "react";
-import { getCookie } from "typescript-cookie";
 import * as yup from "yup";
-import NoData from "../../../components/independent/NoData";
 import DrawerHeader from "../../../components/dependent/DrawerHeader";
 import Header from "../../../components/dependent/Header";
 import PasswordInput from "../../../components/dependent/input/PasswordInput";
@@ -27,17 +26,19 @@ import PeriodPickerDrawer from "../../../components/dependent/input/PeriodPicker
 import Retry from "../../../components/dependent/Retry";
 import RequiredForm from "../../../components/form/RequiredForm";
 import FlexLine from "../../../components/independent/FlexLine";
+import NoData from "../../../components/independent/NoData";
 import Skeleton from "../../../components/independent/Skeleton";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import CustomDrawer from "../../../components/independent/wrapper/CustomDrawer";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
-import { dummySlipGaji } from "../../../constant/dummy";
-import { Interface__User } from "../../../constant/interfaces";
 import { iconSize } from "../../../constant/sizes";
 import useDataState from "../../../hooks/useDataState";
 import useScrollToTop from "../../../hooks/useScrollToTop";
+import backOnClose from "../../../lib/backOnClose";
 import formatNumber from "../../../lib/formatNumber";
 import getRandomNum from "../../../lib/getRandomNum";
+import getUserData from "../../../lib/getUserData";
+import req from "../../../lib/req";
 
 interface Props {
   isOpen: boolean;
@@ -52,6 +53,9 @@ const PassWordVerification = ({
   onClose,
   setPasswordValid,
 }: Props) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const toast = useToast();
+
   const formik = useFormik({
     validateOnChange: false,
     initialValues: { password: undefined },
@@ -59,13 +63,46 @@ const PassWordVerification = ({
       .object()
       .shape({ password: yup.string().required("Harus diisi") }),
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
+      setLoading(true);
+
+      const payload = {
+        password: values.password,
+      };
+
+      req
+        .post(`/api/cek-password`, payload)
+        .then((r) => {
+          if (r.status === 200) {
+            toast({
+              status: "success",
+              title: r?.data?.message,
+              position: "top",
+              isClosable: true,
+            });
+            setPasswordValid(true);
+            setTimeout(() => {
+              backOnClose();
+            }, 10);
+            // onClose();
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          toast({
+            status: "error",
+            title:
+              (typeof e?.response?.data?.message === "string" &&
+                (e?.response?.data?.message as string)) ||
+              "Maaf terjadi kesalahan pada sistem",
+            position: "top",
+            isClosable: true,
+          });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     },
   });
-
-  useEffect(() => {
-    onOpen();
-  }, [onOpen]);
 
   return (
     <CustomDrawer
@@ -81,6 +118,7 @@ const PassWordVerification = ({
             form="verifikasiPenggunaForm"
             className="btn-ap clicky"
             colorScheme="ap"
+            isLoading={loading}
           >
             Verifikasi
           </Button>
@@ -115,7 +153,7 @@ const PassWordVerification = ({
 export default function SlipGajiku() {
   useScrollToTop();
 
-  const user: Interface__User = JSON.parse(getCookie("userData") as string);
+  const user = getUserData();
 
   const today = new Date();
   // const navigate = useNavigate();
@@ -147,19 +185,23 @@ export default function SlipGajiku() {
     setTahun(prevMonth.getFullYear());
   }
 
-  const { data, loading, error, retry } = useDataState<any>({
-    initialData: dummySlipGaji,
-    url: "",
-  });
-
   const [passwordValid, setPasswordValid] = useState<boolean>(false);
   const [passwordValidation, setPasswordValidation] = useState<boolean>(true);
 
+  const { data, loading, error, retry } = useDataState<any>({
+    initialData: undefined,
+    url: "/api/get-detail-password",
+    conditions: passwordValid,
+    dependencies: [passwordValid],
+  });
+
+  console.log(passwordValid, passwordValidation);
+
   useEffect(() => {
     if (!passwordValidation) {
-      if (passwordValid === false) {
-        // navigate("/beranda");
-        window.history.back();
+      if (!passwordValid) {
+        backOnClose();
+        console.log("password invalid");
       }
     }
   }, [passwordValidation, passwordValid]);
@@ -168,8 +210,10 @@ export default function SlipGajiku() {
   const contentBgColor = useContentBgColor();
   const lightDarkColor = useLightDarkColor();
 
+  // console.log(passwordValid, passwordValidation);
+
   return (
-    <CContainer>
+    <CContainer flex={1}>
       <PassWordVerification
         isOpen={passwordValidation}
         onOpen={() => {
@@ -188,7 +232,7 @@ export default function SlipGajiku() {
         borderBottom={"1px solid var(--divider2)"}
       />
 
-      <CContainer bg={contentBgColor} p={5} pb={8}>
+      <CContainer flex={1} bg={contentBgColor} p={5} pb={8}>
         <HStack
           borderRadius={12}
           bg={lightDarkColor}
@@ -223,7 +267,8 @@ export default function SlipGajiku() {
         </HStack>
 
         <CContainer
-          flex={!loading && !error && data ? 0 : 1}
+          // flex={!loading && !error && data ? 0 : 1}
+          flex={1}
           bg={lightDarkColor}
           borderRadius={12}
           py={5}
