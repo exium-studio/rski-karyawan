@@ -16,7 +16,7 @@ interface Props extends ButtonProps {
   nonNullable?: boolean;
 }
 
-export default function MultipleSelectStatusCuti({
+export default function MultiSelectStatusVerifikasi2({
   id,
   name,
   onConfirm,
@@ -31,8 +31,26 @@ export default function MultipleSelectStatusCuti({
   ...props
 }: Props) {
   const options = [
-    { value: true, label: "Disetujui" },
-    { value: false, label: "Tidak Disetujui" },
+    {
+      value: 1,
+      label: "Menunggu Verifikasi",
+    },
+    {
+      value: 2,
+      label: "Verif. 1 Disetujui",
+    },
+    {
+      value: 3,
+      label: "Verif. 1 Ditolak",
+    },
+    {
+      value: 4,
+      label: "Verif. 2 Disetujui",
+    },
+    {
+      value: 5,
+      label: "Verif. 2 Ditolak",
+    },
   ];
 
   const { isOpen, onOpen, onClose } = useDisclosure();

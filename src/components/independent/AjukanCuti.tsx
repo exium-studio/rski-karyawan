@@ -81,7 +81,7 @@ export default function AjukanCuti() {
           <form id="ajukanCutiForm" onSubmit={formik.handleSubmit}>
             <FormControl mb={4} isInvalid={!!formik.errors.jenis_cuti}>
               <FormLabel>
-                Jenis Cuti
+                Tipe Cuti
                 <RequiredForm />
               </FormLabel>
               <SingleSelectJenisCuti
@@ -91,7 +91,7 @@ export default function AjukanCuti() {
                   formik.setFieldValue("jenis_cuti", inputValue);
                 }}
                 inputValue={formik.values.jenis_cuti}
-                placeholder="Pilih Jenis Cuti"
+                placeholder="Pilih Tipe Cuti"
               />
               <FormErrorMessage>
                 {formik.errors.jenis_cuti as string}

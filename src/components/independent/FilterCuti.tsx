@@ -18,7 +18,7 @@ import useFilterCuti from "../../global/useFilterCuti";
 import useCallBackOnNavigate from "../../hooks/useCallBackOnNavigate";
 import backOnClose from "../../lib/backOnClose";
 import DateRangePickerDrawer from "../dependent/input/DateRangePickerDrawer";
-import MultipleSelectStatusCuti from "../dependent/input/dedicated/MultipleSelectStatusCuti";
+import MultiSelectStatusVerifikasi2 from "../dependent/input/dedicated/MultiSelectStatusVerifikasi2";
 import SingleSelectJenisCuti from "../dependent/input/dedicated/SingleSelectJenisCuti";
 import BackOnCloseButton from "./BackOnCloseButton";
 import CContainer from "./wrapper/CContainer";
@@ -150,7 +150,7 @@ export default function FilterCuti() {
             </FormControl>
 
             <FormControl mb={4} isInvalid={!!formik.errors.jenis_cuti}>
-              <FormLabel>Jenis Cuti</FormLabel>
+              <FormLabel>Tipe Cuti</FormLabel>
               <SingleSelectJenisCuti
                 id="ajukan-cuti-select-jenis-cuti"
                 name="jenis_cuti"
@@ -158,20 +158,20 @@ export default function FilterCuti() {
                   formik.setFieldValue("jenis_cuti", inputValue);
                 }}
                 inputValue={formik.values.jenis_cuti}
-                placeholder="Pilih Jenis Cuti"
+                placeholder="Filter Tipe Cuti"
               />
             </FormControl>
 
             <FormControl isInvalid={!!formik.errors.date_range}>
-              <FormLabel>Status Cuti</FormLabel>
-              <MultipleSelectStatusCuti
+              <FormLabel>Status Verifikasi</FormLabel>
+              <MultiSelectStatusVerifikasi2
                 id="filter-cuti-select-status-cuti"
                 name="status_cuti"
                 onConfirm={(inputValue) => {
                   formik.setFieldValue("status_cuti", inputValue);
                 }}
                 inputValue={formik.values.status_cuti}
-                placeholder="Multi Pilih Status Cuti"
+                placeholder="Filter Status Verifikasi"
                 optionsDisplay="chip"
               />
             </FormControl>
