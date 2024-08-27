@@ -66,14 +66,14 @@ export default function AttendanceButton({ data }: Props) {
           w={"100px"}
           minH={"100px"}
           justify={"center"}
-          bg={data?.aktivitas ? "var(--p500a5)" : errorAlphaColor}
+          bg={!data?.aktivitas ? "var(--p500a5)" : errorAlphaColor}
           borderRadius={"full"}
           p={4}
         >
           <Icon
-            as={data?.aktivitas ? RiLoginBoxLine : RiLogoutBoxLine}
+            as={!data?.aktivitas ? RiLoginBoxLine : RiLogoutBoxLine}
             fontSize={58}
-            color={data?.aktivitas ? "p.500" : "red.500"}
+            color={!data?.aktivitas ? "p.500" : "red.500"}
           />
           {/* <Text fontSize={11} fontWeight={600} color={"p.500"}>
             Masuk
