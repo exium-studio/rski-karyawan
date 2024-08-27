@@ -153,7 +153,7 @@ export default function MiniProfile({ data, ...props }: Props) {
         <Text fontWeight={600} noOfLines={1}>
           {data?.nama}
         </Text>
-        <Text fontSize={14} opacity={0.4}>
+        <Text fontSize={14} opacity={0.4} noOfLines={1}>
           {data?.unit_kerja?.[0]?.nama_unit}
         </Text>
       </Box>

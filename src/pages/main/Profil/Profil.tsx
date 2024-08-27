@@ -43,7 +43,7 @@ export default function Profil() {
               <Text fontSize={14} fontWeight={500} mb={"2px"}>
                 {user.nama}
               </Text>
-              <Text fontSize={12} opacity={0.4}>
+              <Text fontSize={12} opacity={0.4} noOfLines={1}>
                 {user.unit_kerja?.[0]?.nama_unit}
               </Text>
             </CContainer>
