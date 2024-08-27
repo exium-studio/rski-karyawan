@@ -43,7 +43,7 @@ export default function LengkapiDataUser5() {
         .required("Harus diisi"),
       confirm_password: yup
         .string()
-        .min(8, "Minimal 8 karakter")
+        .oneOf([yup.ref("new_password")], "Password tidak cocok")
         .required("Harus diisi"),
     }),
     onSubmit: (values, { resetForm }) => {
