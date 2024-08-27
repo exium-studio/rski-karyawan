@@ -1,7 +1,7 @@
-import { useColorMode, VStack } from "@chakra-ui/react";
-import { MapContainer, TileLayer, Marker, Circle, useMap } from "react-leaflet";
+import { VStack } from "@chakra-ui/react";
 import L from "leaflet";
 import { useEffect } from "react";
+import { Circle, MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
 
 interface LatLng {
   lat: number;
@@ -55,11 +55,11 @@ export default function LeafletMap({
     L.latLng(90, 180) // Batas atas kanan (utara timur)
   );
 
-  const { colorMode } = useColorMode();
-  const tileUrl =
-    colorMode === "dark"
-      ? "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
-      : "https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png";
+  // const { colorMode } = useColorMode();
+  // const tileUrl =
+  //   colorMode === "dark"
+  //     ? "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
+  //     : "https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png";
 
   return (
     <VStack position="fixed" left={0} top={0}>
@@ -73,7 +73,7 @@ export default function LeafletMap({
         maxBounds={maxBounds}
         maxBoundsViscosity={1.0} // Biarkan peta memantul ketika mencapai batas
       >
-        <TileLayer url={tileUrl} />
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
         <Marker
           position={[center.lat, center.lng]}
