@@ -17,16 +17,18 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import {
+  RiCalendarCloseLine,
   RiInformationLine,
   RiLoginBoxLine,
   RiLogoutBoxLine,
 } from "@remixicon/react";
 import { useErrorAlphaColor } from "../../constant/colors";
 import { Interface__User } from "../../constant/interfaces";
-import { iconSize } from "../../constant/sizes";
+import { responsiveSpacing } from "../../constant/sizes";
 import useBackOnClose from "../../hooks/useBackOnClose";
 import backOnClose from "../../lib/backOnClose";
 import DisclosureHeader from "../dependent/DisclosureHeader";
+import CContainer from "./wrapper/CContainer";
 
 interface Props extends StackProps {
   data: Interface__User;
@@ -63,36 +65,68 @@ const InfoModal = () => {
             <DisclosureHeader title={"Info"} />
           </ModalHeader>
           <ModalBody>
-            <HStack>
-              <Center
-                w={"fit-content"}
-                p={1}
-                borderRadius={"full"}
-                bg={"var(--p500a5)"}
-              >
-                <Icon as={RiLoginBoxLine} fontSize={iconSize} color={"p.500"} />
-              </Center>
-              <Text>Presensi Masuk</Text>
-            </HStack>
+            <CContainer gap={responsiveSpacing}>
+              <HStack gap={4}>
+                <Center
+                  w={"fit-content"}
+                  p={3}
+                  borderRadius={"full"}
+                  bg={"var(--p500a5)"}
+                >
+                  <Icon as={RiLoginBoxLine} fontSize={52} color={"p.500"} />
+                </Center>
+                <CContainer gap={2}>
+                  <Text fontWeight={500}>Presensi Masuk</Text>
+                  <Text opacity={0.4} fontSize={12}>
+                    Tombol ini digunakan untuk presensi masuk dan hanya muncul
+                    jika Anda belum melakukan presensi hari ini.
+                  </Text>
+                </CContainer>
+              </HStack>
 
-            <HStack>
-              <Center
-                w={"fit-content"}
-                p={1}
-                borderRadius={"full"}
-                bg={errorAlphaColor}
-              >
-                <Icon
-                  as={RiLogoutBoxLine}
-                  fontSize={iconSize}
-                  color={"red.500"}
-                />
-              </Center>
-              <Text>Presensi Keluar</Text>
-            </HStack>
+              <HStack gap={4}>
+                <Center
+                  w={"fit-content"}
+                  p={3}
+                  borderRadius={"full"}
+                  bg={errorAlphaColor}
+                >
+                  <Icon as={RiLogoutBoxLine} fontSize={52} color={"red.500"} />
+                </Center>
+                <CContainer gap={2}>
+                  <Text fontWeight={500}>Presensi Keluar</Text>
+                  <Text opacity={0.4} fontSize={12}>
+                    Tombol ini muncul untuk presensi keluar setelah Anda
+                    melakukan presensi masuk.
+                  </Text>
+                </CContainer>
+              </HStack>
+
+              <HStack gap={4}>
+                <Center
+                  w={"fit-content"}
+                  p={3}
+                  borderRadius={"full"}
+                  bg={"var(--divider2)"}
+                >
+                  <Icon as={RiCalendarCloseLine} fontSize={52} />
+                </Center>
+                <CContainer gap={2}>
+                  <Text fontWeight={500}>Tidak Ada Jadwal</Text>
+                  <Text opacity={0.4} fontSize={12}>
+                    Tombol ini muncul jika Anda tidak memiliki jadwal untuk hari
+                    ini.
+                  </Text>
+                </CContainer>
+              </HStack>
+            </CContainer>
           </ModalBody>
           <ModalFooter>
-            <Button w={"100%"} className="btn-solid clicky">
+            <Button
+              w={"100%"}
+              className="btn-solid clicky"
+              onClick={backOnClose}
+            >
               Mengerti
             </Button>
           </ModalFooter>
