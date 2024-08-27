@@ -97,6 +97,15 @@ const PhotoConfirmation = ({
           .then((r) => {
             if (r.status === 200) {
               navigate("/beranda");
+              toast({
+                status: "success",
+                title: r.data.message,
+                position: "top",
+                isClosable: true,
+              });
+              setTimeout(() => {
+                window.location.reload();
+              }, 10);
             }
           })
           .catch((e) => {
