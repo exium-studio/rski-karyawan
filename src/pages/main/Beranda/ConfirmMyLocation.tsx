@@ -2,6 +2,7 @@ import {
   Button,
   ButtonGroup,
   HStack,
+  Icon,
   Modal,
   ModalBody,
   ModalContent,
@@ -23,6 +24,7 @@ import getCurrentAddress from "../../../lib/getCurrentAddress";
 import getLocation from "../../../lib/getLocation";
 import isWithinRadius from "../../../lib/isWithinRadius";
 import AmbilFoto from "./AmbilFoto";
+import { RiMapPin2Line } from "@remixicon/react";
 
 interface Props {
   isOpen: boolean;
@@ -149,7 +151,23 @@ export default function ConfirmMyLocation({
                 </VStack>
               )}
 
-              {loading && <ComponentSpinner m={"auto"} />}
+              {loading && (
+                <VStack
+                  p={5}
+                  h={"100vh"}
+                  justify={"center"}
+                  flex={1}
+                  position={"relative"}
+                >
+                  <ComponentSpinner
+                    position={"absolute"}
+                    spinnerProps={{ size: "xl", w: "80px", h: "80px" }}
+                    opacity={0.4}
+                  />
+
+                  <Icon as={RiMapPin2Line} fontSize={32} opacity={0.4} />
+                </VStack>
+              )}
 
               {!loading && myLocation && attendanceData && address && (
                 <>
