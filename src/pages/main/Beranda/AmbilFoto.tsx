@@ -31,8 +31,10 @@ import getLocation from "../../../lib/getLocation";
 import req from "../../../lib/req";
 import useCallBackOnNavigate from "../../../hooks/useCallBackOnNavigate";
 import Header from "../../../components/dependent/Header";
+import { Interface__AttendanceData } from "../../../constant/interfaces";
 
 interface PhotoConfirmationProps {
+  attendanceData: Interface__AttendanceData;
   isTakePhotoPageOpen: boolean;
   startCamera: any;
   stopCamera: any;
@@ -42,6 +44,7 @@ interface PhotoConfirmationProps {
 }
 
 const PhotoConfirmation = ({
+  attendanceData,
   isTakePhotoPageOpen,
   startCamera,
   stopCamera,
@@ -92,8 +95,15 @@ const PhotoConfirmation = ({
         payload.append("long", long.toString());
         payload.append("foto", imageSrc, "photo.jpg");
 
+        let url = "";
+        if (attendanceData?.aktivitas) {
+          url = `/api/check-out-presensi`;
+        } else {
+          url = `/api/check-in-presensi`;
+        }
+
         req
-          .post(`/api/check-in-presensi`, payload)
+          .post(url, payload)
           .then((r) => {
             if (r.status === 200) {
               navigate("/beranda");
@@ -429,6 +439,7 @@ export default function AmbilFoto({ attendanceData, ...props }: Props) {
 
                 <Center p={1} borderRadius={"full"} border={"1px solid white"}>
                   <PhotoConfirmation
+                    attendanceData={attendanceData}
                     isTakePhotoPageOpen={isOpen}
                     startCamera={startCamera}
                     stopCamera={stopCamera}

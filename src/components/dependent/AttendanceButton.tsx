@@ -1,31 +1,38 @@
 import { Button, Icon, VStack } from "@chakra-ui/react";
-import { RiLoginBoxLine } from "@remixicon/react";
+import { RiLoginBoxLine, RiLogoutBoxLine } from "@remixicon/react";
 import { useRef, useState } from "react";
 import { Interface__AttendanceData } from "../../constant/interfaces";
 import ConfirmMyLocation from "../../pages/main/Beranda/ConfirmMyLocation";
 import ripple from "../../lib/ripple";
+import { useErrorAlphaColor } from "../../constant/colors";
 
 interface Props {
   data: Interface__AttendanceData;
 }
 
 export default function AttendanceButton({ data }: Props) {
+  // SX
+  const errorAlphaColor = useErrorAlphaColor();
+
   const attendanceButtonRef = useRef<HTMLDivElement>(null);
   const [confirmLocation, setConfrimLocation] = useState<boolean>(false);
 
   return (
     <>
-      <ConfirmMyLocation
-        isOpen={confirmLocation}
-        onOpen={() => {
-          setConfrimLocation(true);
-        }}
-        onClose={() => {
-          setConfrimLocation(false);
-        }}
-        data={data}
-        attendanceData={data}
-      />
+      {/* Confirm location modal */}
+      <>
+        <ConfirmMyLocation
+          isOpen={confirmLocation}
+          onOpen={() => {
+            setConfrimLocation(true);
+          }}
+          onClose={() => {
+            setConfrimLocation(false);
+          }}
+          data={data}
+          attendanceData={data}
+        />
+      </>
 
       <VStack
         ref={attendanceButtonRef}
@@ -59,11 +66,15 @@ export default function AttendanceButton({ data }: Props) {
           w={"100px"}
           minH={"100px"}
           justify={"center"}
-          bg={"var(--p500a5)"}
+          bg={data?.aktivitas ? "var(--p500a5)" : errorAlphaColor}
           borderRadius={"full"}
           p={4}
         >
-          <Icon as={RiLoginBoxLine} fontSize={58} color={"p.500"} />
+          <Icon
+            as={data?.aktivitas ? RiLoginBoxLine : RiLogoutBoxLine}
+            fontSize={58}
+            color={data?.aktivitas ? "p.500" : "red.500"}
+          />
           {/* <Text fontSize={11} fontWeight={600} color={"p.500"}>
             Masuk
           </Text> */}

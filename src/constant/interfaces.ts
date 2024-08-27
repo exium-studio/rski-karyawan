@@ -1,6 +1,7 @@
 export interface Interface__AttendanceData {
   id: number;
   user_id: number;
+  aktivitas: boolean;
   tgl_mulai: Date;
   tgl_selesai: Date;
   shift_id: number;
