@@ -21,7 +21,7 @@ export default function ListAktivitas({ ...props }: Props) {
     Interface__Aktivitas[]
   >({
     initialData: dummyActivity,
-    url: "/get-activity-presensi",
+    url: "/api/get-activity-presensi",
     dependencies: [filterAktivitas],
   });
 

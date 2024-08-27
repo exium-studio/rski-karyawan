@@ -11,7 +11,7 @@ import CContainer from "./wrapper/CContainer";
 export default function AktivitasAndaBeranda() {
   const { error, notFound, loading, data, retry } = useDataState({
     initialData: dummyActivity,
-    url: "/get-activity-presensi",
+    url: "/api/get-activity-presensi",
   });
 
   // SX
