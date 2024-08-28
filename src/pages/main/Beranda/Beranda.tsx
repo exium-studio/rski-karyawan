@@ -115,7 +115,7 @@ export default function Beranda() {
         pt={0}
         bg={contentBgColor}
         borderRadius={"16px 16px 0 0"}
-        minH={"calc(100vh - 80px)"}
+        minH={"calc(100vh - 24px)"}
         // pb={"95px"}
         overflowY={isScrollToBottom ? "auto" : "clip"}
       >

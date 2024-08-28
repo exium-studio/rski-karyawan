@@ -192,8 +192,8 @@ export default function SlipGajiku() {
     initialData: undefined,
     url: "/api/get-detail-password",
     payload: {
-      bulan: 8,
-      tahun: 2024,
+      bulan: bulan + 1,
+      tahun: tahun,
     },
     conditions: passwordValid,
     dependencies: [passwordValid],
