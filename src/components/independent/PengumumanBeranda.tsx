@@ -77,6 +77,7 @@ export default function PengumumanBeranda() {
                           data={pengumuman}
                           scrollSnapAlign={"center"}
                           w={"calc(100vw - 64px)"}
+                          maxW={"600px"}
                         />
                       ))}
                   </HStack>
