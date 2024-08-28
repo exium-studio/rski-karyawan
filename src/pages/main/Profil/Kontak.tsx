@@ -16,7 +16,7 @@ export default function Kontak() {
   const contentBgColor = useContentBgColor();
 
   return (
-    <CContainer>
+    <CContainer flex={1}>
       <Header
         left={"back"}
         title="Kontak Bantuan"
@@ -24,13 +24,14 @@ export default function Kontak() {
         borderBottom={"1px solid var(--divider2)"}
       />
 
-      <CContainer bg={contentBgColor} p={5}>
+      <CContainer flex={1} bg={contentBgColor} p={5}>
         <Accordion allowMultiple>
           <CContainer gap={3}>
             <AccordionItem
               bg={lightDarkColor}
               border={"none"}
               borderRadius={12}
+              overflow={"clip"}
             >
               <AccordionButton h="48px">
                 <Text textAlign={"left"} flex={1} fontWeight={500}>
@@ -52,6 +53,7 @@ export default function Kontak() {
               bg={lightDarkColor}
               border={"none"}
               borderRadius={12}
+              overflow={"clip"}
             >
               <AccordionButton h="48px">
                 <Text textAlign={"left"} flex={1} fontWeight={500}>

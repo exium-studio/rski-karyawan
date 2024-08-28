@@ -71,6 +71,7 @@ export const globalTheme = extendTheme({
       baseStyle: (props) => ({
         container: {
           borderColor: "var(--divider)",
+          overflow: "clip",
         },
         panel: {
           pb: 2,
