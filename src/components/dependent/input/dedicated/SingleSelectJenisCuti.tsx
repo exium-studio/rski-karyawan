@@ -57,7 +57,7 @@ export default function SingleSelectJenisCuti({
                 (e?.response?.data?.message as string)) ||
               "Maaf terjadi kesalahan pada sistem",
             isClosable: true,
-            position: "bottom-right",
+            position: "top",
           });
         });
     }
