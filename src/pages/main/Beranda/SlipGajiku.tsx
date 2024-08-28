@@ -199,6 +199,8 @@ export default function SlipGajiku() {
     dependencies: [passwordValid],
   });
 
+  // console.log(bulan, tahun);
+
   // console.log(passwordValid, passwordValidation);
 
   useEffect(() => {
