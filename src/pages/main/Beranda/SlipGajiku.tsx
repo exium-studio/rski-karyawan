@@ -58,7 +58,7 @@ const PassWordVerification = ({
 
   const formik = useFormik({
     validateOnChange: false,
-    initialValues: { password: undefined },
+    initialValues: { password: "" },
     validationSchema: yup
       .object()
       .shape({ password: yup.string().required("Harus diisi") }),
@@ -191,11 +191,15 @@ export default function SlipGajiku() {
   const { data, loading, error, retry } = useDataState<any>({
     initialData: undefined,
     url: "/api/get-detail-password",
+    payload: {
+      bulan: 8,
+      tahun: 2024,
+    },
     conditions: passwordValid,
     dependencies: [passwordValid],
   });
 
-  console.log(passwordValid, passwordValidation);
+  // console.log(passwordValid, passwordValidation);
 
   useEffect(() => {
     if (!passwordValidation) {
@@ -285,7 +289,7 @@ export default function SlipGajiku() {
                   fontSize={20}
                 />
               }
-              pr={"10px"}
+              pr={"16px"}
               className="btn-outline clicky"
               onClick={prevMonth}
               w={"100%"}
@@ -307,7 +311,7 @@ export default function SlipGajiku() {
             <Button
               aria-label="Next Month"
               rightIcon={<Icon as={RiArrowRightSLine} fontSize={20} />}
-              pl={"10px"}
+              pl={"16px"}
               className="btn-outline clicky"
               onClick={nextMonth}
               w={"100%"}
@@ -323,60 +327,83 @@ export default function SlipGajiku() {
 
           {!error && (
             <>
-              {loading ||
-                (!passwordValid && (
-                  <>
-                    <CContainer
-                      flex={0}
-                      py={5}
-                      borderBottom={"2px dashed var(--divider)"}
+              {loading && (
+                <>
+                  <CContainer
+                    flex={0}
+                    py={5}
+                    borderBottom={"2px dashed var(--divider)"}
+                  >
+                    <Text
+                      w={"fit-content"}
+                      mx={"auto"}
+                      fontWeight={500}
+                      textAlign={"center"}
                     >
-                      <Text
-                        w={"fit-content"}
-                        mx={"auto"}
-                        fontWeight={500}
-                        textAlign={"center"}
-                      >
-                        Take Home Pay
-                      </Text>
+                      Take Home Pay
+                    </Text>
 
+                    <Skeleton
+                      borderRadius={8}
+                      mt={2}
+                      h={"31px"}
+                      w={"180px"}
+                      mx={"auto"}
+                    />
+                  </CContainer>
+
+                  <CContainer
+                    flex={0}
+                    gap={3}
+                    px={5}
+                    py={3}
+                    borderBottom={"2px dashed var(--divider)"}
+                  >
+                    <Text fontWeight={500}>Penghasilan</Text>
+                    {Array.from({ length: 5 }).map((_: any, i: number) => (
+                      <HStack key={i}>
+                        <Skeleton
+                          borderRadius={8}
+                          h={"21px"}
+                          w={getRandomNum(100, 140)}
+                        />
+                        <FlexLine opacity={0} />
+                        <Skeleton
+                          borderRadius={8}
+                          h={"21px"}
+                          w={getRandomNum(100, 140)}
+                        />
+                      </HStack>
+                    ))}
+                    <HStack>
+                      <FlexLine mx={0} />
+                    </HStack>
+
+                    <HStack>
                       <Skeleton
                         borderRadius={8}
-                        mt={2}
-                        h={"31px"}
-                        w={"180px"}
-                        mx={"auto"}
+                        h={"21px"}
+                        w={getRandomNum(100, 140)}
                       />
-                    </CContainer>
+                      <FlexLine opacity={0} />
+                      <Skeleton
+                        borderRadius={8}
+                        h={"21px"}
+                        w={getRandomNum(100, 140)}
+                      />
+                    </HStack>
+                  </CContainer>
 
-                    <CContainer
-                      flex={0}
-                      gap={3}
-                      px={5}
-                      py={3}
-                      borderBottom={"2px dashed var(--divider)"}
-                    >
-                      <Text fontWeight={500}>Penghasilan</Text>
-                      {Array.from({ length: 5 }).map((_: any, i: number) => (
-                        <HStack key={i}>
-                          <Skeleton
-                            borderRadius={8}
-                            h={"21px"}
-                            w={getRandomNum(100, 140)}
-                          />
-                          <FlexLine opacity={0} />
-                          <Skeleton
-                            borderRadius={8}
-                            h={"21px"}
-                            w={getRandomNum(100, 140)}
-                          />
-                        </HStack>
-                      ))}
-                      <HStack>
-                        <FlexLine mx={0} />
-                      </HStack>
-
-                      <HStack>
+                  <CContainer
+                    flex={0}
+                    gap={3}
+                    py={3}
+                    px={5}
+                    borderBottom={"2px dashed var(--divider)"}
+                  >
+                    <Text fontWeight={500}>Potongan</Text>
+                    {Array.from({ length: 5 }).map((_: any, i: number) => (
+                      <HStack key={i}>
                         <Skeleton
                           borderRadius={8}
                           h={"21px"}
@@ -389,113 +416,89 @@ export default function SlipGajiku() {
                           w={getRandomNum(100, 140)}
                         />
                       </HStack>
-                    </CContainer>
+                    ))}
+                    <HStack>
+                      <FlexLine mx={0} />
+                    </HStack>
 
-                    <CContainer
-                      flex={0}
-                      gap={3}
-                      py={3}
-                      px={5}
-                      borderBottom={"2px dashed var(--divider)"}
-                    >
-                      <Text fontWeight={500}>Potongan</Text>
-                      {Array.from({ length: 5 }).map((_: any, i: number) => (
-                        <HStack key={i}>
-                          <Skeleton
-                            borderRadius={8}
-                            h={"21px"}
-                            w={getRandomNum(100, 140)}
-                          />
-                          <FlexLine opacity={0} />
-                          <Skeleton
-                            borderRadius={8}
-                            h={"21px"}
-                            w={getRandomNum(100, 140)}
-                          />
-                        </HStack>
-                      ))}
-                      <HStack>
-                        <FlexLine mx={0} />
-                      </HStack>
+                    <HStack>
+                      <Skeleton
+                        borderRadius={8}
+                        h={"21px"}
+                        w={getRandomNum(100, 140)}
+                      />
+                      <FlexLine opacity={0} />
+                      <Skeleton
+                        borderRadius={8}
+                        h={"21px"}
+                        w={getRandomNum(100, 140)}
+                      />
+                    </HStack>
+                  </CContainer>
 
-                      <HStack>
-                        <Skeleton
-                          borderRadius={8}
-                          h={"21px"}
-                          w={getRandomNum(100, 140)}
-                        />
-                        <FlexLine opacity={0} />
-                        <Skeleton
-                          borderRadius={8}
-                          h={"21px"}
-                          w={getRandomNum(100, 140)}
-                        />
-                      </HStack>
-                    </CContainer>
+                  <CContainer flex={0} gap={3} pt={3} px={5}>
+                    <Text fontWeight={500}>Ringkasan Kehadiran</Text>
+                    <HStack>
+                      <Skeleton
+                        borderRadius={8}
+                        h={"21px"}
+                        w={getRandomNum(100, 140)}
+                      />
+                      <FlexLine opacity={0} />
+                      <Skeleton borderRadius={8} h={"21px"} w={"20px"} />
+                    </HStack>
 
-                    <CContainer flex={0} gap={3} pt={3} px={5}>
-                      <Text fontWeight={500}>Ringkasan Kehadiran</Text>
-                      <HStack>
-                        <Skeleton
-                          borderRadius={8}
-                          h={"21px"}
-                          w={getRandomNum(100, 140)}
-                        />
-                        <FlexLine opacity={0} />
-                        <Skeleton borderRadius={8} h={"21px"} w={"20px"} />
-                      </HStack>
+                    <HStack>
+                      <Skeleton
+                        borderRadius={8}
+                        h={"21px"}
+                        w={getRandomNum(100, 140)}
+                      />
+                      <FlexLine opacity={0} />
+                      <Skeleton borderRadius={8} h={"21px"} w={"20px"} />
+                    </HStack>
 
-                      <HStack>
-                        <Skeleton
-                          borderRadius={8}
-                          h={"21px"}
-                          w={getRandomNum(100, 140)}
-                        />
-                        <FlexLine opacity={0} />
-                        <Skeleton borderRadius={8} h={"21px"} w={"20px"} />
-                      </HStack>
+                    <HStack>
+                      <Skeleton
+                        borderRadius={8}
+                        h={"21px"}
+                        w={getRandomNum(100, 140)}
+                      />
+                      <FlexLine opacity={0} />
+                      <Skeleton borderRadius={8} h={"21px"} w={"20px"} />
+                    </HStack>
 
-                      <HStack>
-                        <Skeleton
-                          borderRadius={8}
-                          h={"21px"}
-                          w={getRandomNum(100, 140)}
-                        />
-                        <FlexLine opacity={0} />
-                        <Skeleton borderRadius={8} h={"21px"} w={"20px"} />
-                      </HStack>
+                    <HStack>
+                      <Skeleton
+                        borderRadius={8}
+                        h={"21px"}
+                        w={getRandomNum(100, 140)}
+                      />
+                      <FlexLine opacity={0} />
+                      <Skeleton borderRadius={8} h={"21px"} w={"20px"} />
+                    </HStack>
 
-                      <HStack>
-                        <Skeleton
-                          borderRadius={8}
-                          h={"21px"}
-                          w={getRandomNum(100, 140)}
-                        />
-                        <FlexLine opacity={0} />
-                        <Skeleton borderRadius={8} h={"21px"} w={"20px"} />
-                      </HStack>
-
-                      <HStack>
-                        <Skeleton
-                          borderRadius={8}
-                          h={"21px"}
-                          w={getRandomNum(100, 140)}
-                        />
-                        <FlexLine opacity={0} />
-                        <Skeleton borderRadius={8} h={"21px"} w={"20px"} />
-                      </HStack>
-                      <HStack>
-                        <Skeleton
-                          borderRadius={8}
-                          h={"21px"}
-                          w={getRandomNum(100, 140)}
-                        />
-                        <FlexLine opacity={0} />
-                        <Skeleton borderRadius={8} h={"21px"} w={"40px"} />
-                      </HStack>
-                    </CContainer>
-                  </>
-                ))}
+                    <HStack>
+                      <Skeleton
+                        borderRadius={8}
+                        h={"21px"}
+                        w={getRandomNum(100, 140)}
+                      />
+                      <FlexLine opacity={0} />
+                      <Skeleton borderRadius={8} h={"21px"} w={"20px"} />
+                    </HStack>
+                    <HStack>
+                      <Skeleton
+                        borderRadius={8}
+                        h={"21px"}
+                        w={getRandomNum(100, 140)}
+                      />
+                      <FlexLine opacity={0} />
+                      <Skeleton borderRadius={8} h={"21px"} w={"40px"} />
+                    </HStack>
+                  </CContainer>
+                </>
+              )}
 
               {!loading && passwordValid && (
                 <>
@@ -534,29 +537,27 @@ export default function SlipGajiku() {
                         borderBottom={"2px dashed var(--divider)"}
                       >
                         <Text fontWeight={500}>Penghasilan</Text>
-                        {data.penghasilan.rincian.map(
-                          (penghasilan: any, i: number) => (
-                            <HStack key={i}>
-                              <Text opacity={0.4}>{penghasilan.nama}</Text>
-                              <FlexLine opacity={0} />
-                              <Text>{`Rp ${formatNumber(
-                                penghasilan.besaran
-                              )}`}</Text>
-                            </HStack>
-                          )
-                        )}
+                        {data.detail_gaji.map((penghasilan: any, i: number) => (
+                          <HStack key={i}>
+                            <Text opacity={0.4}>{penghasilan.nama_detail}</Text>
+                            <FlexLine opacity={0} />
+                            <Text>{`Rp ${formatNumber(
+                              penghasilan.besaran
+                            )}`}</Text>
+                          </HStack>
+                        ))}
                         <HStack>
                           <FlexLine mx={0} />
                         </HStack>
 
-                        <HStack>
+                        {/* <HStack>
                           <Text opacity={0.4}>Total Penghasilan</Text>
                           <FlexLine opacity={0} />
                           <Text
                             fontWeight={600}
                             color={"green.400"}
                           >{`Rp ${formatNumber(data.penghasilan.total)}`}</Text>
-                        </HStack>
+                        </HStack> */}
                       </CContainer>
 
                       <CContainer
@@ -567,32 +568,30 @@ export default function SlipGajiku() {
                         borderBottom={"2px dashed var(--divider)"}
                       >
                         <Text fontWeight={500}>Potongan</Text>
-                        {data.potongan.rincian.map(
-                          (potongan: any, i: number) => (
-                            <HStack key={i}>
-                              <Text opacity={0.4}>{potongan.nama}</Text>
-                              <FlexLine opacity={0} />
-                              <Text>{`Rp ${formatNumber(
-                                potongan.besaran
-                              )}`}</Text>
-                            </HStack>
-                          )
-                        )}
+                        {data.detail_gaji.map((potongan: any, i: number) => (
+                          <HStack key={i}>
+                            <Text opacity={0.4}>{potongan.nama_detail}</Text>
+                            <FlexLine opacity={0} />
+                            <Text>{`Rp ${formatNumber(
+                              potongan.besaran
+                            )}`}</Text>
+                          </HStack>
+                        ))}
                         <HStack>
                           <FlexLine mx={0} />
                         </HStack>
 
-                        <HStack>
+                        {/* <HStack>
                           <Text opacity={0.4}>Total Potongan</Text>
                           <FlexLine opacity={0} />
                           <Text
                             fontWeight={600}
                             color={"red.400"}
                           >{`Rp ${formatNumber(data.potongan.total)}`}</Text>
-                        </HStack>
+                        </HStack> */}
                       </CContainer>
 
-                      <CContainer flex={0} gap={3} pt={3} px={5}>
+                      {/* <CContainer flex={0} gap={3} pt={3} px={5}>
                         <Text fontWeight={500}>Ringkasan Kehadiran</Text>
                         <HStack>
                           <Text opacity={0.4}>Hari Kerja</Text>
@@ -640,7 +639,7 @@ export default function SlipGajiku() {
                             data.ringkasan_kehadiran.kehadiran
                           )} hari`}</Text>
                         </HStack>
-                      </CContainer>
+                      </CContainer> */}
                     </>
                   )}
                 </>
