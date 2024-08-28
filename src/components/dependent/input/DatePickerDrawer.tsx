@@ -204,7 +204,7 @@ export default function DatePickerDrawer({
                   fontSize={20}
                 />
               }
-              pr={"10px"}
+              pr={"16px"}
               className="btn-outline clicky"
               onClick={prevMonth}
               w={"100%"}
@@ -225,7 +225,7 @@ export default function DatePickerDrawer({
             <Button
               aria-label="Next Month"
               rightIcon={<Icon as={RiArrowRightSLine} fontSize={20} />}
-              pl={"10px"}
+              pl={"16px"}
               className="btn-outline clicky"
               onClick={nextMonth}
               w={"100%"}
