@@ -171,7 +171,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                 }}
                 column="keluarga"
                 payload={JSON.stringify(formik.values.keluarga)}
-                url=""
+                url="/api/update-data-keluarga"
               />
             </HStack>
             <FormErrorMessage>
