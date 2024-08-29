@@ -8,30 +8,9 @@ import useDataState from "../../../hooks/useDataState";
 import UbahDataKeluargaForm from "./UbahDataKeluargaForm";
 
 export default function UbahDataKeluarga() {
-  const dummy = [
-    {
-      id: "1123123124",
-      nama: "Yanto Selep",
-      hubungan_keluarga: { value: 2, label: "Ayah" },
-      status_hidup: { value: 1, label: "Hidup" },
-      pekerjaan: "Dokter",
-      telepon: "0861726513",
-      email: "yantoslp@gmail.com",
-    },
-    {
-      id: "223423423422",
-      nama: "Yanti Selep",
-      hubungan_keluarga: { value: 1, label: "Ibu" },
-      status_hidup: { value: 1, label: "Hidup" },
-      pekerjaan: "Perawat",
-      telepon: "0876162344",
-      email: "yantislp@gmail.com",
-    },
-  ];
-
   const { error, loading, data, retry } = useDataState<any>({
-    initialData: dummy,
-    url: "",
+    initialData: undefined,
+    url: "/api/get-data-keluarga",
     dependencies: [],
   });
 
@@ -41,6 +20,7 @@ export default function UbahDataKeluarga() {
 
   return (
     <CContainer
+      flex={1}
       p={5}
       pb={8}
       bg={contentBgColor}

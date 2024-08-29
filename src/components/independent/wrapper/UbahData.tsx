@@ -71,7 +71,7 @@ export default function UbahData({ title, active, children, ...props }: Props) {
   const lightDarkColor = useLightDarkColor();
 
   return (
-    <CContainer {...props}>
+    <CContainer flex={1} {...props}>
       <Header
         left={"back"}
         backLink="/profil"
@@ -90,7 +90,7 @@ export default function UbahData({ title, active, children, ...props }: Props) {
         px={4}
       />
 
-      <Tabs position="relative" variant="unstyled">
+      <Tabs position="relative" flex={1} variant="unstyled">
         <Box
           bg={lightDarkColor}
           position={"sticky"}
@@ -182,14 +182,14 @@ export default function UbahData({ title, active, children, ...props }: Props) {
           />
         </Box>
 
-        <TabPanels>
-          <TabPanel p={0}>
+        <TabPanels flex={1}>
+          <TabPanel p={0} flex={1}>
             <UbahDataPersonal />
           </TabPanel>
-          <TabPanel p={0}>
+          <TabPanel p={0} flex={1}>
             <UbahDataKeluarga />
           </TabPanel>
-          <TabPanel p={0}>
+          <TabPanel p={0} flex={1}>
             <UbahDataBerkas />
           </TabPanel>
         </TabPanels>
