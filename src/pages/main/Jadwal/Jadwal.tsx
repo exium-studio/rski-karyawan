@@ -52,7 +52,7 @@ export default function Jadwal() {
         <Alert status="info" p={4} borderRadius={8} mb={3}>
           <Text fontSize={14}>
             Sekadar pengingat: Kepala Ruang memperbarui jadwal kerja Anda setiap
-            Minggu. Selalu perhatikan perubahan terbaru.
+            Minggu (Shift). Selalu perhatikan perubahan terbaru.
           </Text>
         </Alert>
 
