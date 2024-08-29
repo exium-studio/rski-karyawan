@@ -207,7 +207,7 @@ export default function SingleSelectDrawer({
                     }
                     bg={
                       selected && selected.value === option.value
-                        ? "var(--p500a4) !important"
+                        ? "var(--p500a5) !important"
                         : ""
                     }
                     px={4}
@@ -236,7 +236,7 @@ export default function SingleSelectDrawer({
                     }
                     bg={
                       selected && selected.value === option.value
-                        ? "var(--p500a4) !important"
+                        ? "var(--p500a5) !important"
                         : ""
                     }
                     gap={2}
