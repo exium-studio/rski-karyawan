@@ -244,7 +244,7 @@ export default function DokumenFileItem({ data }: Props) {
         </HStack>
 
         <CContainer align={"center"} py={2} px={4} gap={1}>
-          <FileTypeIcon type={dataType} fontSize={52} />
+          <FileTypeIcon type={dataType} fontSize={52} mb={2} />
         </CContainer>
 
         <HStack opacity={0.4} p={2} justify={"space-between"}>
@@ -271,7 +271,9 @@ export default function DokumenFileItem({ data }: Props) {
           </ModalHeader>
 
           <ModalBody>
-            {/* <Text mb={4}>{data.nama}</Text> */}
+            <Text mb={4} textAlign={"center"} opacity={0.4}>
+              {data.label}
+            </Text>
             <CContainer my={"auto"} flex={0}>
               <FileViewer fileUrl={data.path} fileType={dataType} />
             </CContainer>

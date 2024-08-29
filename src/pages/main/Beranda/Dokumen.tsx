@@ -151,7 +151,7 @@ export default function Dokumen() {
             {loading && (
               <SimpleGrid columns={2} gap={3}>
                 {Array.from({ length: 10 }).map((_, i) => (
-                  <Skeleton key={i} flex={1} h={"140.5px"} mx={"auto"} />
+                  <Skeleton key={i} flex={1} h={"145.5px"} mx={"auto"} />
                 ))}
               </SimpleGrid>
             )}
