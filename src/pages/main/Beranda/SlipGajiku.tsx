@@ -574,14 +574,17 @@ export default function SlipGajiku() {
                           const ok =
                             gaji.kategori_gaji?.label === "Penambah" ||
                             gaji.kategori_gaji?.label === "Penghasilan Dasar";
+
                           return (
-                            <HStack key={i}>
-                              <Text opacity={0.4}>{gaji.nama_detail}</Text>
-                              <FlexLine opacity={0} />
-                              <Text>{`Rp ${
-                                gaji?.besaran ? formatNumber(gaji.besaran) : 0
-                              }`}</Text>
-                            </HStack>
+                            ok && (
+                              <HStack key={i}>
+                                <Text opacity={0.4}>{gaji.nama_detail}</Text>
+                                <FlexLine opacity={0} />
+                                <Text>{`Rp ${
+                                  gaji?.besaran ? formatNumber(gaji.besaran) : 0
+                                }`}</Text>
+                              </HStack>
+                            )
                           );
                         })}
                         <HStack>
