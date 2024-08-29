@@ -188,20 +188,16 @@ export default function SlipGajiku() {
   const [passwordValid, setPasswordValid] = useState<boolean>(false);
   const [passwordValidation, setPasswordValidation] = useState<boolean>(true);
 
-  const { data, loading, error, retry } = useDataState<any>({
+  const { data, notFound, loading, error, retry } = useDataState<any>({
     initialData: undefined,
-    url: "/api/get-detail-password",
+    url: "/api/get-detail-gaji",
     payload: {
       bulan: bulan + 1,
       tahun: tahun,
     },
     conditions: passwordValid,
-    dependencies: [passwordValid],
+    dependencies: [passwordValid, bulan, tahun],
   });
-
-  // console.log(bulan, tahun);
-
-  // console.log(passwordValid, passwordValidation);
 
   useEffect(() => {
     if (!passwordValidation) {
@@ -217,6 +213,35 @@ export default function SlipGajiku() {
   const lightDarkColor = useLightDarkColor();
 
   // console.log(passwordValid, passwordValidation);
+
+  const totalPendapatan = () => {
+    if (data && data.detail_gaji) {
+      let total = 0;
+      data.detail_gaji.forEach((item: any) => {
+        if (
+          item.kategori_gaji.label === "Penghasilan Dasar" ||
+          item.kategori_gaji.label === "Penambah"
+        ) {
+          total += item.besaran;
+        }
+      });
+      return total;
+    }
+    return 0;
+  };
+
+  const totalPotongan = () => {
+    if (data && data.detail_gaji) {
+      let total = 0;
+      data.detail_gaji.forEach((item: any) => {
+        if (item.kategori_gaji.label === "Pengurang") {
+          total += item.besaran;
+        }
+      });
+      return total;
+    }
+    return 0;
+  };
 
   return (
     <CContainer flex={1}>
@@ -322,9 +347,15 @@ export default function SlipGajiku() {
           </HStack>
 
           {error && (
-            <Box my={"auto"}>
-              <Retry loading={loading} retry={retry} />
-            </Box>
+            <>
+              {notFound && <NoData label="Slip gaji belum ada" />}
+
+              {!notFound && (
+                <Box my={"auto"}>
+                  <Retry loading={loading} retry={retry} />
+                </Box>
+              )}
+            </>
           )}
 
           {!error && (
@@ -401,7 +432,7 @@ export default function SlipGajiku() {
                     gap={3}
                     py={3}
                     px={5}
-                    borderBottom={"2px dashed var(--divider)"}
+                    // borderBottom={"2px dashed var(--divider)"}
                   >
                     <Text fontWeight={500}>Potongan</Text>
                     {Array.from({ length: 5 }).map((_: any, i: number) => (
@@ -438,7 +469,7 @@ export default function SlipGajiku() {
                     </HStack>
                   </CContainer>
 
-                  <CContainer flex={0} gap={3} pt={3} px={5}>
+                  {/* <CContainer flex={0} gap={3} pt={3} px={5}>
                     <Text fontWeight={500}>Ringkasan Kehadiran</Text>
                     <HStack>
                       <Skeleton
@@ -498,7 +529,7 @@ export default function SlipGajiku() {
                       <FlexLine opacity={0} />
                       <Skeleton borderRadius={8} h={"21px"} w={"40px"} />
                     </HStack>
-                  </CContainer>
+                  </CContainer> */}
                 </>
               )}
 
@@ -539,58 +570,69 @@ export default function SlipGajiku() {
                         borderBottom={"2px dashed var(--divider)"}
                       >
                         <Text fontWeight={500}>Penghasilan</Text>
-                        {data.detail_gaji.map((penghasilan: any, i: number) => (
-                          <HStack key={i}>
-                            <Text opacity={0.4}>{penghasilan.nama_detail}</Text>
-                            <FlexLine opacity={0} />
-                            <Text>{`Rp ${formatNumber(
-                              penghasilan.besaran
-                            )}`}</Text>
-                          </HStack>
-                        ))}
+                        {data.detail_gaji.map((gaji: any, i: number) => {
+                          const ok =
+                            gaji.kategori_gaji?.label === "Penambah" ||
+                            gaji.kategori_gaji?.label === "Penghasilan Dasar";
+                          return (
+                            <HStack key={i}>
+                              <Text opacity={0.4}>{gaji.nama_detail}</Text>
+                              <FlexLine opacity={0} />
+                              <Text>{`Rp ${
+                                gaji?.besaran ? formatNumber(gaji.besaran) : 0
+                              }`}</Text>
+                            </HStack>
+                          );
+                        })}
                         <HStack>
                           <FlexLine mx={0} />
                         </HStack>
 
-                        {/* <HStack>
+                        <HStack>
                           <Text opacity={0.4}>Total Penghasilan</Text>
                           <FlexLine opacity={0} />
                           <Text
                             fontWeight={600}
                             color={"green.400"}
-                          >{`Rp ${formatNumber(data.penghasilan.total)}`}</Text>
-                        </HStack> */}
+                          >{`Rp ${formatNumber(totalPendapatan())}`}</Text>
+                        </HStack>
                       </CContainer>
 
                       <CContainer
                         flex={0}
                         gap={3}
-                        py={3}
+                        pt={3}
                         px={5}
-                        borderBottom={"2px dashed var(--divider)"}
+                        // borderBottom={"2px dashed var(--divider)"}
                       >
                         <Text fontWeight={500}>Potongan</Text>
-                        {data.detail_gaji.map((potongan: any, i: number) => (
-                          <HStack key={i}>
-                            <Text opacity={0.4}>{potongan.nama_detail}</Text>
-                            <FlexLine opacity={0} />
-                            <Text>{`Rp ${formatNumber(
-                              potongan.besaran
-                            )}`}</Text>
-                          </HStack>
-                        ))}
+                        {data.detail_gaji.map((gaji: any, i: number) => {
+                          const ok = gaji.kategori_gaji?.label === "Pengurang";
+                          return (
+                            ok && (
+                              <HStack key={i}>
+                                <Text opacity={0.4}>{gaji.nama_detail}</Text>
+                                <FlexLine opacity={0} />
+                                <Text>{`Rp ${
+                                  gaji?.besaran ? formatNumber(gaji.besaran) : 0
+                                }`}</Text>
+                              </HStack>
+                            )
+                          );
+                        })}
+
                         <HStack>
                           <FlexLine mx={0} />
                         </HStack>
 
-                        {/* <HStack>
+                        <HStack>
                           <Text opacity={0.4}>Total Potongan</Text>
                           <FlexLine opacity={0} />
                           <Text
                             fontWeight={600}
                             color={"red.400"}
-                          >{`Rp ${formatNumber(data.potongan.total)}`}</Text>
-                        </HStack> */}
+                          >{`Rp ${formatNumber(totalPotongan())}`}</Text>
+                        </HStack>
                       </CContainer>
 
                       {/* <CContainer flex={0} gap={3} pt={3} px={5}>
@@ -656,6 +698,7 @@ export default function SlipGajiku() {
             colorScheme="ap"
             leftIcon={<Icon as={RiDownload2Line} fontSize={iconSize} />}
             mb={4}
+            onClick={() => {}}
           >
             Unduh Slip Gaji
           </Button>
