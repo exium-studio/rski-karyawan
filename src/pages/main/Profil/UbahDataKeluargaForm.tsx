@@ -68,7 +68,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                 <VStack align={"stretch"} borderRadius={8}>
                   <HStack justify={"space-between"} mr={-1}>
                     <Text fontWeight={600} fontSize={16}>
-                      {anggota.nama}
+                      {anggota.nama_keluarga}
                     </Text>
 
                     <HStack>
@@ -114,12 +114,12 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                     <HStack>
                       <Text opacity={0.4}>Hubungan Keluarga</Text>
                       <FlexLine />
-                      <Text>{anggota.hubungan_keluarga.label}</Text>
+                      <Text>{anggota.hubungan}</Text>
                     </HStack>
                     <HStack>
                       <Text opacity={0.4}>Status Hidup</Text>
                       <FlexLine />
-                      <Text>{anggota.status_hidup.label}</Text>
+                      <Text>{anggota.status_hidup ? "Hidup" : "Meniggal"}</Text>
                     </HStack>
                     <HStack>
                       <Text opacity={0.4}>Pekerjaan</Text>
@@ -129,7 +129,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                     <HStack>
                       <Text opacity={0.4}>Nomor Telepon</Text>
                       <FlexLine />
-                      <Text>{anggota.telepon}</Text>
+                      <Text>{anggota.no_hp}</Text>
                     </HStack>
                     <HStack>
                       <Text opacity={0.4}>Email</Text>
@@ -170,7 +170,8 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                   formik.validateField("keluarga");
                 }}
                 column="keluarga"
-                payload={formik.values.keluarga}
+                payload={JSON.stringify(formik.values.keluarga)}
+                url=""
               />
             </HStack>
             <FormErrorMessage>

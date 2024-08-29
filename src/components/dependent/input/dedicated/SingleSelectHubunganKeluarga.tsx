@@ -1,13 +1,12 @@
 import { ButtonProps } from "@chakra-ui/react";
-import { Interface__SelectOption } from "../../../../constant/interfaces";
-import SingleSelectDrawer from "../SingleSelectDrawer";
 import { optionsHubunganKeluarga } from "../../../../constant/selectOptions";
+import SingleSelectDrawer from "../SingleSelectDrawer";
 
 interface Props extends ButtonProps {
   id: string;
   name: string;
-  onConfirm: (inputValue: Interface__SelectOption | undefined) => void;
-  inputValue: Interface__SelectOption | undefined;
+  onConfirm: (inputValue: any | undefined) => void;
+  inputValue: any | undefined;
   withSearch?: boolean;
   optionsDisplay?: "list" | "chip";
   isError?: boolean;

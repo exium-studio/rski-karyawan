@@ -16,7 +16,6 @@ import {
 import { RiEditLine } from "@remixicon/react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { Interface__InputDataKeluarga } from "../../../../constant/interfaces";
 import { iconSize } from "../../../../constant/sizes";
 import backOnClose from "../../../../lib/backOnClose";
 import RequiredForm from "../../../form/RequiredForm";
@@ -27,7 +26,7 @@ import SelectHubunganKeluarga from "./SingleSelectHubunganKeluarga";
 import SelectStatusHidup from "./SingleSelectStatusHidup";
 
 interface Props {
-  data: Interface__InputDataKeluarga;
+  data: any;
   id: string;
   name: string;
   onConfirm: (inputValue: any) => void;
@@ -47,11 +46,17 @@ export default function EditFamily({
   const formik = useFormik({
     validateOnChange: false,
     initialValues: {
-      hubungan_keluarga: data.hubungan_keluarga,
-      nama: data.nama,
-      status_hidup: data.status_hidup,
+      hubungan_keluarga: {
+        value: data.hubungan,
+        label: data.hubungan,
+      },
+      nama: data.nama_keluarga,
+      status_hidup: {
+        value: data.status_hidup ? 1 : 0,
+        label: data.status_hidup ? "Hidup" : "Meninggal",
+      },
       pekerjaan: data.pekerjaan,
-      telepon: data.telepon,
+      telepon: data.no_hp,
       email: data.email,
     },
     validationSchema: yup.object().shape({
@@ -134,7 +139,9 @@ export default function EditFamily({
                 }}
                 inputValue={formik.values.nama}
               />
-              <FormErrorMessage>{formik.errors.nama}</FormErrorMessage>
+              <FormErrorMessage>
+                {formik.errors.nama as string}
+              </FormErrorMessage>
             </FormControl>
 
             <FormControl mb={4} isInvalid={!!formik.errors.status_hidup}>
@@ -170,7 +177,9 @@ export default function EditFamily({
                 }}
                 inputValue={formik.values.pekerjaan}
               />
-              <FormErrorMessage>{formik.errors.pekerjaan}</FormErrorMessage>
+              <FormErrorMessage>
+                {formik.errors.pekerjaan as string}
+              </FormErrorMessage>
             </FormControl>
 
             <FormControl mb={4} isInvalid={!!formik.errors.telepon}>
@@ -192,7 +201,9 @@ export default function EditFamily({
                   inputValue={formik.values.telepon}
                 />
               </InputGroup>
-              <FormErrorMessage>{formik.errors.telepon}</FormErrorMessage>
+              <FormErrorMessage>
+                {formik.errors.telepon as string}
+              </FormErrorMessage>
             </FormControl>
 
             <FormControl isInvalid={!!formik.errors.email}>
@@ -208,7 +219,9 @@ export default function EditFamily({
                 }}
                 inputValue={formik.values.email}
               />
-              <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+              <FormErrorMessage>
+                {formik.errors.email as string}
+              </FormErrorMessage>
             </FormControl>
           </form>
 

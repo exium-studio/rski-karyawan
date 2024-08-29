@@ -21,12 +21,14 @@ interface Props extends Omit<IconButtonProps, "aria-label"> {
   validator: () => void;
   column: string;
   payload: any;
+  url?: string;
 }
 
 export default function RequestPatchDataButton({
   validator,
   column,
   payload,
+  url = `/api/update-data-personal`,
   ...props
 }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -44,7 +46,7 @@ export default function RequestPatchDataButton({
       };
 
       req
-        .post(`/api/update-data-personal`, payloadDikirim)
+        .post(url, payloadDikirim)
         .then((r) => {
           if (r.status === 200) {
             backOnClose();
