@@ -44,6 +44,7 @@ import EmailVerfication from "./pages/resetPassword/EmailVerfication";
 import ForgotPassword from "./pages/resetPassword/ForgotPassword";
 import NewPassword from "./pages/resetPassword/NewPassword";
 import { globalTheme } from "./theme/globalTheme";
+import DataKaryawan from "./pages/main/Profil/DataKaryawan";
 
 // function disableRightClick(event: MouseEvent) {
 //   event.preventDefault();
@@ -140,7 +141,6 @@ export const App = () => {
                 </AuthMiddleware>
               }
             />
-
             <Route
               path="/beranda"
               element={
@@ -344,6 +344,16 @@ export const App = () => {
               }
             />
             <Route
+              path="/profil/data-karyawan"
+              element={
+                <AuthMiddleware>
+                  <NavContainer active={4}>
+                    <DataKaryawan />
+                  </NavContainer>
+                </AuthMiddleware>
+              }
+            />
+            <Route
               path="/profil/ubah"
               element={
                 <AuthMiddleware>
@@ -387,7 +397,6 @@ export const App = () => {
                 </NavContainer>
               }
             />
-
             <Route path="servererror" element={<InternalServerErrorPage />} />
             <Route path="maintenance" element={<MaintenancePage />} />
             <Route path="*" element={<MissingPage />} />

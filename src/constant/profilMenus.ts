@@ -1,9 +1,9 @@
 import {
-  RiEditLine,
-  RiFileListLine,
+  RiBriefcaseLine,
   RiInformationLine,
   RiPhoneLine,
   RiShieldStarLine,
+  RiUserLine,
 } from "@remixicon/react";
 
 const profilMenus = [
@@ -14,12 +14,12 @@ const profilMenus = [
       {
         label: "Data Karyawan",
         link: "/profil/data-karyawan",
-        icon: RiFileListLine,
+        icon: RiBriefcaseLine,
       },
       {
-        label: "Perubahan Data",
+        label: "Data Personal & Keluarga",
         link: "/profil/ubah",
-        icon: RiEditLine,
+        icon: RiUserLine,
       },
     ],
   },

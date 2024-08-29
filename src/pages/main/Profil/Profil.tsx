@@ -41,7 +41,6 @@ const ProfilStatus = () => {
 
   return (
     <CContainer gap={3}>
-      <Text opacity={0.4}>Status</Text>
       {loading && (
         <>
           <Skeleton h={"86px"} mb={3} />
@@ -59,7 +58,6 @@ const ProfilStatus = () => {
 
           {!error && (
             <>
-              (
               <CContainer
                 gap={3}
                 mb={3}
@@ -107,7 +105,6 @@ const ProfilStatus = () => {
                   </HStack>
                 </HStack>
               </CContainer>
-              )
             </>
           )}
         </>
@@ -137,7 +134,7 @@ export default function Profil() {
           bg={useLightDarkColor()}
           align={"stretch"}
           gap={4}
-          mb={6}
+          mb={3}
           overflow={"clip"}
           position={"relative"}
         >
