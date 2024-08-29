@@ -230,13 +230,13 @@ export default function MultipleSelectDrawer({
                 border={
                   selected &&
                   selected.some((item) => item.value === option.value)
-                    ? "1px solid var(--p500a2)"
+                    ? "1px solid var(--p500)"
                     : "none"
                 }
                 bg={
                   selected &&
                   selected.some((item) => item.value === option.value)
-                    ? "var(--p500a4) !important"
+                    ? "var(--p500a5) !important"
                     : ""
                 }
               >
@@ -277,13 +277,13 @@ export default function MultipleSelectDrawer({
                 borderColor={
                   selected &&
                   selected.some((item) => item.value === option.value)
-                    ? "var(--p500a2)"
+                    ? "var(--p500)"
                     : ""
                 }
                 bg={
                   selected &&
                   selected.some((item) => item.value === option.value)
-                    ? "var(--p500a4) !important"
+                    ? "var(--p500a5) !important"
                     : ""
                 }
                 gap={2}
