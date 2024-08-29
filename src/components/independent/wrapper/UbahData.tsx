@@ -12,20 +12,14 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react";
-import {
-  RiAccountBoxLine,
-  RiFileLine,
-  RiHeartLine,
-  RiHistoryLine,
-} from "@remixicon/react";
+import { RiAccountBoxLine, RiHeartLine, RiHistoryLine } from "@remixicon/react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLightDarkColor } from "../../../constant/colors";
+import UbahDataKeluarga from "../../../pages/main/Profil/UbahDataKeluarga";
 import UbahDataPersonal from "../../../pages/main/Profil/UbahDataPersonal";
 import Header from "../../dependent/Header";
 import CContainer from "./CContainer";
-import UbahDataKeluarga from "../../../pages/main/Profil/UbahDataKeluarga";
-import UbahDataBerkas from "../../../pages/main/Profil/UbahDataBerkas";
-import { useEffect, useRef, useState } from "react";
 
 interface Props extends StackProps {
   title: string;
@@ -90,7 +84,13 @@ export default function UbahData({ title, active, children, ...props }: Props) {
         px={4}
       />
 
-      <Tabs position="relative" flex={1} variant="unstyled">
+      <Tabs
+        display={"flex"}
+        flexDir={"column"}
+        position="relative"
+        flex={1}
+        variant="unstyled"
+      >
         <Box
           bg={lightDarkColor}
           position={"sticky"}
@@ -126,6 +126,7 @@ export default function UbahData({ title, active, children, ...props }: Props) {
                 </Text>
               </HStack>
             </Tab>
+
             <Tab
               flex={1}
               onClick={() => {
@@ -149,7 +150,8 @@ export default function UbahData({ title, active, children, ...props }: Props) {
                 </Text>
               </HStack>
             </Tab>
-            <Tab
+
+            {/* <Tab
               flex={1}
               onClick={() => {
                 setTimeout(() => {
@@ -171,7 +173,7 @@ export default function UbahData({ title, active, children, ...props }: Props) {
                   Berkas
                 </Text>
               </HStack>
-            </Tab>
+            </Tab> */}
           </TabList>
 
           <TabIndicator
@@ -184,14 +186,14 @@ export default function UbahData({ title, active, children, ...props }: Props) {
 
         <TabPanels flex={1}>
           <TabPanel p={0} flex={1}>
-            <UbahDataPersonal />
+            <UbahDataPersonal tabIndex={tabIndex} />
           </TabPanel>
           <TabPanel p={0} flex={1}>
-            <UbahDataKeluarga />
+            <UbahDataKeluarga tabIndex={tabIndex} />
           </TabPanel>
-          <TabPanel p={0} flex={1}>
+          {/* <TabPanel p={0} flex={1}>
             <UbahDataBerkas />
-          </TabPanel>
+          </TabPanel> */}
         </TabPanels>
       </Tabs>
     </CContainer>

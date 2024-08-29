@@ -7,10 +7,11 @@ import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
 import useDataState from "../../../hooks/useDataState";
 import UbahDataKeluargaForm from "./UbahDataKeluargaForm";
 
-export default function UbahDataKeluarga() {
+export default function UbahDataKeluarga({ tabIndex }: any) {
   const { error, loading, data, retry } = useDataState<any>({
     initialData: undefined,
     url: "/api/get-data-keluarga",
+    conditions: tabIndex === 1,
     dependencies: [],
   });
 
@@ -28,6 +29,7 @@ export default function UbahDataKeluarga() {
       scrollSnapAlign={"center"}
       // h={"calc(100vh - 56px - 40px)"}
       overflowY={"auto"}
+      minH={"calc(100vh - 96px)"}
     >
       {error && (
         <Box my={"auto"}>

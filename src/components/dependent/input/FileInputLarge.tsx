@@ -194,7 +194,15 @@ export default function FileInputLarge({
           )}
           {inputValue && fileName && (
             <>
-              <Text fontSize={18}>{fileName}</Text>
+              <Text
+                fontSize={18}
+                overflow={"hidden"}
+                whiteSpace={"nowrap"}
+                textOverflow={"ellipsis"}
+                w={"100%"}
+              >
+                {fileName}
+              </Text>
               {typeof inputValue !== "string" && (
                 <Text opacity={0.4} fontSize={14}>
                   {formatBytes(inputValue.size)}

@@ -1,17 +1,17 @@
 import { Alert, Box, Icon, Text } from "@chakra-ui/react";
+import { RiArrowUpCircleLine, RiHistoryLine } from "@remixicon/react";
 import Retry from "../../../components/dependent/Retry";
 import Skeleton from "../../../components/independent/Skeleton";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
-import { dummyDetailKaryawan } from "../../../constant/dummy";
 import useDataState from "../../../hooks/useDataState";
 import UbahDataPersonalForm from "./UbahDataPersonalForm";
-import { RiArrowUpCircleLine, RiHistoryLine } from "@remixicon/react";
 
-export default function UbahDataPersonal() {
+export default function UbahDataPersonal({ tabIndex }: any) {
   const { error, loading, data, retry } = useDataState<any>({
-    initialData: dummyDetailKaryawan,
-    url: "",
+    initialData: undefined,
+    url: "/api/get-data-karyawan-personal",
+    conditions: tabIndex === 0,
     dependencies: [],
   });
 
@@ -21,6 +21,7 @@ export default function UbahDataPersonal() {
 
   return (
     <CContainer
+      flex={1}
       p={5}
       pb={8}
       bg={contentBgColor}
@@ -28,6 +29,7 @@ export default function UbahDataPersonal() {
       scrollSnapAlign={"center"}
       // h={"calc(100vh - 56px - 40px)"}
       overflowY={"auto"}
+      minH={"calc(100vh - 96px)"}
     >
       {error && (
         <Box my={"auto"}>

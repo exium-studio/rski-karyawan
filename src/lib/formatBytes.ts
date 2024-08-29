@@ -1,5 +1,4 @@
 export default function formatBytes(bytes: number) {
-  console.log(bytes);
   if (bytes) {
     if (bytes === 0) return "0 Bytes";
     const k = 1024;

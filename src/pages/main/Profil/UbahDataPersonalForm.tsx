@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Button,
   Center,
   FormControl,
   FormErrorMessage,
@@ -11,26 +12,33 @@ import {
   InputLeftElement,
   InputRightElement,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { RiCameraLine } from "@remixicon/react";
+import { RiArrowUpCircleLine, RiCameraLine } from "@remixicon/react";
 import { useFormik } from "formik";
+import { useState } from "react";
 import * as yup from "yup";
+import DisclosureHeader from "../../../components/dependent/DisclosureHeader";
 import DatePickerDrawer from "../../../components/dependent/input/DatePickerDrawer";
 import SelectAgama from "../../../components/dependent/input/dedicated/SingleSelectAgama";
 import SelectGender from "../../../components/dependent/input/dedicated/SingleSelectGender";
 import SelectGoldar from "../../../components/dependent/input/dedicated/SIngleSelectGoldar";
+import FileInputLarge from "../../../components/dependent/input/FileInputLarge";
 import StringInput from "../../../components/dependent/input/StringInput";
 import Textarea from "../../../components/dependent/input/Textareaold";
 import RequestPatchDataButton from "../../../components/dependent/RequestPatchDataButton";
 import RequiredForm from "../../../components/form/RequiredForm";
+import CContainer from "../../../components/independent/wrapper/CContainer";
+import CustomDrawer from "../../../components/independent/wrapper/CustomDrawer";
 import { useLightDarkColor } from "../../../constant/colors";
-import { Interface__DetailKaryawan } from "../../../constant/interfaces";
+import backOnClose from "../../../lib/backOnClose";
 import formatNumber from "../../../lib/formatNumber";
 import parseNumber from "../../../lib/parseNumber";
-import CContainer from "../../../components/independent/wrapper/CContainer";
+import { iconSize } from "../../../constant/sizes";
+import formatDate from "../../../lib/formatDate";
 
 interface Props {
-  data: Interface__DetailKaryawan;
+  data: any;
 }
 
 export default function EditDataPersonalForm({ data }: Props) {
@@ -38,17 +46,17 @@ export default function EditDataPersonalForm({ data }: Props) {
     validateOnChange: false,
     initialValues: {
       foto_profil: data?.user?.foto_profil || undefined,
-      tempat_lahir: data?.tempat_lahir || undefined,
-      tgl_lahir: data?.tgl_lahir || undefined,
+      tempat_lahir: data?.tempat_lahir,
+      tgl_lahir: new Date(data?.tanggal_lahir) || undefined,
       telepon: data?.no_hp,
       jenis_kelamin: data?.jenis_kelamin
         ? {
-            value: data.jenis_kelamin.id,
-            label: data.jenis_kelamin.label,
+            value: data.jenis_kelamin,
+            label: data.jenis_kelamin === 1 ? "Laki - laki" : "Permpuan",
           }
         : undefined,
-      nik: data?.nik || undefined,
-      nik_ktp: data?.no_kk || undefined,
+      nik: data?.nik_ktp,
+      nik_ktp: data?.no_kk,
       agama: data?.agama
         ? {
             value: data.agama.id,
@@ -61,10 +69,12 @@ export default function EditDataPersonalForm({ data }: Props) {
             label: data.golongan_darah.label,
           }
         : undefined,
-      tinggi_badan: data?.tinggi_badan || undefined,
-      alamat: data?.alamat || undefined,
-      no_ijazah: data?.no_ijazah || undefined,
-      tahun_lulus: data?.tahun_lulus.toString() || "",
+      tinggi_badan: data?.tinggi_badan,
+      berat_badan: data?.tinggi_badan,
+      alamat: data?.alamat,
+      no_ijazah: data?.no_ijasah,
+      tahun_lulus: data?.tahun_lulus.toString(),
+      gelar_depan: data?.gelar_depan,
     },
     validationSchema: yup.object().shape({
       foto_profil: yup.mixed().required("Harus diisi"),
@@ -77,9 +87,11 @@ export default function EditDataPersonalForm({ data }: Props) {
       agama: yup.object().required("Harus diisi"),
       golongan_darah: yup.object().required("Harus diisi"),
       tinggi_badan: yup.string().required("Harus diisi"),
+      berat_badan: yup.string().required("Harus diisi"),
       alamat: yup.string().required("Harus diisi"),
       no_ijazah: yup.string().required("Harus diisi"),
       tahun_lulus: yup.string().required("Harus diisi"),
+      gelar_depan: yup.string(),
     }),
     onSubmit: (values, { resetForm }) => {
       console.log(values);
@@ -90,38 +102,83 @@ export default function EditDataPersonalForm({ data }: Props) {
   // SX
   const lightDarkColor = useLightDarkColor();
 
+  const FileInputDrawer = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [avatar, setAvatar] = useState<any>(undefined);
+
+    return (
+      <>
+        <Center
+          mx={"auto"}
+          my={2}
+          cursor={"pointer"}
+          position={"relative"}
+          w={"fit-content"}
+          mr={1}
+          onClick={onOpen}
+        >
+          <Avatar
+            size={"lg"}
+            src={formik.values.foto_profil || ""}
+            name={data?.user?.nama}
+            bg={"gray"}
+          />
+          <Center
+            position={"absolute"}
+            borderRadius={"full"}
+            w={"28px"}
+            h={"28px"}
+            bg={"p.500"}
+            bottom={0}
+            right={0}
+          >
+            <Icon as={RiCameraLine} color={lightDarkColor} />
+          </Center>
+        </Center>
+
+        <CustomDrawer
+          id={"avatarinput"}
+          isOpen={isOpen}
+          onOpen={onOpen}
+          onClose={onClose}
+          header={<DisclosureHeader title="Avatar" />}
+          footer={
+            <Button
+              colorScheme="ap"
+              className="btn-ap clicky"
+              onClick={() => {
+                backOnClose();
+              }}
+              leftIcon={<Icon as={RiArrowUpCircleLine} fontSize={iconSize} />}
+            >
+              Ajukan Perubahan
+            </Button>
+          }
+        >
+          <CContainer px={6}>
+            <Text opacity={0.4} textAlign={"center"} mb={2}>
+              Gunakan foto 1:1
+            </Text>
+
+            <FileInputLarge
+              name={"avatar"}
+              onChangeSetter={(input) => {
+                setAvatar(input);
+              }}
+              inputValue={avatar}
+            />
+          </CContainer>
+        </CustomDrawer>
+      </>
+    );
+  };
+
   return (
     <form id="updatePersonalDataForm">
       <FormControl mb={4} isInvalid={!!formik.errors.foto_profil}>
         <HStack justify={"space-between"}>
           <HStack>
-            <Center
-              mx={"auto"}
-              my={2}
-              className="clicky"
-              cursor={"pointer"}
-              position={"relative"}
-              w={"fit-content"}
-              mr={1}
-            >
-              <Avatar
-                size={"lg"}
-                src={data?.user?.foto_profil || ""}
-                name={data?.user?.nama}
-                bg={"gray"}
-              />
-              <Center
-                position={"absolute"}
-                borderRadius={"full"}
-                w={"28px"}
-                h={"28px"}
-                bg={"p.500"}
-                bottom={0}
-                right={0}
-              >
-                <Icon as={RiCameraLine} color={lightDarkColor} />
-              </Center>
-            </Center>
+            <FileInputDrawer />
 
             <CContainer justify={"center"}>
               <Text fontSize={14} fontWeight={500} mb={"2px"}>
@@ -132,17 +189,11 @@ export default function EditDataPersonalForm({ data }: Props) {
               </Text>
             </CContainer>
           </HStack>
-
-          <RequestPatchDataButton
-            validator={() => {
-              formik.validateField("foto_profil");
-            }}
-            column="foto_profil"
-            payload={formik.values.foto_profil}
-          />
         </HStack>
 
-        <FormErrorMessage>{formik.errors.foto_profil}</FormErrorMessage>
+        <FormErrorMessage>
+          {formik.errors.foto_profil as string}
+        </FormErrorMessage>
       </FormControl>
 
       <FormControl mb={4} isInvalid={!!formik.errors.tempat_lahir}>
@@ -167,7 +218,9 @@ export default function EditDataPersonalForm({ data }: Props) {
             payload={formik.values.tempat_lahir}
           />
         </HStack>
-        <FormErrorMessage>{formik.errors.tempat_lahir}</FormErrorMessage>
+        <FormErrorMessage>
+          {formik.errors.tempat_lahir as string}
+        </FormErrorMessage>
       </FormControl>
 
       <FormControl mb={4} isInvalid={!!formik.errors.tgl_lahir}>
@@ -194,7 +247,7 @@ export default function EditDataPersonalForm({ data }: Props) {
               formik.validateField("tgl_lahir");
             }}
             column="tgl_lahir"
-            payload={formik.values.tgl_lahir}
+            payload={formatDate(formik.values.tgl_lahir, "short2")}
           />
         </HStack>
         <FormErrorMessage>{formik.errors.tgl_lahir as string}</FormErrorMessage>
@@ -224,12 +277,12 @@ export default function EditDataPersonalForm({ data }: Props) {
               validator={() => {
                 formik.validateField("telepon");
               }}
-              column="telepon"
+              column="no_hp"
               payload={formik.values.telepon}
             />
           </HStack>
         </InputGroup>
-        <FormErrorMessage>{formik.errors.telepon}</FormErrorMessage>
+        <FormErrorMessage>{formik.errors.telepon as string}</FormErrorMessage>
       </FormControl>
 
       <FormControl mb={4} isInvalid={!!formik.errors.jenis_kelamin}>
@@ -279,11 +332,11 @@ export default function EditDataPersonalForm({ data }: Props) {
             validator={() => {
               formik.validateField("nik");
             }}
-            column="nik"
+            column="nik_ktp"
             payload={formik.values.nik}
           />
         </HStack>
-        <FormErrorMessage>{formik.errors.nik}</FormErrorMessage>
+        <FormErrorMessage>{formik.errors.nik as string}</FormErrorMessage>
       </FormControl>
 
       <FormControl mb={4} isInvalid={!!formik.errors.nik_ktp}>
@@ -308,7 +361,7 @@ export default function EditDataPersonalForm({ data }: Props) {
             payload={formik.values.nik_ktp}
           />
         </HStack>
-        <FormErrorMessage>{formik.errors.nik_ktp}</FormErrorMessage>
+        <FormErrorMessage>{formik.errors.nik_ktp as string}</FormErrorMessage>
       </FormControl>
 
       <FormControl mb={4} isInvalid={!!formik.errors.agama}>
@@ -407,6 +460,46 @@ export default function EditDataPersonalForm({ data }: Props) {
         </FormErrorMessage>
       </FormControl>
 
+      <FormControl mb={4} isInvalid={!!formik.errors.berat_badan}>
+        <FormLabel>
+          Berat Badan
+          <RequiredForm />
+        </FormLabel>
+        <InputGroup>
+          <InputRightElement mr={"52px"}>
+            <Text>kg</Text>
+          </InputRightElement>
+          <HStack w={"100%"}>
+            <Input
+              pr={12}
+              name="berat_badan"
+              onChange={(e) => {
+                formik.setFieldValue(
+                  "berat_badan",
+                  parseNumber(e.target.value)
+                );
+              }}
+              value={
+                formik.values.berat_badan === 0
+                  ? ""
+                  : formatNumber(formik.values.berat_badan)
+              }
+              placeholder="65"
+            />
+            <RequestPatchDataButton
+              validator={() => {
+                formik.validateField("berat_badan");
+              }}
+              column="berat_badan"
+              payload={formik.values.berat_badan}
+            />
+          </HStack>
+        </InputGroup>
+        <FormErrorMessage>
+          {formik.errors.tinggi_badan as string}
+        </FormErrorMessage>
+      </FormControl>
+
       <FormControl mb={4} isInvalid={!!formik.errors.alamat}>
         <FormLabel>
           Alamat
@@ -426,7 +519,7 @@ export default function EditDataPersonalForm({ data }: Props) {
             payload={formik.values.alamat}
           />
         </HStack>
-        <FormErrorMessage>{formik.errors.alamat}</FormErrorMessage>
+        <FormErrorMessage>{formik.errors.alamat as string}</FormErrorMessage>
       </FormControl>
 
       <FormControl mb={4} isInvalid={!!formik.errors.no_ijazah}>
@@ -445,16 +538,16 @@ export default function EditDataPersonalForm({ data }: Props) {
           />
           <RequestPatchDataButton
             validator={() => {
-              formik.validateField("no_ijazah");
+              formik.validateField("no_ijasah");
             }}
             column="no_ijazah"
             payload={formik.values.no_ijazah}
           />
         </HStack>
-        <FormErrorMessage>{formik.errors.no_ijazah}</FormErrorMessage>
+        <FormErrorMessage>{formik.errors.no_ijazah as string}</FormErrorMessage>
       </FormControl>
 
-      <FormControl isInvalid={formik.errors.tahun_lulus ? true : false}>
+      <FormControl mb={4} isInvalid={formik.errors.tahun_lulus ? true : false}>
         <FormLabel>
           Tahun Lulus Ijazah Terakhir
           <RequiredForm />
@@ -476,7 +569,36 @@ export default function EditDataPersonalForm({ data }: Props) {
             payload={formik.values.tahun_lulus}
           />
         </HStack>
-        <FormErrorMessage>{formik.errors.tahun_lulus}</FormErrorMessage>
+        <FormErrorMessage>
+          {formik.errors.tahun_lulus as string}
+        </FormErrorMessage>
+      </FormControl>
+
+      <FormControl isInvalid={formik.errors.gelar_depan ? true : false}>
+        <FormLabel>
+          Gelar Depan
+          <RequiredForm />
+        </FormLabel>
+        <HStack>
+          <StringInput
+            name="gelar_depan"
+            placeholder="2024"
+            onChangeSetter={(input) => {
+              formik.setFieldValue("gelar_depan", input);
+            }}
+            inputValue={formik.values.gelar_depan}
+          />
+          <RequestPatchDataButton
+            validator={() => {
+              formik.validateField("gelar_depan");
+            }}
+            column="gelar_depan"
+            payload={formik.values.gelar_depan}
+          />
+        </HStack>
+        <FormErrorMessage>
+          {formik.errors.gelar_depan as string}
+        </FormErrorMessage>
       </FormControl>
     </form>
   );

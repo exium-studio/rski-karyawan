@@ -106,7 +106,8 @@ export default function SingleSelectDrawer({
         justifyContent={"space-between"}
         w={"100%"}
         role="group"
-        px={"16px !important"}
+        pl={"16px !important"}
+        pr={"12px !important"}
         {...props}
       >
         <HStack>
