@@ -1,18 +1,16 @@
 import { create } from "zustand";
-import { Interface__FilterKaryawan } from "../constant/interfaces";
 
 interface State {
-  filterKaryawan: Interface__FilterKaryawan;
+  filterKaryawan: any;
 }
 
 interface Actions {
-  setFilterKaryawan: (newState: Interface__FilterKaryawan) => void;
+  setFilterKaryawan: (newState: any) => void;
   clearFilterKaryawan: () => void;
 }
 
 const defaultFilter = {
-  jenis_karyawan: undefined,
-  status_kerja: undefined,
+  status: undefined,
 };
 
 const useFilterKaryawan = create<State & Actions>((set) => ({

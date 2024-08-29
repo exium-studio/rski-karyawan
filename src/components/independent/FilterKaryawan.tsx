@@ -38,11 +38,11 @@ export default function FilterKaryawan({ ...props }: Props) {
   const formik = useFormik({
     validateOnChange: false,
     initialValues: {
-      status_karyawan: undefined,
+      status: undefined,
       // jenis_karyawan: undefined,
     },
     validationSchema: yup.object().shape({
-      status_karyawan: yup.array(),
+      status: yup.array(),
       // jenis_karyawan: yup.array(),
     }),
     onSubmit: (values, { resetForm }) => {
@@ -55,8 +55,8 @@ export default function FilterKaryawan({ ...props }: Props) {
     if (values.jenis_karyawan && values.jenis_karyawan.length > 0) {
       count += values.jenis_karyawan.length;
     }
-    if (values.status_karyawan && values.status_karyawan.length > 0) {
-      count += values.status_karyawan.length;
+    if (values.status && values.status.length > 0) {
+      count += values.status.length;
     }
     return count;
   }
@@ -77,10 +77,7 @@ export default function FilterKaryawan({ ...props }: Props) {
         onClick={() => {
           onOpen();
           formik.setFieldValue("jenis_karyawan", filterKaryawan.jenis_karyawan);
-          formik.setFieldValue(
-            "status_karyawan",
-            filterKaryawan.status_karyawan
-          );
+          formik.setFieldValue("status", filterKaryawan.status);
         }}
         rightIcon={<Icon as={RiEqualizer3Line} fontSize={iconSize} />}
         w={"100%"}
@@ -140,22 +137,22 @@ export default function FilterKaryawan({ ...props }: Props) {
       >
         <CContainer px={6}>
           <form id="ajukanCutiForm" onSubmit={formik.handleSubmit}>
-            <FormControl isInvalid={!!formik.errors.status_karyawan} mb={4}>
+            <FormControl isInvalid={!!formik.errors.status}>
               <FormLabel>Status Kepegawaian</FormLabel>
               <MultipleSelectStatusKaryawan
                 id="filter-karyawan-select-status-kerja"
-                name="status_karyawan"
+                name="status"
                 onConfirm={(inputValue) => {
-                  formik.setFieldValue("status_karyawan", inputValue);
+                  formik.setFieldValue("status", inputValue);
                 }}
-                inputValue={formik.values.status_karyawan}
+                inputValue={formik.values.status}
                 placeholder="Filter Status Kepegawaian"
                 optionsDisplay="chip"
                 maxSelectedDisplay={3}
               />
             </FormControl>
 
-            {/* <FormControl isInvalid={!!formik.errors.status_karyawan}>
+            {/* <FormControl isInvalid={!!formik.errors.status}>
               <FormLabel>Jenis Karyawan</FormLabel>
               <MultipleSelectJenisKaryawan
                 id="filter-karyawan-select-jenis-karyawan"

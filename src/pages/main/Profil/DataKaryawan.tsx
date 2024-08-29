@@ -1,4 +1,3 @@
-import React from "react";
 import useDataState from "../../../hooks/useDataState";
 
 export default function DataKaryawan() {

@@ -15,6 +15,7 @@ import useDataState from "../../../hooks/useDataState";
 import useScrollToTop from "../../../hooks/useScrollToTop";
 import getUserData from "../../../lib/getUserData";
 import DetailKaryawan from "./DetailKaryawan";
+import useFilterKaryawan from "../../../global/useFilterKaryawan";
 
 export default function Karyawan() {
   useScrollToTop();
@@ -24,9 +25,19 @@ export default function Karyawan() {
   const [searchMode, setSearchMode] = useState<boolean>(false);
   const [search, setSearch] = useState<string | undefined>("");
 
-  const { error, loading, data, retry } = useDataState<Interface__Karyawan[]>({
+  const { filterKaryawan } = useFilterKaryawan();
+
+  const { error, notFound, loading, data, retry } = useDataState<
+    Interface__Karyawan[]
+  >({
     initialData: undefined,
     url: "/api/user-unit-kerja",
+    payload: {
+      ...(filterKaryawan?.status?.length > 0 && {
+        status: filterKaryawan.status.map((sp: any) => sp.value),
+      }),
+    },
+    dependencies: [filterKaryawan],
   });
 
   const fd = data?.filter((item) => {
@@ -137,9 +148,15 @@ export default function Karyawan() {
 
       <CContainer flex={1} p={5} gap={3} bg={contentBgColor}>
         {error && (
-          <Box my={"auto"}>
-            <Retry loading={loading} retry={retry} />
-          </Box>
+          <>
+            {notFound && <NotFound />}
+
+            {!notFound && (
+              <Box my={"auto"}>
+                <Retry loading={loading} retry={retry} />
+              </Box>
+            )}
+          </>
         )}
 
         {!error && (

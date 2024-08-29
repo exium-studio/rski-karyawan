@@ -1,6 +1,5 @@
 import {
   Button,
-  ButtonGroup,
   Icon,
   IconButton,
   IconButtonProps,
@@ -10,12 +9,12 @@ import {
 } from "@chakra-ui/react";
 import { RiArrowUpCircleLine } from "@remixicon/react";
 import { useState } from "react";
+import dataLabels from "../../constant/dataLabels";
+import backOnClose from "../../lib/backOnClose";
+import req from "../../lib/req";
+import CContainer from "../independent/wrapper/CContainer";
 import CustomDrawer from "../independent/wrapper/CustomDrawer";
 import DisclosureHeader from "./DisclosureHeader";
-import CContainer from "../independent/wrapper/CContainer";
-import dataLabels from "../../constant/dataLabels";
-import req from "../../lib/req";
-import backOnClose from "../../lib/backOnClose";
 
 interface Props extends Omit<IconButtonProps, "aria-label"> {
   validator: () => void;
