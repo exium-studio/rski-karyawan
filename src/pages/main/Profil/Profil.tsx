@@ -1,16 +1,120 @@
-import { Avatar, HStack, Icon, Text } from "@chakra-ui/react";
-import { RiCheckboxCircleFill } from "@remixicon/react";
+import {
+  Avatar,
+  Center,
+  HStack,
+  Icon,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+  Text,
+} from "@chakra-ui/react";
+import { RiCheckboxCircleFill, RiCloseCircleFill } from "@remixicon/react";
 import { Link } from "react-router-dom";
 import Header from "../../../components/dependent/Header";
 import JenisKaryawanBadge from "../../../components/dependent/JenisKaryawanBadge";
+import Retry from "../../../components/dependent/Retry";
 import LogoutProfil from "../../../components/independent/LogoutProfil";
 import { ProfilColorModeSwitcher } from "../../../components/independent/ProfilColorModeSwitcher";
+import Skeleton from "../../../components/independent/Skeleton";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
 import { Interface__User } from "../../../constant/interfaces";
 import profilMenus from "../../../constant/profilMenus";
 import { iconSize } from "../../../constant/sizes";
+import useDataState from "../../../hooks/useDataState";
+import formatDuration from "../../../lib/formatDuration";
 import getUserData from "../../../lib/getUserData";
+
+const ProfilStatus = () => {
+  // SX
+  const lightDarkColor = useLightDarkColor();
+
+  const { error, loading, data, retry } = useDataState<any>({
+    initialData: undefined,
+    url: `/api/get-all-status-karyawan`,
+    dependencies: [],
+  });
+
+  return (
+    <CContainer gap={3}>
+      <Text opacity={0.4}>Status</Text>
+      {loading && (
+        <>
+          <Skeleton h={"86px"} mb={3} />
+        </>
+      )}
+      {!loading && (
+        <>
+          {error && (
+            <>
+              <Center>
+                <Retry loading={loading} retry={retry} />
+              </Center>
+            </>
+          )}
+
+          {!error && (
+            <>
+              (
+              <CContainer
+                gap={3}
+                mb={3}
+                p={4}
+                borderRadius={8}
+                bg={lightDarkColor}
+              >
+                <HStack justify={"space-between"}>
+                  <Text>Reward Presensi</Text>
+                  <HStack>
+                    <Popover>
+                      <PopoverTrigger>
+                        <Center>
+                          {data.status_presensi ? (
+                            <Icon
+                              as={RiCheckboxCircleFill}
+                              color={"green.400"}
+                            />
+                          ) : (
+                            <Icon as={RiCloseCircleFill} color={"red.400"} />
+                          )}
+                        </Center>
+                      </PopoverTrigger>
+                      <PopoverContent>
+                        <PopoverArrow />
+                        <PopoverCloseButton />
+                        <PopoverHeader>Status Reward Presensi</PopoverHeader>
+                        <PopoverBody opacity={0.4}>
+                          Pertahankan status ini agar tetap hijau untuk mendapat
+                          reward presensi. Reward presensi akan ditambahkan di
+                          penggajian.
+                        </PopoverBody>
+                      </PopoverContent>
+                    </Popover>
+
+                    <Text>Rp 300.000</Text>
+                  </HStack>
+                </HStack>
+                <HStack justify={"space-between"}>
+                  <Text>Masa Diklat</Text>
+                  <HStack>
+                    <Text>
+                      {data.masa_diklat ? formatDuration(data.masa_diklat) : 0}
+                    </Text>
+                  </HStack>
+                </HStack>
+              </CContainer>
+              )
+            </>
+          )}
+        </>
+      )}
+    </CContainer>
+  );
+};
 
 export default function Profil() {
   const user: Interface__User = getUserData();
@@ -59,27 +163,7 @@ export default function Profil() {
           />
         </HStack>
 
-        <CContainer gap={3} mb={3}>
-          <Text opacity={0.4}>Status</Text>
-          <HStack
-            px={4}
-            h={"48px"}
-            bg={lightDarkColor}
-            borderRadius={8}
-            cursor={"pointer"}
-            justify={"space-between"}
-            border={"1px solid"}
-            borderColor={"green.400"}
-            // className="clicky"
-          >
-            <Text color={"green.400"}>Reward Presensi</Text>
-            <HStack>
-              <Text>Rp 300.000</Text>
-              <Icon as={RiCheckboxCircleFill} color={"green.400"} />
-              {/* <Icon as={RiCloseCircleFill} color={"red.400"} /> */}
-            </HStack>
-          </HStack>
-        </CContainer>
+        <ProfilStatus />
 
         {profilMenus.map((menu, i) => (
           <CContainer key={i} gap={3} mb={3}>
