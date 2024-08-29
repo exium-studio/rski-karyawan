@@ -22,7 +22,6 @@ import MultipleSelectStatusKaryawan from "../dependent/input/dedicated/MultipleS
 import BackOnCloseButton from "./BackOnCloseButton";
 import CContainer from "./wrapper/CContainer";
 import CustomDrawer from "./wrapper/CustomDrawer";
-import MultipleSelectJenisKaryawan from "../dependent/input/dedicated/MultipleSelectJenisKaryawan";
 
 interface Props extends ButtonProps {}
 
@@ -39,12 +38,12 @@ export default function FilterKaryawan({ ...props }: Props) {
   const formik = useFormik({
     validateOnChange: false,
     initialValues: {
-      jenis_karyawan: undefined,
       status_karyawan: undefined,
+      // jenis_karyawan: undefined,
     },
     validationSchema: yup.object().shape({
-      jenis_karyawan: yup.array(),
       status_karyawan: yup.array(),
+      // jenis_karyawan: yup.array(),
     }),
     onSubmit: (values, { resetForm }) => {
       console.log(values);
@@ -156,7 +155,7 @@ export default function FilterKaryawan({ ...props }: Props) {
               />
             </FormControl>
 
-            <FormControl isInvalid={!!formik.errors.status_karyawan}>
+            {/* <FormControl isInvalid={!!formik.errors.status_karyawan}>
               <FormLabel>Jenis Karyawan</FormLabel>
               <MultipleSelectJenisKaryawan
                 id="filter-karyawan-select-jenis-karyawan"
@@ -169,7 +168,7 @@ export default function FilterKaryawan({ ...props }: Props) {
                 optionsDisplay="chip"
                 maxSelectedDisplay={3}
               />
-            </FormControl>
+            </FormControl> */}
           </form>
         </CContainer>
       </CustomDrawer>
