@@ -12,7 +12,11 @@ export default function StatusApprovalBadge({ data, ...props }: Props) {
       textAlign={"center"}
       {...props}
     >
-      {data === 1 ? "Menunggu" : data === 2 ? "Disetujui" : "Ditolak"}
+      {data === 1
+        ? "Menunggu"
+        : data === 2
+        ? "Verifikasi Disetujui"
+        : "Verifikasi Ditolak"}
     </Badge>
   );
 }

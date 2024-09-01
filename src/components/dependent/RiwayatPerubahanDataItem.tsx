@@ -8,17 +8,17 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { RiArrowRightLine, RiFileLine } from "@remixicon/react";
+import { Link } from "react-router-dom";
 import { useLightDarkColor } from "../../constant/colors";
 import dataLabels from "../../constant/dataLabels";
+import backOnClose from "../../lib/backOnClose";
 import formatDate from "../../lib/formatDate";
+import formatNumber from "../../lib/formatNumber";
 import FlexLine from "../independent/FlexLine";
 import CContainer from "../independent/wrapper/CContainer";
 import CustomDrawer from "../independent/wrapper/CustomDrawer";
-import BooleanBadge from "./BooleanBadge";
 import DrawerHeader from "./DrawerHeader";
-import backOnClose from "../../lib/backOnClose";
-import formatNumber from "../../lib/formatNumber";
-import { Link } from "react-router-dom";
+import StatusApprovalBadge from "./StatusApprovalBadge";
 
 interface Props {
   data: any;
@@ -102,13 +102,7 @@ export default function RiwayatPerubahanDataItem({ data }: Props) {
             </Text>
           </CContainer>
 
-          <BooleanBadge
-            data={data.status_perubahan}
-            nullValue="Menunggu"
-            trueValue="Disetujui"
-            falseValue="Tidak Disetujui"
-            borderRadius={"full"}
-          />
+          <StatusApprovalBadge data={data.status_perubahan_id} />
         </HStack>
 
         <CContainer gap={1}>
@@ -167,19 +161,13 @@ export default function RiwayatPerubahanDataItem({ data }: Props) {
           <HStack>
             <Text opacity={0.4}>Tanggal Persetujuan</Text>
             <FlexLine />
-            <Text>{formatDate(data.tgl_disetujui)}</Text>
+            <Text>{formatDate(data.updated_at)}</Text>
           </HStack>
 
           <HStack>
             <Text opacity={0.4}>Status Pengajuan</Text>
             <FlexLine />
-            <BooleanBadge
-              data={data.status_perubahan}
-              nullValue="Menunggu"
-              trueValue="Disetujui"
-              falseValue="Tidak Disetujui"
-              borderRadius={"full"}
-            />
+            <StatusApprovalBadge data={data.status_perubahan_id} />
           </HStack>
         </CContainer>
 
