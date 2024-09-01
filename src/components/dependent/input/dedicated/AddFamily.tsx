@@ -23,6 +23,7 @@ import CustomDrawer from "../../../independent/wrapper/CustomDrawer";
 import StringInput from "../StringInput";
 import SelectHubunganKeluarga from "./SingleSelectHubunganKeluarga";
 import SelectStatusHidup from "./SingleSelectStatusHidup";
+import SingleSelectPendidikan from "./SingleSelectPendidikan";
 
 interface Props {
   id: string;
@@ -46,25 +47,27 @@ export default function AddFamily({
     validateOnChange: false,
     initialValues: {
       hubungan_keluarga: undefined as any,
-      nama: "" as any,
+      nama_keluarga: "" as any,
       status_hidup: undefined as any,
+      pendidikan_terakhir: "" as any,
       pekerjaan: "" as any,
-      telepon: "" as any,
+      no_hp: "" as any,
       email: "" as any,
     },
     validationSchema: yup.object().shape({
       hubungan_keluarga: yup.object().required("Harus diisi"),
-      nama: yup.string().required("Harus diisi"),
+      nama_keluarga: yup.string().required("Harus diisi"),
       status_hidup: yup.object().required("Harus diisi"),
+      pendidikan_terakhir: yup.object().required("Harus diisi"),
       pekerjaan: yup.string().required("Harus diisi"),
-      telepon: yup.string().required("Harus diisi"),
+      no_hp: yup.string().required("Harus diisi"),
       email: yup.string().required("Harus diisi"),
     }),
     onSubmit: (values, { resetForm }) => {
       onConfirm(values);
       toast({
         status: "success",
-        title: `Data keluarga ${values.hubungan_keluarga?.label} (${values.nama}) ditambahkan`,
+        title: `Data keluarga ${values.hubungan_keluarga?.label} (${values.nama_keluarga}) ditambahkan`,
         isClosable: true,
         position: "top",
       });
@@ -128,21 +131,21 @@ export default function AddFamily({
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl mb={4} isInvalid={!!formik.errors.nama}>
+            <FormControl mb={4} isInvalid={!!formik.errors.nama_keluarga}>
               <FormLabel>
                 Nama
                 <RequiredForm />
               </FormLabel>
               <StringInput
-                name="nama"
+                name="nama_keluarga"
                 placeholder="Karlitos Kurniawan"
                 onChangeSetter={(input) => {
-                  formik.setFieldValue("nama", input);
+                  formik.setFieldValue("nama_keluarga", input);
                 }}
-                inputValue={formik.values.nama}
+                inputValue={formik.values.nama_keluarga}
               />
               <FormErrorMessage>
-                {formik.errors.nama as string}
+                {formik.errors.nama_keluarga as string}
               </FormErrorMessage>
             </FormControl>
 
@@ -166,6 +169,28 @@ export default function AddFamily({
               </FormErrorMessage>
             </FormControl>
 
+            <FormControl
+              mb={4}
+              isInvalid={formik.errors.pendidikan_terakhir ? true : false}
+            >
+              <FormLabel>
+                Pendidikan Terakhir
+                <RequiredForm />
+              </FormLabel>
+              <SingleSelectPendidikan
+                id={`edit-family-${formik.values.nama_keluarga}`}
+                name="pendidikan_terakhir"
+                placeholder="Sarjana 1"
+                onConfirm={(input) => {
+                  formik.setFieldValue("pendidikan_terakhir", input);
+                }}
+                inputValue={formik.values.pendidikan_terakhir}
+              />
+              <FormErrorMessage>
+                {formik.errors.pendidikan_terakhir as string}
+              </FormErrorMessage>
+            </FormControl>
+
             <FormControl mb={4} isInvalid={!!formik.errors.pekerjaan}>
               <FormLabel>
                 Pekerjaan
@@ -184,7 +209,7 @@ export default function AddFamily({
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl mb={4} isInvalid={!!formik.errors.telepon}>
+            <FormControl mb={4} isInvalid={!!formik.errors.no_hp}>
               <FormLabel>
                 Nomor Telepon
                 <RequiredForm />
@@ -195,16 +220,16 @@ export default function AddFamily({
                 </InputLeftElement>
                 <StringInput
                   pl={12}
-                  name="telepon"
-                  placeholder="8**********"
+                  name="no_hp"
+                  placeholder="8***********"
                   onChangeSetter={(input) => {
-                    formik.setFieldValue("telepon", input);
+                    formik.setFieldValue("no_hp", input);
                   }}
-                  inputValue={formik.values.telepon}
+                  inputValue={formik.values.no_hp}
                 />
               </InputGroup>
               <FormErrorMessage>
-                {formik.errors.telepon as string}
+                {formik.errors.no_hp as string}
               </FormErrorMessage>
             </FormControl>
 

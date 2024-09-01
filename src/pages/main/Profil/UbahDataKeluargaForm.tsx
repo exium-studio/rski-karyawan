@@ -47,6 +47,8 @@ export default function UbahDataKeluargaForm({ data }: Props) {
 
   // SX
 
+  console.log(formik.values.keluarga);
+
   return (
     <>
       <CContainer flex={0} gap={6}>
@@ -81,6 +83,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                           const index = newKeluarga.findIndex(
                             (item) => item.id === anggota.id
                           );
+                          console.log("editted", inputValue);
 
                           if (index !== -1) {
                             newKeluarga[index] = {
@@ -114,32 +117,80 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                     <HStack>
                       <Text opacity={0.4}>Hubungan Keluarga</Text>
                       <FlexLine />
-                      <Text>{anggota.hubungan}</Text>
+                      <Text
+                        textAlign={"right"}
+                        whiteSpace={"nowrap"}
+                        overflow={"hidden"}
+                        textOverflow={"ellipsis"}
+                        maxW={"140px"}
+                      >
+                        {anggota.hubungan}
+                      </Text>
                     </HStack>
                     <HStack>
                       <Text opacity={0.4}>Status Hidup</Text>
                       <FlexLine />
-                      <Text>{anggota.status_hidup ? "Hidup" : "Meniggal"}</Text>
+                      <Text
+                        textAlign={"right"}
+                        whiteSpace={"nowrap"}
+                        overflow={"hidden"}
+                        textOverflow={"ellipsis"}
+                        maxW={"140px"}
+                      >
+                        {anggota.status_hidup ? "Hidup" : "Meniggal"}
+                      </Text>
                     </HStack>
                     <HStack>
                       <Text opacity={0.4}>Pekerjaan</Text>
                       <FlexLine />
-                      <Text>{anggota.pekerjaan}</Text>
+                      <Text
+                        textAlign={"right"}
+                        whiteSpace={"nowrap"}
+                        overflow={"hidden"}
+                        textOverflow={"ellipsis"}
+                        maxW={"140px"}
+                      >
+                        {anggota.pekerjaan}
+                      </Text>
                     </HStack>
                     <HStack>
                       <Text opacity={0.4}>Pendidikan</Text>
                       <FlexLine />
-                      <Text>{anggota.pendidikan_terakhir?.label}</Text>
+                      <Text
+                        textAlign={"right"}
+                        whiteSpace={"nowrap"}
+                        overflow={"hidden"}
+                        textOverflow={"ellipsis"}
+                        maxW={"140px"}
+                      >
+                        {anggota.pendidikan_terakhir?.label}
+                      </Text>
                     </HStack>
                     <HStack>
                       <Text opacity={0.4}>Nomor Telepon</Text>
                       <FlexLine />
-                      <Text>{anggota.no_hp}</Text>
+                      <Text
+                        textAlign={"right"}
+                        whiteSpace={"nowrap"}
+                        overflow={"hidden"}
+                        textOverflow={"ellipsis"}
+                        maxW={"140px"}
+                      >
+                        {anggota.no_hp}
+                      </Text>
                     </HStack>
                     <HStack>
                       <Text opacity={0.4}>Email</Text>
                       <FlexLine />
-                      <Text>{anggota.email}</Text>
+                      <Text
+                        textAlign={"right"}
+                        whiteSpace={"nowrap"}
+                        overflow={"hidden"}
+                        textOverflow={"ellipsis"}
+                        maxW={"140px"}
+                      >
+                        {anggota.email}
+                      </Text>
                     </HStack>
                   </>
                 </VStack>
@@ -152,6 +203,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
       {(!formik.values.keluarga || formik.values.keluarga?.length === 0) && (
         <NoData my={"auto"} />
       )}
+
       <Box mt={"auto"}>
         <form id="LengkapiDataUser2Form" onSubmit={formik.handleSubmit}>
           <FormControl isInvalid={!!formik.errors.keluarga} mt={6}>
