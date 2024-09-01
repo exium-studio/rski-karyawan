@@ -36,6 +36,7 @@ import formatNumber from "../../../lib/formatNumber";
 import parseNumber from "../../../lib/parseNumber";
 import { iconSize } from "../../../constant/sizes";
 import formatDate from "../../../lib/formatDate";
+import SingleSelectPendidikan from "../../../components/dependent/input/dedicated/SingleSelectPendidikan";
 
 interface Props {
   data: any;
@@ -73,6 +74,12 @@ export default function EditDataPersonalForm({ data }: Props) {
       berat_badan: data?.tinggi_badan,
       alamat: data?.alamat,
       no_ijazah: data?.no_ijasah,
+      pendidikan_terakhir: data?.pendidikan_terakhir
+        ? {
+            value: data.pendidikan_terakhir.id,
+            label: data.pendidikan_terakhir.label,
+          }
+        : undefined,
       tahun_lulus: data?.tahun_lulus.toString(),
       gelar_depan: data?.gelar_depan,
     },
@@ -90,6 +97,7 @@ export default function EditDataPersonalForm({ data }: Props) {
       berat_badan: yup.string().required("Harus diisi"),
       alamat: yup.string().required("Harus diisi"),
       no_ijazah: yup.string().required("Harus diisi"),
+      pendidikan_terakhir: yup.object().required("Harus diisi"),
       tahun_lulus: yup.string().required("Harus diisi"),
       gelar_depan: yup.string(),
     }),
@@ -545,6 +553,37 @@ export default function EditDataPersonalForm({ data }: Props) {
           />
         </HStack>
         <FormErrorMessage>{formik.errors.no_ijazah as string}</FormErrorMessage>
+      </FormControl>
+
+      <FormControl
+        mb={4}
+        isInvalid={formik.errors.pendidikan_terakhir ? true : false}
+      >
+        <FormLabel>
+          Pendidikan Terakhir
+          <RequiredForm />
+        </FormLabel>
+        <HStack>
+          <SingleSelectPendidikan
+            id="lengkapi-step-1"
+            name="pendidikan_terakhir"
+            placeholder="Sarjana 1"
+            onConfirm={(input) => {
+              formik.setFieldValue("pendidikan_terakhir", input);
+            }}
+            inputValue={formik.values.pendidikan_terakhir}
+          />
+          <RequestPatchDataButton
+            validator={() => {
+              formik.validateField("pendidikan_terakhir");
+            }}
+            column="pendidikan_terakhir"
+            payload={formik.values.pendidikan_terakhir}
+          />
+        </HStack>
+        <FormErrorMessage>
+          {formik.errors.pendidikan_terakhir as string}
+        </FormErrorMessage>
       </FormControl>
 
       <FormControl mb={4} isInvalid={formik.errors.tahun_lulus ? true : false}>

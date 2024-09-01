@@ -436,27 +436,6 @@ export default function LengkapiDataUser1() {
 
             <FormControl
               mb={4}
-              isInvalid={formik.errors.tahun_lulus ? true : false}
-            >
-              <FormLabel>
-                Tahun Lulus Ijazah Terakhir
-                <RequiredForm />
-              </FormLabel>
-              <StringInput
-                name="tahun_lulus"
-                placeholder="2024"
-                onChangeSetter={(input) => {
-                  formik.setFieldValue("tahun_lulus", input);
-                }}
-                inputValue={formik.values.tahun_lulus}
-              />
-              <FormErrorMessage>
-                {formik.errors.tahun_lulus as string}
-              </FormErrorMessage>
-            </FormControl>
-
-            <FormControl
-              mb={4}
               isInvalid={formik.errors.pendidikan_terakhir ? true : false}
             >
               <FormLabel>
@@ -474,6 +453,27 @@ export default function LengkapiDataUser1() {
               />
               <FormErrorMessage>
                 {formik.errors.pendidikan_terakhir as string}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl
+              mb={4}
+              isInvalid={formik.errors.tahun_lulus ? true : false}
+            >
+              <FormLabel>
+                Tahun Lulus Ijazah Terakhir
+                <RequiredForm />
+              </FormLabel>
+              <StringInput
+                name="tahun_lulus"
+                placeholder="2024"
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("tahun_lulus", input);
+                }}
+                inputValue={formik.values.tahun_lulus}
+              />
+              <FormErrorMessage>
+                {formik.errors.tahun_lulus as string}
               </FormErrorMessage>
             </FormControl>
 
