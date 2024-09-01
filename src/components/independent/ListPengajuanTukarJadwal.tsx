@@ -1,4 +1,4 @@
-import { Box, Button, Center, StackProps, Text } from "@chakra-ui/react";
+import { Box, Center, StackProps, Text } from "@chakra-ui/react";
 import useFilterTukarJadwal from "../../global/useFilterTukarJadwal";
 import useDataState from "../../hooks/useDataState";
 import Retry from "../dependent/Retry";
@@ -89,14 +89,14 @@ export default function ListPengajuanTukarJadwal({ ...props }: Props) {
                         <TukarJadwalItem key={i} data={tukarJadwal} />
                       ))}
 
-                      <Button
+                      {/* <Button
                         flexShrink={0}
                         colorScheme="ap"
                         variant={"ghost"}
                         className="clicky"
                       >
                         Tampilkan Lebih Banyak
-                      </Button>
+                      </Button> */}
                     </CContainer>
                   ) : (
                     <NoData
