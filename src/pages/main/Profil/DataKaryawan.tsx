@@ -112,7 +112,7 @@ export default function DataKaryawan() {
                     gap={responsiveSpacing}
                   >
                     <VStack align={"stretch"} gap={0}>
-                      <Text fontSize={20} fontWeight={600} mb={4}>
+                      <Text fontSize={16} fontWeight={600} mb={4}>
                         Data Pribadi
                       </Text>
 
@@ -366,7 +366,7 @@ export default function DataKaryawan() {
                     </VStack>
 
                     <VStack align={"stretch"} gap={0}>
-                      <Text fontSize={20} fontWeight={600} mb={4}>
+                      <Text fontSize={16} fontWeight={600} mb={4}>
                         Data Kesehatan
                       </Text>
 
@@ -509,7 +509,7 @@ export default function DataKaryawan() {
                     </VStack>
 
                     <VStack align={"stretch"} gap={0}>
-                      <Text fontSize={20} fontWeight={600} mb={4}>
+                      <Text fontSize={16} fontWeight={600} mb={4}>
                         Data Pekerjaan
                       </Text>
 
@@ -702,11 +702,40 @@ export default function DataKaryawan() {
                     </VStack>
 
                     <VStack align={"stretch"} gap={0}>
-                      <Text fontSize={20} fontWeight={600} mb={4}>
+                      <Text fontSize={16} fontWeight={600} mb={4}>
                         Data Pendidikan dan Sertifikat
                       </Text>
 
                       <VStack align={"stretch"} gap={4}>
+                        <HStack justify={"space-between"}>
+                          {/* <Text opacity={0.6}>No. Ijazah</Text> */}
+                          <Box opacity={0.6}>
+                            <Highlighter
+                              highlightClassName="hw"
+                              unhighlightClassName="uw"
+                              searchWords={searchQuery}
+                              autoEscape={true}
+                              textToHighlight="Pendidikan"
+                            />
+                          </Box>
+                          <FlexLine />
+                          <HStack>
+                            {/* {data?.path_no_ijazah && (
+                          <SmallLink to={data?.path_no_ijazah}>Lihat</SmallLink>
+                        )} */}
+
+                            {data?.pendidikan_terakhir && (
+                              <Text
+                                fontWeight={500}
+                                textAlign={"right"}
+                                // noOfLines={1}
+                              >
+                                {data?.pendidikan_terakhir?.label}
+                              </Text>
+                            )}
+                          </HStack>
+                        </HStack>
+
                         <HStack justify={"space-between"}>
                           {/* <Text opacity={0.6}>No. Ijazah</Text> */}
                           <Box opacity={0.6}>
@@ -840,7 +869,7 @@ export default function DataKaryawan() {
                     </VStack>
 
                     <VStack align={"stretch"} gap={0}>
-                      <Text fontSize={20} fontWeight={600} mb={4}>
+                      <Text fontSize={16} fontWeight={600} mb={4}>
                         Data Keuangan
                       </Text>
 
@@ -970,7 +999,7 @@ export default function DataKaryawan() {
                     </VStack>
 
                     <VStack align={"stretch"} gap={0}>
-                      <Text fontSize={20} fontWeight={600} mb={4}>
+                      <Text fontSize={16} fontWeight={600} mb={4}>
                         Data Tunjangan
                       </Text>
 
@@ -1067,7 +1096,7 @@ export default function DataKaryawan() {
                     </VStack>
 
                     <VStack align={"stretch"} gap={0}>
-                      <Text fontSize={20} fontWeight={600} mb={4}>
+                      <Text fontSize={16} fontWeight={600} mb={4}>
                         Data Potongan
                       </Text>
 
