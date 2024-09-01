@@ -46,7 +46,7 @@ export default function AddFamily({
   const formik = useFormik({
     validateOnChange: false,
     initialValues: {
-      hubungan_keluarga: undefined as any,
+      hubungan: undefined as any,
       nama_keluarga: "" as any,
       status_hidup: undefined as any,
       pendidikan_terakhir: "" as any,
@@ -55,7 +55,7 @@ export default function AddFamily({
       email: "" as any,
     },
     validationSchema: yup.object().shape({
-      hubungan_keluarga: yup.object().required("Harus diisi"),
+      hubungan: yup.object().required("Harus diisi"),
       nama_keluarga: yup.string().required("Harus diisi"),
       status_hidup: yup.object().required("Harus diisi"),
       pendidikan_terakhir: yup.object().required("Harus diisi"),
@@ -67,7 +67,7 @@ export default function AddFamily({
       onConfirm(values);
       toast({
         status: "success",
-        title: `Data keluarga ${values.hubungan_keluarga?.label} (${values.nama_keluarga}) ditambahkan`,
+        title: `Data keluarga ${values.hubungan?.label} (${values.nama_keluarga}) ditambahkan`,
         isClosable: true,
         position: "top",
       });
@@ -111,23 +111,23 @@ export default function AddFamily({
       >
         <Box px={6}>
           <form id="tambahDataKeluargaForm" onSubmit={formik.handleSubmit}>
-            <FormControl mb={4} isInvalid={!!formik.errors.hubungan_keluarga}>
+            <FormControl mb={4} isInvalid={!!formik.errors.hubungan}>
               <FormLabel>
                 Hubungan Keluarga
                 <RequiredForm />
               </FormLabel>
               <SelectHubunganKeluarga
                 id="lengkapi-data-user-2-select-hubungan-keluarga"
-                name="hubungan_keluarga"
+                name="hubungan"
                 onConfirm={(inputValue) => {
-                  formik.setFieldValue("hubungan_keluarga", inputValue);
+                  formik.setFieldValue("hubungan", inputValue);
                 }}
-                inputValue={formik.values.hubungan_keluarga}
+                inputValue={formik.values.hubungan}
                 placeholder="Pilih Hubungan Keluarga"
-                isError={!!formik.errors.hubungan_keluarga}
+                isError={!!formik.errors.hubungan}
               />
               <FormErrorMessage>
-                {formik.errors.hubungan_keluarga as string}
+                {formik.errors.hubungan as string}
               </FormErrorMessage>
             </FormControl>
 

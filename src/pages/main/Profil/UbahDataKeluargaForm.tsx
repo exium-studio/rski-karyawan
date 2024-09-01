@@ -46,7 +46,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
 
   // SX
 
-  // console.log(formik.values.keluarga);
+  console.log(formik.values.keluarga);
 
   return (
     <>
@@ -123,7 +123,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                         textOverflow={"ellipsis"}
                         maxW={"140px"}
                       >
-                        {anggota.hubungan}
+                        {anggota.hubungan?.label}
                       </Text>
                     </HStack>
                     <HStack>
@@ -200,7 +200,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
 
       {/* @ts-ignore */}
       {(!formik.values.keluarga || formik.values.keluarga?.length === 0) && (
-        <NoData my={"auto"} />
+        <NoData my={"auto"} minH={"200px"} />
       )}
 
       <Box mt={"auto"}>
@@ -215,7 +215,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                   const newKeluarga = [...formik.values.keluarga];
                   newKeluarga.push({
                     ...inputValue,
-                    id: new Date().getTime().toString(),
+                    id: null,
                   });
                   formik.setFieldValue("keluarga", newKeluarga);
                 }}
@@ -226,7 +226,12 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                   formik.validateField("keluarga");
                 }}
                 column="keluarga"
-                payload={JSON.stringify(formik.values.keluarga)}
+                payload={JSON.stringify(
+                  formik.values.keluarga.map((anggota) => ({
+                    data_keluarga_id: anggota.id,
+                    ...anggota,
+                  }))
+                )}
                 url="/api/update-data-keluarga"
               />
             </HStack>

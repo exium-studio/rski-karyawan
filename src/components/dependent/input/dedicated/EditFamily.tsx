@@ -47,7 +47,7 @@ export default function EditFamily({
   const formik = useFormik({
     validateOnChange: false,
     initialValues: {
-      hubungan_keluarga: {
+      hubungan: {
         value: data.hubungan,
         label: data.hubungan,
       },
@@ -67,7 +67,7 @@ export default function EditFamily({
       email: data.email,
     },
     validationSchema: yup.object().shape({
-      hubungan_keluarga: yup.object().required("Harus diisi"),
+      hubungan: yup.object().required("Harus diisi"),
       nama_keluarga: yup.string().required("Harus diisi"),
       status_hidup: yup.object().required("Harus diisi"),
       pendidikan_terakhir: yup.object().required("Harus diisi"),
@@ -116,23 +116,23 @@ export default function EditFamily({
       >
         <Box px={6}>
           <form id="tambahDataKeluargaForm" onSubmit={formik.handleSubmit}>
-            <FormControl mb={4} isInvalid={!!formik.errors.hubungan_keluarga}>
+            <FormControl mb={4} isInvalid={!!formik.errors.hubungan}>
               <FormLabel>
                 Hubungan Keluarga
                 <RequiredForm />
               </FormLabel>
               <SelectHubunganKeluarga
                 id="lengkapi-data-user-2-select-hubungan-keluarga"
-                name="hubungan_keluarga"
+                name="hubungan"
                 onConfirm={(inputValue) => {
-                  formik.setFieldValue("hubungan_keluarga", inputValue);
+                  formik.setFieldValue("hubungan", inputValue);
                 }}
-                inputValue={formik.values.hubungan_keluarga}
+                inputValue={formik.values.hubungan}
                 placeholder="Pilih Hubungan Keluarga"
-                isError={!!formik.errors.hubungan_keluarga}
+                isError={!!formik.errors.hubungan}
               />
               <FormErrorMessage>
-                {formik.errors.hubungan_keluarga as string}
+                {formik.errors.hubungan as string}
               </FormErrorMessage>
             </FormControl>
 
