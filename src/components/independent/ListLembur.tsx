@@ -48,9 +48,9 @@ export default function ListLembur() {
 
           {!error && (
             <>
-              {data && data?.data?.length > 0 ? (
+              {data && data?.length > 0 ? (
                 <>
-                  {data?.data?.map((lembur: any, i: number) => (
+                  {data?.map((lembur: any, i: number) => (
                     <CContainer
                       key={i}
                       p={4}
