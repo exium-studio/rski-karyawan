@@ -29,7 +29,7 @@ export default function ListCuti() {
         jenis: filterCuti.jenis_cuti.map((sp: any) => sp.value),
       }),
       ...(filterCuti?.status_cuti?.length > 0 && {
-        status_cuti: filterCuti.status_cuti.map((sp: any) => sp.value),
+        status: filterCuti.status_cuti.map((sp: any) => sp.value),
       }),
     },
     dependencies: [filterCuti],
