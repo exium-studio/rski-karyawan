@@ -15,7 +15,6 @@ import {
   RiUserLine,
 } from "@remixicon/react";
 import { useLightDarkColor } from "../../constant/colors";
-import { Interface__TukarJadwal } from "../../constant/interfaces";
 import { iconSize } from "../../constant/sizes";
 import backOnClose from "../../lib/backOnClose";
 import formatDate from "../../lib/formatDate";
@@ -26,9 +25,10 @@ import CustomDrawer from "../independent/wrapper/CustomDrawer";
 import BooleanBadge from "./BooleanBadge";
 import DrawerHeader from "./DrawerHeader";
 import JadwalDitukarItem from "./JadwalDitukarItem";
+import StatusApproval2Badge from "./StatusApproval2Badge";
 
 interface Props {
-  data: Interface__TukarJadwal;
+  data: any;
 }
 
 const BatalkanTukarJadwal = ({ data }: Props) => {
@@ -122,13 +122,7 @@ export default function TukarJadwalItem({ data }: Props) {
             <Text fontWeight={500}>{data?.kategori_pengajuan?.label}</Text>
           </CContainer>
 
-          <BooleanBadge
-            data={data.status_penukaran}
-            nullValue="Menunggu"
-            trueValue="Disetujui"
-            falseValue="Tidak Disetujui"
-            borderRadius={"full"}
-          />
+          <StatusApproval2Badge data={data?.status_pengajuan} />
         </HStack>
 
         <CContainer gap={1}>

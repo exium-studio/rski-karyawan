@@ -64,7 +64,15 @@ export default function AuthMiddleware({
     } else {
       setLoading(false);
     }
-  }, [authToken, dcs, setDcs, toast, setStatusAktif, navigate]);
+  }, [
+    authToken,
+    dcs,
+    setDcs,
+    toast,
+    setStatusAktif,
+    navigate,
+    setJenisKaryawan,
+  ]);
 
   // console.log(statusAktif, dcs);
   // console.log(ldp, dcs, statusAktif, allowedJenisKaryawan, jenisKaryawan);

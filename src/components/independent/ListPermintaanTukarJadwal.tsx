@@ -70,14 +70,14 @@ export default function ListPermintaanTukarJadwal({ ...props }: Props) {
                         <TukarJadwalItem key={i} data={tukarJadwal} />
                       ))}
 
-                      <Button
+                      {/* <Button
                         flexShrink={0}
                         colorScheme="ap"
                         variant={"ghost"}
                         className="clicky"
                       >
                         Tampilkan Lebih Banyak
-                      </Button>
+                      </Button> */}
                     </CContainer>
                   ) : (
                     <NoData
