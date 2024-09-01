@@ -33,13 +33,12 @@ const BerandaMenuItem = ({ menu, notifCount }: ItemProps) => {
     <VStack
       borderRadius={12}
       p={2}
-      bg={lightDarkColor}
+      bg={`${lightDarkColor} !important`}
       cursor={"pointer"}
-      _active={{ opacity: 0.6 }}
       h={"85px"}
       w={sw >= 720 ? "calc(180px - 20px)" : "calc(25vw - 20px)"}
       flexShrink={0}
-      className="clicky"
+      className="btn-solid clicky"
       transition={"200ms"}
       gap={1}
       as={Button}

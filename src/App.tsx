@@ -347,7 +347,7 @@ export const App = () => {
               path="/profil/data-karyawan"
               element={
                 <AuthMiddleware>
-                  <NavContainer active={4}>
+                  <NavContainer active={4} noNavs>
                     <DataKaryawan />
                   </NavContainer>
                 </AuthMiddleware>

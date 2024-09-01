@@ -12,7 +12,7 @@ const profilMenus = [
     items: [
       // { label: "Penghargaan", link: "", icon: RiAwardLine },
       {
-        label: "Data Karyawan",
+        label: "Detail Data Karyawan",
         link: "/profil/data-karyawan",
         icon: RiBriefcaseLine,
       },
