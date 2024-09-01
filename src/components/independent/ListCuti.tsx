@@ -31,7 +31,7 @@ export default function ListCuti() {
       ...(filterCuti?.status_cuti?.length > 0 && {
         status: filterCuti.status_cuti.map((sp: any) => sp.value),
       }),
-      offset: 4,
+      offset: 6,
     },
     dependencies: [filterCuti],
   });

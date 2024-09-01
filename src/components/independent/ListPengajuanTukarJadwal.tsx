@@ -31,7 +31,7 @@ export default function ListPengajuanTukarJadwal({ ...props }: Props) {
       ...(filterTukarJadwal?.status_penukaran?.length > 0 && {
         status: filterTukarJadwal.status_penukaran.map((sp: any) => sp.value),
       }),
-      offset: 4,
+      offset: 6,
     },
     dependencies: [filterTukarJadwal],
   });
