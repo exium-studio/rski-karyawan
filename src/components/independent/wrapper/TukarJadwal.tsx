@@ -12,6 +12,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { RiArrowDownLine, RiArrowUpLine } from "@remixicon/react";
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
 import useDataState from "../../../hooks/useDataState";
 import Header from "../../dependent/Header";
@@ -20,8 +22,6 @@ import FilterTukarJadwal from "../FilterTukarJadwal";
 import ListPengajuanTukarJadwal from "../ListPengajuanTukarJadwal";
 import ListPermintaanTukarJadwal from "../ListPermintaanTukarJadwal";
 import CContainer from "./CContainer";
-import { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 interface Props extends StackProps {
   title: string;
   active: number;
@@ -34,7 +34,7 @@ export default function TukarJadwalContainer({
   children,
   ...props
 }: Props) {
-  const dummy = [null, 1];
+  const dummy = [null, null];
   const { data } = useDataState<(number | null)[]>({
     initialData: dummy,
     url: "",
