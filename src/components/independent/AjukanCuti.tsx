@@ -9,6 +9,7 @@ import {
   IconButton,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { RiAddLine } from "@remixicon/react";
 import { useFormik } from "formik";
@@ -20,15 +21,23 @@ import RequiredForm from "../form/RequiredForm";
 import BackOnCloseButton from "./BackOnCloseButton";
 import CContainer from "./wrapper/CContainer";
 import CustomDrawer from "./wrapper/CustomDrawer";
+import req from "../../lib/req";
+import { useState } from "react";
+import useRenderTrigger from "../../global/useRenderTrigger";
+import backOnClose from "../../lib/backOnClose";
 
 export default function AjukanCuti() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const [loading, setLoading] = useState<boolean>(false);
+  const toast = useToast();
+  const { rt, setRt } = useRenderTrigger();
+
   const formik = useFormik({
     validateOnChange: false,
     initialValues: {
-      date_range: undefined,
-      jenis_cuti: undefined,
+      date_range: undefined as any,
+      jenis_cuti: undefined as any,
     },
     validationSchema: yup.object().shape({
       date_range: yup.object().required("Harus diisi"),
@@ -37,11 +46,38 @@ export default function AjukanCuti() {
     onSubmit: (values, { resetForm }) => {
       const payload = {
         date_range: values.date_range,
-        jenis_cuti: values.jenis_cuti,
+        tgl_mulai: values?.date_range?.from,
+        tgl_selesai: values?.date_range?.to,
+        jenis_cuti: values.jenis_cuti.value,
         //@ts-ignore
         durasi: countDateRange(values.date_range.from, values.date_range.to),
       };
-      console.log(payload);
+
+      // console.log(payload);
+
+      req
+        .post(`/api/store-cuti`, payload)
+        .then((r) => {
+          if (r.status === 200) {
+            setRt(!rt);
+            backOnClose();
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          toast({
+            status: "error",
+            title:
+              (typeof e?.response?.data?.message === "string" &&
+                (e?.response?.data?.message as string)) ||
+              "Maaf terjadi kesalahan pada sistem",
+            position: "bottom-right",
+            isClosable: true,
+          });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     },
   });
 
@@ -121,6 +157,7 @@ export default function AjukanCuti() {
             className="btn-ap clicky"
             type="submit"
             form="ajukanCutiForm"
+            isLoading={loading}
           >
             Ajukan Cuti
           </Button>

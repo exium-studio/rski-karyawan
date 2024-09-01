@@ -4,7 +4,7 @@ import useFilterCuti from "../../global/useFilterCuti";
 import useDataState from "../../hooks/useDataState";
 import formatDate from "../../lib/formatDate";
 import Retry from "../dependent/Retry";
-import StatusApprovalBadge from "../dependent/StatusApprovalBadge";
+import StatusApproval2Badge from "../dependent/StatusApproval2Badge";
 import NoData from "./NoData";
 import Skeleton from "./Skeleton";
 import CContainer from "./wrapper/CContainer";
@@ -67,7 +67,7 @@ export default function ListCuti() {
                           </Text>
                         </CContainer>
 
-                        <StatusApprovalBadge data={cuti?.status_cuti_id} />
+                        <StatusApproval2Badge data={cuti?.statuscuti} />
                       </HStack>
 
                       <CContainer gap={1}>
