@@ -1,4 +1,4 @@
-import { Box, Button, Center, StackProps, Text } from "@chakra-ui/react";
+import { Box, Center, StackProps, Text } from "@chakra-ui/react";
 import useFilterTukarJadwal from "../../global/useFilterTukarJadwal";
 import useDataState from "../../hooks/useDataState";
 import Retry from "../dependent/Retry";
@@ -15,7 +15,23 @@ export default function ListPermintaanTukarJadwal({ ...props }: Props) {
   const { error, notFound, loading, data, retry } = useDataState<any>({
     initialData: undefined,
     url: `/api/get-permintaan-swap`,
-    payload: { ...filterTukarJadwal },
+    payload: {
+      ...(filterTukarJadwal?.date_range && {
+        tgl_mulai: filterTukarJadwal.date_range.from,
+      }),
+      ...(filterTukarJadwal?.date_range && {
+        tgl_selesai: filterTukarJadwal.date_range.to,
+      }),
+      ...(filterTukarJadwal?.kategori_tukar_jadwal?.length > 0 && {
+        jenis: filterTukarJadwal.kategori_tukar_jadwal.map(
+          (sp: any) => sp.value
+        ),
+      }),
+      ...(filterTukarJadwal?.status_penukaran?.length > 0 && {
+        status: filterTukarJadwal.status_penukaran.map((sp: any) => sp.value),
+      }),
+      offset: 4,
+    },
     dependencies: [filterTukarJadwal],
   });
 

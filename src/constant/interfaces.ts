@@ -127,7 +127,7 @@ export interface Interface__FilterAktivitas {
 
 export interface Interface__FilterTukarJadwal {
   date_range?: Interface__DateRange | undefined;
-  jenis_penukaran?: Interface__SelectOption[] | undefined;
+  kategori_tukar_jadwal?: Interface__SelectOption[] | undefined;
   status_penukaran?: Interface__SelectOption[] | undefined;
 }
 

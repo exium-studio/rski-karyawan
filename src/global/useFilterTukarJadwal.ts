@@ -1,12 +1,11 @@
 import { create } from "zustand";
-import { Interface__FilterTukarJadwal } from "../constant/interfaces";
 
 interface State {
-  filterTukarJadwal: Interface__FilterTukarJadwal;
+  filterTukarJadwal: any;
 }
 
 interface Actions {
-  setFilterTukarJadwal: (newState: Interface__FilterTukarJadwal) => void;
+  setFilterTukarJadwal: (newState: any) => void;
   clearFilterTukarJadwal: () => void;
 }
 

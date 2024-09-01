@@ -16,7 +16,23 @@ export default function ListPengajuanTukarJadwal({ ...props }: Props) {
   const { error, notFound, loading, data, retry } = useDataState<any>({
     initialData: undefined,
     url: `/api/get-pengajuan-swap`,
-    payload: { ...filterTukarJadwal },
+    payload: {
+      ...(filterTukarJadwal?.date_range && {
+        tgl_mulai: filterTukarJadwal.date_range.from,
+      }),
+      ...(filterTukarJadwal?.date_range && {
+        tgl_selesai: filterTukarJadwal.date_range.to,
+      }),
+      ...(filterTukarJadwal?.kategori_tukar_jadwal?.length > 0 && {
+        jenis: filterTukarJadwal.kategori_tukar_jadwal.map(
+          (sp: any) => sp.value
+        ),
+      }),
+      ...(filterTukarJadwal?.status_penukaran?.length > 0 && {
+        status: filterTukarJadwal.status_penukaran.map((sp: any) => sp.value),
+      }),
+      offset: 4,
+    },
     dependencies: [filterTukarJadwal],
   });
 

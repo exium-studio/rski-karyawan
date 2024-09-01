@@ -16,14 +16,14 @@ import * as yup from "yup";
 import { useLightDarkColor } from "../../constant/colors";
 import { iconSize } from "../../constant/sizes";
 import useFilterTukarJadwal from "../../global/useFilterTukarJadwal";
+import useCallBackOnNavigate from "../../hooks/useCallBackOnNavigate";
 import backOnClose from "../../lib/backOnClose";
 import DateRangePickerDrawer from "../dependent/input/DateRangePickerDrawer";
 import MultipleSelectJenisTukarJadwal from "../dependent/input/dedicated/MultipleSelectJenisTukarJadwal";
-import MultipleSelectStatusTukarJadwal from "../dependent/input/dedicated/MultipleSelectStatusTukarJadwal";
+import MultiSelectStatusVerifikasi2 from "../dependent/input/dedicated/MultiSelectStatusVerifikasi2";
 import BackOnCloseButton from "./BackOnCloseButton";
 import CContainer from "./wrapper/CContainer";
 import CustomDrawer from "./wrapper/CustomDrawer";
-import useCallBackOnNavigate from "../../hooks/useCallBackOnNavigate";
 
 interface Props extends ButtonProps {}
 
@@ -178,7 +178,7 @@ export default function FilterTukarJadwal({ ...props }: Props) {
 
             <FormControl isInvalid={!!formik.errors.date_range}>
               <FormLabel>Status Penukaran</FormLabel>
-              <MultipleSelectStatusTukarJadwal
+              <MultiSelectStatusVerifikasi2
                 id="filter-tukar-jadwal-select-status-penukaran"
                 name="status_penukaran"
                 onConfirm={(inputValue) => {
