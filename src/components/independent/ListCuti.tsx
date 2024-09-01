@@ -18,7 +18,20 @@ export default function ListCuti() {
   const { error, notFound, loading, data, retry } = useDataState<any>({
     initialData: undefined,
     url: `/api/get-riwayat-cuti`,
-    payload: { ...filterCuti },
+    payload: {
+      ...(filterCuti?.date_range && {
+        tgl_mulai: filterCuti.date_range.from,
+      }),
+      ...(filterCuti?.date_range && {
+        tgl_selesai: filterCuti.date_range.to,
+      }),
+      ...(filterCuti?.jenis_cuti?.length > 0 && {
+        jenis: filterCuti.jenis_cuti.map((sp: any) => sp.value),
+      }),
+      ...(filterCuti?.status_cuti?.length > 0 && {
+        status_cuti: filterCuti.status_cuti.map((sp: any) => sp.value),
+      }),
+    },
     dependencies: [filterCuti],
   });
 
@@ -63,7 +76,7 @@ export default function ListCuti() {
                             Tipe Cuti
                           </Text>
                           <Text fontWeight={500}>
-                            {cuti?.tipe_cuti?.label || "-"}
+                            {cuti?.tipe_cuti?.nama || "-"}
                           </Text>
                         </CContainer>
 

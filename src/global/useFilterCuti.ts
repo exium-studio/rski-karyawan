@@ -1,12 +1,11 @@
 import { create } from "zustand";
-import { Interface__FilterCuti } from "../constant/interfaces";
 
 interface State {
-  filterCuti: Interface__FilterCuti;
+  filterCuti: any;
 }
 
 interface Actions {
-  setFilterCuti: (newState: Interface__FilterCuti) => void;
+  setFilterCuti: (newState: any) => void;
   clearFilterCuti: () => void;
 }
 
