@@ -578,7 +578,7 @@ export default function EditDataPersonalForm({ data }: Props) {
               formik.validateField("pendidikan_terakhir");
             }}
             column="pendidikan_terakhir"
-            payload={formik.values.pendidikan_terakhir}
+            payload={formik.values.pendidikan_terakhir?.value}
           />
         </HStack>
         <FormErrorMessage>
