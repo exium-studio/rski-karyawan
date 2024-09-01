@@ -1,4 +1,4 @@
-import { ButtonProps, useDisclosure } from "@chakra-ui/react";
+import { ButtonProps } from "@chakra-ui/react";
 import { Interface__SelectOption } from "../../../../constant/interfaces";
 import MultipleSelectDrawer from "../MultipleSelectDrawer";
 
@@ -53,15 +53,10 @@ export default function MultiSelectStatusVerifikasi2({
     },
   ];
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
     <MultipleSelectDrawer
       id={id}
       name={name}
-      isOpen={isOpen}
-      onOpen={onOpen}
-      onClose={onClose}
       options={options}
       onConfirm={onConfirm}
       inputValue={inputValue}

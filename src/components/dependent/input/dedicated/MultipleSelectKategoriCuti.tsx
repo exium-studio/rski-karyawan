@@ -1,7 +1,7 @@
-import { ButtonProps, useDisclosure } from "@chakra-ui/react";
+import { ButtonProps } from "@chakra-ui/react";
 import { Interface__SelectOption } from "../../../../constant/interfaces";
-import MultipleSelectDrawer from "../MultipleSelectDrawer";
 import { optionsKategoriCuti } from "../../../../constant/selectOptions";
+import MultipleSelectDrawer from "../MultipleSelectDrawer";
 
 interface Props extends ButtonProps {
   id: string;
@@ -31,15 +31,10 @@ export default function MultipleSelectKategoriCuti({
   nonNullable,
   ...props
 }: Props) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
     <MultipleSelectDrawer
       id={id}
       name={name}
-      isOpen={isOpen}
-      onOpen={onOpen}
-      onClose={onClose}
       options={optionsKategoriCuti}
       onConfirm={onConfirm}
       inputValue={inputValue}

@@ -211,7 +211,7 @@ export default function SingleSelectDrawer({
                         ? "var(--p500a5) !important"
                         : ""
                     }
-                    px={4}
+                    px={"16px !important"}
                   >
                     <Text>{option.label}</Text>
 
@@ -241,7 +241,7 @@ export default function SingleSelectDrawer({
                         : ""
                     }
                     gap={2}
-                    px={4}
+                    px={"16px !important"}
                   >
                     <Text>{option.label}</Text>
                     {/* <Text opacity={0.4}>{option.subLabel}</Text> */}

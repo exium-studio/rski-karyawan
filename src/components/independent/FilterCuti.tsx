@@ -18,8 +18,8 @@ import useFilterCuti from "../../global/useFilterCuti";
 import useCallBackOnNavigate from "../../hooks/useCallBackOnNavigate";
 import backOnClose from "../../lib/backOnClose";
 import DateRangePickerDrawer from "../dependent/input/DateRangePickerDrawer";
+import MultiSelectJenisCuti from "../dependent/input/dedicated/MultiSelectJenisCuti";
 import MultiSelectStatusVerifikasi2 from "../dependent/input/dedicated/MultiSelectStatusVerifikasi2";
-import SingleSelectJenisCuti from "../dependent/input/dedicated/SingleSelectJenisCuti";
 import BackOnCloseButton from "./BackOnCloseButton";
 import CContainer from "./wrapper/CContainer";
 import CustomDrawer from "./wrapper/CustomDrawer";
@@ -151,7 +151,7 @@ export default function FilterCuti() {
 
             <FormControl mb={4} isInvalid={!!formik.errors.jenis_cuti}>
               <FormLabel>Tipe Cuti</FormLabel>
-              <SingleSelectJenisCuti
+              <MultiSelectJenisCuti
                 id="ajukan-cuti-select-jenis-cuti"
                 name="jenis_cuti"
                 onConfirm={(inputValue) => {
@@ -159,6 +159,7 @@ export default function FilterCuti() {
                 }}
                 inputValue={formik.values.jenis_cuti}
                 placeholder="Filter Tipe Cuti"
+                optionsDisplay="chip"
               />
             </FormControl>
 

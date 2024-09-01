@@ -44,6 +44,8 @@ export default function AjukanCuti() {
       jenis_cuti: yup.object().required("Harus diisi"),
     }),
     onSubmit: (values, { resetForm }) => {
+      setLoading(true);
+
       const payload = {
         date_range: values.date_range,
         tgl_mulai: values?.date_range?.from,

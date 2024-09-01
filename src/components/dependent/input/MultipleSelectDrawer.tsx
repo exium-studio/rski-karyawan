@@ -1,4 +1,13 @@
-import { Badge, Box, Button, HStack, Icon, Text, Wrap } from "@chakra-ui/react";
+import {
+  Badge,
+  Box,
+  Button,
+  HStack,
+  Icon,
+  Text,
+  useDisclosure,
+  Wrap,
+} from "@chakra-ui/react";
 import { RiArrowDownSLine } from "@remixicon/react";
 import { useState } from "react";
 import { useErrorColor } from "../../../constant/colors";
@@ -9,14 +18,13 @@ import BackOnCloseButton from "../../independent/BackOnCloseButton";
 import CContainer from "../../independent/wrapper/CContainer";
 import CustomDrawer from "../../independent/wrapper/CustomDrawer";
 import SearchComponent from "./SearchComponent";
+import ComponentSpinner from "../../independent/ComponentSpinner";
 
 interface Props {
   id: string;
   name: string;
-  isOpen: boolean;
-  onOpen: () => void;
-  onClose: () => void;
-  options: Interface__SelectOption[];
+
+  options?: Interface__SelectOption[];
   onConfirm: (inputValue: Interface__SelectOption[] | undefined) => void;
   inputValue: Interface__SelectOption[] | undefined;
   withSearch?: boolean;
@@ -31,9 +39,6 @@ interface Props {
 export default function MultipleSelectDrawer({
   id,
   name,
-  isOpen,
-  onOpen,
-  onClose,
   options,
   onConfirm,
   inputValue,
@@ -46,6 +51,8 @@ export default function MultipleSelectDrawer({
   nonNullable,
   ...props
 }: Props) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   useBackOnClose(`${id}-${name}`, isOpen, onOpen, onClose);
 
   const [search, setSearch] = useState<string | undefined>("");
@@ -53,7 +60,7 @@ export default function MultipleSelectDrawer({
     Interface__SelectOption[] | undefined
   >(inputValue);
   const fo = search
-    ? options.filter((option) => {
+    ? options?.filter((option) => {
         const searchTerm = search.toLowerCase();
         return (
           option.value.toString().toLowerCase().includes(searchTerm) ||
@@ -202,100 +209,108 @@ export default function MultipleSelectDrawer({
           </>
         }
       >
-        {optionsDisplay === "list" && (
-          <CContainer px={6} gap={2}>
-            {fo.map((option, i) => (
-              <Button
-                key={i}
-                justifyContent={"space-between"}
-                className="btn-outline"
-                onClick={() => {
-                  const isSelected =
-                    selected &&
-                    selected.some((item) => item.value === option.value);
-                  let newSelected = selected || [];
+        {!fo && <ComponentSpinner />}
 
-                  if (isSelected) {
-                    // Filter out the option if it's already selected
-                    newSelected = newSelected.filter(
-                      (item) => item.value !== option.value
-                    );
-                  } else {
-                    // Add the option to the selected array
-                    newSelected = [...newSelected, option];
-                  }
+        {fo && (
+          <>
+            {optionsDisplay === "list" && (
+              <CContainer px={6} gap={2}>
+                {fo.map((option, i) => (
+                  <Button
+                    key={i}
+                    justifyContent={"space-between"}
+                    className="btn-outline"
+                    onClick={() => {
+                      const isSelected =
+                        selected &&
+                        selected.some((item) => item.value === option.value);
+                      let newSelected = selected || [];
 
-                  setSelected(newSelected);
-                }}
-                border={
-                  selected &&
-                  selected.some((item) => item.value === option.value)
-                    ? "1px solid var(--p500)"
-                    : "none"
-                }
-                bg={
-                  selected &&
-                  selected.some((item) => item.value === option.value)
-                    ? "var(--p500a5) !important"
-                    : ""
-                }
-              >
-                <Text>{option.label}</Text>
+                      if (isSelected) {
+                        // Filter out the option if it's already selected
+                        newSelected = newSelected.filter(
+                          (item) => item.value !== option.value
+                        );
+                      } else {
+                        // Add the option to the selected array
+                        newSelected = [...newSelected, option];
+                      }
 
-                <Text opacity={0.4}>{option.subLabel}</Text>
-              </Button>
-            ))}
-          </CContainer>
+                      setSelected(newSelected);
+                    }}
+                    border={
+                      selected &&
+                      selected.some((item) => item.value === option.value)
+                        ? "1px solid var(--p500)"
+                        : "none"
+                    }
+                    bg={
+                      selected &&
+                      selected.some((item) => item.value === option.value)
+                        ? "var(--p500a5) !important"
+                        : ""
+                    }
+                    px={4}
+                  >
+                    <Text>{option.label}</Text>
+
+                    <Text opacity={0.4}>{option.subLabel}</Text>
+                  </Button>
+                ))}
+              </CContainer>
+            )}
+
+            {optionsDisplay === "chip" && (
+              <Wrap px={6}>
+                {fo.map((option, i) => (
+                  <Button
+                    key={i}
+                    justifyContent={"space-between"}
+                    className="btn-outline"
+                    onClick={() => {
+                      const isSelected =
+                        selected &&
+                        selected.some((item) => item.value === option.value);
+                      let newSelected = selected || [];
+
+                      if (isSelected) {
+                        // Filter out the option if it's already selected
+                        newSelected = newSelected.filter(
+                          (item) => item.value !== option.value
+                        );
+                      } else {
+                        // Add the option to the selected array
+                        newSelected = [...newSelected, option];
+                      }
+
+                      setSelected(newSelected);
+                    }}
+                    borderRadius={"full"}
+                    borderColor={
+                      selected &&
+                      selected.some((item) => item.value === option.value)
+                        ? "var(--p500)"
+                        : ""
+                    }
+                    bg={
+                      selected &&
+                      selected.some((item) => item.value === option.value)
+                        ? "var(--p500a5) !important"
+                        : ""
+                    }
+                    gap={2}
+                    px={4}
+                  >
+                    <Text>{option.label}</Text>
+                    {/* <Text opacity={0.4}>{option.subLabel}</Text> */}
+                  </Button>
+                ))}
+              </Wrap>
+            )}
+          </>
         )}
 
-        {optionsDisplay === "chip" && (
-          <Wrap px={6}>
-            {fo.map((option, i) => (
-              <Button
-                key={i}
-                justifyContent={"space-between"}
-                className="btn-outline"
-                onClick={() => {
-                  const isSelected =
-                    selected &&
-                    selected.some((item) => item.value === option.value);
-                  let newSelected = selected || [];
-
-                  if (isSelected) {
-                    // Filter out the option if it's already selected
-                    newSelected = newSelected.filter(
-                      (item) => item.value !== option.value
-                    );
-                  } else {
-                    // Add the option to the selected array
-                    newSelected = [...newSelected, option];
-                  }
-
-                  setSelected(newSelected);
-                }}
-                borderRadius={"full"}
-                borderColor={
-                  selected &&
-                  selected.some((item) => item.value === option.value)
-                    ? "var(--p500)"
-                    : ""
-                }
-                bg={
-                  selected &&
-                  selected.some((item) => item.value === option.value)
-                    ? "var(--p500a5) !important"
-                    : ""
-                }
-                gap={2}
-              >
-                <Text>{option.label}</Text>
-                {/* <Text opacity={0.4}>{option.subLabel}</Text> */}
-              </Button>
-            ))}
-          </Wrap>
-        )}
-
-        {fo.length === 0 && (
+        {fo?.length === 0 && (
           <HStack px={6} justify={"center"} opacity={0.4} minH={"100px"}>
             <Text textAlign={"center"} fontWeight={600}>
               Opsi tidak ditemukan
