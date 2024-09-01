@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from "react";
-import req from "../lib/req";
+import { useEffect, useRef, useState } from "react";
 import useRenderTrigger from "../global/useRenderTrigger";
+import req from "../lib/req";
 
 interface Props<T> {
   initialData?: T;
@@ -31,7 +31,7 @@ const useDataState = <T>({
   const [paginationData, setPaginationData] = useState<T | undefined>(
     initialData
   );
-  const [offset, setOffset] = useState<number>((page - 1) * (limit || 0));
+  const [offset] = useState<number>((page - 1) * (limit || 0));
   const { rt } = useRenderTrigger();
   const abortControllerRef = useRef<AbortController | null>(null);
 
@@ -102,11 +102,44 @@ const useDataState = <T>({
 
   function loadMore() {
     setLoadingLoadMore(true);
-    if (limit) {
-      setOffset((ps) => ps + limit);
-    }
 
-    //TODO http request dan append ke data
+    const method = payload ? "POST" : "GET";
+    const data = {
+      ...payload,
+      limit: limit,
+      offset: offset,
+    };
+
+    req({
+      method,
+      url,
+      data: method === "POST" ? data : undefined,
+      // params: method === "GET" ? data : undefined,
+      //  signal: abortController.signal,
+    })
+      .then((response) => {
+        setLoading(false);
+        setError(false);
+        if (response.status === 200) {
+          const newData = [...data, ...response.data.data];
+          //@ts-ignore
+          setData(newData);
+          // setPaginationData(response.data?.pagination);
+        }
+      })
+      .catch((error) => {
+        if (error.name === "CanceledError") {
+          return;
+        } else {
+          setLoading(false);
+
+          if (error?.response?.status === 404) {
+            setNotFound(true);
+          }
+          setError(true);
+          console.log(error);
+        }
+      });
   }
 
   return {
