@@ -22,7 +22,7 @@ export default function LoginForm() {
   const toast = useToast();
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
-  const { setDcs, setStatusAktif } = useAuth();
+  const { setDcs, setStatusAktif, setJenisKaryawan } = useAuth();
 
   const formik = useFormik({
     validateOnChange: false,
@@ -45,8 +45,11 @@ export default function LoginForm() {
           if (r.status === 200) {
             const userData = r.data.data;
 
+            // console.log(userData);
+
             setDcs(userData.data_completion_step);
             setStatusAktif(userData.status_aktif);
+            setJenisKaryawan(userData?.unit_kerja?.jenis_karyawan);
 
             setCookie("__auth_token", userData.arrtoken.token);
             localStorage.setItem("__user_data", JSON.stringify(userData));
