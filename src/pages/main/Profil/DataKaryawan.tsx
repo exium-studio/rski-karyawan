@@ -4,5 +4,6 @@ export default function DataKaryawan() {
   //   url: `/api/get-data-karyawan-personal`,
   //   dependencies: [],
   // });
+  
   return <div>DetailDataKaryawan</div>;
 }

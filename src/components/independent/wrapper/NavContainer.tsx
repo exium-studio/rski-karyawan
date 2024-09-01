@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function NavContainer({ children, active, noNavs }: Props) {
-  const dummy = [2, null, null, 4, null];
+  const dummy = [null, null, null, null, null];
   const { data } = useDataState<(number | null)[]>({
     initialData: dummy,
     url: "",
