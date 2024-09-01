@@ -39,7 +39,7 @@ export default function AuthMiddleware({
         .get("/api/getuserinfo")
         .then((r) => {
           if (r.status === 200) {
-            console.log(r.data.data);
+            // console.log(r.data.data);
             const newDcs = r.data.data.user.data_completion_step;
             setDcs(newDcs);
             setStatusAktif(r.data.data.user.status_aktif);
@@ -67,7 +67,7 @@ export default function AuthMiddleware({
   }, [authToken, dcs, setDcs, toast, setStatusAktif, navigate]);
 
   // console.log(statusAktif, dcs);
-  console.log(ldp, dcs, statusAktif, allowedJenisKaryawan, jenisKaryawan);
+  // console.log(ldp, dcs, statusAktif, allowedJenisKaryawan, jenisKaryawan);
 
   return (
     <>
