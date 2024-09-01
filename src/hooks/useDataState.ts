@@ -61,7 +61,7 @@ const useDataState = <T>({
     const data = {
       ...payload,
       limit: limit,
-      offset: offset,
+      // offset: offset,
     };
 
     req({
