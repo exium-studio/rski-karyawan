@@ -49,7 +49,7 @@ export default function LoginForm() {
 
             setDcs(userData.data_completion_step);
             setStatusAktif(userData.status_aktif);
-            setJenisKaryawan(userData?.unit_kerja?.jenis_karyawan);
+            setJenisKaryawan(userData?.unit_kerja?.[0]?.jenis_karyawan);
 
             setCookie("__auth_token", userData.arrtoken.token);
             localStorage.setItem("__user_data", JSON.stringify(userData));
