@@ -1,10 +1,11 @@
-import { Box, Image, Text, VStack, Wrap } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Box, Button, Image, Text, VStack, Wrap } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import berandaMenus from "../../constant/berandaMenus";
 import { useLightDarkColor } from "../../constant/colors";
 import useDataState from "../../hooks/useDataState";
 import useScreenWidth from "../../hooks/useScreenWidth";
 import NotifCount from "../dependent/NotifCount";
+import getUserData from "../../lib/getUserData";
 
 interface ItemProps {
   menu: any;
@@ -16,6 +17,11 @@ const BerandaMenuItem = ({ menu, notifCount }: ItemProps) => {
 
   // SX
   const lightDarkColor = useLightDarkColor();
+  const navigate = useNavigate();
+
+  const userData = getUserData();
+
+  // console.log(userData?.unit_kerja?.[0]?.jenis_karyawan);
 
   return (
     <VStack
@@ -30,8 +36,11 @@ const BerandaMenuItem = ({ menu, notifCount }: ItemProps) => {
       className="clicky"
       transition={"200ms"}
       gap={1}
-      as={Link}
-      to={menu.link}
+      as={Button}
+      onClick={() => {
+        navigate(menu.link);
+      }}
+      // isDisabled={userData?.unit_kerja?.[0]?.jenis_karyawan === 0}
     >
       <Box position={"relative"}>
         <NotifCount
@@ -43,7 +52,13 @@ const BerandaMenuItem = ({ menu, notifCount }: ItemProps) => {
         />
         <Image src={menu.image} h={"28px"} />
       </Box>
-      <Text fontSize={12} textAlign={"center"} my={"auto"} lineHeight={1.2}>
+      <Text
+        fontSize={12}
+        textAlign={"center"}
+        my={"auto"}
+        lineHeight={1.2}
+        whiteSpace={"wrap"}
+      >
         {menu.label}
       </Text>
     </VStack>
@@ -51,7 +66,8 @@ const BerandaMenuItem = ({ menu, notifCount }: ItemProps) => {
 };
 
 export default function BerandaMenus() {
-  const dummy = [null, 1, 1, null, null, null, null, null, null];
+  const dummy = [null, null, null, null, null, null, null, null, null];
+
   const { data } = useDataState<(number | null)[]>({
     initialData: dummy,
     url: "",
