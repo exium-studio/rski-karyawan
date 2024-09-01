@@ -40,7 +40,9 @@ const BerandaMenuItem = ({ menu, notifCount }: ItemProps) => {
       onClick={() => {
         navigate(menu.link);
       }}
-      // isDisabled={userData?.unit_kerja?.[0]?.jenis_karyawan === 0}
+      isDisabled={
+        !menu.jenis_karyawan.includes(userData?.unit_kerja?.[0]?.jenis_karyawan)
+      }
     >
       <Box position={"relative"}>
         <NotifCount

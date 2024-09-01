@@ -10,7 +10,7 @@ const berandaMenus = [
     image: "/vectors/icons/Calendar.png",
     label: "Tukar Jadwal",
     link: "/beranda/tukar-jadwal",
-    jenis_karyawan: [0],
+    jenis_karyawan: [1],
   },
 
   {
