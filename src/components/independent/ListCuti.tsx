@@ -1,4 +1,4 @@
-import { Button, Center, HStack, SimpleGrid, Text } from "@chakra-ui/react";
+import { Center, HStack, SimpleGrid, Text } from "@chakra-ui/react";
 import { useLightDarkColor } from "../../constant/colors";
 import useFilterCuti from "../../global/useFilterCuti";
 import useDataState from "../../hooks/useDataState";
@@ -15,27 +15,26 @@ export default function ListCuti() {
 
   const { filterCuti } = useFilterCuti();
 
-  const { error, notFound, loading, data, retry, loadingLoadMore, loadMore } =
-    useDataState<any>({
-      initialData: undefined,
-      url: `/api/get-riwayat-cuti`,
-      payload: {
-        ...(filterCuti?.date_range && {
-          tgl_mulai: filterCuti.date_range.from,
-        }),
-        ...(filterCuti?.date_range && {
-          tgl_selesai: filterCuti.date_range.to,
-        }),
-        ...(filterCuti?.jenis_cuti?.length > 0 && {
-          jenis: filterCuti.jenis_cuti.map((sp: any) => sp.value),
-        }),
-        ...(filterCuti?.status_cuti?.length > 0 && {
-          status: filterCuti.status_cuti.map((sp: any) => sp.value),
-        }),
-        offset: 4,
-      },
-      dependencies: [filterCuti],
-    });
+  const { error, notFound, loading, data, retry } = useDataState<any>({
+    initialData: undefined,
+    url: `/api/get-riwayat-cuti`,
+    payload: {
+      ...(filterCuti?.date_range && {
+        tgl_mulai: filterCuti.date_range.from,
+      }),
+      ...(filterCuti?.date_range && {
+        tgl_selesai: filterCuti.date_range.to,
+      }),
+      ...(filterCuti?.jenis_cuti?.length > 0 && {
+        jenis: filterCuti.jenis_cuti.map((sp: any) => sp.value),
+      }),
+      ...(filterCuti?.status_cuti?.length > 0 && {
+        status: filterCuti.status_cuti.map((sp: any) => sp.value),
+      }),
+      offset: 4,
+    },
+    dependencies: [filterCuti],
+  });
 
   return (
     <CContainer gap={3} flex={1}>
@@ -112,7 +111,7 @@ export default function ListCuti() {
                       </SimpleGrid>
                     </CContainer>
                   ))}
-                  <Button
+                  {/* <Button
                     flexShrink={0}
                     colorScheme="ap"
                     variant={"ghost"}
@@ -121,7 +120,7 @@ export default function ListCuti() {
                     isLoading={loadingLoadMore}
                   >
                     Tampilkan Lebih Banyak
-                  </Button>
+                  </Button> */}
                 </>
               ) : (
                 <NoData minH={"300px"} label="Tidak ada riwayat cuti" />

@@ -174,7 +174,7 @@ export const App = () => {
             <Route
               path="/beranda/cuti"
               element={
-                <AuthMiddleware>
+                <AuthMiddleware allowedJenisKaryawan={[1, 0]}>
                   <NavContainer active={0} noNavs>
                     <Cuti />
                   </NavContainer>
@@ -184,7 +184,7 @@ export const App = () => {
             <Route
               path="/beranda/tukar-jadwal"
               element={
-                <AuthMiddleware>
+                <AuthMiddleware allowedJenisKaryawan={[1]}>
                   <NavContainer active={0} noNavs>
                     <TukarJadwal title="Pengajuan Tukar Jadwal" active={0}>
                       <PengajuanTukarJadwal />
@@ -196,7 +196,7 @@ export const App = () => {
             <Route
               path="/beranda/lembur"
               element={
-                <AuthMiddleware>
+                <AuthMiddleware allowedJenisKaryawan={[1, 0]}>
                   <NavContainer active={0} noNavs>
                     <Lembur />
                   </NavContainer>
@@ -206,7 +206,7 @@ export const App = () => {
             <Route
               path="/beranda/event-diklat"
               element={
-                <AuthMiddleware>
+                <AuthMiddleware allowedJenisKaryawan={[1, 0]}>
                   <NavContainer active={0} noNavs>
                     <EventDiklat />
                   </NavContainer>
@@ -216,7 +216,7 @@ export const App = () => {
             <Route
               path="/beranda/slip-gajiku"
               element={
-                <AuthMiddleware>
+                <AuthMiddleware allowedJenisKaryawan={[1, 0]}>
                   <NavContainer active={0} noNavs>
                     <SlipGajiku />
                   </NavContainer>
@@ -226,7 +226,7 @@ export const App = () => {
             <Route
               path="/beranda/dokumen"
               element={
-                <AuthMiddleware>
+                <AuthMiddleware allowedJenisKaryawan={[1, 0]}>
                   <NavContainer active={0} noNavs>
                     <Dokumen />
                   </NavContainer>
@@ -236,7 +236,7 @@ export const App = () => {
             <Route
               path="/beranda/feedback"
               element={
-                <AuthMiddleware>
+                <AuthMiddleware allowedJenisKaryawan={[1, 0]}>
                   <NavContainer active={0} noNavs>
                     <Feedback />
                   </NavContainer>
@@ -246,7 +246,7 @@ export const App = () => {
             <Route
               path="/beranda/feedback/:user_id"
               element={
-                <AuthMiddleware>
+                <AuthMiddleware allowedJenisKaryawan={[1, 0]}>
                   <NavContainer active={0} noNavs>
                     <FeedbackKuisioner />
                   </NavContainer>
@@ -256,7 +256,7 @@ export const App = () => {
             <Route
               path="/beranda/koperasi"
               element={
-                <AuthMiddleware>
+                <AuthMiddleware allowedJenisKaryawan={[1, 0]}>
                   <NavContainer active={0} noNavs>
                     <Koperasi />
                   </NavContainer>
@@ -266,7 +266,7 @@ export const App = () => {
             <Route
               path="/beranda/laporan"
               element={
-                <AuthMiddleware>
+                <AuthMiddleware allowedJenisKaryawan={[1, 0]}>
                   <NavContainer active={0} noNavs>
                     <Laporan />
                   </NavContainer>

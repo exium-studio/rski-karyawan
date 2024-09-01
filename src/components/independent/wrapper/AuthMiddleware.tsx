@@ -10,11 +10,23 @@ import ComponentSpinner from "../ComponentSpinner";
 interface Props {
   ldp?: number;
   children?: ReactNode;
+  allowedJenisKaryawan?: number[];
 }
 
-export default function AuthMiddleware({ ldp, children }: Props) {
+export default function AuthMiddleware({
+  ldp,
+  children,
+  allowedJenisKaryawan,
+}: Props) {
   const authToken = getCookie("__auth_token");
-  const { dcs, setDcs, statusAktif, setStatusAktif } = useAuth();
+  const {
+    dcs,
+    setDcs,
+    statusAktif,
+    setStatusAktif,
+    jenisKaryawan,
+    setJenisKaryawan,
+  } = useAuth();
 
   const [loading, setLoading] = useState<boolean>(true);
   const toast = useToast();
@@ -27,9 +39,11 @@ export default function AuthMiddleware({ ldp, children }: Props) {
         .get("/api/getuserinfo")
         .then((r) => {
           if (r.status === 200) {
-            const newDcs = r.data.data.data_completion_step;
+            console.log(r.data.data);
+            const newDcs = r.data.data.user.data_completion_step;
             setDcs(newDcs);
-            setStatusAktif(r.data.data.status_aktif);
+            setStatusAktif(r.data.data.user.status_aktif);
+            setJenisKaryawan(r.data.data.unit_kerja?.jenis_karyawan);
           }
         })
         .catch((e) => {
@@ -53,6 +67,7 @@ export default function AuthMiddleware({ ldp, children }: Props) {
   }, [authToken, dcs, setDcs, toast, setStatusAktif, navigate]);
 
   // console.log(statusAktif, dcs);
+  console.log(ldp, dcs, statusAktif, allowedJenisKaryawan, jenisKaryawan);
 
   return (
     <>
@@ -91,12 +106,29 @@ export default function AuthMiddleware({ ldp, children }: Props) {
                   {ldp === dcs && children}
                 </>
               )}
-
               {!ldp && (
                 <>
                   {dcs === 0 && statusAktif !== 2 && <Navigate to={"/"} />}
 
-                  {dcs === 0 && statusAktif === 2 && children}
+                  {dcs === 0 && statusAktif === 2 && (
+                    <>
+                      {allowedJenisKaryawan && (
+                        <>
+                          {typeof jenisKaryawan === "number" && (
+                            <>
+                              {allowedJenisKaryawan.includes(jenisKaryawan) ? (
+                                children
+                              ) : (
+                                <Navigate to={"/"} />
+                              )}
+                            </>
+                          )}
+                        </>
+                      )}
+
+                      {!allowedJenisKaryawan && children}
+                    </>
+                  )}
 
                   {dcs !== 0 && (
                     <Navigate to={`/lengkapi-data-personal-${dcs}`} />

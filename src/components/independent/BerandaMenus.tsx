@@ -2,10 +2,10 @@ import { Box, Button, Image, Text, VStack, Wrap } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import berandaMenus from "../../constant/berandaMenus";
 import { useLightDarkColor } from "../../constant/colors";
+import useAuth from "../../global/useAuth";
 import useDataState from "../../hooks/useDataState";
 import useScreenWidth from "../../hooks/useScreenWidth";
 import NotifCount from "../dependent/NotifCount";
-import getUserData from "../../lib/getUserData";
 
 interface ItemProps {
   menu: any;
@@ -19,9 +19,15 @@ const BerandaMenuItem = ({ menu, notifCount }: ItemProps) => {
   const lightDarkColor = useLightDarkColor();
   const navigate = useNavigate();
 
-  const userData = getUserData();
+  // const userData = getUserData();
 
   // console.log(userData?.unit_kerja?.[0]?.jenis_karyawan);
+
+  // const userJenisKaryawan = userData?.unit_kerja?.[0]?.jenis_karyawan;
+
+  const { jenisKaryawan } = useAuth();
+
+  // console.log(userJenisKaryawan);
 
   return (
     <VStack
@@ -40,9 +46,7 @@ const BerandaMenuItem = ({ menu, notifCount }: ItemProps) => {
       onClick={() => {
         navigate(menu.link);
       }}
-      isDisabled={
-        !menu.jenis_karyawan.includes(userData?.unit_kerja?.[0]?.jenis_karyawan)
-      }
+      isDisabled={!menu.jenis_karyawan.includes(jenisKaryawan)}
     >
       <Box position={"relative"}>
         <NotifCount
