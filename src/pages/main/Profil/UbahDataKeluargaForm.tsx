@@ -127,6 +127,11 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                       <Text>{anggota.pekerjaan}</Text>
                     </HStack>
                     <HStack>
+                      <Text opacity={0.4}>Pendidikan</Text>
+                      <FlexLine />
+                      <Text>{anggota.pendidikan_terakhir?.label}</Text>
+                    </HStack>
+                    <HStack>
                       <Text opacity={0.4}>Nomor Telepon</Text>
                       <FlexLine />
                       <Text>{anggota.no_hp}</Text>
