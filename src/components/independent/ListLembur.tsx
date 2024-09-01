@@ -1,13 +1,13 @@
-import { Box, Button, Center, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Center, SimpleGrid, Text } from "@chakra-ui/react";
 import { useLightDarkColor } from "../../constant/colors";
 import useDataState from "../../hooks/useDataState";
 import formatDate from "../../lib/formatDate";
-import formatDuration from "../../lib/formatDuration";
+import formatTime from "../../lib/formatTime";
 import isDatePassed from "../../lib/isDatePassed";
+import Retry from "../dependent/Retry";
+import NoData from "./NoData";
 import Skeleton from "./Skeleton";
 import CContainer from "./wrapper/CContainer";
-import NoData from "./NoData";
-import Retry from "../dependent/Retry";
 
 export default function ListLembur() {
   // SX
@@ -60,7 +60,7 @@ export default function ListLembur() {
                       gap={3}
                       position={"relative"}
                     >
-                      {!isDatePassed(lembur.tgl_pengajuan) && (
+                      {!isDatePassed(lembur?.jadwal?.tgl_mulai) && (
                         <Box
                           w={"6px"}
                           h={"6px"}
@@ -77,16 +77,20 @@ export default function ListLembur() {
                             Tanggal Lembur
                           </Text>
                           <Text fontWeight={500}>{`${formatDate(
-                            lembur.tgl_pengajuan,
+                            lembur?.jadwal?.tgl_mulai,
                             "basicShort"
                           )}`}</Text>
                         </CContainer>
 
                         <CContainer gap={1}>
                           <Text opacity={0.4} fontSize={12}>
-                            Shift
+                            Jam Kerja
                           </Text>
-                          <Text fontWeight={500}>{lembur.shift_id}</Text>
+                          <Text fontWeight={500}>
+                            {`${formatTime(
+                              lembur.jadwal.jam_from
+                            )} - ${formatTime(lembur.jadwal.jam_to)}`}
+                          </Text>
                         </CContainer>
                       </SimpleGrid>
 
@@ -96,27 +100,27 @@ export default function ListLembur() {
                             Durasi
                           </Text>
                           <Text fontWeight={500}>
-                            {formatDuration(lembur.durasi)}
+                            {formatTime(lembur.durasi)}
                           </Text>
                         </CContainer>
 
-                        <CContainer gap={1}>
+                        {/* <CContainer gap={1}>
                           <Text opacity={0.4} fontSize={12}>
                             Diajukan oleh
                           </Text>
                           <Text fontWeight={500}>{"-"}</Text>
-                        </CContainer>
+                        </CContainer> */}
                       </SimpleGrid>
                     </CContainer>
                   ))}
-                  <Button
+                  {/* <Button
                     flexShrink={0}
                     colorScheme="ap"
                     variant={"ghost"}
                     className="clicky"
                   >
                     Tampilkan Lebih Banyak
-                  </Button>
+                  </Button> */}
                 </>
               ) : (
                 <NoData minH={"300px"} label="Tidak ada riwayat lembur" />

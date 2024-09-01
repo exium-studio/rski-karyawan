@@ -1,17 +1,15 @@
 import { Box, HStack, Icon, IconButton, Text } from "@chakra-ui/react";
 import { RiCloseLine, RiSearchLine } from "@remixicon/react";
 import { useEffect, useRef, useState } from "react";
-import NoData from "../../../components/independent/NoData";
-import NotFound from "../../../components/independent/NotFound";
 import EventDiklatItem from "../../../components/dependent/EventDiklatItem";
 import SearchComponent from "../../../components/dependent/input/SearchComponent";
 import Retry from "../../../components/dependent/Retry";
 import BackButton from "../../../components/independent/BackButton";
+import NoData from "../../../components/independent/NoData";
+import NotFound from "../../../components/independent/NotFound";
 import Skeleton from "../../../components/independent/Skeleton";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
-import { dummyEventDiklats } from "../../../constant/dummy";
-import { Interface__EventDiklat } from "../../../constant/interfaces";
 import { iconSize } from "../../../constant/sizes";
 import useDataState from "../../../hooks/useDataState";
 import useScrollToTop from "../../../hooks/useScrollToTop";
@@ -22,9 +20,10 @@ export default function EventDiklat() {
   const [searchMode, setSearchMode] = useState<boolean>(false);
   const [search, setSearch] = useState<string | undefined>("");
 
-  const { error, loading, data, retry } = useDataState<
-    Interface__EventDiklat[]
-  >({ initialData: dummyEventDiklats, url: "" });
+  const { error, loading, data, retry } = useDataState<any[]>({
+    initialData: undefined,
+    url: ``,
+  });
 
   const fd = data?.filter((item) => {
     const searchTerm = search?.toLowerCase();
