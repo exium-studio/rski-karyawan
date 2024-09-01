@@ -38,12 +38,11 @@ export default function RequestPatchDataButton({
   function requestPatchData(column: string, payload: any) {
     setLoading(true);
     if (payload) {
-      console.log(column, payload);
+      // console.log(column, payload);
       const payloadDikirim = {
         kolom_diubah: column,
         value_diubah: payload,
       };
-
       req
         .post(url, payloadDikirim)
         .then((r) => {
@@ -75,6 +74,7 @@ export default function RequestPatchDataButton({
     } else {
       setLoading(false);
     }
+    // console.log(JSON.stringify(payload));
   }
 
   return (

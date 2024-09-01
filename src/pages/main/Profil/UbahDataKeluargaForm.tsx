@@ -41,13 +41,12 @@ export default function UbahDataKeluargaForm({ data }: Props) {
 
     onSubmit: (values, { resetForm }) => {
       console.log(values);
-      // TODO hit api simpan data personal 2
     },
   });
 
   // SX
 
-  console.log(formik.values.keluarga);
+  // console.log(formik.values.keluarga);
 
   return (
     <>
