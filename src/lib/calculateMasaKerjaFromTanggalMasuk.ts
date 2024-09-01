@@ -3,7 +3,7 @@ import isDatePassed from "./isDatePassed";
 export default function calculateMasaKerjaFromTanggalMasuk(dateString: string) {
   if (dateString) {
     if (isDatePassed(dateString, true)) {
-      return "-";
+      return "";
     } else {
       // Parse the input date string (format: d-m-y)
       const [day, month, year] = dateString?.split("-")?.map(Number);

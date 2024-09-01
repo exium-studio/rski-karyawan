@@ -1,9 +1,24 @@
-import { Box, Center, HStack, Text, Tooltip, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  HStack,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverTrigger,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Highlighter from "react-highlight-words";
+import Header from "../../../components/dependent/Header";
 import SearchComponent from "../../../components/dependent/input/SearchComponent";
 import JenisKaryawanBadge from "../../../components/dependent/JenisKaryawanBadge";
+import Retry from "../../../components/dependent/Retry";
 import StatusKaryawanBadge from "../../../components/dependent/StatusKaryawanBadge";
+import ComponentSpinner from "../../../components/independent/ComponentSpinner";
 import FlexLine from "../../../components/independent/FlexLine";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useLightDarkColor } from "../../../constant/colors";
@@ -13,9 +28,6 @@ import calculateMasaKerjaFromTanggalMasuk from "../../../lib/calculateMasaKerjaF
 import formatDate from "../../../lib/formatDate";
 import formatDurationShort from "../../../lib/formatDurationShort";
 import formatNumber from "../../../lib/formatNumber";
-import Retry from "../../../components/dependent/Retry";
-import ComponentSpinner from "../../../components/independent/ComponentSpinner";
-import Header from "../../../components/dependent/Header";
 
 export default function DataKaryawan() {
   // SX
@@ -330,17 +342,25 @@ export default function DataKaryawan() {
                             />
                           </Box>
                           <FlexLine />
-                          <Tooltip label={data.alamat}>
-                            <Text
-                              fontWeight={500}
-                              whiteSpace={"nowrap"}
-                              overflow={"hidden"}
-                              textOverflow={"ellipsis"}
-                              maxW={"243px"}
-                            >
-                              {data.alamat}
-                            </Text>
-                          </Tooltip>
+
+                          <Popover>
+                            <PopoverTrigger>
+                              <Text
+                                fontWeight={500}
+                                whiteSpace={"nowrap"}
+                                overflow={"hidden"}
+                                textOverflow={"ellipsis"}
+                                maxW={"243px"}
+                              >
+                                {data.alamat}
+                              </Text>
+                            </PopoverTrigger>
+                            <PopoverContent>
+                              <PopoverArrow />
+                              <PopoverCloseButton />
+                              <PopoverBody>{data.alamat}</PopoverBody>
+                            </PopoverContent>
+                          </Popover>
                         </HStack>
                       </VStack>
                     </VStack>

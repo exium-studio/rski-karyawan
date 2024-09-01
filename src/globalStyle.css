@@ -59,6 +59,10 @@
   font-family: "Roboto Mono", monospace !important;
 } */
 
+.uw {
+  font-size: 14px !important;
+}
+
 ::selection {
   background: var(--p500);
   color: white;
