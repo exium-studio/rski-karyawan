@@ -74,7 +74,7 @@ export default function DetailKaryawan({
             <ModalHeader>
               <Header
                 left={"back"}
-                title={`Detail Karyawan ${user?.unit_kerja?.[0]?.nama_unit}`}
+                title={`Jadwal Karyawan ${user?.unit_kerja?.[0]?.nama_unit}`}
                 borderBottom={"1px solid var(--divider2)"}
               />
             </ModalHeader>

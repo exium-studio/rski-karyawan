@@ -6,6 +6,7 @@ import Skeleton from "../independent/Skeleton";
 import CContainer from "../independent/wrapper/CContainer";
 import JadwalKaryawanItem from "./JadwalKaryawanItem";
 import Retry from "./Retry";
+import NoData from "../independent/NoData";
 
 interface Props extends StackProps {
   user_id?: number;
@@ -46,10 +47,17 @@ export default function ListJadwalKaryawan({ user_id, ...props }: Props) {
 
           {!error && (
             <>
-              {data &&
-                data.map((jadwal: any, i: number) => (
-                  <JadwalKaryawanItem key={i} data={jadwal} h={"114px"} />
-                ))}
+              {data && (
+                <>
+                  {data.length === 0 && (
+                    <NoData label="Tidak ada data jadwal" />
+                  )}
+
+                  {data.map((jadwal: any, i: number) => (
+                    <JadwalKaryawanItem key={i} data={jadwal} h={"114px"} />
+                  ))}
+                </>
+              )}
             </>
           )}
         </>
