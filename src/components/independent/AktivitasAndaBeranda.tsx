@@ -25,34 +25,45 @@ export default function AktivitasAndaBeranda() {
       </HStack>
 
       <CContainer align={"stretch"} gap={3} flex={1}>
-        {error && (
+        {loading && (
           <>
-            {notFound && (
-              <NoData m={"auto"} label="Tidak ada aktivitas presensi" />
-            )}
-
-            {!notFound && (
-              <Center my={"auto"} minH={"300px"}>
-                <Retry loading={loading} retry={retry} />
-              </Center>
-            )}
+            {Array.from({ length: 10 }).map((_, i) => (
+              <Skeleton key={i} h={"74px"} />
+            ))}
           </>
         )}
 
-        {!error &&
-          loading &&
-          Array.from({ length: 10 }).map((_, i) => (
-            <Skeleton key={i} h={"74px"} />
-          ))}
+        {!loading && (
+          <>
+            {error && (
+              <>
+                {notFound && (
+                  <NoData m={"auto"} label="Tidak ada aktivitas presensi" />
+                )}
 
-        {!loading && !error && !data && (
-          <NoData label="Tidak ada aktivitas presensi" />
+                {!notFound && (
+                  <Center my={"auto"} minH={"300px"}>
+                    <Retry loading={loading} retry={retry} />
+                  </Center>
+                )}
+              </>
+            )}
+
+            {!error && (
+              <>
+                {data &&
+                  data.length > 0 &&
+                  data.map((activity, i) => (
+                    <AktivitasItem key={i} data={activity} />
+                  ))}
+
+                {data && data.length === 0 && (
+                  <NoData label="Tidak ada aktivitas presensi" />
+                )}
+              </>
+            )}
+          </>
         )}
-
-        {!error &&
-          !loading &&
-          data &&
-          data.map((activity, i) => <AktivitasItem key={i} data={activity} />)}
       </CContainer>
     </CContainer>
   );
