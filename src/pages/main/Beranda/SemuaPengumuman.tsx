@@ -23,7 +23,6 @@ import NotFound from "../../../components/independent/NotFound";
 import Skeleton from "../../../components/independent/Skeleton";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
-import { dummyPengumuman } from "../../../constant/dummy";
 import { iconSize } from "../../../constant/sizes";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import useDataState from "../../../hooks/useDataState";
@@ -40,8 +39,11 @@ export default function SemuaPengumuman() {
   const [search, setSearch] = useState<string | undefined>("");
 
   const { error, notFound, loading, data, retry } = useDataState<any>({
-    initialData: dummyPengumuman,
-    url: "/api/latest-penngumuman",
+    url: "/api/get-pengumuman",
+    initialData: undefined,
+    payload: {
+      limit: 0,
+    },
   });
 
   const fd = data?.filter((item: any) => {

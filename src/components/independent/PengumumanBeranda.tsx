@@ -1,5 +1,4 @@
 import { Box, Center, HStack, Text } from "@chakra-ui/react";
-import { dummyPengumuman } from "../../constant/dummy";
 import useDataState from "../../hooks/useDataState";
 import SemuaPengumuman from "../../pages/main/Beranda/SemuaPengumuman";
 import PengumumanItem from "../dependent/PengumumanItem";
@@ -9,9 +8,12 @@ import Skeleton from "./Skeleton";
 import CContainer from "./wrapper/CContainer";
 
 export default function PengumumanBeranda() {
-  const { error, notFound, loading, data, retry } = useDataState({
-    initialData: dummyPengumuman,
-    url: "/api/latest-pengumuman",
+  const { error, notFound, loading, data, retry } = useDataState<any>({
+    url: "/api/get-pengumuman",
+    initialData: undefined,
+    payload: {
+      limit: 4,
+    },
   });
 
   // SX
@@ -63,25 +65,27 @@ export default function PengumumanBeranda() {
               <>
                 {!data && <NoData label="Tidak ada pengumuman" />}
 
-                <Box
-                  overflowX={"auto"}
-                  w={"100%"}
-                  className="noScroll"
-                  scrollSnapType={"x mandatory"}
-                >
-                  <HStack px={5} w={"max-content"} gap={3} align={"stretch"}>
-                    {data &&
-                      data.map((pengumuman, i) => (
-                        <PengumumanItem
-                          key={i}
-                          data={pengumuman}
-                          scrollSnapAlign={"center"}
-                          w={"calc(100vw - 64px)"}
-                          maxW={"600px"}
-                        />
-                      ))}
-                  </HStack>
-                </Box>
+                {data && (
+                  <Box
+                    overflowX={"auto"}
+                    w={"100%"}
+                    className="noScroll"
+                    scrollSnapType={"x mandatory"}
+                  >
+                    <HStack px={5} w={"max-content"} gap={3} align={"stretch"}>
+                      {data &&
+                        data.map((pengumuman: any, i: number) => (
+                          <PengumumanItem
+                            key={i}
+                            data={pengumuman}
+                            scrollSnapAlign={"center"}
+                            w={"calc(100vw - 64px)"}
+                            maxW={"600px"}
+                          />
+                        ))}
+                    </HStack>
+                  </Box>
+                )}
               </>
             )}
           </>
