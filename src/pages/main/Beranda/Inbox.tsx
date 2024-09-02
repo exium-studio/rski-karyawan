@@ -21,8 +21,8 @@ export default function Inbox() {
   const [search, setSearch] = useState<string | undefined>("");
 
   const { error, loading, data, retry } = useDataState<any>({
+    url: `/api/get-notifikasi`,
     initialData: undefined,
-    url: "",
   });
 
   const fd = data?.filter((item: any) => {
@@ -48,7 +48,7 @@ export default function Inbox() {
   console.log(fd);
 
   return (
-    <CContainer>
+    <CContainer flex={1}>
       <Box
         position={"sticky"}
         top={"0"}
@@ -131,7 +131,7 @@ export default function Inbox() {
         </HStack>
       </Box>
 
-      <CContainer bg={contentBgColor} p={5} gap={3}>
+      <CContainer flex={1} bg={contentBgColor} p={5} gap={3}>
         {error && (
           <Box my={"auto"}>
             <Retry loading={loading} retry={retry} />
