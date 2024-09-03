@@ -20,7 +20,7 @@ export default function EventDiklat() {
   const [searchMode, setSearchMode] = useState<boolean>(false);
   const [search, setSearch] = useState<string | undefined>("");
 
-  const { error, loading, data, retry } = useDataState<any[]>({
+  const { error, notFound, loading, data, retry } = useDataState<any[]>({
     initialData: undefined,
     url: `/api/get-all-diklat`,
   });
@@ -78,7 +78,7 @@ export default function EventDiklat() {
               fontWeight={600}
               fontSize={[16, null, 18]}
             >
-              Event & Diklat
+              Diklat
             </Text>
           )}
 
@@ -130,9 +130,15 @@ export default function EventDiklat() {
 
       <CContainer p={5} pb={8} gap={3} bg={contentBgColor} flex={1}>
         {error && (
-          <Box my={"auto"}>
-            <Retry loading={loading} retry={retry} />
-          </Box>
+          <>
+            {notFound && <NoData label="Tidak ada data Diklat" />}
+
+            {!notFound && (
+              <Box my={"auto"}>
+                <Retry loading={loading} retry={retry} />
+              </Box>
+            )}
+          </>
         )}
 
         {!error && (
