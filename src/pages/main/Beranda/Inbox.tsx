@@ -20,7 +20,7 @@ export default function Inbox() {
   const [searchMode, setSearchMode] = useState<boolean>(false);
   const [search, setSearch] = useState<string | undefined>("");
 
-  const { error, loading, data, retry } = useDataState<any>({
+  const { error, notFound, loading, data, retry } = useDataState<any>({
     url: `/api/get-notifikasi`,
     initialData: undefined,
   });
@@ -133,9 +133,15 @@ export default function Inbox() {
 
       <CContainer flex={1} bg={contentBgColor} p={5} gap={3}>
         {error && (
-          <Box my={"auto"}>
-            <Retry loading={loading} retry={retry} />
-          </Box>
+          <>
+            {notFound && <NoData label="Tidak ada inbox" />}
+
+            {!notFound && (
+              <Box my={"auto"}>
+                <Retry loading={loading} retry={retry} />
+              </Box>
+            )}
+          </>
         )}
         {!error && (
           <>
