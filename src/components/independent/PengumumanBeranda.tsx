@@ -11,9 +11,8 @@ export default function PengumumanBeranda() {
   const { error, notFound, loading, data, retry } = useDataState<any>({
     url: "/api/get-pengumuman",
     initialData: undefined,
-    payload: {
-      limit: 4,
-    },
+    payload: {},
+    limit: 4,
   });
 
   // SX
