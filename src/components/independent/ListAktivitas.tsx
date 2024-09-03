@@ -1,4 +1,4 @@
-import { Button, Center, StackProps, Text, VStack } from "@chakra-ui/react";
+import { Center, StackProps } from "@chakra-ui/react";
 import { dummyActivity } from "../../constant/dummy";
 import { Interface__Aktivitas } from "../../constant/interfaces";
 import useFilterAktivitas from "../../global/useFilterAktivitas";

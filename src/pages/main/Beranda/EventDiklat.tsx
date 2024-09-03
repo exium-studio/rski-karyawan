@@ -22,7 +22,7 @@ export default function EventDiklat() {
 
   const { error, loading, data, retry } = useDataState<any[]>({
     initialData: undefined,
-    url: ``,
+    url: `/api/get-all-diklat`,
   });
 
   const fd = data?.filter((item) => {
@@ -46,7 +46,7 @@ export default function EventDiklat() {
   const contentBgColor = useContentBgColor();
 
   return (
-    <CContainer>
+    <CContainer flex={1}>
       <Box
         position={"sticky"}
         top={"0"}
@@ -128,7 +128,7 @@ export default function EventDiklat() {
         </HStack>
       </Box>
 
-      <CContainer p={5} pb={8} gap={3} bg={contentBgColor}>
+      <CContainer p={5} pb={8} gap={3} bg={contentBgColor} flex={1}>
         {error && (
           <Box my={"auto"}>
             <Retry loading={loading} retry={retry} />
