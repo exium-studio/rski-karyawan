@@ -44,6 +44,7 @@ export default function SemuaPengumuman() {
     payload: {
       limit: 0,
     },
+    conditions: isOpen,
   });
 
   const fd = data?.filter((item: any) => {
