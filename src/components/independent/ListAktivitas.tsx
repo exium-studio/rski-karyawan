@@ -56,23 +56,19 @@ export default function ListAktivitas({ ...props }: Props) {
           {data.map((activity, i) => (
             <AktivitasItem key={i} data={activity} />
           ))}
-          <Button
+          {/* <Button
             flexShrink={0}
             colorScheme="ap"
             variant={"ghost"}
             className="clicky"
           >
             Tampilkan Lebih Banyak
-          </Button>
+          </Button> */}
         </>
       )}
 
       {!error && !loading && data && data.length === 0 && (
-        <VStack minH={"100px"} justify={"center"}>
-          <Text textAlign={"center"} opacity={0.4}>
-            Aktivitas tidak ditemukan
-          </Text>
-        </VStack>
+        <NoData label="Tidak ada aktivitas" />
       )}
     </CContainer>
   );
