@@ -136,7 +136,7 @@ export default function Dokumen() {
       <CContainer flex={1} bg={contentBgColor} p={5} pb={"calc(92px)"}>
         {error && (
           <>
-            {notFound && <NoData minH={"132px"} label="Tidak ada diklat" />}
+            {notFound && <NoData minH={"132px"} label="Tidak ada dokumen" />}
 
             {!notFound && (
               <Center my={"auto"} minH={"300px"}>
