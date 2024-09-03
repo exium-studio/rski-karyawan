@@ -53,7 +53,9 @@ const FileViewer: React.FC<FileViewerProps> = ({ fileUrl, fileType }) => {
           <Image src={fileUrl} style={{ maxWidth: "100%", height: "auto" }} />
         );
       default:
-        return <NotSupported label="Tipe file tidak didukung" />;
+        return (
+          <NotSupported label="Tipe file tidak didukung untuk pratinjau" />
+        );
     }
   };
 
