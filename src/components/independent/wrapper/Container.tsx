@@ -1,5 +1,4 @@
 import { StackProps, VStack } from "@chakra-ui/react";
-import DebugTools from "../../DebugTools";
 
 interface Props extends StackProps {
   children: any;
@@ -9,7 +8,7 @@ export default function Container({ children, ...props }: Props) {
   return (
     <>
       {/* quick debug tools */}
-      <DebugTools />
+      {/* <DebugTools /> */}
       {/* quick debug tools */}
 
       <VStack
