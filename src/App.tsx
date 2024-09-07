@@ -45,6 +45,7 @@ import ForgotPassword from "./pages/resetPassword/ForgotPassword";
 import NewPassword from "./pages/resetPassword/NewPassword";
 import { globalTheme } from "./theme/globalTheme";
 import DataKaryawan from "./pages/main/Profil/DataKaryawan";
+import Izin from "./pages/main/Beranda/Izin";
 
 // function disableRightClick(event: MouseEvent) {
 //   event.preventDefault();
@@ -229,6 +230,16 @@ export const App = () => {
                 <AuthMiddleware allowedJenisKaryawan={[1, 0]}>
                   <NavContainer active={0} noNavs>
                     <Dokumen />
+                  </NavContainer>
+                </AuthMiddleware>
+              }
+            />
+            <Route
+              path="/beranda/izin"
+              element={
+                <AuthMiddleware allowedJenisKaryawan={[1, 0]}>
+                  <NavContainer active={0} noNavs>
+                    <Izin />
                   </NavContainer>
                 </AuthMiddleware>
               }

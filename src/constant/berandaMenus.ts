@@ -48,18 +48,25 @@ const berandaMenus = [
     jenis_karyawan: [1, 0],
   },
 
+  {
+    image: "/vectors/icons/Agreement.png",
+    label: "Izin",
+    link: "/beranda/izin",
+    jenis_karyawan: [1, 0],
+  },
+
   // {
   //   image: "/vectors/icons/Form.png",
   //   label: "Feedback",
   //   link: "/beranda/feedback",
   // },
 
-  {
-    image: "/vectors/icons/System Report.png",
-    label: "Pelaporan",
-    link: "/beranda/laporan",
-    jenis_karyawan: [1, 0],
-  },
+  // {
+  //   image: "/vectors/icons/System Report.png",
+  //   label: "Pelaporan",
+  //   link: "/beranda/laporan",
+  //   jenis_karyawan: [1, 0],
+  // },
 ];
 
 export default berandaMenus;

@@ -9,7 +9,7 @@ import NoData from "./NoData";
 import Skeleton from "./Skeleton";
 import CContainer from "./wrapper/CContainer";
 
-export default function ListCuti() {
+export default function ListIzin() {
   // SX
   const lightDarkColor = useLightDarkColor();
 
@@ -74,7 +74,7 @@ export default function ListCuti() {
                       <HStack justify={"space-between"} align={"start"}>
                         <CContainer gap={1}>
                           <Text opacity={0.4} fontSize={12}>
-                            Tipe Cuti
+                            Tanggal Izin
                           </Text>
                           <Text fontWeight={500}>
                             {cuti?.tipe_cuti?.nama || "-"}
@@ -86,7 +86,7 @@ export default function ListCuti() {
 
                       <CContainer gap={1}>
                         <Text opacity={0.4} fontSize={12}>
-                          Tanggal Cuti
+                          Waktu Izin
                         </Text>
                         <Text fontWeight={500}>{`${formatDate(
                           cuti.tgl_from,
@@ -97,9 +97,9 @@ export default function ListCuti() {
                       <SimpleGrid columns={2} gap={6}>
                         <CContainer gap={1}>
                           <Text opacity={0.4} fontSize={12}>
-                            Total Cuti
+                            Durasi
                           </Text>
-                          <Text fontWeight={500}>{cuti.durasi} Hari</Text>
+                          <Text fontWeight={500}>{cuti.durasi}</Text>
                         </CContainer>
 
                         {/* <CContainer gap={1}>
@@ -123,7 +123,7 @@ export default function ListCuti() {
                   </Button> */}
                 </>
               ) : (
-                <NoData minH={"300px"} label="Tidak ada riwayat cuti" />
+                <NoData minH={"300px"} label="Tidak ada riwayat izin" />
               )}
             </>
           )}
