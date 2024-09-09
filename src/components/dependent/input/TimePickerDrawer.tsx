@@ -10,18 +10,20 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { RiArrowDownSLine, RiArrowUpSLine, RiTimeLine } from "@remixicon/react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useErrorColor } from "../../../constant/colors";
 import backOnClose from "../../../lib/backOnClose";
-import formatTimeFromDate from "../../../lib/formatTimeFromDate";
+import formatTime from "../../../lib/formatTime";
+import { getHours, getMinutes, getSeconds } from "../../../lib/getTime";
 import BackOnCloseButton from "../../independent/BackOnCloseButton";
 import CustomDrawer from "../../independent/wrapper/CustomDrawer";
+import StringInput from "./StringInput";
 
 interface Props extends ButtonProps {
   id: string;
   name: string;
-  onConfirm: (inputValue: Date | undefined) => void;
-  inputValue: Date | undefined;
+  onConfirm: (inputValue: string | undefined) => void;
+  inputValue: string | undefined;
   withSeconds?: boolean;
   placement?: "top" | "bottom" | "left" | "right";
   placeholder?: string;
@@ -41,21 +43,29 @@ export default function TimePickerDrawer({
   isError,
   ...props
 }: Props) {
-  const defaultTime = new Date();
-  defaultTime.setHours(0, 0, 0, 0);
-
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [time, setTime] = useState<Date | undefined>(inputValue || defaultTime);
-  const [hours, setHours] = useState<number>(
-    inputValue?.getHours() || defaultTime.getHours()
+  const defaultTime = "00:00:00";
+  const [time, setTime] = useState<string | undefined>(
+    inputValue ? inputValue : defaultTime
   );
-  const [minutes, setMinutes] = useState<number>(
-    inputValue?.getMinutes() || defaultTime.getMinutes()
-  );
-  const [seconds, setSeconds] = useState<number>(
-    inputValue?.getSeconds() || defaultTime.getSeconds()
-  );
+  const [hours, setHours] = useState<number>(getHours(inputValue));
+  const [minutes, setMinutes] = useState<number>(getMinutes(inputValue));
+  const [seconds, setSeconds] = useState<number>(getSeconds(inputValue));
+  useEffect(() => {
+    if (inputValue) {
+      setHours(getHours(inputValue));
+      setMinutes(getMinutes(inputValue));
+      setSeconds(getSeconds(inputValue));
+    }
+  }, [inputValue]);
+
+  useEffect(() => {
+    const fHours = String(hours).padStart(2, "0");
+    const fMinutes = String(minutes).padStart(2, "0");
+    const fSeconds = String(seconds).padStart(2, "0");
+    setTime(`${fHours}:${fMinutes}:${fSeconds}`);
+  }, [hours, minutes, seconds]);
 
   const intervalIncrementRef = useRef<ReturnType<typeof setInterval> | null>(
     null
@@ -134,11 +144,7 @@ export default function TimePickerDrawer({
 
     if (confirmable) {
       if (time) {
-        const confirmedTime = time;
-        confirmedTime.setHours(hours);
-        confirmedTime.setMinutes(minutes);
-        confirmedTime.setSeconds(seconds);
-        onConfirm(confirmedTime);
+        onConfirm(time);
       } else {
         onConfirm(undefined);
       }
@@ -165,19 +171,22 @@ export default function TimePickerDrawer({
         cursor={"pointer"}
         onClick={() => {
           onOpen();
-          setTime(inputValue || defaultTime);
-          setHours(inputValue?.getHours() || defaultTime.getHours());
-          setMinutes(inputValue?.getMinutes() || defaultTime.getMinutes());
-          setSeconds(inputValue?.getSeconds() || defaultTime.getSeconds());
+          if (inputValue) {
+            setTime(inputValue);
+          }
         }}
         // _focus={{ boxShadow: "0 0 0px 2px var(--p500)" }}
         _focus={{ border: "1px solid var(--p500)", boxShadow: "none" }}
         {...props}
       >
         {inputValue ? (
-          <Text>{formatTimeFromDate(inputValue, withSeconds)}</Text>
+          <Text>{withSeconds ? inputValue : formatTime(inputValue)}</Text>
         ) : (
-          <Text opacity={0.6}>{placeholder || `Pilih Waktu`}</Text>
+          <Text //@ts-ignore
+            color={props?._placeholder?.color || "#96969691"}
+          >
+            {placeholder || `Pilih Waktu`}
+          </Text>
         )}
 
         <Icon as={RiTimeLine} mb={"1px"} fontSize={17} />
@@ -260,15 +269,21 @@ export default function TimePickerDrawer({
             />
 
             <VStack my={4}>
-              <Text
-                fontSize={64}
+              <StringInput
+                name="jam"
+                onChangeSetter={(input) => {
+                  if (parseInt(input as string) < 24) {
+                    setHours(parseInt(input as string));
+                  }
+                }}
+                inputValue={time ? String(hours).padStart(2, "0") : "--"}
+                fontSize={"64px !important"}
                 fontWeight={600}
+                h={"64px"}
                 textAlign={"center"}
-                lineHeight={1}
-                className="num"
-              >
-                {time ? String(hours).padStart(2, "0") : "--"}
-              </Text>
+                border={"none !important"}
+                _focus={{ border: "none !important" }}
+              />
               <Text textAlign={"center"}>Jam</Text>
             </VStack>
 
@@ -321,15 +336,21 @@ export default function TimePickerDrawer({
             />
 
             <VStack my={4}>
-              <Text
-                fontSize={64}
+              <StringInput
+                name="menit"
+                onChangeSetter={(input) => {
+                  if (parseInt(input as string) < 60) {
+                    setMinutes(parseInt(input as string));
+                  }
+                }}
+                inputValue={time ? String(minutes).padStart(2, "0") : "--"}
+                fontSize={"64px !important"}
                 fontWeight={600}
+                h={"64px"}
                 textAlign={"center"}
-                lineHeight={1}
-                className="num"
-              >
-                {time ? String(minutes).padStart(2, "0") : "--"}
-              </Text>
+                border={"none !important"}
+                _focus={{ border: "none !important" }}
+              />
               <Text textAlign={"center"}>Menit</Text>
             </VStack>
 
@@ -384,15 +405,21 @@ export default function TimePickerDrawer({
                 />
 
                 <VStack my={4}>
-                  <Text
-                    fontSize={64}
+                  <StringInput
+                    name="detik"
+                    onChangeSetter={(input) => {
+                      if (parseInt(input as string) < 60) {
+                        setSeconds(parseInt(input as string));
+                      }
+                    }}
+                    inputValue={time ? String(seconds).padStart(2, "0") : "--"}
+                    fontSize={"64px !important"}
                     fontWeight={600}
+                    h={"64px"}
                     textAlign={"center"}
-                    lineHeight={1}
-                    className="num"
-                  >
-                    {time ? String(seconds).padStart(2, "0") : "--"}
-                  </Text>
+                    border={"none !important"}
+                    _focus={{ border: "none !important" }}
+                  />
                   <Text textAlign={"center"}>Detik</Text>
                 </VStack>
 

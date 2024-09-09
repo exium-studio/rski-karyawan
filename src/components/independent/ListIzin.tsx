@@ -1,8 +1,10 @@
 import { Center, HStack, SimpleGrid, Text } from "@chakra-ui/react";
 import { useLightDarkColor } from "../../constant/colors";
-import useFilterCuti from "../../global/useFilterCuti";
+import useFilterIzin from "../../global/useFilterIzin";
 import useDataState from "../../hooks/useDataState";
 import formatDate from "../../lib/formatDate";
+import formatDuration from "../../lib/formatDuration";
+import formatTime from "../../lib/formatTime";
 import Retry from "../dependent/Retry";
 import StatusApproval2Badge from "../dependent/StatusApproval2Badge";
 import NoData from "./NoData";
@@ -13,27 +15,21 @@ export default function ListIzin() {
   // SX
   const lightDarkColor = useLightDarkColor();
 
-  const { filterCuti } = useFilterCuti();
+  const { filterIzin } = useFilterIzin();
 
   const { error, notFound, loading, data, retry } = useDataState<any>({
     initialData: undefined,
-    url: `/api/get-riwayat-cuti`,
+    url: `/api/get-izin`,
     payload: {
-      ...(filterCuti?.date_range && {
-        tgl_mulai: filterCuti.date_range.from,
+      ...(filterIzin?.tahun?.length > 0 && {
+        tahun: [filterIzin.tahun],
       }),
-      ...(filterCuti?.date_range && {
-        tgl_selesai: filterCuti.date_range.to,
-      }),
-      ...(filterCuti?.jenis_cuti?.length > 0 && {
-        jenis: filterCuti.jenis_cuti.map((sp: any) => sp.value),
-      }),
-      ...(filterCuti?.status_cuti?.length > 0 && {
-        status: filterCuti.status_cuti.map((sp: any) => sp.value),
+      ...(filterIzin?.status_izin?.length > 0 && {
+        status: filterIzin.status_izin.map((sp: any) => sp.value),
       }),
       offset: 6,
     },
-    dependencies: [filterCuti],
+    dependencies: [filterIzin],
   });
 
   return (
@@ -48,7 +44,7 @@ export default function ListIzin() {
           {error && (
             <>
               {notFound && (
-                <NoData minH={"132px"} label="Tidak ada riwayat cuti" />
+                <NoData minH={"132px"} label="Tidak ada riwayat izin" />
               )}
 
               {!notFound && (
@@ -61,9 +57,9 @@ export default function ListIzin() {
 
           {!error && (
             <>
-              {data && data?.data?.length > 0 ? (
+              {data && data?.length > 0 ? (
                 <>
-                  {data?.data?.map((cuti: any, i: number) => (
+                  {data?.map((izin: any, i: number) => (
                     <CContainer
                       key={i}
                       p={4}
@@ -77,21 +73,20 @@ export default function ListIzin() {
                             Tanggal Izin
                           </Text>
                           <Text fontWeight={500}>
-                            {cuti?.tipe_cuti?.nama || "-"}
+                            {formatDate(izin?.tgl_izin)}
                           </Text>
                         </CContainer>
 
-                        <StatusApproval2Badge data={cuti?.statuscuti} />
+                        <StatusApproval2Badge data={izin?.statusizin} />
                       </HStack>
 
                       <CContainer gap={1}>
                         <Text opacity={0.4} fontSize={12}>
                           Waktu Izin
                         </Text>
-                        <Text fontWeight={500}>{`${formatDate(
-                          cuti.tgl_from,
-                          "basicShort"
-                        )} - ${formatDate(cuti.tgl_to, "basicShort")}`}</Text>
+                        <Text fontWeight={500}>
+                          {formatTime(izin?.waktu_izin)}
+                        </Text>
                       </CContainer>
 
                       <SimpleGrid columns={2} gap={6}>
@@ -99,7 +94,9 @@ export default function ListIzin() {
                           <Text opacity={0.4} fontSize={12}>
                             Durasi
                           </Text>
-                          <Text fontWeight={500}>{cuti.durasi}</Text>
+                          <Text fontWeight={500}>
+                            {formatDuration(izin.durasi)}
+                          </Text>
                         </CContainer>
 
                         {/* <CContainer gap={1}>

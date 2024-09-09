@@ -14,20 +14,20 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useLightDarkColor } from "../../constant/colors";
 import { iconSize } from "../../constant/sizes";
-import useFilterCuti from "../../global/useFilterCuti";
+import useFilterIzin from "../../global/useFilterIzin";
 import useCallBackOnNavigate from "../../hooks/useCallBackOnNavigate";
 import backOnClose from "../../lib/backOnClose";
 import MultiSelectStatusVerifikasi2 from "../dependent/input/dedicated/MultiSelectStatusVerifikasi2";
+import StringInput from "../dependent/input/StringInput";
 import BackOnCloseButton from "./BackOnCloseButton";
 import CContainer from "./wrapper/CContainer";
 import CustomDrawer from "./wrapper/CustomDrawer";
-import StringInput from "../dependent/input/StringInput";
 
 export default function FilterIzin() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { filterCuti, setFilterCuti, clearFilterCuti } = useFilterCuti();
-  useCallBackOnNavigate(clearFilterCuti);
+  const { filterIzin, setFilterIzin, clearFilterIzin } = useFilterIzin();
+  useCallBackOnNavigate(clearFilterIzin);
 
   // local
   const formik = useFormik({
@@ -54,7 +54,7 @@ export default function FilterIzin() {
     return count;
   }
   function applyFilter() {
-    setFilterCuti(formik.values);
+    setFilterIzin(formik.values);
     backOnClose();
   }
   function resetFilter() {
@@ -69,7 +69,7 @@ export default function FilterIzin() {
       <Button
         onClick={() => {
           onOpen();
-          formik.setFieldValue("status_izin", filterCuti.status_izin);
+          formik.setFieldValue("status_izin", filterIzin.status_izin);
         }}
         rightIcon={<Icon as={RiEqualizer3Line} fontSize={iconSize} />}
         w={"100%"}
@@ -78,8 +78,8 @@ export default function FilterIzin() {
         px={"24px !important"}
       >
         <HStack flex={1}>
-          <Text>Filter Cuti</Text>
-          {filterCount(filterCuti) && (
+          <Text>Filter Izin</Text>
+          {filterCount(filterIzin) && (
             <Center
               ml={"auto"}
               p={1}
@@ -89,7 +89,7 @@ export default function FilterIzin() {
               w={"16px"}
               h={"16px"}
             >
-              <Text fontSize={12}>{filterCount(filterCuti)}</Text>
+              <Text fontSize={12}>{filterCount(filterIzin)}</Text>
             </Center>
           )}
         </HStack>

@@ -1,6 +1,6 @@
 import { Box, Text } from "@chakra-ui/react";
 import Header from "../../../components/dependent/Header";
-import AjukanCuti from "../../../components/independent/AjukanCuti";
+import AjukanIzin from "../../../components/independent/AjukanIzin";
 import FilterIzin from "../../../components/independent/FilterIzin";
 import ListIzin from "../../../components/independent/ListIzin";
 import CContainer from "../../../components/independent/wrapper/CContainer";
@@ -36,7 +36,7 @@ export default function Izin() {
         <ListIzin />
       </CContainer>
 
-      <AjukanCuti />
+      <AjukanIzin />
     </CContainer>
   );
 }
