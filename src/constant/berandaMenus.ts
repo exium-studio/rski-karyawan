@@ -14,6 +14,13 @@ const berandaMenus = [
   },
 
   {
+    image: "/vectors/icons/Agreement.png",
+    label: "Izin",
+    link: "/beranda/izin",
+    jenis_karyawan: [1, 0],
+  },
+
+  {
     image: "/vectors/icons/Timer.png",
     label: "Lembur",
     link: "/beranda/lembur",
@@ -45,13 +52,6 @@ const berandaMenus = [
     image: "/vectors/icons/Documents.png",
     label: "Dokumen",
     link: "/beranda/dokumen",
-    jenis_karyawan: [1, 0],
-  },
-
-  {
-    image: "/vectors/icons/Agreement.png",
-    label: "Izin",
-    link: "/beranda/izin",
     jenis_karyawan: [1, 0],
   },
 
