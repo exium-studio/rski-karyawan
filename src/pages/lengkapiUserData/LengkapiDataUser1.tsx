@@ -63,8 +63,9 @@ export default function LengkapiDataUser1() {
       alamat: undefined as any,
       no_ijazah: "" as any,
       tahun_lulus: "" as any,
-      pendidikan_terakhir: undefined as any,
+      pendidikan_terakhir: "" as any,
       gelar_depan: "" as any,
+      gelar_belakang: "" as any,
       // berat_badan: undefined as any,
     },
     validationSchema: yup.object().shape({
@@ -81,8 +82,9 @@ export default function LengkapiDataUser1() {
       alamat: yup.string().required("Harus diisi"),
       no_ijazah: yup.string().required("Harus diisi"),
       tahun_lulus: yup.string().required("Harus diisi"),
-      pendidikan_terakhir: yup.object().required("Harus diisi"),
+      pendidikan_terakhir: yup.string().required("Harus diisi"),
       gelar_depan: yup.string(),
+      gelar_belakang: yup.string(),
     }),
     onSubmit: (values, { resetForm }) => {
       setLoading(true);
@@ -416,6 +418,36 @@ export default function LengkapiDataUser1() {
               </FormErrorMessage>
             </FormControl>
 
+            <FormControl
+              mb={4}
+              isInvalid={formik.errors.pendidikan_terakhir ? true : false}
+            >
+              <FormLabel>
+                Pendidikan Terakhir
+                <RequiredForm />
+              </FormLabel>
+              <StringInput
+                name="pendidikan_terakhir"
+                placeholder="S1 Akuntansi"
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("pendidikan_terakhir", input);
+                }}
+                inputValue={formik.values.pendidikan_terakhir}
+              />
+              {/* <SingleSelectPendidikan
+                id="lengkapi-step-1"
+                name="pendidikan_terakhir"
+                placeholder="Sarjana 1"
+                onConfirm={(input) => {
+                  formik.setFieldValue("pendidikan_terakhir", input);
+                }}
+                inputValue={formik.values.pendidikan_terakhir}
+              /> */}
+              <FormErrorMessage>
+                {formik.errors.pendidikan_terakhir as string}
+              </FormErrorMessage>
+            </FormControl>
+
             <FormControl mb={4} isInvalid={!!formik.errors.no_ijazah}>
               <FormLabel>
                 Nomor Ijazah Terakhir
@@ -431,28 +463,6 @@ export default function LengkapiDataUser1() {
               />
               <FormErrorMessage>
                 {formik.errors.no_ijazah as string}
-              </FormErrorMessage>
-            </FormControl>
-
-            <FormControl
-              mb={4}
-              isInvalid={formik.errors.pendidikan_terakhir ? true : false}
-            >
-              <FormLabel>
-                Pendidikan Terakhir
-                <RequiredForm />
-              </FormLabel>
-              <SingleSelectPendidikan
-                id="lengkapi-step-1"
-                name="pendidikan_terakhir"
-                placeholder="Sarjana 1"
-                onConfirm={(input) => {
-                  formik.setFieldValue("pendidikan_terakhir", input);
-                }}
-                inputValue={formik.values.pendidikan_terakhir}
-              />
-              <FormErrorMessage>
-                {formik.errors.pendidikan_terakhir as string}
               </FormErrorMessage>
             </FormControl>
 
@@ -477,7 +487,10 @@ export default function LengkapiDataUser1() {
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl isInvalid={formik.errors.gelar_depan ? true : false}>
+            <FormControl
+              mb={4}
+              isInvalid={formik.errors.gelar_depan ? true : false}
+            >
               <FormLabel>Gelar Depan</FormLabel>
               <StringInput
                 name="gelar_depan"
@@ -489,6 +502,23 @@ export default function LengkapiDataUser1() {
               />
               <FormErrorMessage>
                 {formik.errors.gelar_depan as string}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl
+              isInvalid={formik.errors.gelar_belakang ? true : false}
+            >
+              <FormLabel>Gelar Belakang</FormLabel>
+              <StringInput
+                name="gelar_belakang"
+                placeholder="dr."
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("gelar_belakang", input);
+                }}
+                inputValue={formik.values.gelar_belakang}
+              />
+              <FormErrorMessage>
+                {formik.errors.gelar_belakang as string}
               </FormErrorMessage>
             </FormControl>
           </form>
