@@ -39,6 +39,7 @@ import formatNumber from "../../../lib/formatNumber";
 import getRandomNum from "../../../lib/getRandomNum";
 import getUserData from "../../../lib/getUserData";
 import req from "../../../lib/req";
+import download from "../../../lib/download";
 
 interface Props {
   isOpen: boolean;
@@ -254,6 +255,7 @@ export default function SlipGajiku() {
       .get(url)
       .then((r) => {
         if (r.status === 200) {
+          download(r.data.data, "slip-gaji", "pdf");
           backOnClose();
           toast({
             status: "success",
