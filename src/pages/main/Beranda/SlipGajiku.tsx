@@ -243,6 +243,43 @@ export default function SlipGajiku() {
     return 0;
   };
 
+  const toast = useToast();
+  const [loadingDownload, setLoadingDownload] = useState<boolean>(false);
+
+  function downloadSlipGaji() {
+    setLoadingDownload(true);
+
+    const url = `/api/export-slip-gaji`;
+    req
+      .get(url)
+      .then((r) => {
+        if (r.status === 200) {
+          backOnClose();
+          toast({
+            status: "success",
+            title: r?.data?.message,
+            position: "bottom-right",
+            isClosable: true,
+          });
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        toast({
+          status: "error",
+          title:
+            (typeof e?.response?.data?.message === "string" &&
+              (e?.response?.data?.message as string)) ||
+            "Maaf terjadi kesalahan pada sistem",
+          position: "bottom-right",
+          isClosable: true,
+        });
+      })
+      .finally(() => {
+        setLoadingDownload(false);
+      });
+  }
+
   return (
     <CContainer flex={1}>
       <PassWordVerification
@@ -701,7 +738,8 @@ export default function SlipGajiku() {
             colorScheme="ap"
             leftIcon={<Icon as={RiDownload2Line} fontSize={iconSize} />}
             mb={4}
-            onClick={() => {}}
+            onClick={downloadSlipGaji}
+            isLoading={loadingDownload}
           >
             Unduh Slip Gaji
           </Button>
