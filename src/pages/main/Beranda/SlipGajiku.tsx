@@ -40,6 +40,7 @@ import getRandomNum from "../../../lib/getRandomNum";
 import getUserData from "../../../lib/getUserData";
 import req from "../../../lib/req";
 import download from "../../../lib/download";
+import formatDate from "../../../lib/formatDate";
 
 interface Props {
   isOpen: boolean;
@@ -247,44 +248,9 @@ export default function SlipGajiku() {
   const toast = useToast();
   const [loadingDownload, setLoadingDownload] = useState<boolean>(false);
 
-  // function downloadSlipGaji() {
-  //   setLoadingDownload(true);
-
-  //   const url = `/api/export-slip-gaji`;
-  //   req
-  //     .get(url)
-  //     .then((r) => {
-  //       if (r.status === 200) {
-  //         download(r.data.data, "slip-gaji", "pdf");
-  //         backOnClose();
-  //         toast({
-  //           status: "success",
-  //           title: r?.data?.message,
-  //           position: "bottom-right",
-  //           isClosable: true,
-  //         });
-  //       }
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //       toast({
-  //         status: "error",
-  //         title:
-  //           (typeof e?.response?.data?.message === "string" &&
-  //             (e?.response?.data?.message as string)) ||
-  //           "Maaf terjadi kesalahan pada sistem",
-  //         position: "bottom-right",
-  //         isClosable: true,
-  //       });
-  //     })
-  //     .finally(() => {
-  //       setLoadingDownload(false);
-  //     });
-  // }
-
   function downloadSlipGaji() {
     setLoadingDownload(true);
-  
+
     const url = `/api/export-slip-gaji`;
     req
       .get(url, {
@@ -292,15 +258,12 @@ export default function SlipGajiku() {
       })
       .then((r) => {
         if (r.status === 200) {
-          // Membuat URL dari Blob data untuk mendownload
-          const fileURL = window.URL.createObjectURL(new Blob([r.data]));
-          const fileLink = document.createElement("a");
-          fileLink.href = fileURL;
-          fileLink.setAttribute("download", "slip-gaji.pdf"); // Nama file PDF yang akan di-download
-          document.body.appendChild(fileLink);
-          fileLink.click();
-          fileLink.parentNode?.removeChild(fileLink); // Hapus elemen setelah download
-  
+          download(
+            r.data,
+            `Slip Gaji ${formatDate(periode, "periode")}`,
+            "pdf"
+          );
+
           backOnClose();
           toast({
             status: "success",

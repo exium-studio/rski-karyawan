@@ -21,19 +21,18 @@ import SelectAgama from "../../components/dependent/input/dedicated/SingleSelect
 import SelectGender from "../../components/dependent/input/dedicated/SingleSelectGender";
 import SelectGoldar from "../../components/dependent/input/dedicated/SIngleSelectGoldar";
 import StringInput from "../../components/dependent/input/StringInput";
+import Textarea from "../../components/dependent/input/Textarea";
 import LengkapiDataUserHeader from "../../components/dependent/LengkapiDataUserHeader";
 import RequiredForm from "../../components/form/RequiredForm";
 import CContainer from "../../components/independent/wrapper/CContainer";
 import Container from "../../components/independent/wrapper/Container";
+import useDcs from "../../global/useAuth";
 import useScrollToTop from "../../hooks/useScrollToTop";
 import formatDate from "../../lib/formatDate";
 import formatNumber from "../../lib/formatNumber";
+import getUserData from "../../lib/getUserData";
 import parseNumber from "../../lib/parseNumber";
 import req from "../../lib/req";
-import useDcs from "../../global/useAuth";
-import getUserData from "../../lib/getUserData";
-import Textarea from "../../components/dependent/input/Textarea";
-import SingleSelectPendidikan from "../../components/dependent/input/dedicated/SingleSelectPendidikan";
 
 export default function LengkapiDataUser1() {
   useScrollToTop();
