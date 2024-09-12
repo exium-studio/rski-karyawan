@@ -26,7 +26,7 @@ import { Interface__User } from "../../../constant/interfaces";
 import profilMenus from "../../../constant/profilMenus";
 import { iconSize } from "../../../constant/sizes";
 import useDataState from "../../../hooks/useDataState";
-import formatDuration from "../../../lib/formatDuration";
+import formatDurationShort from "../../../lib/formatDurationShort";
 import getUserData from "../../../lib/getUserData";
 
 const ProfilStatus = () => {
@@ -99,9 +99,7 @@ const ProfilStatus = () => {
                 <HStack justify={"space-between"}>
                   <Text>Masa Diklat</Text>
                   <HStack>
-                    <Text>
-                      {data.masa_diklat ? formatDuration(data.masa_diklat) : 0}
-                    </Text>
+                    <Text>{formatDurationShort(data?.masa_diklat)}</Text>
                   </HStack>
                 </HStack>
               </CContainer>
