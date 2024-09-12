@@ -63,6 +63,7 @@ export default function LengkapiDataUser1() {
       no_ijazah: "" as any,
       tahun_lulus: "" as any,
       pendidikan_terakhir: "" as any,
+      asal_sekolah: "" as any,
       gelar_depan: "" as any,
       gelar_belakang: "" as any,
       // berat_badan: undefined as any,
@@ -104,6 +105,8 @@ export default function LengkapiDataUser1() {
         tahun_lulus: values.tahun_lulus,
         pendidikan_terakhir: values.pendidikan_terakhir,
         gelar_depan: values.gelar_depan,
+        gelar_belakang: values.gelar_belakang,
+        asal_sekolah: values.asal_sekolah,
       };
 
       req
@@ -444,6 +447,36 @@ export default function LengkapiDataUser1() {
               /> */}
               <FormErrorMessage>
                 {formik.errors.pendidikan_terakhir as string}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl
+              mb={4}
+              isInvalid={formik.errors.asal_sekolah ? true : false}
+            >
+              <FormLabel>
+                Asal Sekolah
+                <RequiredForm />
+              </FormLabel>
+              <StringInput
+                name="asal_sekolah"
+                placeholder="S1 Akuntansi"
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("asal_sekolah", input);
+                }}
+                inputValue={formik.values.asal_sekolah}
+              />
+              {/* <SingleSelectPendidikan
+                id="lengkapi-step-1"
+                name="asal_sekolah"
+                placeholder="Sarjana 1"
+                onConfirm={(input) => {
+                  formik.setFieldValue("asal_sekolah", input);
+                }}
+                inputValue={formik.values.asal_sekolah}
+              /> */}
+              <FormErrorMessage>
+                {formik.errors.asal_sekolah as string}
               </FormErrorMessage>
             </FormControl>
 
