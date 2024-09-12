@@ -1,13 +1,15 @@
+import formatDate from "./formatDate";
 import isDatePassed from "./isDatePassed";
 
 export default function calculateMasaKerjaFromTanggalMasuk(dateString: string) {
   if (dateString) {
     if (!isDatePassed(dateString, true)) {
-      return "";
+      return "-";
     } else {
       // Parse the input date string (format: d-m-y)
-      const [year, month, day] = dateString?.split("-")?.map(Number);
-
+      const dateObject = formatDate(dateString, "iso");
+      const formattedDate = formatDate(dateObject, "short");
+      const [day, month, year] = formattedDate?.split("-")?.map(Number);
       const startDate = new Date(year, month - 1, day);
 
       // Get the current date
