@@ -15,8 +15,8 @@ export default function Landing() {
       const authToken = getCookie("authToken");
       if (!authToken) {
         logout();
-        navigate("/login");
       }
+      navigate("/login");
     }
   }, [navigate]);
 

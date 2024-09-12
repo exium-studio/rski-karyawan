@@ -53,6 +53,8 @@ export default function LoginForm() {
 
             setCookie("__auth_token", userData.arrtoken.token);
             localStorage.setItem("__user_data", JSON.stringify(userData));
+
+            //TODO tambahkan logic navigasi
             navigate("/beranda");
 
             toast({
