@@ -88,7 +88,7 @@ export default function LengkapiDataUser2() {
     },
   });
 
-  console.log(formik.values.keluarga);
+  // console.log(formik.values.keluarga);
 
   return (
     <Container px={5}>
