@@ -31,12 +31,11 @@ import RequiredForm from "../../../components/form/RequiredForm";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import CustomDrawer from "../../../components/independent/wrapper/CustomDrawer";
 import { useLightDarkColor } from "../../../constant/colors";
+import { iconSize } from "../../../constant/sizes";
 import backOnClose from "../../../lib/backOnClose";
+import formatDate from "../../../lib/formatDate";
 import formatNumber from "../../../lib/formatNumber";
 import parseNumber from "../../../lib/parseNumber";
-import { iconSize } from "../../../constant/sizes";
-import formatDate from "../../../lib/formatDate";
-import SingleSelectPendidikan from "../../../components/dependent/input/dedicated/SingleSelectPendidikan";
 
 interface Props {
   data: any;
@@ -74,14 +73,11 @@ export default function EditDataPersonalForm({ data }: Props) {
       berat_badan: data?.tinggi_badan,
       alamat: data?.alamat,
       no_ijazah: data?.no_ijasah,
-      pendidikan_terakhir: data?.pendidikan_terakhir
-        ? {
-            value: data.pendidikan_terakhir.id,
-            label: data.pendidikan_terakhir.label,
-          }
-        : undefined,
+      pendidikan_terakhir: data?.pendidikan_terakhir,
       tahun_lulus: data?.tahun_lulus.toString(),
       gelar_depan: data?.gelar_depan,
+      gelar_belakang: data?.gelar_belakang,
+      asal_sekolah: data?.asal_sekolah,
     },
     validationSchema: yup.object().shape({
       foto_profil: yup.mixed().required("Harus diisi"),
@@ -100,6 +96,8 @@ export default function EditDataPersonalForm({ data }: Props) {
       pendidikan_terakhir: yup.object().required("Harus diisi"),
       tahun_lulus: yup.string().required("Harus diisi"),
       gelar_depan: yup.string(),
+      gelar_belakang: yup.string(),
+      asal_sekolah: yup.string(),
     }),
     onSubmit: (values, { resetForm }) => {
       console.log(values);
@@ -530,6 +528,81 @@ export default function EditDataPersonalForm({ data }: Props) {
         <FormErrorMessage>{formik.errors.alamat as string}</FormErrorMessage>
       </FormControl>
 
+      <FormControl
+        mb={4}
+        isInvalid={formik.errors.pendidikan_terakhir ? true : false}
+      >
+        <FormLabel>
+          Pendidikan Terakhir
+          <RequiredForm />
+        </FormLabel>
+        <HStack>
+          <StringInput
+            name="pendidikan_terakhir"
+            placeholder="S1 Akuntansi"
+            onChangeSetter={(input) => {
+              formik.setFieldValue("pendidikan_terakhir", input);
+            }}
+            inputValue={formik.values.pendidikan_terakhir}
+          />
+          {/* <SingleSelectPendidikan
+            id="lengkapi-step-1"
+            name="pendidikan_terakhir"
+            placeholder="Sarjana 1"
+            onConfirm={(input) => {
+              formik.setFieldValue("pendidikan_terakhir", input);
+            }}
+            inputValue={formik.values.pendidikan_terakhir}
+          /> */}
+          <RequestPatchDataButton
+            validator={() => {
+              formik.validateField("pendidikan_terakhir");
+            }}
+            column="pendidikan_terakhir"
+            payload={formik.values.pendidikan_terakhir?.value}
+          />
+        </HStack>
+        <FormErrorMessage>
+          {formik.errors.pendidikan_terakhir as string}
+        </FormErrorMessage>
+      </FormControl>
+
+      <FormControl mb={4} isInvalid={formik.errors.asal_sekolah ? true : false}>
+        <FormLabel>
+          Asal Sekolah
+          <RequiredForm />
+        </FormLabel>
+        <HStack>
+          <StringInput
+            name="asal_sekolah"
+            placeholder="Universitas"
+            onChangeSetter={(input) => {
+              formik.setFieldValue("asal_sekolah", input);
+            }}
+            inputValue={formik.values.asal_sekolah}
+          />
+          {/* <SingleSelectPendidikan
+            id="lengkapi-step-1"
+            name="asal_sekolah"
+            placeholder="Sarjana 1"
+            onConfirm={(input) => {
+              formik.setFieldValue("asal_sekolah", input);
+            }}
+            inputValue={formik.values.asal_sekolah}
+          /> */}
+          <RequestPatchDataButton
+            validator={() => {
+              formik.validateField("asal_sekolah");
+            }}
+            column="asal_sekolah"
+            payload={formik.values.asal_sekolah?.value}
+          />
+        </HStack>
+        <FormErrorMessage>
+          {formik.errors.asal_sekolah as string}
+        </FormErrorMessage>
+      </FormControl>
+
       <FormControl mb={4} isInvalid={!!formik.errors.no_ijazah}>
         <FormLabel>
           Nomor Ijazah Terakhir
@@ -553,37 +626,6 @@ export default function EditDataPersonalForm({ data }: Props) {
           />
         </HStack>
         <FormErrorMessage>{formik.errors.no_ijazah as string}</FormErrorMessage>
-      </FormControl>
-
-      <FormControl
-        mb={4}
-        isInvalid={formik.errors.pendidikan_terakhir ? true : false}
-      >
-        <FormLabel>
-          Pendidikan Terakhir
-          <RequiredForm />
-        </FormLabel>
-        <HStack>
-          <SingleSelectPendidikan
-            id="lengkapi-step-1"
-            name="pendidikan_terakhir"
-            placeholder="Sarjana 1"
-            onConfirm={(input) => {
-              formik.setFieldValue("pendidikan_terakhir", input);
-            }}
-            inputValue={formik.values.pendidikan_terakhir}
-          />
-          <RequestPatchDataButton
-            validator={() => {
-              formik.validateField("pendidikan_terakhir");
-            }}
-            column="pendidikan_terakhir"
-            payload={formik.values.pendidikan_terakhir?.value}
-          />
-        </HStack>
-        <FormErrorMessage>
-          {formik.errors.pendidikan_terakhir as string}
-        </FormErrorMessage>
       </FormControl>
 
       <FormControl mb={4} isInvalid={formik.errors.tahun_lulus ? true : false}>
@@ -613,7 +655,7 @@ export default function EditDataPersonalForm({ data }: Props) {
         </FormErrorMessage>
       </FormControl>
 
-      <FormControl isInvalid={formik.errors.gelar_depan ? true : false}>
+      <FormControl mb={4} isInvalid={formik.errors.gelar_depan ? true : false}>
         <FormLabel>
           Gelar Depan
           <RequiredForm />
@@ -621,7 +663,7 @@ export default function EditDataPersonalForm({ data }: Props) {
         <HStack>
           <StringInput
             name="gelar_depan"
-            placeholder="2024"
+            placeholder="dr."
             onChangeSetter={(input) => {
               formik.setFieldValue("gelar_depan", input);
             }}
@@ -637,6 +679,33 @@ export default function EditDataPersonalForm({ data }: Props) {
         </HStack>
         <FormErrorMessage>
           {formik.errors.gelar_depan as string}
+        </FormErrorMessage>
+      </FormControl>
+
+      <FormControl isInvalid={formik.errors.gelar_belakang ? true : false}>
+        <FormLabel>
+          Gelar Belakang
+          <RequiredForm />
+        </FormLabel>
+        <HStack>
+          <StringInput
+            name="gelar_belakang"
+            placeholder="S. Kom"
+            onChangeSetter={(input) => {
+              formik.setFieldValue("gelar_belakang", input);
+            }}
+            inputValue={formik.values.gelar_belakang}
+          />
+          <RequestPatchDataButton
+            validator={() => {
+              formik.validateField("gelar_belakang");
+            }}
+            column="gelar_belakang"
+            payload={formik.values.gelar_belakang}
+          />
+        </HStack>
+        <FormErrorMessage>
+          {formik.errors.gelar_belakang as string}
         </FormErrorMessage>
       </FormControl>
     </form>
