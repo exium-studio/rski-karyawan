@@ -88,7 +88,7 @@ export default function LengkapiDataUser2() {
     },
   });
 
-  // console.log(formik.values.keluarga);
+  console.log(formik.values.keluarga);
 
   return (
     <Container px={5}>
@@ -188,7 +188,7 @@ export default function LengkapiDataUser2() {
                           textOverflow={"ellipsis"}
                           maxW={"140px"}
                         >
-                          {anggota.hubungan}
+                          {anggota.hubungan.label}
                         </Text>
                       </HStack>
                       <HStack>
@@ -201,7 +201,7 @@ export default function LengkapiDataUser2() {
                           textOverflow={"ellipsis"}
                           maxW={"140px"}
                         >
-                          {anggota.status_hidup ? "Hidup" : "Meniggal"}
+                          {anggota.status_hidup?.label}
                         </Text>
                       </HStack>
                       <HStack>
@@ -227,7 +227,7 @@ export default function LengkapiDataUser2() {
                           textOverflow={"ellipsis"}
                           maxW={"140px"}
                         >
-                          {anggota.pendidikan_terakhir?.label}
+                          {anggota.pendidikan_terakhir}
                         </Text>
                       </HStack>
                       <HStack>
