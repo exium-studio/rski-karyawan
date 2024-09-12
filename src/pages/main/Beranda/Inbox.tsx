@@ -27,7 +27,9 @@ export default function Inbox() {
 
   const fd = data?.filter((item: any) => {
     const searchTerm = search?.toLowerCase();
-    return item.kategori.label.toLowerCase().includes(searchTerm as string);
+    return item?.kategori_notifikasi?.label
+      .toLowerCase()
+      .includes(searchTerm as string);
   });
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -45,7 +47,9 @@ export default function Inbox() {
   const contentBgColor = useContentBgColor();
   const lightDarkColor = useLightDarkColor();
 
-  console.log(fd);
+  // console.log(fd);
+
+  // TODO tambahi link berdasarkan kategori notifikasi
 
   return (
     <CContainer flex={1}>
@@ -165,7 +169,7 @@ export default function Inbox() {
                 {(fd || (fd && fd.length > 0)) && (
                   <>
                     {fd.map((inbox: any, i: number) => (
-                      <Link key={i} to={inbox.kategori.link}>
+                      <Link key={i} to={inbox?.kategori_notifikasi?.link}>
                         <CContainer
                           flex={0}
                           p={4}
@@ -177,9 +181,9 @@ export default function Inbox() {
                           <HStack align={"start"}>
                             <CContainer gap={1}>
                               <Text fontWeight={600}>
-                                {inbox.kategori.label}
+                                {inbox?.kategori_notifikasi?.label}
                               </Text>
-                              <Text fontSize={13} noOfLines={1} opacity={0.6}>
+                              <Text fontSize={13} opacity={0.6}>
                                 {inbox.message}
                               </Text>
                               <Text fontSize={12} opacity={0.4} pt={2}>

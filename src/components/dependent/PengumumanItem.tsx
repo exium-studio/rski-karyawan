@@ -23,6 +23,8 @@ export default function PengumumanItem({ data, ...props }: Props) {
   // SX
   const lightDarkColor = useLightDarkColor();
 
+  console.log(new Date(data.created_at));
+
   return (
     <>
       <CContainer
