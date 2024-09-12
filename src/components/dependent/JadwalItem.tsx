@@ -55,7 +55,11 @@ export default function JadwalItem({
           data.shift?.nama || "Libur"
         } - Minggu ${getWeekOfMonth(data.tgl_mulai)}`}</Text>
 
-        <Text fontWeight={600} opacity={data.shift?.jam_from ? 1 : 0.6}>
+        <Text
+          fontWeight={600}
+          opacity={data.shift?.jam_from ? 1 : 0.6}
+          whiteSpace={"nowrap"}
+        >
           {formatDate(data.tgl_mulai)}
         </Text>
 
