@@ -2,6 +2,8 @@ import {
   Box,
   Center,
   HStack,
+  Icon,
+  IconButton,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -11,18 +13,19 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { RiCloseLine, RiSearchLine } from "@remixicon/react";
+import { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
-import Header from "../../../components/dependent/Header";
 import SearchComponent from "../../../components/dependent/input/SearchComponent";
 import JenisKaryawanBadge from "../../../components/dependent/JenisKaryawanBadge";
 import Retry from "../../../components/dependent/Retry";
 import StatusKaryawanBadge from "../../../components/dependent/StatusKaryawanBadge";
+import BackButton from "../../../components/independent/BackButton";
 import ComponentSpinner from "../../../components/independent/ComponentSpinner";
 import FlexLine from "../../../components/independent/FlexLine";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useLightDarkColor } from "../../../constant/colors";
-import { responsiveSpacing } from "../../../constant/sizes";
+import { iconSize, responsiveSpacing } from "../../../constant/sizes";
 import useDataState from "../../../hooks/useDataState";
 import calculateMasaKerjaFromTanggalMasuk from "../../../lib/calculateMasaKerjaFromTanggalMasuk";
 import formatDate from "../../../lib/formatDate";
@@ -39,8 +42,10 @@ export default function DataKaryawan() {
     dependencies: [],
   });
 
+  const [searchMode, setSearchMode] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string[]>([]);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const words = search?.split(" ")?.filter((word) => word.length > 0);
@@ -58,11 +63,78 @@ export default function DataKaryawan() {
 
   return (
     <CContainer flex={1}>
-      <Header
-        left={"back"}
-        title="Detail Data Karyawan"
-        borderBottom={"1px solid var(--divider2)"}
-      />
+      <HStack
+        bg={lightDarkColor}
+        h={"56px"}
+        pl={5}
+        pr={4}
+        py={4}
+        justify={"space-between"}
+        position={"sticky"}
+        top={0}
+        left={0}
+        zIndex={99}
+        w={"100%"}
+      >
+        <HStack w={"40px"}>
+          <BackButton />
+        </HStack>
+
+        {!searchMode && (
+          <Text
+            textAlign={"center"}
+            noOfLines={1}
+            fontWeight={600}
+            fontSize={[16, null, 18]}
+          >
+            Detail Data Karyawan
+          </Text>
+        )}
+
+        <HStack
+          w={searchMode ? "100%" : "40px"}
+          justify={searchMode ? "start" : "end"}
+          transition={"200ms"}
+        >
+          <IconButton
+            aria-label="Search Button"
+            icon={<Icon as={RiSearchLine} fontSize={iconSize} />}
+            borderRadius={"full"}
+            size={"sm"}
+            className="btn"
+            onClick={() => {
+              setSearchMode(true);
+            }}
+            display={!searchMode ? "flex" : "none"}
+          />
+
+          <SearchComponent
+            name="search"
+            inputValue={search}
+            onChangeSetter={(inputValue) => {
+              setSearch(inputValue || "");
+            }}
+            inputRef={searchInputRef}
+            display={searchMode ? "flex" : "none"}
+            minW={"0px !important"}
+            size="sm"
+          />
+
+          <IconButton
+            display={searchMode ? "flex" : "none"}
+            transition={"200ms"}
+            aria-label="Tombol Kembali"
+            icon={<Icon as={RiCloseLine} fontSize={20} />}
+            className="btn"
+            size={"sm"}
+            borderRadius={"full"}
+            onClick={() => {
+              setSearchMode(false);
+              setSearch("");
+            }}
+          />
+        </HStack>
+      </HStack>
 
       {loading && <ComponentSpinner m={"auto"} />}
 
@@ -86,7 +158,7 @@ export default function DataKaryawan() {
                   overflowY={[null, null, null, "auto"]}
                   className="scrollY"
                 >
-                  <HStack
+                  {/* <HStack
                     mx={"-2px"}
                     position={"sticky"}
                     top={"76px"}
@@ -102,7 +174,7 @@ export default function DataKaryawan() {
                       placeholder="data karyawan"
                       // tooltipLabel="Cari data karyawan"
                     />
-                  </HStack>
+                  </HStack> */}
 
                   <CContainer
                     flex={1}

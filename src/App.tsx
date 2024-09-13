@@ -18,7 +18,6 @@ import LengkapiDataUser3 from "./pages/lengkapiUserData/LengkapiDataUser3";
 import LengkapiDataUser4 from "./pages/lengkapiUserData/LengkapiDataUser4";
 import LengkapiDataUser5 from "./pages/lengkapiUserData/LengkapiDataUser5";
 import Login from "./pages/Login";
-import Aktivitas from "./pages/main/SemuaAktivitas";
 import Beranda from "./pages/main/Beranda/Beranda";
 import Cuti from "./pages/main/Beranda/Cuti";
 import Dokumen from "./pages/main/Beranda/Dokumen";
@@ -26,6 +25,7 @@ import EventDiklat from "./pages/main/Beranda/EventDiklat";
 import Feedback from "./pages/main/Beranda/Feedback";
 import FeedbackKuisioner from "./pages/main/Beranda/FeedbackKuisioner";
 import Inbox from "./pages/main/Beranda/Inbox";
+import Izin from "./pages/main/Beranda/Izin";
 import Koperasi from "./pages/main/Beranda/Koperasi";
 import Laporan from "./pages/main/Beranda/Laporan";
 import Lembur from "./pages/main/Beranda/Lembur";
@@ -34,18 +34,19 @@ import Pengumuman from "./pages/main/Beranda/SemuaPengumuman";
 import SlipGajiku from "./pages/main/Beranda/SlipGajiku";
 import Jadwal from "./pages/main/Jadwal/Jadwal";
 import Karyawan from "./pages/main/Karyawan/Karyawan";
+import DataKaryawan from "./pages/main/Profil/DataKaryawan";
 import Faqs from "./pages/main/Profil/Faqs";
 import Kontak from "./pages/main/Profil/Kontak";
 import Profil from "./pages/main/Profil/Profil";
+import RiwayatDiklat from "./pages/main/Profil/RiwayatDiklat";
 import RiwayatPerubahanData from "./pages/main/Profil/RiwayatPerubahanData";
 import SyaratDanKetentuan from "./pages/main/Profil/SyaratDanKetentuan";
+import Aktivitas from "./pages/main/SemuaAktivitas";
 import Onboarding from "./pages/Onboarding";
 import EmailVerfication from "./pages/resetPassword/EmailVerfication";
 import ForgotPassword from "./pages/resetPassword/ForgotPassword";
 import NewPassword from "./pages/resetPassword/NewPassword";
 import { globalTheme } from "./theme/globalTheme";
-import DataKaryawan from "./pages/main/Profil/DataKaryawan";
-import Izin from "./pages/main/Beranda/Izin";
 
 // function disableRightClick(event: MouseEvent) {
 //   event.preventDefault();
@@ -210,6 +211,16 @@ export const App = () => {
                 <AuthMiddleware allowedJenisKaryawan={[1, 0]}>
                   <NavContainer active={0} noNavs>
                     <EventDiklat />
+                  </NavContainer>
+                </AuthMiddleware>
+              }
+            />
+            <Route
+              path="/beranda/event-diklat/riwayat"
+              element={
+                <AuthMiddleware allowedJenisKaryawan={[1, 0]}>
+                  <NavContainer active={0} noNavs>
+                    <RiwayatDiklat />
                   </NavContainer>
                 </AuthMiddleware>
               }
