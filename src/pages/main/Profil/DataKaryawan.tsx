@@ -75,6 +75,7 @@ export default function DataKaryawan() {
         left={0}
         zIndex={99}
         w={"100%"}
+        borderBottom={"1px solid var(--divider2)"}
       >
         <HStack w={"40px"}>
           <BackButton />
