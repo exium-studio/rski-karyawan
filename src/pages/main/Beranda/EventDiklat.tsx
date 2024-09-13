@@ -1,7 +1,9 @@
-import { Box, HStack, Text } from "@chakra-ui/react";
+import { Box, Icon, IconButton } from "@chakra-ui/react";
+import { RiHistoryLine } from "@remixicon/react";
+import { Link } from "react-router-dom";
 import EventDiklatItem from "../../../components/dependent/EventDiklatItem";
+import Header from "../../../components/dependent/Header";
 import Retry from "../../../components/dependent/Retry";
-import BackButton from "../../../components/independent/BackButton";
 import NoData from "../../../components/independent/NoData";
 import NotFound from "../../../components/independent/NotFound";
 import Skeleton from "../../../components/independent/Skeleton";
@@ -50,91 +52,23 @@ export default function EventDiklat() {
         borderBottom={"1px solid var(--divider2) !important"}
         zIndex={2}
       >
-        <HStack
-          bg={lightDarkColor}
-          h={"56px"}
-          pl={5}
-          pr={4}
-          py={4}
-          justify={"space-between"}
-          position={"sticky"}
-          top={0}
-          left={0}
-          zIndex={99}
-          w={"100%"}
-        >
-          <HStack w={"40px"}>
-            <BackButton />
-          </HStack>
-
-          {/* {!searchMode && (
-            <Text
-              textAlign={"center"}
-              noOfLines={1}
-              fontWeight={600}
-              fontSize={[16, null, 18]}
-            >
-              Diklat
-            </Text>
-          )} */}
-
-          <Text
-            textAlign={"center"}
-            noOfLines={1}
-            fontWeight={600}
-            fontSize={[16, null, 18]}
-          >
-            Diklat
-          </Text>
-
-          <HStack w={"40px"}>
-            <BackButton />
-          </HStack>
-
-          {/* <HStack
-            w={searchMode ? "100%" : "40px"}
-            justify={searchMode ? "start" : "end"}
-            transition={"200ms"}
-          >
+        <Header
+          left={"back"}
+          backLink="/profil"
+          right={
             <IconButton
-              aria-label="Search Button"
-              icon={<Icon as={RiSearchLine} fontSize={iconSize} />}
+              aria-label="riwayat perubahan data"
+              icon={<Icon as={RiHistoryLine} fontSize={20} />}
+              className="btn"
               borderRadius={"full"}
               size={"sm"}
-              className="btn"
-              onClick={() => {
-                setSearchMode(true);
-              }}
-              display={!searchMode ? "flex" : "none"}
+              as={Link}
+              to={"/beranda/event-diklat/riwayat"}
             />
-
-            <SearchComponent
-              name="search"
-              inputValue={search}
-              onChangeSetter={(inputValue) => {
-                setSearch(inputValue);
-              }}
-              inputRef={searchInputRef}
-              display={searchMode ? "flex" : "none"}
-              minW={"0px !important"}
-              size="sm"
-            />
-
-            <IconButton
-              display={searchMode ? "flex" : "none"}
-              transition={"200ms"}
-              aria-label="Tombol Kembali"
-              icon={<Icon as={RiCloseLine} fontSize={20} />}
-              className="btn"
-              size={"sm"}
-              borderRadius={"full"}
-              onClick={() => {
-                setSearchMode(false);
-                setSearch("");
-              }}
-            />
-          </HStack> */}
-        </HStack>
+          }
+          title={"Diklat"}
+          px={4}
+        />
       </Box>
 
       <CContainer p={5} pb={8} gap={3} bg={contentBgColor} flex={1}>

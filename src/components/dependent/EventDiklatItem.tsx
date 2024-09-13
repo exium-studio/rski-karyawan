@@ -148,8 +148,8 @@ export default function EventDiklatItem({ data, ...props }: Props) {
               {timeSince(data.created_at)}
             </Text>
 
-            <Text fontSize={12} opacity={0.4}>
-              Kuota : {data.kuota}
+            <Text fontWeight={500} fontSize={12}>
+              Peserta: {formatNumber(data?.total_peserta) || 0}/{data.kuota}
             </Text>
           </HStack>
 
@@ -190,22 +190,23 @@ export default function EventDiklatItem({ data, ...props }: Props) {
             {/* <Text fontSize={12} opacity={0.4}>
               Kuota : {data.kuota}
             </Text> */}
-
-            <HStack opacity={0.4}>
-              <Icon as={RiCalendarLine} />
-              <Text>{formatDate(data.created_at)}</Text>
-            </HStack>
+            <Text fontWeight={500} fontSize={12}>
+              Peserta: {formatNumber(data?.total_peserta) || 0}/{data.kuota}
+            </Text>
           </HStack>
 
-          <Text fontWeight={600} fontSize={20} noOfLines={2}>
+          <Text fontWeight={600} fontSize={16} noOfLines={2}>
             {data.nama}
           </Text>
 
-          <Text fontWeight={500}>
-            Peserta: {formatNumber(data?.total_peserta) || 0}/{data.kuota}
-          </Text>
+          <HStack opacity={0.4}>
+            <Icon as={RiCalendarLine} />
+            <Text>{formatDate(data.created_at)}</Text>
+          </HStack>
 
-          <Text opacity={0.6}>{data?.deskripsi}</Text>
+          <Text opacity={0.6} mt={4}>
+            {data?.deskripsi}
+          </Text>
         </CContainer>
       </CustomDrawer>
     </>
