@@ -29,7 +29,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
     validateOnChange: false,
 
     initialValues: {
-      keluarga: data as any[],
+      keluarga: (data as any[]) || [],
     },
 
     validationSchema: yup.object().shape({

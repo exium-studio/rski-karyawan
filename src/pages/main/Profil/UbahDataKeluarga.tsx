@@ -7,8 +7,47 @@ import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
 import useDataState from "../../../hooks/useDataState";
 import UbahDataKeluargaForm from "./UbahDataKeluargaForm";
 
+const UbahDataForm = ({ data }: any) => {
+  // SX
+  const lightDarkColor = useLightDarkColor();
+
+  return (
+    <>
+      <Alert flexShrink={0} status="info" p={4} borderRadius={8} mb={3}>
+        <Text fontSize={14}>
+          Tekan{" "}
+          <span>
+            <Icon
+              as={RiArrowUpCircleLine}
+              fontSize={20}
+              color={"p.500"}
+              mb={"-5px"}
+            />
+          </span>{" "}
+          untuk mengajukan perubahan data. Data di database tidak akan berubah
+          jika tidak meneken tombol tersebut. Riwayat perubahan dapat dilihat di{" "}
+          <span>
+            <Icon
+              as={RiHistoryLine}
+              fontSize={19}
+              color={"p.500"}
+              mb={"-5px"}
+            />
+          </span>
+          . Setiap permintaan perubahan data pada kolom yang sama akan
+          menggantikan permintaan sebelumnya yang masih menunggu.
+        </Text>
+      </Alert>
+
+      <CContainer flex={0} bg={lightDarkColor} borderRadius={12} p={4} pt={3}>
+        <UbahDataKeluargaForm data={data} />
+      </CContainer>
+    </>
+  );
+};
+
 export default function UbahDataKeluarga({ tabIndex }: any) {
-  const { error, loading, data, retry } = useDataState<any>({
+  const { error, notFound, loading, data, retry } = useDataState<any>({
     initialData: undefined,
     url: "/api/get-data-keluarga",
     conditions: tabIndex === 1,
@@ -17,7 +56,6 @@ export default function UbahDataKeluarga({ tabIndex }: any) {
 
   // SX
   const contentBgColor = useContentBgColor();
-  const lightDarkColor = useLightDarkColor();
 
   return (
     <CContainer
@@ -32,9 +70,15 @@ export default function UbahDataKeluarga({ tabIndex }: any) {
       minH={"calc(100vh - 96px)"}
     >
       {error && (
-        <Box my={"auto"}>
-          <Retry loading={loading} retry={retry} />
-        </Box>
+        <>
+          {!notFound && (
+            <Box my={"auto"}>
+              <Retry loading={loading} retry={retry} />
+            </Box>
+          )}
+
+          {notFound && <UbahDataForm data={data} />}
+        </>
       )}
 
       {!error && (
@@ -47,46 +91,7 @@ export default function UbahDataKeluarga({ tabIndex }: any) {
             </>
           )}
 
-          {!loading && (
-            <>
-              <Alert flexShrink={0} status="info" p={4} borderRadius={8} mb={3}>
-                <Text fontSize={14}>
-                  Tekan{" "}
-                  <span>
-                    <Icon
-                      as={RiArrowUpCircleLine}
-                      fontSize={20}
-                      color={"p.500"}
-                      mb={"-5px"}
-                    />
-                  </span>{" "}
-                  untuk mengajukan perubahan data. Data di database tidak akan
-                  berubah jika tidak meneken tombol tersebut. Riwayat perubahan
-                  dapat dilihat di{" "}
-                  <span>
-                    <Icon
-                      as={RiHistoryLine}
-                      fontSize={19}
-                      color={"p.500"}
-                      mb={"-5px"}
-                    />
-                  </span>
-                  . Setiap permintaan perubahan data pada kolom yang sama akan
-                  menggantikan permintaan sebelumnya yang masih menunggu.
-                </Text>
-              </Alert>
-
-              <CContainer
-                flex={0}
-                bg={lightDarkColor}
-                borderRadius={12}
-                p={4}
-                pt={3}
-              >
-                <UbahDataKeluargaForm data={data} />
-              </CContainer>
-            </>
-          )}
+          {!loading && <UbahDataForm data={data} />}
         </>
       )}
     </CContainer>
