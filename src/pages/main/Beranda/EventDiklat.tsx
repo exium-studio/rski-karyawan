@@ -1,8 +1,5 @@
-import { Box, HStack, Icon, IconButton, Text } from "@chakra-ui/react";
-import { RiCloseLine, RiSearchLine } from "@remixicon/react";
-import { useEffect, useRef, useState } from "react";
+import { Box, HStack, Text } from "@chakra-ui/react";
 import EventDiklatItem from "../../../components/dependent/EventDiklatItem";
-import SearchComponent from "../../../components/dependent/input/SearchComponent";
 import Retry from "../../../components/dependent/Retry";
 import BackButton from "../../../components/independent/BackButton";
 import NoData from "../../../components/independent/NoData";
@@ -10,36 +7,35 @@ import NotFound from "../../../components/independent/NotFound";
 import Skeleton from "../../../components/independent/Skeleton";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
-import { iconSize } from "../../../constant/sizes";
 import useDataState from "../../../hooks/useDataState";
 import useScrollToTop from "../../../hooks/useScrollToTop";
 
 export default function EventDiklat() {
   useScrollToTop();
 
-  const [searchMode, setSearchMode] = useState<boolean>(false);
-  const [search, setSearch] = useState<string | undefined>("");
+  // const [searchMode, setSearchMode] = useState<boolean>(false);
+  // const [search, setSearch] = useState<string | undefined>("");
 
   const { error, notFound, loading, data, retry } = useDataState<any[]>({
     initialData: undefined,
     url: `/api/get-all-diklat`,
   });
 
-  const fd = data?.filter((item) => {
-    const searchTerm = search?.toLowerCase();
-    return item.nama.toLowerCase().includes(searchTerm as string);
-  });
-  const searchInputRef = useRef<HTMLInputElement>(null);
+  // const fd = data?.filter((item) => {
+  //   const searchTerm = search?.toLowerCase();
+  //   return item.nama.toLowerCase().includes(searchTerm as string);
+  // });
+  // const searchInputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (searchMode) {
-      setTimeout(() => {
-        if (searchInputRef.current) {
-          searchInputRef.current.focus();
-        }
-      }, 200);
-    }
-  }, [searchInputRef, searchMode]);
+  // useEffect(() => {
+  //   if (searchMode) {
+  //     setTimeout(() => {
+  //       if (searchInputRef.current) {
+  //         searchInputRef.current.focus();
+  //       }
+  //     }, 200);
+  //   }
+  // }, [searchInputRef, searchMode]);
 
   // SX
   const lightDarkColor = useLightDarkColor();
@@ -71,7 +67,7 @@ export default function EventDiklat() {
             <BackButton />
           </HStack>
 
-          {!searchMode && (
+          {/* {!searchMode && (
             <Text
               textAlign={"center"}
               noOfLines={1}
@@ -80,9 +76,22 @@ export default function EventDiklat() {
             >
               Diklat
             </Text>
-          )}
+          )} */}
 
-          <HStack
+          <Text
+            textAlign={"center"}
+            noOfLines={1}
+            fontWeight={600}
+            fontSize={[16, null, 18]}
+          >
+            Diklat
+          </Text>
+
+          <HStack w={"40px"}>
+            <BackButton />
+          </HStack>
+
+          {/* <HStack
             w={searchMode ? "100%" : "40px"}
             justify={searchMode ? "start" : "end"}
             transition={"200ms"}
@@ -124,7 +133,7 @@ export default function EventDiklat() {
                 setSearch("");
               }}
             />
-          </HStack>
+          </HStack> */}
         </HStack>
       </Box>
 
@@ -152,11 +161,11 @@ export default function EventDiklat() {
               <>
                 {(!data || (data && data.length === 0)) && <NoData />}
 
-                {fd && fd.length === 0 && <NotFound />}
+                {data && data.length === 0 && <NotFound />}
 
-                {fd && fd.length > 0 && (
+                {data && data.length > 0 && (
                   <>
-                    {fd.map((eventDiklat, i) => (
+                    {data.map((eventDiklat, i) => (
                       <EventDiklatItem key={i} data={eventDiklat} />
                     ))}
                   </>
