@@ -24,7 +24,7 @@ import BackButton from "../../../components/independent/BackButton";
 import ComponentSpinner from "../../../components/independent/ComponentSpinner";
 import FlexLine from "../../../components/independent/FlexLine";
 import CContainer from "../../../components/independent/wrapper/CContainer";
-import { useLightDarkColor } from "../../../constant/colors";
+import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
 import { iconSize, responsiveSpacing } from "../../../constant/sizes";
 import useDataState from "../../../hooks/useDataState";
 import calculateMasaKerjaFromTanggalMasuk from "../../../lib/calculateMasaKerjaFromTanggalMasuk";
@@ -34,6 +34,7 @@ import formatNumber from "../../../lib/formatNumber";
 
 export default function DataKaryawan() {
   // SX
+  const contentBgColor = useContentBgColor();
   const lightDarkColor = useLightDarkColor();
 
   const { error, loading, data, retry } = useDataState<any>({
@@ -151,37 +152,20 @@ export default function DataKaryawan() {
             <>
               {data && (
                 <CContainer
-                  mt={[5, null, null, 0]}
+                  pt={[5, null, null, 0]}
                   flex={1}
                   px={5}
                   pb={8}
                   gap={responsiveSpacing}
                   overflowY={[null, null, null, "auto"]}
                   className="scrollY"
+                  bg={contentBgColor}
                 >
-                  {/* <HStack
-                    mx={"-2px"}
-                    position={"sticky"}
-                    top={"76px"}
-                    bg={lightDarkColor}
-                    zIndex={3}
-                  >
-                    <SearchComponent
-                      name="search"
-                      onChangeSetter={(input) => {
-                        setSearch(input || "");
-                      }}
-                      inputValue={search}
-                      placeholder="data karyawan"
-                      // tooltipLabel="Cari data karyawan"
-                    />
-                  </HStack> */}
-
                   <CContainer
                     flex={1}
                     overflowY={"auto"}
                     className="scrollY"
-                    bg={lightDarkColor}
+                    // bg={lightDarkColor}
                     gap={responsiveSpacing}
                   >
                     <VStack align={"stretch"} gap={0}>

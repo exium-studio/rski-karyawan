@@ -30,6 +30,7 @@ import HorizontalScrollWrapperOnDrawer from "../independent/wrapper/HorizontalSc
 import DrawerHeader from "./DrawerHeader";
 import JadwalDitukarItem from "./JadwalDitukarItem";
 import JadwalItem from "./JadwalItem";
+import useAuth from "../../global/useAuth";
 
 const TukarButton = ({ userId, data }: { userId?: number; data: any }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -338,6 +339,8 @@ export default function JadwalKaryawanItem({
   // SX
   const lightDarkColor = useLightDarkColor();
 
+  const { jenisKaryawan } = useAuth();
+
   return (
     <HStack
       ref={forwardRef || null}
@@ -381,7 +384,11 @@ export default function JadwalKaryawanItem({
         )}
       </CContainer>
 
-      {!detailOnly && <TukarButton userId={userId} data={data} />}
+      {!detailOnly && (
+        <>
+          {jenisKaryawan === 1 && <TukarButton userId={userId} data={data} />}
+        </>
+      )}
     </HStack>
   );
 }
