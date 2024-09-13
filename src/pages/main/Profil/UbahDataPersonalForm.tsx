@@ -74,7 +74,7 @@ export default function EditDataPersonalForm({ data }: Props) {
       alamat: data?.alamat,
       no_ijazah: data?.no_ijasah,
       pendidikan_terakhir: data?.pendidikan_terakhir,
-      tahun_lulus: data?.tahun_lulus.toString(),
+      tahun_lulus: data?.tahun_lulus?.toString(),
       gelar_depan: data?.gelar_depan,
       gelar_belakang: data?.gelar_belakang,
       asal_sekolah: data?.asal_sekolah,
@@ -559,7 +559,7 @@ export default function EditDataPersonalForm({ data }: Props) {
               formik.validateField("pendidikan_terakhir");
             }}
             column="pendidikan_terakhir"
-            payload={formik.values.pendidikan_terakhir?.value}
+            payload={formik.values.pendidikan_terakhir}
           />
         </HStack>
         <FormErrorMessage>
@@ -595,7 +595,7 @@ export default function EditDataPersonalForm({ data }: Props) {
               formik.validateField("asal_sekolah");
             }}
             column="asal_sekolah"
-            payload={formik.values.asal_sekolah?.value}
+            payload={formik.values.asal_sekolah}
           />
         </HStack>
         <FormErrorMessage>

@@ -314,23 +314,6 @@ export default function DataKaryawan() {
                         </HStack>
 
                         <HStack justify={"space-between"}>
-                          {/* <Text opacity={0.6}>Gelar Depan</Text> */}
-                          <Box opacity={0.6}>
-                            <Highlighter
-                              highlightClassName="hw"
-                              unhighlightClassName="uw"
-                              searchWords={searchQuery}
-                              autoEscape={true}
-                              textToHighlight="Gelar Depan"
-                            />
-                          </Box>
-                          <FlexLine />
-                          <Text fontWeight={500} textAlign={"right"}>
-                            {data?.gelar_depan}
-                          </Text>
-                        </HStack>
-
-                        <HStack justify={"space-between"}>
                           {/* <Text opacity={0.6}>Alamat</Text> */}
                           <Box opacity={0.6}>
                             <Highlighter
@@ -730,7 +713,36 @@ export default function DataKaryawan() {
                                 textAlign={"right"}
                                 // noOfLines={1}
                               >
-                                {data?.pendidikan_terakhir?.label}
+                                {data?.pendidikan_terakhir}
+                              </Text>
+                            )}
+                          </HStack>
+                        </HStack>
+
+                        <HStack justify={"space-between"}>
+                          {/* <Text opacity={0.6}>No. Ijazah</Text> */}
+                          <Box opacity={0.6}>
+                            <Highlighter
+                              highlightClassName="hw"
+                              unhighlightClassName="uw"
+                              searchWords={searchQuery}
+                              autoEscape={true}
+                              textToHighlight="Asal Sekolah"
+                            />
+                          </Box>
+                          <FlexLine />
+                          <HStack>
+                            {/* {data?.path_no_ijazah && (
+                          <SmallLink to={data?.path_no_ijazah}>Lihat</SmallLink>
+                        )} */}
+
+                            {data?.pendidikan_terakhir && (
+                              <Text
+                                fontWeight={500}
+                                textAlign={"right"}
+                                // noOfLines={1}
+                              >
+                                {data?.asal_sekolah}
                               </Text>
                             )}
                           </HStack>
@@ -775,6 +787,40 @@ export default function DataKaryawan() {
                           <FlexLine />
                           <Text fontWeight={500} textAlign={"right"}>
                             {data.tahun_lulus}
+                          </Text>
+                        </HStack>
+
+                        <HStack justify={"space-between"}>
+                          {/* <Text opacity={0.6}>Gelar Depan</Text> */}
+                          <Box opacity={0.6}>
+                            <Highlighter
+                              highlightClassName="hw"
+                              unhighlightClassName="uw"
+                              searchWords={searchQuery}
+                              autoEscape={true}
+                              textToHighlight="Gelar Depan"
+                            />
+                          </Box>
+                          <FlexLine />
+                          <Text fontWeight={500} textAlign={"right"}>
+                            {data?.gelar_depan}
+                          </Text>
+                        </HStack>
+
+                        <HStack justify={"space-between"}>
+                          {/* <Text opacity={0.6}>Gelar Depan</Text> */}
+                          <Box opacity={0.6}>
+                            <Highlighter
+                              highlightClassName="hw"
+                              unhighlightClassName="uw"
+                              searchWords={searchQuery}
+                              autoEscape={true}
+                              textToHighlight="Gelar Belakang"
+                            />
+                          </Box>
+                          <FlexLine />
+                          <Text fontWeight={500} textAlign={"right"}>
+                            {data?.gelar_belakang}
                           </Text>
                         </HStack>
 
