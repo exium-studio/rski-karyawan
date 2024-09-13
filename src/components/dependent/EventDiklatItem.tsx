@@ -2,25 +2,24 @@ import {
   Button,
   HStack,
   Icon,
-  Image,
   StackProps,
   Text,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import { RiCalendarLine } from "@remixicon/react";
+import { useState } from "react";
 import { useLightDarkColor } from "../../constant/colors";
-import { Interface__EventDiklat } from "../../constant/interfaces";
+import useRenderTrigger from "../../global/useRenderTrigger";
+import backOnClose from "../../lib/backOnClose";
 import formatDate from "../../lib/formatDate";
+import req from "../../lib/req";
 import timeSince from "../../lib/timeSince";
 import CContainer from "../independent/wrapper/CContainer";
 import CustomDrawer from "../independent/wrapper/CustomDrawer";
 import DisclosureHeader from "./DisclosureHeader";
 import DrawerHeader from "./DrawerHeader";
-import backOnClose from "../../lib/backOnClose";
-import req from "../../lib/req";
-import useRenderTrigger from "../../global/useRenderTrigger";
-import { useState } from "react";
+import Img from "./Img";
 
 const KonfirmasiBergabung = ({ data }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -99,7 +98,7 @@ const KonfirmasiBergabung = ({ data }: any) => {
 };
 
 interface Props extends StackProps {
-  data: Interface__EventDiklat;
+  data: any;
 }
 
 export default function EventDiklatItem({ data, ...props }: Props) {
@@ -107,6 +106,8 @@ export default function EventDiklatItem({ data, ...props }: Props) {
 
   // SX
   const lightDarkColor = useLightDarkColor();
+
+  // console.log(data?.path);
 
   return (
     <>
@@ -120,19 +121,18 @@ export default function EventDiklatItem({ data, ...props }: Props) {
         onClick={onOpen}
         {...props}
       >
-        <Image
-          src={data.gambar || "/vectors/noImage.svg"}
-          aspectRatio={16 / 10}
-          objectFit={"cover"}
+        <Img
+          src={data?.path || "/vectors/noImage.svg"}
+          fallbackSrc="/vectors/noImage.svg"
         />
         <CContainer p={4} gap={2}>
           <HStack justify={"space-between"}>
-            <Text color={"p.500"} fontSize={12} fontWeight={500}>
-              {data.jenis}
+            <Text fontSize={12} opacity={0.4}>
+              {timeSince(data.created_at)}
             </Text>
 
             <Text fontSize={12} opacity={0.4}>
-              {timeSince(data.created_at)}
+              Kuota : {data.kuota}
             </Text>
           </HStack>
 
@@ -159,11 +159,9 @@ export default function EventDiklatItem({ data, ...props }: Props) {
           </>
         }
       >
-        <Image
-          src={data.gambar || "/vectors/noImage.svg"}
-          aspectRatio={16 / 10}
-          objectFit={"cover"}
-          mb={4}
+        <Img
+          src={data?.path || "/vectors/noImage.svg"}
+          fallbackSrc="/vectors/noImage.svg"
         />
         <CContainer px={6} gap={2}>
           <HStack justify={"space-between"}>
