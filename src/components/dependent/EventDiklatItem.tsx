@@ -13,12 +13,12 @@ import { useLightDarkColor } from "../../constant/colors";
 import useRenderTrigger from "../../global/useRenderTrigger";
 import backOnClose from "../../lib/backOnClose";
 import formatDate from "../../lib/formatDate";
+import formatNumber from "../../lib/formatNumber";
 import req from "../../lib/req";
 import timeSince from "../../lib/timeSince";
 import CContainer from "../independent/wrapper/CContainer";
 import CustomDrawer from "../independent/wrapper/CustomDrawer";
 import DisclosureHeader from "./DisclosureHeader";
-import DrawerHeader from "./DrawerHeader";
 import Img from "./Img";
 
 const KonfirmasiBergabung = ({ data }: any) => {
@@ -29,15 +29,24 @@ const KonfirmasiBergabung = ({ data }: any) => {
   const { rt, setRt } = useRenderTrigger();
 
   function joinDiklat() {
+    setLoading(true);
+
     const payload = {
       diklat_id: data.id,
     };
+
     req
       .post(`/api/join-diklat`, payload)
       .then((r) => {
         if (r.status === 200) {
           setRt(!rt);
           backOnClose();
+          toast({
+            status: "success",
+            title: r?.data?.message,
+            position: "top",
+            isClosable: true,
+          });
         }
       })
       .catch((e) => {
@@ -48,7 +57,7 @@ const KonfirmasiBergabung = ({ data }: any) => {
             (typeof e?.response?.data?.message === "string" &&
               (e?.response?.data?.message as string)) ||
             "Maaf terjadi kesalahan pada sistem",
-          position: "bottom-right",
+          position: "top",
           isClosable: true,
         });
       })
@@ -59,7 +68,12 @@ const KonfirmasiBergabung = ({ data }: any) => {
 
   return (
     <>
-      <Button w={"100%"} className="btn-ap clicky" colorScheme="ap">
+      <Button
+        w={"100%"}
+        className="btn-ap clicky"
+        colorScheme="ap"
+        onClick={onOpen}
+      >
         Bergabung
       </Button>
 
@@ -89,9 +103,12 @@ const KonfirmasiBergabung = ({ data }: any) => {
           </>
         }
       >
-        <Text>
-          Apakah anda yakin akan bergabung dalam Diklat ini? <b>{data?.nama}</b>
-        </Text>
+        <CContainer px={6}>
+          <Text>
+            Apakah anda yakin akan bergabung dalam Diklat ini?{" "}
+            <b>{data?.nama}</b>
+          </Text>
+        </CContainer>
       </CustomDrawer>
     </>
   );
@@ -152,7 +169,7 @@ export default function EventDiklatItem({ data, ...props }: Props) {
         isOpen={isOpen}
         onOpen={onOpen}
         onClose={onClose}
-        header={<DrawerHeader title="Detail Event/Diklat" />}
+        header={<DisclosureHeader title="Detail Event/Diklat" />}
         footer={
           <>
             <KonfirmasiBergabung data={data} />
@@ -162,30 +179,33 @@ export default function EventDiklatItem({ data, ...props }: Props) {
         <Img
           src={data?.path || "/vectors/noImage.svg"}
           fallbackSrc="/vectors/noImage.svg"
+          mb={4}
         />
         <CContainer px={6} gap={2}>
           <HStack justify={"space-between"}>
-            <Text color={"p.500"} fontSize={12} fontWeight={500}>
-              {data.jenis}
-            </Text>
-
             <Text fontSize={12} opacity={0.4}>
               {timeSince(data.created_at)}
             </Text>
+
+            {/* <Text fontSize={12} opacity={0.4}>
+              Kuota : {data.kuota}
+            </Text> */}
+
+            <HStack opacity={0.4}>
+              <Icon as={RiCalendarLine} />
+              <Text>{formatDate(data.created_at)}</Text>
+            </HStack>
           </HStack>
 
-          <Text fontWeight={600} noOfLines={2}>
+          <Text fontWeight={600} fontSize={20} noOfLines={2}>
             {data.nama}
           </Text>
 
-          <HStack opacity={0.4} mb={4}>
-            <Icon as={RiCalendarLine} />
-            <Text>{formatDate(data.created_at)}</Text>
-          </HStack>
+          <Text fontWeight={500}>
+            Peserta: {formatNumber(data?.total_peserta) || 0}/{data.kuota}
+          </Text>
 
-          <Text>isi event/diklat</Text>
-
-          <Text fontWeight={500}>Peserta</Text>
+          <Text opacity={0.6}>{data?.deskripsi}</Text>
         </CContainer>
       </CustomDrawer>
     </>

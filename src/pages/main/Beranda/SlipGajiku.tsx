@@ -268,7 +268,7 @@ export default function SlipGajiku() {
           toast({
             status: "success",
             title: "Slip gaji berhasil diunduh",
-            position: "bottom-right",
+            position: "top",
             isClosable: true,
           });
         }
@@ -281,7 +281,7 @@ export default function SlipGajiku() {
             (typeof e?.response?.data?.message === "string" &&
               (e?.response?.data?.message as string)) ||
             "Maaf terjadi kesalahan pada sistem",
-          position: "bottom-right",
+          position: "top",
           isClosable: true,
         });
       })

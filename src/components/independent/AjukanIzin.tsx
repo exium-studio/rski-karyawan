@@ -77,7 +77,7 @@ export default function AjukanIzin() {
               (typeof e?.response?.data?.message === "string" &&
                 (e?.response?.data?.message as string)) ||
               "Maaf terjadi kesalahan pada sistem",
-            position: "bottom-right",
+            position: "top",
             isClosable: true,
           });
         })
