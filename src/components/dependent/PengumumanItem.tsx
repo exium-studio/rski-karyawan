@@ -46,7 +46,7 @@ export default function PengumumanItem({ data, ...props }: Props) {
             {timeSince(data.created_at)}
           </Text>
           <Text fontSize={12} opacity={0.4}>
-            berakhir {formatDate(data.tgl_berakhir)}
+            berakhir {formatDate(data.tgl_berakhir, "short")}
           </Text>
         </HStack>
       </CContainer>
@@ -76,7 +76,7 @@ export default function PengumumanItem({ data, ...props }: Props) {
               {timeSince(data.created_at)}
             </Text>
             <Text fontSize={12} opacity={0.4}>
-              berakhir {formatDate(data.tgl_berakhir)}
+              berakhir {formatDate(data.tgl_berakhir, "short")}
             </Text>
           </HStack>
         </CContainer>

@@ -15,7 +15,7 @@ import useAuth from "../../global/useAuth";
 import useDataState from "../../hooks/useDataState";
 import chunkArray from "../../lib/chunkArray";
 import NotifCount from "../dependent/NotifCount";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 interface ItemProps extends StackProps {
   menu: any;
@@ -90,7 +90,28 @@ export default function BerandaMenus() {
 
   const chunkedBerandaMenus = chunkArray(berandaMenus, 8);
 
-  const berandaContainerRef = useRef(null);
+  const berandaContainerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (berandaContainerRef.current) {
+        const scrollPosition = berandaContainerRef.current.scrollLeft;
+        console.log("Scrolled horizontally:", scrollPosition, "px");
+      }
+    };
+
+    const container = berandaContainerRef.current;
+    if (container) {
+      container.addEventListener("scroll", handleScroll);
+    }
+
+    // Cleanup function
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [berandaContainerRef]);
 
   return (
     <VStack gap={0} align={"stretch"}>

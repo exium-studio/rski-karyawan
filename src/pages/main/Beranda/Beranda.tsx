@@ -136,10 +136,11 @@ export default function Beranda() {
           overflowY={"auto"}
           // pb={"95px"}
           // overflowY={isScrollToBottom ? "auto" : "clip"}
+          flex={1}
         >
           <BerandaMenus />
 
-          <CContainer overflowY={"auto"}>
+          <CContainer overflowY={"auto"} flex={1} gap={5}>
             <PengumumanBeranda />
 
             <AktivitasAndaBeranda />
