@@ -213,7 +213,7 @@ export default function SlipGajiku() {
         backOnClose();
       }
     }
-  }, [passwordValidation]);
+  }, [passwordValid, passwordValidation]);
 
   // SX
   const contentBgColor = useContentBgColor();
