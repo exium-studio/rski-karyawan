@@ -20,7 +20,7 @@ export default function StatistikCuti() {
       <Wrap spacing={3}>
         {loading && (
           <>
-            {Array.from({ length: 6 }).map((_, i) => (
+            {Array.from({ length: 7 }).map((_, i) => (
               <Skeleton key={i} minH={"100px"} flex={"1 1 150px"} />
             ))}
           </>

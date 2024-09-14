@@ -197,8 +197,8 @@ export default function SlipGajiku() {
     dependencies: [passwordValid, bulan, tahun],
   });
 
-  console.log("password validdation popup", passwordValidation);
-  console.log("password valid", passwordValid);
+  // console.log("password validdation popup", passwordValidation);
+  // console.log("password valid", passwordValid);
 
   useEffect(() => {
     if (passwordValid) {
