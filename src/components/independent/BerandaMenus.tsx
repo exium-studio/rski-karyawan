@@ -170,7 +170,7 @@ export default function BerandaMenus() {
       {/* Panel Indicator */}
       <Box
         w={"30px"}
-        bg={"var(--divider3)"}
+        bg={"var(--divider)"}
         mx={"auto"}
         mt={3}
         borderRadius={"full"}

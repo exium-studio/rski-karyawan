@@ -77,7 +77,7 @@ export default function AttendanceBeranda() {
                   w={"100px"}
                   minH={"100px"}
                   justify={"center"}
-                  bg={"var(--divider2)"}
+                  bg={"var(--divider)"}
                   borderRadius={"full"}
                   p={4}
                 >
