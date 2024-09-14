@@ -5,19 +5,18 @@ import {
   RiSunFoggyLine,
   RiSunLine,
 } from "@remixicon/react";
-import { useEffect, useState } from "react";
 import AktivitasAndaBeranda from "../../../components/independent/AktivitasAndaBeranda";
 import AttendanceBeranda from "../../../components/independent/AttendanceBeranda";
 import BerandaMenus from "../../../components/independent/BerandaMenus";
 import DigitalClock from "../../../components/independent/DigitalClock";
 import MiniProfile from "../../../components/independent/MiniProfile";
+import PengumumanBeranda from "../../../components/independent/PengumumanBeranda";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor } from "../../../constant/colors";
 import useScrollToTop from "../../../hooks/useScrollToTop";
 import formatDate from "../../../lib/formatDate";
 import getUserDataCookie from "../../../lib/getUserData";
 import timeIs from "../../../lib/timeIs";
-import PengumumanBeranda from "../../../components/independent/PengumumanBeranda";
 
 export default function Beranda() {
   useScrollToTop();
@@ -26,26 +25,26 @@ export default function Beranda() {
 
   const today = new Date();
   const todayDate = formatDate(today.toString());
-  const [isScrollToBottom, setIsScrollToBottom] = useState<boolean>(false);
+  // const [isScrollToBottom, setIsScrollToBottom] = useState<boolean>(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const bottomOfWindow =
-        window.scrollY + window.innerHeight ===
-        document.documentElement.scrollHeight;
-      if (bottomOfWindow) {
-        setIsScrollToBottom(true);
-      } else {
-        setIsScrollToBottom(false);
-      }
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const bottomOfWindow =
+  //       window.scrollY + window.innerHeight ===
+  //       document.documentElement.scrollHeight;
+  //     if (bottomOfWindow) {
+  //       setIsScrollToBottom(true);
+  //     } else {
+  //       setIsScrollToBottom(false);
+  //     }
+  //   };
 
-    window.addEventListener("scroll", handleScroll);
+  //   window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
 
   // SX
   const contentBgColor = useContentBgColor();
@@ -58,7 +57,8 @@ export default function Beranda() {
       h={"100vh"}
       bg={attendancePanelBg}
       flex={0}
-      maxH={"calc(100vh - 75px)"}
+      maxH={"calc(100vh - 80px)"}
+      // border={"1px solid red"}
     >
       <CContainer
         minH={"520px"}
@@ -67,12 +67,20 @@ export default function Beranda() {
         left={"50%"}
         transform={"translateX(-50%)"}
         maxW={"720px"}
+        zIndex={1}
+        // overflowY={"auto"}
       >
         <HStack p={4} justify={"space-between"} color={"white"} zIndex={2}>
           <MiniProfile data={user} />
         </HStack>
 
-        <CContainer flex={1} color={"white"} px={5} pb={2}>
+        <CContainer
+          id="attendanceBerandaContainer"
+          flex={1}
+          color={"white"}
+          px={5}
+          pb={2}
+        >
           <CContainer
             flex={1}
             align={"center"}
@@ -108,22 +116,35 @@ export default function Beranda() {
       </CContainer>
 
       <CContainer
-        id="berandaDrawer"
+        id="berandaMenus&others"
+        overflowY={"auto"}
+        // className="noScroll"
         mt={"520px"}
-        zIndex={2}
-        gap={5}
-        pt={0}
-        bg={contentBgColor}
-        borderRadius={"16px 16px 0 0"}
-        minH={"calc(100vh - 24px)"}
-        // pb={"95px"}
-        overflowY={isScrollToBottom ? "auto" : "clip"}
+        // border={"1px solid green"}
+        zIndex={3}
+        minH={"calc(100vh - 160px)"}
+        maxH={"calc(100vh - 80px)"}
       >
-        <BerandaMenus />
+        <CContainer
+          id="berandaDrawer"
+          gap={5}
+          pt={0}
+          bg={contentBgColor}
+          borderRadius={"16px 16px 0 0"}
+          // minH={"calc(100vh - 24px)"}
+          // border={"1px solid yellow"}
+          overflowY={"auto"}
+          // pb={"95px"}
+          // overflowY={isScrollToBottom ? "auto" : "clip"}
+        >
+          <BerandaMenus />
 
-        <PengumumanBeranda />
+          <CContainer overflowY={"auto"}>
+            <PengumumanBeranda />
 
-        <AktivitasAndaBeranda />
+            <AktivitasAndaBeranda />
+          </CContainer>
+        </CContainer>
       </CContainer>
     </CContainer>
   );

@@ -30,7 +30,7 @@ export default function NavContainer({ children, active, noNavs }: Props) {
           id="content"
           overflowX={"clip"}
           flex={1}
-          mb={noNavs ? 0 : "75px"}
+          mb={noNavs ? 0 : "80px"}
         >
           {children}
         </CContainer>
@@ -50,7 +50,7 @@ export default function NavContainer({ children, active, noNavs }: Props) {
               w={"100%"}
               columns={5}
               borderTop={"1px solid var(--divider2)"}
-              h={"75px"}
+              h={"80px"}
               maxW={"720px"}
               mx={"auto"}
             >

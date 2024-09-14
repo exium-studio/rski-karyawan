@@ -35,6 +35,8 @@ export default function AttendanceButton({ data }: Props) {
       </>
 
       <VStack
+        zIndex={4}
+        pointerEvents={"all"}
         ref={attendanceButtonRef}
         as={Button}
         position={"relative"}
@@ -58,7 +60,7 @@ export default function AttendanceButton({ data }: Props) {
         }}
         cursor={data ? "pointer" : "default"}
         opacity={data ? 1 : 0.6}
-        pointerEvents={data ? "auto" : "none"}
+        // pointerEvents={data ? "auto" : "none"}
         // isDisabled={locationPermission === null}
       >
         <VStack

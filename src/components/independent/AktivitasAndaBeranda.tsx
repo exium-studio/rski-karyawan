@@ -11,7 +11,7 @@ import CContainer from "./wrapper/CContainer";
 export default function AktivitasAndaBeranda() {
   const { error, notFound, loading, data, retry } = useDataState({
     initialData: dummyActivity,
-    url: "/api/get-activity-presensi",
+    url: "",
   });
 
   // SX
@@ -38,7 +38,11 @@ export default function AktivitasAndaBeranda() {
             {error && (
               <>
                 {notFound && (
-                  <NoData m={"auto"} label="Tidak ada aktivitas presensi" />
+                  <NoData
+                    m={"auto"}
+                    label="Tidak ada aktivitas presensi"
+                    minH={"300px"}
+                  />
                 )}
 
                 {!notFound && (
@@ -58,7 +62,7 @@ export default function AktivitasAndaBeranda() {
                   ))}
 
                 {data && data.length === 0 && (
-                  <NoData label="Tidak ada aktivitas presensi" />
+                  <NoData label="Tidak ada aktivitas presensi" minH={"300px"} />
                 )}
               </>
             )}
