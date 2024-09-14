@@ -118,16 +118,16 @@ export default function Beranda() {
       <CContainer
         id="berandaMenus&others"
         overflowY={"auto"}
-        // className="noScroll"
         mt={"520px"}
-        // border={"1px solid green"}
         zIndex={3}
         minH={"calc(100vh - 160px)"}
         maxH={"calc(100vh - 80px)"}
+        // className="noScroll"
+        // border={"1px solid green"}
       >
         <CContainer
           id="berandaDrawer"
-          gap={5}
+          gap={4}
           pt={0}
           bg={contentBgColor}
           borderRadius={"16px 16px 0 0"}
