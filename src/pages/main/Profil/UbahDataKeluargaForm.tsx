@@ -1,4 +1,5 @@
 import {
+  Badge,
   Box,
   FormControl,
   FormErrorMessage,
@@ -46,7 +47,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
 
   // SX
 
-  console.log(formik.values.keluarga);
+  // console.log(formik.values.keluarga);
 
   return (
     <>
@@ -190,6 +191,16 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                       >
                         {anggota.email}
                       </Text>
+                    </HStack>
+                    <HStack>
+                      <Text opacity={0.4}>Tanggungan BPJS</Text>
+                      <FlexLine />
+                      <Badge
+                        borderRadius={"full"}
+                        colorScheme={anggota.is_bpjs ? "green" : "red"}
+                      >
+                        {anggota.is_bpjs ? "Ya" : "Tidak"}
+                      </Badge>
                     </HStack>
                   </>
                 </VStack>

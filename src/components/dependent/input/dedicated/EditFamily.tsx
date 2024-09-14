@@ -1,8 +1,10 @@
 import {
   Box,
   Button,
+  Checkbox,
   FormControl,
   FormErrorMessage,
+  FormHelperText,
   FormLabel,
   HStack,
   Icon,
@@ -66,6 +68,7 @@ export default function EditFamily({
       pekerjaan: data.pekerjaan,
       no_hp: data.no_hp,
       email: data.email,
+      is_bpjs: data.is_bpjs,
     },
     validationSchema: yup.object().shape({
       hubungan: yup.object().required("Harus diisi"),
@@ -75,6 +78,7 @@ export default function EditFamily({
       pekerjaan: yup.string().required("Harus diisi"),
       no_hp: yup.string().required("Harus diisi"),
       email: yup.string().required("Harus diisi"),
+      is_bpjs: yup.boolean(),
     }),
     onSubmit: (values, { resetForm }) => {
       onConfirm(values);
@@ -247,7 +251,7 @@ export default function EditFamily({
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl isInvalid={!!formik.errors.email}>
+            <FormControl mb={4} isInvalid={!!formik.errors.email}>
               <FormLabel>
                 Email
                 <RequiredForm />
@@ -262,6 +266,32 @@ export default function EditFamily({
               />
               <FormErrorMessage>
                 {formik.errors.email as string}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={!!formik.errors.is_bpjs}>
+              {/* <FormLabel>
+                Tanggungan BPJS
+                <RequiredForm />
+              </FormLabel> */}
+
+              <Checkbox
+                colorScheme="ap"
+                onChange={(e) => {
+                  formik.setFieldValue("is_bpjs", e.target.checked);
+                }}
+                isChecked={formik.values.is_bpjs}
+              >
+                <Text mt={"-2.5px"}>Tanggungan BPJS</Text>
+              </Checkbox>
+              <FormHelperText mt={2}>
+                Jika dicentang, BPJS anggota keluarga akan ditanggung oleh
+                karyawan dan akan dikalkulasikan sebagai potongan dalam
+                penggajian.
+              </FormHelperText>
+
+              <FormErrorMessage>
+                {formik.errors.is_bpjs as string}
               </FormErrorMessage>
             </FormControl>
           </form>
