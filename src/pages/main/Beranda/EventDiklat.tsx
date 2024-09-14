@@ -11,6 +11,7 @@ import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
 import useDataState from "../../../hooks/useDataState";
 import useScrollToTop from "../../../hooks/useScrollToTop";
+import AjukanDiklatEksternal from "../../../components/independent/AjukanDiklatEksternal";
 
 export default function EventDiklat() {
   useScrollToTop();
@@ -107,6 +108,8 @@ export default function EventDiklat() {
             )}
           </>
         )}
+
+        <AjukanDiklatEksternal />
       </CContainer>
     </CContainer>
   );

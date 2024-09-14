@@ -99,7 +99,7 @@ export default function RequestPatchDataButton({
           <CContainer gap={2}>
             <Button
               w={"100%"}
-              className="btn-divider clicky"
+              className="btn-solid divider clicky"
               isDisabled={loading}
             >
               Tidak

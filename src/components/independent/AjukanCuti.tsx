@@ -135,7 +135,7 @@ export default function AjukanCuti() {
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl mb={4} isInvalid={!!formik.errors.date_range}>
+            <FormControl mb={6} isInvalid={!!formik.errors.date_range}>
               <FormLabel>
                 Rentang Tanggal
                 <RequiredForm />

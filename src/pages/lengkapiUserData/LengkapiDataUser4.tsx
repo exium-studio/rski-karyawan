@@ -19,6 +19,7 @@ import Container from "../../components/independent/wrapper/Container";
 import useDcs from "../../global/useAuth";
 import useScrollToTop from "../../hooks/useScrollToTop";
 import req from "../../lib/req";
+import { fileValidation } from "../../lib/validationSchemas";
 
 export default function LengkapiDataUser4() {
   useScrollToTop();
@@ -27,10 +28,6 @@ export default function LengkapiDataUser4() {
   const [loading, setLoading] = useState<boolean>(false);
   const toast = useToast();
   const { setDcs } = useDcs();
-
-  const fileValidation = yup
-    .mixed()
-    .test("fileType", "Harus berupa file", (value) => value instanceof File);
 
   const formik = useFormik({
     validateOnChange: false,
