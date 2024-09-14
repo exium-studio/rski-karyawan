@@ -45,7 +45,7 @@ export default function SemuaAktivitas() {
         scrollBehavior="inside"
       >
         <ModalOverlay />
-        <ModalContent m={0}>
+        <ModalContent m={0} border={"none"}>
           <ModalHeader>
             <Header left={"back"} title={"Aktivitas"} />
           </ModalHeader>

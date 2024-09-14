@@ -88,7 +88,7 @@ export default function SemuaPengumuman() {
         scrollBehavior="inside"
       >
         <ModalOverlay />
-        <ModalContent m={0} overflowX={"clip"}>
+        <ModalContent m={0} border={"none"} overflowX={"clip"}>
           <ModalHeader>
             <Box
               position={"sticky"}
