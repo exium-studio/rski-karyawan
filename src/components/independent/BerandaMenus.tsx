@@ -44,9 +44,10 @@ const BerandaMenuItem = ({ menu, notifCount, ...props }: ItemProps) => {
       bg={`${lightDarkColor} !important`}
       cursor={"pointer"}
       h={"85px"}
-      // w={sw >= 720 ? "calc(180px - 20px)" : "calc(25vw - 20px)"}
       flexShrink={0}
-      className="btn-solid clicky"
+      // w={sw >= 720 ? "calc(180px - 20px)" : "calc(25vw - 20px)"}
+      // _hover={{ bg: "var(--divider) !important" }}
+      className="clicky"
       transition={"200ms"}
       gap={1}
       as={Button}
