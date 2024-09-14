@@ -54,7 +54,6 @@ export default function EventDiklat() {
       >
         <Header
           left={"back"}
-          backLink="/profil"
           right={
             <IconButton
               aria-label="riwayat perubahan data"
