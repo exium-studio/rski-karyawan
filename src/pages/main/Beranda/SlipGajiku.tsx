@@ -314,7 +314,7 @@ export default function SlipGajiku() {
       />
 
       <CContainer flex={1} bg={contentBgColor} p={5} pb={8}>
-        <HStack
+        {/* <HStack
           borderRadius={12}
           bg={lightDarkColor}
           gap={4}
@@ -345,6 +345,40 @@ export default function SlipGajiku() {
           <CContainer p={4} flex={0}>
             <Avatar name={user.nama} src={user.foto_profil || ""} size={"lg"} />
           </CContainer>
+        </HStack> */}
+
+        <HStack
+          borderRadius={12}
+          bg={useLightDarkColor()}
+          align={"stretch"}
+          gap={4}
+          mb={3}
+          overflow={"clip"}
+          position={"relative"}
+        >
+          <HStack p={4} gap={3}>
+            <Avatar name={user?.nama} src={user?.foto_profil || ""} />
+            <CContainer justify={"center"}>
+              <Text fontSize={14} fontWeight={500} mb={"2px"}>
+                {user.nama}
+              </Text>
+              <Text fontSize={12} opacity={0.4} noOfLines={1}>
+                {user.unit_kerja?.[0]?.nama_unit}
+              </Text>
+            </CContainer>
+          </HStack>
+
+          <Badge
+            mt={"auto"}
+            ml={"auto"}
+            borderRadius={"10px 0 10px 0"}
+            w={"100px"}
+            h={"fit-content"}
+            colorScheme="red"
+            textAlign={"center"}
+          >
+            Rahasia
+          </Badge>
         </HStack>
 
         <CContainer
