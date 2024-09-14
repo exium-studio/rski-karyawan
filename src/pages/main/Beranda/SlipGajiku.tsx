@@ -197,11 +197,12 @@ export default function SlipGajiku() {
     dependencies: [passwordValid, bulan, tahun],
   });
 
-  // console.log("password validdation popup", passwordValidation);
-  // console.log("password valid", passwordValid);
+  console.log("password validdation popup", passwordValidation);
+  console.log("password valid", passwordValid);
 
   useEffect(() => {
     if (passwordValid) {
+      setPasswordValidation(false);
       backOnClose();
     }
   }, [passwordValid]);
@@ -213,15 +214,6 @@ export default function SlipGajiku() {
       }
     }
   }, [passwordValidation]);
-
-  // useEffect(() => {
-  //   if (!passwordValidation) {
-  //     if (!passwordValid) {
-  //       backOnClose();
-  //       console.log("password invalid");
-  //     }
-  //   }
-  // }, [passwordValidation, passwordValid]);
 
   // SX
   const contentBgColor = useContentBgColor();
