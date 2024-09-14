@@ -14,13 +14,6 @@ const berandaMenus = [
   },
 
   {
-    image: "/vectors/icons/Agreement.png",
-    label: "Izin",
-    link: "/beranda/izin",
-    jenis_karyawan: [1, 0],
-  },
-
-  {
     image: "/vectors/icons/Timer.png",
     label: "Lembur",
     link: "/beranda/lembur",
@@ -28,16 +21,16 @@ const berandaMenus = [
   },
 
   {
-    image: "/vectors/icons/Training.png",
-    label: "Event & Diklat",
-    link: "/beranda/event-diklat",
+    image: "/vectors/icons/Agreement.png",
+    label: "Izin",
+    link: "/beranda/izin",
     jenis_karyawan: [1, 0],
   },
 
   {
-    image: "/vectors/icons/Bank Building.png",
-    label: "Koperasi",
-    link: "/beranda/koperasi",
+    image: "/vectors/icons/Training.png",
+    label: "Event & Diklat",
+    link: "/beranda/event-diklat",
     jenis_karyawan: [1, 0],
   },
 
@@ -55,17 +48,24 @@ const berandaMenus = [
     jenis_karyawan: [1, 0],
   },
 
+  {
+    image: "/vectors/icons/Bank Building.png",
+    label: "Koperasi",
+    link: "/beranda/koperasi",
+    jenis_karyawan: [1, 0],
+  },
+
+  {
+    image: "/vectors/icons/System Report.png",
+    label: "Pelaporan",
+    link: "/beranda/laporan",
+    jenis_karyawan: [1, 0],
+  },
+
   // {
   //   image: "/vectors/icons/Form.png",
   //   label: "Feedback",
   //   link: "/beranda/feedback",
-  // },
-
-  // {
-  //   image: "/vectors/icons/System Report.png",
-  //   label: "Pelaporan",
-  //   link: "/beranda/laporan",
-  //   jenis_karyawan: [1, 0],
   // },
 ];
 

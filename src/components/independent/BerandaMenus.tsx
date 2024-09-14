@@ -1,20 +1,28 @@
-import { Box, Button, Image, Text, VStack, Wrap } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  HStack,
+  Image,
+  SimpleGrid,
+  StackProps,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import berandaMenus from "../../constant/berandaMenus";
 import { useLightDarkColor } from "../../constant/colors";
 import useAuth from "../../global/useAuth";
 import useDataState from "../../hooks/useDataState";
-import useScreenWidth from "../../hooks/useScreenWidth";
+import chunkArray from "../../lib/chunkArray";
 import NotifCount from "../dependent/NotifCount";
+import { useRef } from "react";
 
-interface ItemProps {
+interface ItemProps extends StackProps {
   menu: any;
   notifCount?: number | null;
 }
 
-const BerandaMenuItem = ({ menu, notifCount }: ItemProps) => {
-  const sw = useScreenWidth();
-
+const BerandaMenuItem = ({ menu, notifCount, ...props }: ItemProps) => {
   // SX
   const lightDarkColor = useLightDarkColor();
   const navigate = useNavigate();
@@ -36,7 +44,7 @@ const BerandaMenuItem = ({ menu, notifCount }: ItemProps) => {
       bg={`${lightDarkColor} !important`}
       cursor={"pointer"}
       h={"85px"}
-      w={sw >= 720 ? "calc(180px - 20px)" : "calc(25vw - 20px)"}
+      // w={sw >= 720 ? "calc(180px - 20px)" : "calc(25vw - 20px)"}
       flexShrink={0}
       className="btn-solid clicky"
       transition={"200ms"}
@@ -46,6 +54,7 @@ const BerandaMenuItem = ({ menu, notifCount }: ItemProps) => {
         navigate(menu.link);
       }}
       isDisabled={!menu.jenis_karyawan.includes(jenisKaryawan)}
+      {...props}
     >
       <Box position={"relative"}>
         <NotifCount
@@ -79,30 +88,9 @@ export default function BerandaMenus() {
     dependencies: [],
   });
 
-  // const containerRef = useRef<HTMLDivElement | null>(null);
-  // const [indicatorTranslateRight, setIndicatorTranslateRight] = useState(0);
-  // const [indicatorContainerWidth, setIndicatorContainerWidth] =
-  //   useState<number>(20);
+  const chunkedBerandaMenus = chunkArray(berandaMenus, 8);
 
-  // const handleScroll = () => {
-  //   const container = containerRef.current;
-  //   if (container) {
-  //     const containerWidth = container.offsetWidth;
-  //     const containerScrollLeft = container.scrollLeft;
-  //     const containerScrollWidth = container.scrollWidth;
-  //     const containerMaxScrollWidth = containerScrollWidth - containerWidth;
-
-  //     const containerScaleToIndicator = 10 / containerWidth;
-  //     setIndicatorContainerWidth(
-  //       10 * 2 + containerMaxScrollWidth * containerScaleToIndicator
-  //     );
-  //     setIndicatorTranslateRight(
-  //       containerScaleToIndicator * containerScrollLeft
-  //     );
-  //   }
-  // };
-
-  // const sw = useScreenWidth();
+  const berandaContainerRef = useRef(null);
 
   return (
     <VStack gap={0} align={"stretch"}>
@@ -117,49 +105,52 @@ export default function BerandaMenus() {
       />
 
       <Box
-        id="berandaMenuContainer"
-        w={"100%"}
+        ref={berandaContainerRef}
         overflowX={"auto"}
+        w={"100%"}
         className="noScroll"
-        // ref={containerRef}
-        // onScroll={handleScroll}
+        scrollSnapType={"x mandatory"}
       >
-        <Wrap
+        <HStack
+          id="berandaMenuContainer"
           px={5}
-          spacing={3}
-          // w={
-          //   sw >= 720
-          //     ? "calc((160px * 5)  + 40px + (12px * 4))"
-          //     : "calc(((25vw - 20px) * 6) + 12px)"
-          // }
-          w={"100%"}
+          w={"max-content"}
+          gap={0}
+          align={"stretch"}
         >
-          {berandaMenus.map((menu, i) => (
-            <BerandaMenuItem key={i} menu={menu} notifCount={data?.[i]} />
+          {chunkedBerandaMenus.map((bm, i) => (
+            <SimpleGrid
+              key={i}
+              scrollSnapAlign={"center"}
+              columns={4}
+              gap={3}
+              px={5}
+              w={"100vw"}
+              maxW={"720px"}
+            >
+              {bm.map((menu, ii) => (
+                <BerandaMenuItem
+                  key={ii}
+                  menu={menu}
+                  notifCount={data?.[ii]}
+                  // scrollSnapAlign={"center"}
+                />
+              ))}
+            </SimpleGrid>
           ))}
-        </Wrap>
+        </HStack>
       </Box>
-      {/* 
-      <HStack
+
+      {/* Panel Indicator */}
+      <Box
+        w={"30px"}
+        bg={"var(--divider3)"}
         mx={"auto"}
-        w={`${indicatorContainerWidth}px`}
-        h={"5px"}
         mt={3}
-        bg={"var(--divider2)"}
         borderRadius={"full"}
-        position="relative"
-        zIndex={2}
       >
-        <Box
-          id="berandaMenuIndicator"
-          h={"5px"}
-          w={"10px"}
-          bg={"var(--p500)"}
-          borderRadius={"full"}
-          position="absolute"
-          left={`${indicatorTranslateRight * 5}px`}
-        />
-      </HStack> */}
+        <Box h={"4px"} w={"20px"} bg={"p.500"} borderRadius={"full"} />
+      </Box>
     </VStack>
   );
 }
