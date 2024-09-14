@@ -1,4 +1,5 @@
 import {
+  Badge,
   Button,
   FormControl,
   FormErrorMessage,
@@ -88,7 +89,7 @@ export default function LengkapiDataUser2() {
     },
   });
 
-  // console.log(formik.values.keluarga);
+  console.log(formik.values.keluarga);
 
   return (
     <Container px={5}>
@@ -255,6 +256,16 @@ export default function LengkapiDataUser2() {
                         >
                           {anggota.email}
                         </Text>
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>Tanggungan BPJS</Text>
+                        <FlexLine />
+                        <Badge
+                          borderRadius={"full"}
+                          colorScheme={anggota.is_bpjs ? "green" : "red"}
+                        >
+                          {anggota.is_bpjs ? "Ya" : "Tidak"}
+                        </Badge>
                       </HStack>
                     </>
                   </VStack>

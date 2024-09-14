@@ -6,6 +6,7 @@ import CContainer from "../components/independent/wrapper/CContainer";
 import Container from "../components/independent/wrapper/Container";
 import getUserData from "../lib/getUserData";
 import { Link } from "react-router-dom";
+import { ColorModeSwitcher } from "../ColorModeSwitcher";
 
 export default function Login() {
   // SX
@@ -16,7 +17,8 @@ export default function Login() {
   return (
     <Container px={5}>
       <CContainer flex={1}>
-        <HStack py={4}>
+        <HStack py={5}>
+          <ColorModeSwitcher className="btn-solid" />
           <BantuanButton />
         </HStack>
 
