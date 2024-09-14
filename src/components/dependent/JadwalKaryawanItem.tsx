@@ -362,7 +362,7 @@ export default function JadwalKaryawanItem({
         } - Minggu ${getWeekOfMonth(data.tgl_mulai)}`}</Text>
 
         <Text fontWeight={600} opacity={data.shift?.jam_from ? 1 : 0.6}>
-          {formatDate(data.tgl_mulai)}
+          {formatDate(data.tgl_mulai, "long")}
         </Text>
 
         {data?.shift?.jam_from && data?.shift?.jam_to && (

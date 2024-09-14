@@ -60,7 +60,7 @@ export default function JadwalItem({
           opacity={data.shift?.jam_from ? 1 : 0.6}
           whiteSpace={"nowrap"}
         >
-          {formatDate(data.tgl_mulai)}
+          {formatDate(data.tgl_mulai, "long")}
         </Text>
 
         {data?.shift?.jam_from && data?.shift?.jam_to && (

@@ -65,7 +65,7 @@ export default function DetailJadwal({
         size={"full"}
       >
         <ModalOverlay />
-        <ModalContent m={0}>
+        <ModalContent m={0} border={"none"}>
           <ModalHeader>
             <Header
               left={"back"}

@@ -69,7 +69,7 @@ export default function DetailKaryawan({
         size={"full"}
       >
         <ModalOverlay />
-        <ModalContent m={0}>
+        <ModalContent m={0} border={"none"}>
           <ModalHeader>
             <ModalHeader>
               <Header
