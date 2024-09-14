@@ -70,7 +70,7 @@ export default function EditDataPersonalForm({ data }: Props) {
           }
         : undefined,
       tinggi_badan: data?.tinggi_badan,
-      berat_badan: data?.tinggi_badan,
+      berat_badan: data?.berat_badan,
       alamat: data?.alamat,
       no_ijazah: data?.no_ijasah,
       pendidikan_terakhir: data?.pendidikan_terakhir,
