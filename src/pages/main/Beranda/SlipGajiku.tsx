@@ -82,10 +82,6 @@ const PassWordVerification = ({
               isClosable: true,
             });
             setPasswordValid(true);
-            setTimeout(() => {
-              backOnClose();
-            }, 10);
-            // onClose();
           }
         })
         .catch((e) => {
@@ -201,20 +197,35 @@ export default function SlipGajiku() {
     dependencies: [passwordValid, bulan, tahun],
   });
 
+  // console.log("password validdation popup", passwordValidation);
+  // console.log("password valid", passwordValid);
+
+  useEffect(() => {
+    if (passwordValid) {
+      backOnClose();
+    }
+  }, [passwordValid]);
+
   useEffect(() => {
     if (!passwordValidation) {
       if (!passwordValid) {
         backOnClose();
-        console.log("password invalid");
       }
     }
-  }, [passwordValidation, passwordValid]);
+  }, [passwordValidation]);
+
+  // useEffect(() => {
+  //   if (!passwordValidation) {
+  //     if (!passwordValid) {
+  //       backOnClose();
+  //       console.log("password invalid");
+  //     }
+  //   }
+  // }, [passwordValidation, passwordValid]);
 
   // SX
   const contentBgColor = useContentBgColor();
   const lightDarkColor = useLightDarkColor();
-
-  // console.log(passwordValid, passwordValidation);
 
   const totalPendapatan = () => {
     if (data && data.detail_gaji) {
