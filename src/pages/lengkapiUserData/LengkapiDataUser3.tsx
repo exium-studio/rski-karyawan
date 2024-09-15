@@ -47,14 +47,10 @@ export default function LengkapiDataUser3() {
       npwp: "",
     },
     validationSchema: yup.object().shape({
-      str: yup.string().required("Harus diisi"),
-      masa_berlaku_str: noLimitStr
-        ? yup.mixed()
-        : yup.string().required("Harus diisi"),
-      sip: yup.string().required("Harus diisi"),
-      masa_berlaku_sip: noLimitSip
-        ? yup.mixed()
-        : yup.string().required("Harus diisi"),
+      str: yup.string(),
+      masa_berlaku_str: yup.mixed(),
+      sip: yup.string(),
+      masa_berlaku_sip: yup.mixed(),
       bpjsKesehatan: yup.string().required("Harus diisi"),
       bpjsKetenagakerjaan: yup.string(),
       npwp: yup.string().required("Harus diisi"),
@@ -64,13 +60,15 @@ export default function LengkapiDataUser3() {
 
       const payload = {
         no_str: values.str,
-        masa_berlaku_str: values.masa_berlaku_sip
-          ? formatDate(values.masa_berlaku_sip, "short2")
-          : "Seumur Hidup",
+        masa_berlaku_str:
+          values.masa_berlaku_sip !== "Seumur Hidup"
+            ? formatDate(values.masa_berlaku_sip, "short2")
+            : "Seumur Hidup",
         no_sip: values.sip,
-        masa_berlaku_sip: values.masa_berlaku_sip
-          ? formatDate(values.masa_berlaku_sip, "short2")
-          : "Seumur Hidup",
+        masa_berlaku_sip:
+          values.masa_berlaku_sip !== "Seumur Hidup"
+            ? formatDate(values.masa_berlaku_sip, "short2")
+            : "Seumur Hidup",
         no_bpjsksh: values.bpjsKesehatan,
         no_bpjsktk: values.bpjsKetenagakerjaan,
         npwp: values.npwp,
@@ -109,6 +107,7 @@ export default function LengkapiDataUser3() {
   });
 
   // SX
+  // console.log(formik.values);
 
   return (
     <Container>
@@ -132,7 +131,7 @@ export default function LengkapiDataUser3() {
             <FormControl mb={4} isInvalid={formik.errors.str ? true : false}>
               <FormLabel>
                 No. STR
-                <RequiredForm />
+                {/* <RequiredForm /> */}
               </FormLabel>
               <StringInput
                 name="str"
@@ -151,7 +150,7 @@ export default function LengkapiDataUser3() {
             >
               <FormLabel>
                 Masa Berlaku STR
-                <RequiredForm />
+                {/* <RequiredForm /> */}
               </FormLabel>
               <DatePickerDrawer
                 id="lengkapi-data-user-3-select-masa-berlaku-str"
@@ -159,7 +158,11 @@ export default function LengkapiDataUser3() {
                 onConfirm={(inputValue) => {
                   formik.setFieldValue("masa_berlaku_str", inputValue);
                 }}
-                inputValue={formik.values.masa_berlaku_str}
+                inputValue={
+                  formik.values.masa_berlaku_str !== "Seumur Hidup"
+                    ? formik.values.masa_berlaku_str
+                    : undefined
+                }
                 isError={!!formik.errors.masa_berlaku_str}
                 isDisabled={noLimitStr}
               />
@@ -168,6 +171,8 @@ export default function LengkapiDataUser3() {
                 onChange={(e) => {
                   setNoLimitStr(e.target.checked);
                   if (e.target.checked) {
+                    formik.setFieldValue("masa_berlaku_str", "Seumur Hidup");
+                  } else {
                     formik.setFieldValue("masa_berlaku_str", undefined);
                   }
                 }}
@@ -186,7 +191,7 @@ export default function LengkapiDataUser3() {
             <FormControl mb={4} isInvalid={formik.errors.sip ? true : false}>
               <FormLabel>
                 No. SIP
-                <RequiredForm />
+                {/* <RequiredForm /> */}
               </FormLabel>
               <StringInput
                 name="sip"
@@ -202,7 +207,7 @@ export default function LengkapiDataUser3() {
             <FormControl mb={4} isInvalid={!!formik.errors.masa_berlaku_sip}>
               <FormLabel>
                 Masa Berlaku SIP
-                <RequiredForm />
+                {/* <RequiredForm /> */}
               </FormLabel>
               <DatePickerDrawer
                 id="lengkapi-data-user-3-select-masa-berlaku-sip"
@@ -210,7 +215,11 @@ export default function LengkapiDataUser3() {
                 onConfirm={(inputValue) => {
                   formik.setFieldValue("masa_berlaku_sip", inputValue);
                 }}
-                inputValue={formik.values.masa_berlaku_sip}
+                inputValue={
+                  formik.values.masa_berlaku_sip !== "Seumur Hidup"
+                    ? formik.values.masa_berlaku_sip
+                    : undefined
+                }
                 isError={!!formik.errors.masa_berlaku_sip}
                 isDisabled={noLimitSip}
               />
@@ -218,7 +227,9 @@ export default function LengkapiDataUser3() {
                 colorScheme="ap"
                 onChange={(e) => {
                   setNoLimitSip(e.target.checked);
-                  if (e.target.checked) {
+                  if (!e.target.checked) {
+                    formik.setFieldValue("masa_berlaku_sip", "Seumur Hidup");
+                  } else {
                     formik.setFieldValue("masa_berlaku_sip", undefined);
                   }
                 }}

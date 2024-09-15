@@ -20,7 +20,7 @@ import Container from "../../components/independent/wrapper/Container";
 import useDcs from "../../global/useAuth";
 import useScrollToTop from "../../hooks/useScrollToTop";
 import req from "../../lib/req";
-import { getCookie } from "typescript-cookie";
+import { getCookie, removeCookie } from "typescript-cookie";
 
 export default function LengkapiDataUser5() {
   useScrollToTop();
@@ -60,6 +60,7 @@ export default function LengkapiDataUser5() {
         .then((r) => {
           if (r.status === 200) {
             setDcs(0);
+            removeCookie("__auth_token");
             navigate("/beranda");
             toast({
               status: "success",
