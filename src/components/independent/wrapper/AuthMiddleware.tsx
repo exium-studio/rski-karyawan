@@ -1,7 +1,7 @@
 import { Icon, useToast, VStack } from "@chakra-ui/react";
 import { RiShieldUserFill } from "@remixicon/react";
 import { ReactNode, useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { getCookie } from "typescript-cookie";
 import useAuth from "../../../global/useAuth";
 import req from "../../../lib/req";
@@ -77,6 +77,9 @@ export default function AuthMiddleware({
   // console.log(statusAktif, dcs);
   // console.log(ldp, dcs, statusAktif, allowedJenisKaryawan, jenisKaryawan);
 
+  const location = useLocation();
+  const pathname = location.pathname;
+
   return (
     <>
       {loading && (
@@ -99,47 +102,56 @@ export default function AuthMiddleware({
 
       {!loading && (
         <>
-          {!authToken && <Navigate to={"/"} />}
-
-          {authToken && (
+          {pathname === "/login" ? (
+            children
+          ) : (
             <>
-              {ldp && (
+              {!authToken && <Navigate to={"/"} />}
+
+              {authToken && (
                 <>
-                  {dcs === 0 && <Navigate to={"/beranda"} />}
-
-                  {ldp !== dcs && dcs !== 0 && (
-                    <Navigate to={`/lengkapi-data-personal-${dcs}`} />
-                  )}
-
-                  {ldp === dcs && children}
-                </>
-              )}
-              {!ldp && (
-                <>
-                  {dcs === 0 && statusAktif !== 2 && <Navigate to={"/"} />}
-
-                  {dcs === 0 && statusAktif === 2 && (
+                  {ldp && (
                     <>
-                      {allowedJenisKaryawan && (
-                        <>
-                          {typeof jenisKaryawan === "number" && (
-                            <>
-                              {allowedJenisKaryawan.includes(jenisKaryawan) ? (
-                                children
-                              ) : (
-                                <Navigate to={"/"} />
-                              )}
-                            </>
-                          )}
-                        </>
+                      {dcs === 0 && <Navigate to={"/beranda"} />}
+
+                      {ldp !== dcs && dcs !== 0 && (
+                        <Navigate to={`/lengkapi-data-personal-${dcs}`} />
                       )}
 
-                      {!allowedJenisKaryawan && children}
+                      {ldp === dcs && children}
                     </>
                   )}
 
-                  {dcs !== 0 && (
-                    <Navigate to={`/lengkapi-data-personal-${dcs}`} />
+                  {!ldp && (
+                    <>
+                      {dcs === 0 && statusAktif !== 2 && <Navigate to={"/"} />}
+
+                      {dcs === 0 && statusAktif === 2 && (
+                        <>
+                          {allowedJenisKaryawan && (
+                            <>
+                              {typeof jenisKaryawan === "number" && (
+                                <>
+                                  {allowedJenisKaryawan.includes(
+                                    jenisKaryawan
+                                  ) ? (
+                                    children
+                                  ) : (
+                                    <Navigate to={"/"} />
+                                  )}
+                                </>
+                              )}
+                            </>
+                          )}
+
+                          {!allowedJenisKaryawan && children}
+                        </>
+                      )}
+
+                      {dcs !== 0 && (
+                        <Navigate to={`/lengkapi-data-personal-${dcs}`} />
+                      )}
+                    </>
                   )}
                 </>
               )}

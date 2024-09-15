@@ -10,19 +10,20 @@ import {
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { setCookie } from "typescript-cookie";
 import * as yup from "yup";
+import useAuth from "../../global/useAuth";
+import useAutoNavigate from "../../hooks/useAutoNavigate";
 import req from "../../lib/req";
 import PasswordInput from "../dependent/input/PasswordInput";
 import StringInput from "../dependent/input/StringInput";
-import useAuth from "../../global/useAuth";
 
 export default function LoginForm() {
   const toast = useToast();
-  const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const { setDcs, setStatusAktif, setJenisKaryawan } = useAuth();
+  const autoNavigate = useAutoNavigate();
 
   const formik = useFormik({
     validateOnChange: false,
@@ -54,8 +55,11 @@ export default function LoginForm() {
             setCookie("__auth_token", userData.arrtoken.token);
             localStorage.setItem("__user_data", JSON.stringify(userData));
 
-            //TODO tambahkan logic navigasi
-            navigate("/beranda");
+            autoNavigate(
+              userData.arrtoken.token,
+              userData.data_completion_step,
+              userData.status_aktif
+            );
 
             toast({
               status: "success",

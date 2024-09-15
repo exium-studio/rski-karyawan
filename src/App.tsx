@@ -96,7 +96,14 @@ export const App = () => {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/onboarding" element={<Onboarding />} />
-            <Route path="/login" element={<Login />} />
+            <Route
+              path="/login"
+              element={
+                <AuthMiddleware>
+                  <Login />
+                </AuthMiddleware>
+              }
+            />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route
               path="/forgot-password-email-verif"
