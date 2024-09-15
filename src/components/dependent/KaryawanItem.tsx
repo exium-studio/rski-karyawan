@@ -30,14 +30,20 @@ export default function KaryawanItem({
       _active={{ opacity: 0.6 }}
       className="clicky"
       w={"100%"}
-      overflow={"hidden"}
       {...props}
     >
-      <HStack>
+      <HStack flex={1}>
         <Avatar name={data.user.nama} src={data.user.foto_profil || ""} />
 
-        <CContainer>
-          <Text noOfLines={1}>{data.user.nama}</Text>
+        <CContainer flex={1}>
+          <Text
+            whiteSpace={"nowrap"}
+            overflow={"hidden"}
+            textOverflow={"ellipsis"}
+            maxW={"140px"}
+          >
+            {data.user.nama}
+          </Text>
           <Text fontSize={12} opacity={0.4} noOfLines={1}>
             {data?.kompetensi?.nama_kompetensi || "Tidak Ada Kompetensi "}
           </Text>

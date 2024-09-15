@@ -7,8 +7,11 @@ import {
   Icon,
   IconButton,
   Text,
+  useDisclosure,
+  useToast,
+  VStack,
 } from "@chakra-ui/react";
-import { RiCloseLine, RiSearchLine } from "@remixicon/react";
+import { RiCloseLine, RiDeleteBinLine, RiSearchLine } from "@remixicon/react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import SearchComponent from "../../../components/dependent/input/SearchComponent";
@@ -22,6 +25,113 @@ import { iconSize } from "../../../constant/sizes";
 import useDataState from "../../../hooks/useDataState";
 import useScrollToTop from "../../../hooks/useScrollToTop";
 import timeSince from "../../../lib/timeSince";
+import CustomDrawer from "../../../components/independent/wrapper/CustomDrawer";
+import BackOnCloseButton from "../../../components/independent/BackOnCloseButton";
+import backOnClose from "../../../lib/backOnClose";
+import useRenderTrigger from "../../../global/useRenderTrigger";
+import req from "../../../lib/req";
+
+const DeleteInbox = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const toast = useToast();
+  const { rt, setRt } = useRenderTrigger();
+
+  function handleDeleteInbox() {
+    // TODO api delete inbox
+
+    req
+      .delete(``)
+      .then((r) => {
+        if (r.status === 200) {
+          setRt(!rt);
+          backOnClose();
+          toast({
+            status: "success",
+            title: r.data.message,
+            position: "top",
+            isClosable: true,
+          });
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        toast({
+          status: "error",
+          title:
+            (typeof e?.response?.data?.message === "string" &&
+              (e?.response?.data?.message as string)) ||
+            "Maaf terjadi kesalahan pada sistem",
+          position: "top",
+          isClosable: true,
+        });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
+  return (
+    <>
+      <IconButton
+        aria-label="delete inbox"
+        icon={<Icon as={RiDeleteBinLine} fontSize={iconSize} />}
+        colorScheme="red"
+        variant={"ghost"}
+        className="clicky"
+        borderRadius={"full"}
+        size={"sm"}
+        onClick={onOpen}
+      />
+
+      <CustomDrawer
+        id="log-out-confirmation"
+        name="logout"
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+      >
+        <Box pt={"18px"} pr={5} pb={5} pl={6}>
+          <HStack justify={"space-between"}>
+            <Text fontSize={16} fontWeight={600}>
+              Hapus Semua yang Sidah Dibaca
+            </Text>
+            <BackOnCloseButton aria-label="back on close button" />
+          </HStack>
+        </Box>
+
+        <Box px={6} overflowY={"auto"} className="scrollY">
+          <Text>
+            Apakah anda yakin akan menghapus semua inbox yang sudah ditandai
+            dibaca?
+          </Text>
+        </Box>
+
+        <VStack p={6} pb={8}>
+          <Button
+            onClick={backOnClose}
+            w={"100%"}
+            className="btn-solid clicky"
+            isDisabled={loading}
+          >
+            Tidak
+          </Button>
+
+          <Button
+            w={"100%"}
+            className="clicky"
+            colorScheme="red"
+            onClick={handleDeleteInbox}
+            isLoading={loading}
+          >
+            Ya
+          </Button>
+        </VStack>
+      </CustomDrawer>
+    </>
+  );
+};
 
 export default function Inbox() {
   useScrollToTop();
@@ -82,10 +192,9 @@ export default function Inbox() {
           zIndex={99}
           w={"100%"}
         >
-          <HStack
-            w={searchMode ? "0px" : "40px"}
-            ml={searchMode ? "-12px" : ""}
-          ></HStack>
+          <HStack w={"40px"}>
+            <DeleteInbox />
+          </HStack>
 
           {!searchMode && (
             <Text
@@ -178,10 +287,6 @@ export default function Inbox() {
 
                 {(fd || (fd && fd.length > 0)) && (
                   <>
-                    <Button className="btn-solid clicky">
-                      Hapus Semua yang Sudah Dibaca
-                    </Button>
-
                     <Alert>
                       <AlertDescription>
                         Klik untuk tandai sudah dibaca
