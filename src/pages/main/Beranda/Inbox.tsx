@@ -1,4 +1,13 @@
-import { Box, HStack, Icon, IconButton, Text } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertDescription,
+  Box,
+  Button,
+  HStack,
+  Icon,
+  IconButton,
+  Text,
+} from "@chakra-ui/react";
 import { RiCloseLine, RiSearchLine } from "@remixicon/react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
@@ -147,6 +156,7 @@ export default function Inbox() {
             )}
           </>
         )}
+
         {!error && (
           <>
             {loading && (
@@ -168,6 +178,16 @@ export default function Inbox() {
 
                 {(fd || (fd && fd.length > 0)) && (
                   <>
+                    <Button className="btn-solid clicky">
+                      Hapus Semua yang Sudah Dibaca
+                    </Button>
+
+                    <Alert>
+                      <AlertDescription>
+                        Klik untuk tandai sudah dibaca
+                      </AlertDescription>
+                    </Alert>
+
                     {fd.map((inbox: any, i: number) => (
                       <Link key={i} to={inbox?.kategori_notifikasi?.link}>
                         <CContainer
