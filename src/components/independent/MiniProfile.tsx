@@ -8,6 +8,7 @@ import {
   IconButton,
   StackProps,
   Text,
+  useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import {
@@ -43,8 +44,10 @@ const InfoPresensi = () => {
         borderRadius={"full"}
         className="clicky"
         colorScheme="whiteAlpha"
+        _hover={{ bg: useColorModeValue("whiteAlpha.200", "whiteAlpha.100") }}
         variant={"ghost"}
         ml={"auto"}
+        mb={"auto"}
         color={"white"}
         onClick={onOpen}
       />
