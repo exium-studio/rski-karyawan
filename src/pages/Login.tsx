@@ -18,12 +18,17 @@ export default function Login() {
     <Container px={5}>
       <CContainer flex={1}>
         <HStack py={5}>
-          <ColorModeSwitcher className="btn-solid" />
-          <BantuanButton />
+          <ColorModeSwitcher
+            colorScheme="ap"
+            variant={"ghost"}
+            color={"p.500"}
+            ml={"auto"}
+          />
+          <BantuanButton ml={"0"} />
         </HStack>
 
         <CContainer flex={1} align={"center"} justify={"center"}>
-          <Image src={`/images/logo.webp`} w={"100%"} maxW={"280px"} />
+          <Image src={`/images/logo.webp`} w={"100%"} maxW={"260px"} />
         </CContainer>
 
         <Box mt={"auto"}>
@@ -31,7 +36,7 @@ export default function Login() {
 
           {authToken && (
             <CContainer>
-              <Text fontWeight={600} fontSize={18} mb={2}>
+              <Text fontWeight={600} fontSize={18} mb={2} textAlign={"center"}>
                 Selamat Datang Kembali!
               </Text>
 
