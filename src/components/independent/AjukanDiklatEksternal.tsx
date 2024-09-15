@@ -29,6 +29,7 @@ import Textarea from "../dependent/input/Textarea";
 import StringInput from "../dependent/input/StringInput";
 import TimePickerDrawer from "../dependent/input/TimePickerDrawer";
 import FileInput from "../dependent/input/FileInput";
+import formatDate from "../../lib/formatDate";
 
 export default function AjukanDiklatEksternal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -66,8 +67,14 @@ export default function AjukanDiklatEksternal() {
 
       payload.append("nama", values.nama);
       payload.append("deskripsi", values.deskripsi);
-      payload.append("tgl_mulai", values?.date_range?.from);
-      payload.append("tgl_selesai", values?.date_range?.to);
+      payload.append(
+        "tgl_mulai",
+        formatDate(values?.date_range?.from, "short2")
+      );
+      payload.append(
+        "tgl_selesai",
+        formatDate(values?.date_range?.to, "short2")
+      );
       payload.append("jam_mulai", values.jam_mulai);
       payload.append("jam_selesai", values.jam_selesai);
       payload.append("lokasi", values.lokasi);
