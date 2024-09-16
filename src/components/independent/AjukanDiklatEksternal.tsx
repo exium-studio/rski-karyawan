@@ -273,6 +273,7 @@ export default function AjukanDiklatEksternal() {
                   formik.setFieldValue("dokumen", inputValue);
                 }}
                 inputValue={formik.values.dokumen}
+                accept={".jpg, .JPG, .png, .PNG, .pdf, .PDF"}
                 isError={!!formik.errors.dokumen}
               />
               <FormErrorMessage>

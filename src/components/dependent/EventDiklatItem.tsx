@@ -141,6 +141,8 @@ export default function EventDiklatItem({ data, ...props }: Props) {
         <Img
           src={data?.path || "/vectors/noImage.svg"}
           fallbackSrc="/vectors/noImage.svg"
+          aspectRatio={"16/10"}
+          objectFit={"cover"}
         />
         <CContainer p={4} gap={2}>
           <HStack justify={"space-between"}>
