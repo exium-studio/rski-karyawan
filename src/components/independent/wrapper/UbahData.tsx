@@ -100,7 +100,7 @@ export default function UbahData({ title, active, children, ...props }: Props) {
           <TabList
             h={"40px"}
             w={"100%"}
-            borderTop={"1px solid var(--divider2)"}
+            // borderTop={"1px solid var(--divider2)"}
             borderBottom={"1px solid var(--divider2)"}
           >
             <Tab
