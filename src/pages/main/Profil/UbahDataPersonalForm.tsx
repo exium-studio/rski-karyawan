@@ -36,6 +36,7 @@ import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
 import formatNumber from "../../../lib/formatNumber";
 import parseNumber from "../../../lib/parseNumber";
+import SingleSelectPendidikan from "../../../components/dependent/input/dedicated/SingleSelectPendidikan";
 
 interface Props {
   data: any;
@@ -47,7 +48,7 @@ export default function EditDataPersonalForm({ data }: Props) {
     initialValues: {
       foto_profil: data?.user?.foto_profil || undefined,
       tempat_lahir: data?.tempat_lahir,
-      tgl_lahir: new Date(data?.tanggal_lahir) || undefined,
+      tgl_lahir: new Date(formatDate(data?.tanggal_lahir, "iso")) || undefined,
       telepon: data?.no_hp,
       jenis_kelamin: data?.jenis_kelamin
         ? {
@@ -73,7 +74,12 @@ export default function EditDataPersonalForm({ data }: Props) {
       berat_badan: data?.berat_badan,
       alamat: data?.alamat,
       no_ijazah: data?.no_ijasah,
-      pendidikan_terakhir: data?.pendidikan_terakhir,
+      pendidikan_terakhir: data?.pendidikan_terakhir
+        ? {
+            value: data?.pendidikan_terakhir?.id,
+            label: data?.pendidikan_terakhir?.label,
+          }
+        : undefined,
       tahun_lulus: data?.tahun_lulus?.toString(),
       gelar_depan: data?.gelar_depan,
       gelar_belakang: data?.gelar_belakang,
@@ -537,15 +543,15 @@ export default function EditDataPersonalForm({ data }: Props) {
           <RequiredForm />
         </FormLabel>
         <HStack>
-          <StringInput
+          {/* <StringInput
             name="pendidikan_terakhir"
             placeholder="S1 Akuntansi"
             onChangeSetter={(input) => {
               formik.setFieldValue("pendidikan_terakhir", input);
             }}
             inputValue={formik.values.pendidikan_terakhir}
-          />
-          {/* <SingleSelectPendidikan
+          /> */}
+          <SingleSelectPendidikan
             id="lengkapi-step-1"
             name="pendidikan_terakhir"
             placeholder="Sarjana 1"
@@ -553,7 +559,7 @@ export default function EditDataPersonalForm({ data }: Props) {
               formik.setFieldValue("pendidikan_terakhir", input);
             }}
             inputValue={formik.values.pendidikan_terakhir}
-          /> */}
+          />
           <RequestPatchDataButton
             validator={() => {
               formik.validateField("pendidikan_terakhir");

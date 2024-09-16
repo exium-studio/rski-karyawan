@@ -33,6 +33,7 @@ import formatNumber from "../../lib/formatNumber";
 import getUserData from "../../lib/getUserData";
 import parseNumber from "../../lib/parseNumber";
 import req from "../../lib/req";
+import SingleSelectPendidikan from "../../components/dependent/input/dedicated/SingleSelectPendidikan";
 
 export default function LengkapiDataUser1() {
   useScrollToTop();
@@ -82,7 +83,7 @@ export default function LengkapiDataUser1() {
       alamat: yup.string().required("Harus diisi"),
       no_ijazah: yup.string().required("Harus diisi"),
       tahun_lulus: yup.string().required("Harus diisi"),
-      pendidikan_terakhir: yup.string().required("Harus diisi"),
+      pendidikan_terakhir: yup.object().required("Harus diisi"),
       gelar_depan: yup.string(),
       gelar_belakang: yup.string(),
     }),
@@ -394,7 +395,7 @@ export default function LengkapiDataUser1() {
                       ? ""
                       : formatNumber(formik.values.berat_badan)
                   }
-                  placeholder="179"
+                  placeholder="70"
                 />
               </InputGroup>
               <FormErrorMessage>
@@ -428,15 +429,15 @@ export default function LengkapiDataUser1() {
                 Pendidikan Terakhir
                 <RequiredForm />
               </FormLabel>
-              <StringInput
+              {/* <StringInput
                 name="pendidikan_terakhir"
                 placeholder="S1 Akuntansi"
                 onChangeSetter={(input) => {
                   formik.setFieldValue("pendidikan_terakhir", input);
                 }}
                 inputValue={formik.values.pendidikan_terakhir}
-              />
-              {/* <SingleSelectPendidikan
+              /> */}
+              <SingleSelectPendidikan
                 id="lengkapi-step-1"
                 name="pendidikan_terakhir"
                 placeholder="Sarjana 1"
@@ -444,7 +445,7 @@ export default function LengkapiDataUser1() {
                   formik.setFieldValue("pendidikan_terakhir", input);
                 }}
                 inputValue={formik.values.pendidikan_terakhir}
-              /> */}
+              />
               <FormErrorMessage>
                 {formik.errors.pendidikan_terakhir as string}
               </FormErrorMessage>
@@ -466,15 +467,6 @@ export default function LengkapiDataUser1() {
                 }}
                 inputValue={formik.values.asal_sekolah}
               />
-              {/* <SingleSelectPendidikan
-                id="lengkapi-step-1"
-                name="asal_sekolah"
-                placeholder="Sarjana 1"
-                onConfirm={(input) => {
-                  formik.setFieldValue("asal_sekolah", input);
-                }}
-                inputValue={formik.values.asal_sekolah}
-              /> */}
               <FormErrorMessage>
                 {formik.errors.asal_sekolah as string}
               </FormErrorMessage>

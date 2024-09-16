@@ -25,6 +25,7 @@ import CustomDrawer from "../../../independent/wrapper/CustomDrawer";
 import StringInput from "../StringInput";
 import SelectHubunganKeluarga from "./SingleSelectHubunganKeluarga";
 import SelectStatusHidup from "./SingleSelectStatusHidup";
+import SingleSelectPendidikan from "./SingleSelectPendidikan";
 
 interface Props {
   id: string;
@@ -60,7 +61,7 @@ export default function AddFamily({
       hubungan: yup.object().required("Harus diisi"),
       nama_keluarga: yup.string().required("Harus diisi"),
       status_hidup: yup.object().required("Harus diisi"),
-      pendidikan_terakhir: yup.string().required("Harus diisi"),
+      pendidikan_terakhir: yup.object().required("Harus diisi"),
       pekerjaan: yup.string().required("Harus diisi"),
       no_hp: yup.string().required("Harus diisi"),
       email: yup.string().required("Harus diisi"),
@@ -180,15 +181,15 @@ export default function AddFamily({
                 Pendidikan Terakhir
                 <RequiredForm />
               </FormLabel>
-              <StringInput
+              {/* <StringInput
                 name="pendidikan_terakhir"
                 placeholder="S1 Akuntansi"
                 onChangeSetter={(input) => {
                   formik.setFieldValue("pendidikan_terakhir", input);
                 }}
                 inputValue={formik.values.pendidikan_terakhir}
-              />
-              {/* <SingleSelectPendidikan
+              /> */}
+              <SingleSelectPendidikan
                 id={`edit-family-${formik.values.nama_keluarga}`}
                 name="pendidikan_terakhir"
                 placeholder="Sarjana 1"
@@ -196,7 +197,8 @@ export default function AddFamily({
                   formik.setFieldValue("pendidikan_terakhir", input);
                 }}
                 inputValue={formik.values.pendidikan_terakhir}
-              /> */}
+                isError={!!formik.errors.pendidikan_terakhir}
+              />
               <FormErrorMessage>
                 {formik.errors.pendidikan_terakhir as string}
               </FormErrorMessage>

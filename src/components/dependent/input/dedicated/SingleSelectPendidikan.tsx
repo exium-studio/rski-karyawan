@@ -1,6 +1,7 @@
-import { ButtonProps } from "@chakra-ui/react";
+import { ButtonProps, useToast } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { Interface__SelectOption } from "../../../../constant/interfaces";
-import { optionsPendidikan } from "../../../../constant/selectOptions";
+import req from "../../../../lib/req";
 import SingleSelectDrawer from "../SingleSelectDrawer";
 
 interface Props extends ButtonProps {
@@ -29,11 +30,44 @@ export default function SingleSelectPendidikan({
   nonNullable,
   ...props
 }: Props) {
+  const toast = useToast();
+  const [options, setOptions] = useState<Interface__SelectOption[] | undefined>(
+    undefined
+  );
+
+  useEffect(() => {
+    if (!options) {
+      req
+        .get("/api/get-list-pendidikan")
+        .then((r) => {
+          if (r.status === 200) {
+            const options = r.data.data.map((item: any) => ({
+              value: item.id,
+              label: item.nama_unit,
+            }));
+            setOptions(options);
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          toast({
+            status: "error",
+            title:
+              (typeof e?.response?.data?.message === "string" &&
+                (e?.response?.data?.message as string)) ||
+              "Maaf terjadi kesalahan pada sistem",
+            isClosable: true,
+            position: "top",
+          });
+        });
+    }
+  }, [options, toast]);
+
   return (
     <SingleSelectDrawer
       id={id}
       name={name}
-      options={optionsPendidikan}
+      options={options}
       onConfirm={onConfirm}
       inputValue={inputValue}
       withSearch={withSearch}

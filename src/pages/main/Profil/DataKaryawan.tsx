@@ -561,7 +561,7 @@ export default function DataKaryawan() {
                           <HStack>
                             {data.pendidikan_terakhir && (
                               <Text fontWeight={500} textAlign={"right"}>
-                                {data?.pendidikan_terakhir}
+                                {data?.pendidikan_terakhir?.label}
                               </Text>
                             )}
                           </HStack>

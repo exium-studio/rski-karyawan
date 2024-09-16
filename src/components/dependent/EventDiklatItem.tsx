@@ -7,7 +7,7 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { RiCalendarLine } from "@remixicon/react";
+import { RiCalendarLine, RiCircleFill, RiTimeLine } from "@remixicon/react";
 import { useState } from "react";
 import { useLightDarkColor } from "../../constant/colors";
 import useRenderTrigger from "../../global/useRenderTrigger";
@@ -20,6 +20,8 @@ import CContainer from "../independent/wrapper/CContainer";
 import CustomDrawer from "../independent/wrapper/CustomDrawer";
 import DisclosureHeader from "./DisclosureHeader";
 import Img from "./Img";
+import formatTime from "../../lib/formatTime";
+import formatDuration from "../../lib/formatDuration";
 
 const KonfirmasiBergabung = ({ data }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -160,8 +162,20 @@ export default function EventDiklatItem({ data, ...props }: Props) {
           </Text>
 
           <HStack opacity={0.4}>
-            <Icon as={RiCalendarLine} />
-            <Text>{formatDate(data.created_at)}</Text>
+            <Icon as={RiCalendarLine} fontSize={14} />
+            <Text fontSize={12}>{`${formatDate(
+              data.tgl_mulai,
+              "short"
+            )} - ${formatDate(data.tgl_selesai, "short")}`}</Text>
+          </HStack>
+
+          <HStack opacity={0.4}>
+            <Icon as={RiTimeLine} fontSize={14} />
+            <Text fontSize={12}>{`${formatTime(data.jam_mulai)} - ${formatTime(
+              data.jam_selesai
+            )}`}</Text>
+            <Icon as={RiCircleFill} fontSize={8} opacity={0.2} />
+            <Text fontSize={12}>{formatDuration(data.durasi)}</Text>
           </HStack>
         </CContainer>
       </CContainer>
@@ -192,6 +206,7 @@ export default function EventDiklatItem({ data, ...props }: Props) {
             {/* <Text fontSize={12} opacity={0.4}>
               Kuota : {data.kuota}
             </Text> */}
+
             <Text fontWeight={500} fontSize={12}>
               Peserta: {formatNumber(data?.total_peserta) || 0}/{data.kuota}
             </Text>
@@ -202,8 +217,20 @@ export default function EventDiklatItem({ data, ...props }: Props) {
           </Text>
 
           <HStack opacity={0.4}>
-            <Icon as={RiCalendarLine} />
-            <Text>{formatDate(data.created_at)}</Text>
+            <Icon as={RiCalendarLine} fontSize={14} />
+            <Text fontSize={12}>{`${formatDate(
+              data.tgl_mulai,
+              "short"
+            )} - ${formatDate(data.tgl_selesai, "short")}`}</Text>
+          </HStack>
+
+          <HStack opacity={0.4}>
+            <Icon as={RiTimeLine} fontSize={14} />
+            <Text fontSize={12}>{`${formatTime(data.jam_mulai)} - ${formatTime(
+              data.jam_selesai
+            )}`}</Text>
+            <Icon as={RiCircleFill} fontSize={8} opacity={0.2} />
+            <Text fontSize={12}>{formatDuration(data.durasi)}</Text>
           </HStack>
 
           <Text opacity={0.6} mt={4}>
