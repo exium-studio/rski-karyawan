@@ -25,7 +25,8 @@ export default function Login() {
             colorScheme="ap"
             variant={"ghost"}
             color={"p.500"}
-            ml={"auto"}
+            mr={"auto"}
+            ml={0}
           />
           <BantuanButton ml={"0"} />
         </HStack>
