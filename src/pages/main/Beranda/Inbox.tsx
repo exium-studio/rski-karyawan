@@ -39,10 +39,8 @@ const DeleteInbox = () => {
   const { rt, setRt } = useRenderTrigger();
 
   function handleDeleteInbox() {
-    // TODO api delete inbox
-
     req
-      .delete(``)
+      .delete(`/api/destroy-read-notification`)
       .then((r) => {
         if (r.status === 200) {
           setRt(!rt);
