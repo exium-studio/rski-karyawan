@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "org.distrostudio.hr.twa",
+        "sha256_cert_fingerprints": ["65:54:73:5D:38:02:F9:20:96:5B:90:2E:22:24:AA:D3:DE:7C:7C:36:32:46:31:21:09:55:53:EA:55:4E:6F:75"]
+      }
+    }]
