@@ -25,6 +25,7 @@ import req from "../../lib/req";
 import { useState } from "react";
 import useRenderTrigger from "../../global/useRenderTrigger";
 import backOnClose from "../../lib/backOnClose";
+import formatDate from "../../lib/formatDate";
 
 export default function AjukanCuti() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -48,8 +49,8 @@ export default function AjukanCuti() {
 
       const payload = {
         date_range: values.date_range,
-        tgl_mulai: values?.date_range?.from,
-        tgl_selesai: values?.date_range?.to,
+        tgl_mulai: formatDate(values?.date_range?.from, "short"),
+        tgl_selesai: formatDate(values?.date_range?.to, "short"),
         jenis_cuti: values.jenis_cuti.value,
         //@ts-ignore
         durasi: countDateRange(values.date_range.from, values.date_range.to),
