@@ -170,6 +170,39 @@ export default function Inbox() {
 
   // TODO tambahi link berdasarkan kategori notifikasi
 
+  const toast = useToast();
+  const { rt, setRt } = useRenderTrigger();
+
+  function handleReadInbox(notifikasi_id: number, is_read: boolean) {
+    const url = `/api/read-notification`;
+    const payload = { notifikasi_id: JSON.stringify([notifikasi_id]) };
+    if (!is_read) {
+      req
+        .post(url, payload)
+        .then((r) => {
+          if (r.status === 200) {
+            setRt(!rt);
+            // backOnClose();
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          toast({
+            status: "error",
+            title:
+              (typeof e?.response?.data?.message === "string" &&
+                (e?.response?.data?.message as string)) ||
+              "Maaf terjadi kesalahan pada sistem",
+            position: "bottom-right",
+            isClosable: true,
+          });
+        })
+        .finally(() => {
+          // setLoading(false);
+        });
+    }
+  }
+
   return (
     <CContainer flex={1}>
       <Box
@@ -302,6 +335,10 @@ export default function Inbox() {
                           borderRadius={12}
                           cursor={"pointer"}
                           className="clicky"
+                          // border={"1px solid red"}
+                          onClick={() => {
+                            handleReadInbox(inbox.id, inbox.is_read);
+                          }}
                         >
                           <HStack align={"start"}>
                             <CContainer gap={1}>
