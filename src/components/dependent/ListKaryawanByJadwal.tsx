@@ -5,6 +5,7 @@ import NotFound from "../independent/NotFound";
 import Skeleton from "../independent/Skeleton";
 import CContainer from "../independent/wrapper/CContainer";
 import Retry from "./Retry";
+import NoData from "../independent/NoData";
 
 interface Props extends StackProps {
   jadwal_id: number;
@@ -43,7 +44,8 @@ export default function ListKaryawanByJadwal({ jadwal_id, ...props }: Props) {
 
           {!error && (
             <>
-              {data &&
+              {data.length === 0 && <NoData />}
+              {data.length > 0 &&
                 data.map((karyawan: any, i: number) => (
                   <DetailKaryawan
                     key={i}
