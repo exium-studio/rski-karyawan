@@ -6,7 +6,7 @@ import formatDate from "../../lib/formatDate";
 import formatDuration from "../../lib/formatDuration";
 import formatTime from "../../lib/formatTime";
 import Retry from "../dependent/Retry";
-import StatusApproval2Badge from "../dependent/StatusApproval2Badge";
+import StatusApprovalBadge from "../dependent/StatusApprovalBadge";
 import NoData from "./NoData";
 import Skeleton from "./Skeleton";
 import CContainer from "./wrapper/CContainer";
@@ -77,7 +77,7 @@ export default function ListIzin() {
                           </Text>
                         </CContainer>
 
-                        <StatusApproval2Badge data={izin?.statusizin} />
+                        <StatusApprovalBadge data={izin?.statusizin?.id} />
                       </HStack>
 
                       <CContainer gap={1}>
