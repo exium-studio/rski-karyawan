@@ -47,7 +47,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
 
   // SX
 
-  // console.log(formik.values.keluarga);
+  console.log(formik.values.keluarga);
 
   return (
     <>
@@ -244,6 +244,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                   }))
                 )}
                 url="/api/update-data-keluarga"
+                isDisabled={formik.values.keluarga?.length === 0}
               />
             </HStack>
             <FormErrorMessage>
