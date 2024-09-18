@@ -50,7 +50,7 @@ export default function AjukanIzin() {
       keterangan: yup.string().required("Harus diisi"),
     }),
     onSubmit: (values, { resetForm }) => {
-      // setLoading(true);
+      setLoading(true);
 
       const payload = {
         tgl_izin: formatDate(values.tgl_izin, "short2"),
@@ -59,7 +59,7 @@ export default function AjukanIzin() {
         keterangan: values.keterangan,
       };
 
-      console.log(payload);
+      // console.log(payload);
 
       req
         .post(`/api/store-izin`, payload)
