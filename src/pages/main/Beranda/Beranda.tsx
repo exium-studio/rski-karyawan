@@ -58,7 +58,7 @@ export default function Beranda() {
       bg={attendancePanelBg}
       flex={0}
       maxH={"calc(100vh - 80px)"}
-      // border={"1px solid red"}
+      border={"1px solid red"}
     >
       <CContainer
         minH={"520px"}
@@ -123,7 +123,7 @@ export default function Beranda() {
         minH={"calc(100vh - 160px)"}
         maxH={"calc(100vh - 80px)"}
         // className="noScroll"
-        // border={"1px solid green"}
+        border={"1px solid green"}
       >
         <CContainer
           id="berandaDrawer"
@@ -132,7 +132,7 @@ export default function Beranda() {
           bg={contentBgColor}
           borderRadius={"16px 16px 0 0"}
           // minH={"calc(100vh - 24px)"}
-          // border={"1px solid yellow"}
+          border={"1px solid yellow"}
           overflowY={"auto"}
           // pb={"95px"}
           // overflowY={isScrollToBottom ? "auto" : "clip"}

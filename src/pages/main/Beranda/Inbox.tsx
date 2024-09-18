@@ -1,6 +1,7 @@
 import {
   Alert,
   AlertDescription,
+  AlertIcon,
   Box,
   Button,
   HStack,
@@ -319,6 +320,7 @@ export default function Inbox() {
                 {(fd || (fd && fd.length > 0)) && (
                   <>
                     <Alert>
+                      <AlertIcon />
                       <AlertDescription>
                         Klik untuk tandai sudah dibaca
                       </AlertDescription>
