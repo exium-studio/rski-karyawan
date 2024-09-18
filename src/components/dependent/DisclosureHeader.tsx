@@ -25,7 +25,7 @@ export default function DisclosureHeader({
       // pb={"18px !important"}
       {...props}
     >
-      <HStack w={"100%"} justify={"space-between"}>
+      <HStack w={"100%"} align={"center !Important"} justify={"space-between"}>
         <Text fontSize={16} fontWeight={600}>
           {title}
         </Text>

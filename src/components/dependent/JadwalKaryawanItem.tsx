@@ -6,6 +6,7 @@ import {
   StackProps,
   Text,
   useDisclosure,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import {
@@ -14,46 +15,86 @@ import {
   RiArrowUpLine,
   RiLoginBoxLine,
   RiLogoutBoxLine,
-  RiUserLine,
 } from "@remixicon/react";
 import { getWeekOfMonth } from "date-fns";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLightDarkColor } from "../../constant/colors";
-import { dummyMySchedules } from "../../constant/dummy";
 import { Interface__Jadwal } from "../../constant/interfaces";
 import { iconSize } from "../../constant/sizes";
+import useAuth from "../../global/useAuth";
+import useDataState from "../../hooks/useDataState";
+import backOnClose from "../../lib/backOnClose";
 import formatDate from "../../lib/formatDate";
 import formatTime from "../../lib/formatTime";
+import req from "../../lib/req";
+import NoData from "../independent/NoData";
+import NotFound from "../independent/NotFound";
+import Skeleton from "../independent/Skeleton";
 import CContainer from "../independent/wrapper/CContainer";
 import CustomDrawer from "../independent/wrapper/CustomDrawer";
 import HorizontalScrollWrapperOnDrawer from "../independent/wrapper/HorizontalScrollWrapperOnDrawer";
 import DrawerHeader from "./DrawerHeader";
-import JadwalDitukarItem from "./JadwalDitukarItem";
 import JadwalItem from "./JadwalItem";
-import useAuth from "../../global/useAuth";
+import Retry from "./Retry";
 
-const TukarButton = ({ userId, data }: { userId?: number; data: any }) => {
+const TukarButton = ({
+  userId,
+  jadwalDitukar,
+}: {
+  userId?: number;
+  jadwalDitukar: any;
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [mySchedules] = useState<any[] | null>(dummyMySchedules);
   const [selected, setSelected] = useState<Interface__Jadwal | undefined>(
-    (mySchedules && mySchedules[0]) || undefined
+    undefined
   );
 
-  useEffect(() => {
-    // console.log("Drawer Closed", jadwalDitukarRef);
-    if (isOpen) {
-      // TODO: post kirim id jadwal ditukar dan get jadwal kita yang available untuk ditukar,
-      // entah shift entah libur, untuk shift kemungkinan cuman 1 karna tukar shift hanya bisa di tgl masuk yg sama
-    }
-  }, [isOpen]);
+  const { error, notFound, loading, data, retry } = useDataState<any>({
+    initialData: undefined,
+    url: `/api/get-jadwal/${jadwalDitukar?.id}/ditukar`,
+    conditions: isOpen,
+    dependencies: [isOpen, jadwalDitukar.id],
+  });
+
+  // console.log(data);
+
+  const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
+  const toast = useToast();
 
   function onConfirm() {
+    setLoadingSubmit(true);
+
     const payload = {
-      user_ditukar: userId,
-      jadwal_ditukar: data,
-      jadwal_pengajuan: selected,
+      // user_ditukar: userId,
+      jadwal_id_penukar: jadwalDitukar?.id,
+      jadwal_id_ditukar: selected?.id,
     };
-    console.log(payload);
+
+    req
+      .post(`/api/change-schedule`, payload)
+      .then((r) => {
+        if (r.status === 200) {
+          // setRt(!rt);
+          backOnClose();
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        toast({
+          status: "error",
+          title:
+            (typeof e?.response?.data?.message === "string" &&
+              (e?.response?.data?.message as string)) ||
+            "Maaf terjadi kesalahan pada sistem",
+          position: "bottom-right",
+          isClosable: true,
+        });
+      })
+      .finally(() => {
+        setLoadingSubmit(false);
+      });
+
+    // console.log(payload);
   }
 
   return (
@@ -80,7 +121,7 @@ const TukarButton = ({ userId, data }: { userId?: number; data: any }) => {
 
       <CustomDrawer
         id="tukar-jadwal-pilih-jadwal-anda"
-        name={data.id.toString()}
+        name={jadwalDitukar.id.toString()}
         isOpen={isOpen}
         onOpen={onOpen}
         onClose={onClose}
@@ -91,8 +132,9 @@ const TukarButton = ({ userId, data }: { userId?: number; data: any }) => {
               colorScheme="ap"
               className="btn-ap clicky"
               w={"100%"}
-              isDisabled={false}
+              isDisabled={!!!selected}
               onClick={onConfirm}
+              isLoading={loadingSubmit}
             >
               Konfirmasi
             </Button>
@@ -115,13 +157,19 @@ const TukarButton = ({ userId, data }: { userId?: number; data: any }) => {
             cursor={"pointer"}
             className="clicky"
             minH={"110px"}
-            minW={`calc(100vw - 48px)`}
+            w={"100%"}
+            // minW={`calc(100vw - 48px)`}
             _active={{ opacity: 0.6 }}
             mr={3}
             gap={0}
           >
-            <VStack w={"80px"} bg={"var(--divider)"} justify={"center"}>
-              <VStack gap={0}>
+            <VStack
+              // w={"80px"}
+              bg={"var(--divider)"}
+              justify={"center"}
+              px={2}
+            >
+              {/* <VStack gap={0}>
                 <Text
                   fontWeight={600}
                   fontSize={12}
@@ -138,13 +186,13 @@ const TukarButton = ({ userId, data }: { userId?: number; data: any }) => {
                 >
                   Ditukar
                 </Text>
-              </VStack>
+              </VStack> */}
               <Icon as={RiArrowDownLine} fontSize={32} color={"p.500"} />
             </VStack>
 
             <JadwalItem
               as={HStack}
-              data={data}
+              data={jadwalDitukar}
               noArrow
               noAvatars
               className=""
@@ -155,7 +203,7 @@ const TukarButton = ({ userId, data }: { userId?: number; data: any }) => {
         </CContainer>
 
         {/* Pilih Jadwal Anda */}
-        <CContainer py={5} borderTop={"6px solid var(--divider)"}>
+        <CContainer pt={5} borderTop={"6px solid var(--divider)"}>
           <Text fontWeight={600} mb={4} px={6}>
             Pilih Jadwal Anda untuk Ditukar
           </Text>
@@ -164,57 +212,95 @@ const TukarButton = ({ userId, data }: { userId?: number; data: any }) => {
             flexShrink={0}
             scrollSnapType={"x mandatory"}
           >
-            <HStack gap={0} px={6} w={"max-content"}>
-              {mySchedules &&
-                mySchedules.map((jadwal, i) => {
-                  return (
-                    i < 2 && (
-                      <HStack
-                        key={i}
-                        scrollSnapAlign={"center"}
-                        borderRadius={8}
-                        border={"1px solid var(--divider3)"}
-                        borderLeft={
-                          selected?.id === jadwal.id
-                            ? "4px solid var(--p500)"
-                            : "1px solid var(--divider3)"
-                        }
-                        align={"stretch"}
-                        overflow={"clip"}
-                        mb={"1px"}
-                        cursor={"pointer"}
-                        className="clicky"
-                        minH={"110px"}
-                        minW={`calc(100vw - 48px)`}
-                        _active={{ opacity: 0.6 }}
-                        mr={3}
-                        gap={0}
-                        onClick={() => {
-                          setSelected(jadwal);
-                        }}
-                      >
-                        <JadwalItem
-                          as={HStack}
-                          data={jadwal}
-                          noArrow
-                          noAvatars
-                          className=""
-                          _active={{ opacity: 1 }}
-                          flex={1}
-                        />
+            <HStack gap={4} px={6} minW={"100%"} w={"max-content"}>
+              {loading && (
+                <>
+                  {Array.from({ length: 2 }).map((_, i) => (
+                    <Skeleton key={i} h={"110px"} minW={"304px"} w={"100%"} />
+                  ))}
+                </>
+              )}
+              {!loading && (
+                <>
+                  {error && (
+                    <>
+                      {notFound && <NotFound minH={"110px"} />}
 
-                        <VStack
-                          w={"80px"}
-                          bg={"var(--divider)"}
-                          justify={"center"}
-                        >
-                          <Icon
-                            as={RiArrowUpLine}
-                            fontSize={32}
-                            color={selected?.id === jadwal.id ? "p.500" : ""}
-                            opacity={selected?.id === jadwal.id ? 1 : 0.4}
+                      {!notFound && (
+                        <Center minH={"110px"}>
+                          <Retry
+                            loading={loading}
+                            retry={retry}
+                            minH={"110px"}
                           />
-                          <VStack
+                        </Center>
+                      )}
+                    </>
+                  )}
+
+                  {!error && (
+                    <>
+                      {data && data?.length === 0 && <NoData minH={"110px"} />}
+
+                      {data &&
+                        data?.length > 0 &&
+                        data.map((jadwal: any, i: number) => {
+                          return (
+                            i < 2 && (
+                              <HStack
+                                key={i}
+                                scrollSnapAlign={"center"}
+                                borderRadius={8}
+                                border={"1px solid var(--divider3)"}
+                                borderLeft={
+                                  selected?.id === jadwal.id
+                                    ? "4px solid var(--p500)"
+                                    : "1px solid var(--divider3)"
+                                }
+                                align={"stretch"}
+                                overflow={"clip"}
+                                mb={"1px"}
+                                cursor={"pointer"}
+                                className="clicky"
+                                minH={"110px"}
+                                // w={"calc(100vw - 48px)"}
+                                w={"100%"}
+                                _active={{ opacity: 0.6 }}
+                                // mr={3}
+                                gap={0}
+                                onClick={() => {
+                                  setSelected(jadwal);
+                                }}
+                              >
+                                <JadwalItem
+                                  as={HStack}
+                                  data={jadwal}
+                                  noArrow
+                                  noAvatars
+                                  className=""
+                                  _active={{ opacity: 1 }}
+                                  flex={"1 1 0 !important"}
+                                  // border={"1px solid red"}
+                                />
+
+                                <VStack
+                                  flexShrink={0}
+                                  // w={"80px"}
+                                  px={2}
+                                  bg={"var(--divider)"}
+                                  justify={"center"}
+                                >
+                                  <Icon
+                                    as={RiArrowUpLine}
+                                    fontSize={32}
+                                    color={
+                                      selected?.id === jadwal.id ? "p.500" : ""
+                                    }
+                                    opacity={
+                                      selected?.id === jadwal.id ? 1 : 0.4
+                                    }
+                                  />
+                                  {/* <VStack
                             gap={0}
                             opacity={selected?.id === jadwal.id ? 1 : 0.4}
                           >
@@ -234,24 +320,30 @@ const TukarButton = ({ userId, data }: { userId?: number; data: any }) => {
                             >
                               Anda
                             </Text>
-                          </VStack>
-                        </VStack>
-                      </HStack>
-                    )
-                  );
-                })}
+                          </VStack> */}
+                                </VStack>
+                              </HStack>
+                            )
+                          );
+                        })}
+                    </>
+                  )}
+                </>
+              )}
             </HStack>
           </HorizontalScrollWrapperOnDrawer>
 
-          {mySchedules && mySchedules.length > 1 && (
-            <Text textAlign={"center"} opacity={0.4} fontSize={12} mt={2}>
-              Geser untuk pilih jadwal anda
-            </Text>
+          {data?.length > 0 && (
+            <CContainer px={6}>
+              <Text textAlign={"center"} opacity={0.4} fontSize={12} mt={2}>
+                Pilih jadwal yang ingin Anda tukar (geser ke samping)
+              </Text>
+            </CContainer>
           )}
         </CContainer>
 
         {/* Jadwal yang Ditukar */}
-        <CContainer pt={5} borderTop={"6px solid var(--divider)"}>
+        {/* <CContainer pt={5} borderTop={"6px solid var(--divider)"}>
           <Text px={6} fontWeight={600}>
             Penukaran Jadwal{" "}
             <span style={{ opacity: 0.3, fontSize: 12, fontWeight: 400 }}>
@@ -271,7 +363,7 @@ const TukarButton = ({ userId, data }: { userId?: number; data: any }) => {
                       borderBottom={i < 1 ? "2px dashed var(--divider)" : ""}
                     >
                       <JadwalDitukarItem
-                        data={data}
+                        data={jadwalDitukar}
                         noArrow
                         className=""
                         _active={{ opacity: 1 }}
@@ -314,7 +406,7 @@ const TukarButton = ({ userId, data }: { userId?: number; data: any }) => {
                 );
               })}
           </CContainer>
-        </CContainer>
+        </CContainer> */}
       </CustomDrawer>
     </>
   );
@@ -386,7 +478,9 @@ export default function JadwalKaryawanItem({
 
       {!detailOnly && (
         <>
-          {jenisKaryawan === 1 && <TukarButton userId={userId} data={data} />}
+          {jenisKaryawan === 1 && (
+            <TukarButton userId={userId} jadwalDitukar={data} />
+          )}
         </>
       )}
     </HStack>
