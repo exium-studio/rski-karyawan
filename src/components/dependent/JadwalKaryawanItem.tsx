@@ -1,4 +1,7 @@
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
   Button,
   Center,
   HStack,
@@ -147,8 +150,24 @@ const TukarButton = ({
           </>
         }
       >
+        <Alert
+          status="warning"
+          alignItems={"start"}
+          borderRadius={"0 !important"}
+          px={"24px !important"}
+        >
+          <AlertIcon />
+          <AlertDescription>
+            Lakukan aksi ini dengan hati - hati karena tidak bisa dibatalkan.
+          </AlertDescription>
+        </Alert>
+
         {/* Jadwal Ditukar */}
-        <CContainer py={5} px={6} borderTop={"6px solid var(--divider)"}>
+        <CContainer
+          py={5}
+          px={6}
+          // borderTop={"6px solid var(--divider)"}
+        >
           <Text fontWeight={600} mb={4}>
             Jadwal Ditukar
           </Text>
