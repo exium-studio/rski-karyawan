@@ -158,7 +158,8 @@ const TukarButton = ({
         >
           <AlertIcon />
           <AlertDescription>
-            Lakukan aksi ini dengan hati - hati karena tidak bisa dibatalkan.
+            Lakukan tindakan ini dengan cermat, karena pengajuan tukar jadwal
+            tidak dapat dibatalkan setelah dikirim.
           </AlertDescription>
         </Alert>
 
