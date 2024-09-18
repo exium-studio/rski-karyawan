@@ -1,12 +1,11 @@
 import { Center, StackProps } from "@chakra-ui/react";
 import { Interface__Jadwal } from "../../constant/interfaces";
 import useDataState from "../../hooks/useDataState";
-import NotFound from "../independent/NotFound";
+import NoData from "../independent/NoData";
 import Skeleton from "../independent/Skeleton";
 import CContainer from "../independent/wrapper/CContainer";
 import JadwalKaryawanItem from "./JadwalKaryawanItem";
 import Retry from "./Retry";
-import NoData from "../independent/NoData";
 
 interface Props extends StackProps {
   user_id?: number;
@@ -35,7 +34,7 @@ export default function ListJadwalKaryawan({ user_id, ...props }: Props) {
         <>
           {error && (
             <>
-              {notFound && <NotFound />}
+              {notFound && <NoData />}
 
               {!notFound && (
                 <Center>

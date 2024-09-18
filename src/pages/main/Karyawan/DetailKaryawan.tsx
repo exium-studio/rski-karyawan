@@ -64,7 +64,7 @@ export default function DetailKaryawan({
         isOpen={isOpen}
         onClose={backOnClose}
         isCentered
-        blockScrollOnMount={false}
+        // blockScrollOnMount={false}
         scrollBehavior="inside"
         size={"full"}
       >
