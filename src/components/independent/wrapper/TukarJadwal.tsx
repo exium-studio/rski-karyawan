@@ -1,26 +1,8 @@
-import {
-  Box,
-  HStack,
-  Icon,
-  StackProps,
-  Tab,
-  TabIndicator,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-} from "@chakra-ui/react";
-import { RiArrowDownLine, RiArrowUpLine } from "@remixicon/react";
-import { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Box, StackProps } from "@chakra-ui/react";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
-import useDataState from "../../../hooks/useDataState";
 import Header from "../../dependent/Header";
-import NotifCount from "../../dependent/NotifCount";
 import FilterTukarJadwal from "../FilterTukarJadwal";
-import ListPengajuanTukarJadwal from "../ListPengajuanTukarJadwal";
-import ListPermintaanTukarJadwal from "../ListPermintaanTukarJadwal";
+import ListTukarJadwal from "../ListTukarJadwal";
 import CContainer from "./CContainer";
 interface Props extends StackProps {
   title: string;
@@ -34,39 +16,35 @@ export default function TukarJadwalContainer({
   children,
   ...props
 }: Props) {
-  const dummy = [null, null];
-  const { data } = useDataState<(number | null)[]>({
-    initialData: dummy,
-    url: "",
-    dependencies: [],
-  });
+  // const dummy = [null, null];
 
-  const pengajuanTabRef = useRef<HTMLButtonElement>(null);
-  const permintaanTabRef = useRef<HTMLButtonElement>(null);
-  const [tabIndex, setTabIndex] = useState<number>(0);
-  const location = useLocation();
-  const navigate = useNavigate();
+  // const pengajuanTabRef = useRef<HTMLButtonElement>(null);
+  // const permintaanTabRef = useRef<HTMLButtonElement>(null);
+  // const [tabIndex, setTabIndex] = useState<number>(0);
+  // const location = useLocation();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    let tabIndexQuery = queryParams.get("tabindex");
+  // useEffect(() => {
+  //   const queryParams = new URLSearchParams(location.search);
+  //   let tabIndexQuery = queryParams.get("tabindex");
 
-    if (tabIndexQuery === "0") {
-      setTabIndex(0);
-      setTimeout(() => {
-        pengajuanTabRef?.current?.click();
-      }, 50);
-    }
+  //   if (tabIndexQuery === "0") {
+  //     setTabIndex(0);
+  //     setTimeout(() => {
+  //       pengajuanTabRef?.current?.click();
+  //     }, 50);
+  //   }
 
-    if (tabIndexQuery === "1") {
-      setTabIndex(1);
-      setTimeout(() => {
-        permintaanTabRef?.current?.click();
-      }, 50);
-    }
-  }, [location, navigate]);
+  //   if (tabIndexQuery === "1") {
+  //     setTabIndex(1);
+  //     setTimeout(() => {
+  //       permintaanTabRef?.current?.click();
+  //     }, 50);
+  //   }
+  // }, [location, navigate]);
 
   // SX
+
   const contentBgColor = useContentBgColor();
   const lightDarkColor = useLightDarkColor();
 
@@ -78,7 +56,18 @@ export default function TukarJadwalContainer({
         <FilterTukarJadwal />
       </Box>
 
-      <Tabs position="relative" variant="unstyled">
+      <CContainer bg={contentBgColor}>
+        <CContainer
+          p={5}
+          pb={8}
+          h={"calc(100vh - 56px - 40px)"}
+          overflowY={"auto"}
+        >
+          <ListTukarJadwal />
+        </CContainer>
+      </CContainer>
+
+      {/* <Tabs position="relative" variant="unstyled">
         <Box
           bg={lightDarkColor}
           position={"sticky"}
@@ -160,7 +149,7 @@ export default function TukarJadwalContainer({
             </TabPanel>
           </TabPanels>
         </CContainer>
-      </Tabs>
+      </Tabs> */}
     </CContainer>
   );
 }

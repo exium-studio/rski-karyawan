@@ -1,4 +1,4 @@
-import ListPengajuanTukarJadwal from "../../../components/independent/ListPengajuanTukarJadwal";
+import ListPengajuanTukarJadwal from "../../../components/independent/ListTukarJadwal";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor } from "../../../constant/colors";
 

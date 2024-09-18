@@ -1,4 +1,8 @@
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
   Avatar,
   Box,
   Button,
@@ -8,21 +12,13 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import {
-  RiArrowUpDownLine,
-  RiCheckboxCircleLine,
-  RiCloseCircleLine,
-  RiUserLine,
-} from "@remixicon/react";
-import { useLightDarkColor } from "../../constant/colors";
-import { iconSize } from "../../constant/sizes";
+import { RiArrowUpDownLine, RiUserLine } from "@remixicon/react";
+import { useErrorAlphaColor, useLightDarkColor } from "../../constant/colors";
 import backOnClose from "../../lib/backOnClose";
 import formatDate from "../../lib/formatDate";
-import BackOnCloseButton from "../independent/BackOnCloseButton";
 import FlexLine from "../independent/FlexLine";
 import CContainer from "../independent/wrapper/CContainer";
 import CustomDrawer from "../independent/wrapper/CustomDrawer";
-import BooleanBadge from "./BooleanBadge";
 import DrawerHeader from "./DrawerHeader";
 import JadwalDitukarItem from "./JadwalDitukarItem";
 import StatusApproval2Badge from "./StatusApproval2Badge";
@@ -31,77 +27,78 @@ interface Props {
   data: any;
 }
 
-const BatalkanTukarJadwal = ({ data }: Props) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+// const BatalkanTukarJadwal = ({ data }: Props) => {
+//   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  function batalkan() {
-    //TODO api batalkan penukaran jadawal
-  }
+//   function batalkan() {
+//     //TODO api batalkan penukaran jadawal
+//   }
 
-  return (
-    <>
-      <Button
-        colorScheme="red"
-        variant={"outline"}
-        className="clicky"
-        w={"100%"}
-        onClick={onOpen}
-        isDisabled={data.status_penukaran !== null ? true : false}
-      >
-        Batalkan
-      </Button>
+//   return (
+//     <>
+//       <Button
+//         colorScheme="red"
+//         variant={"outline"}
+//         className="clicky"
+//         w={"100%"}
+//         onClick={onOpen}
+//         isDisabled={data.status_penukaran !== null ? true : false}
+//       >
+//         Batalkan
+//       </Button>
 
-      <CustomDrawer
-        id={`batalkan-tukar-jadwal-confirmation-${data.id}`}
-        name={`${data.id}`}
-        isOpen={isOpen}
-        onOpen={onOpen}
-        onClose={onClose}
-        header={
-          <Box pt={"18px"} pr={5} pb={5} pl={6}>
-            <HStack justify={"space-between"} align={"start"}>
-              <Text fontSize={20} fontWeight={500}>
-                Batalkan Tukar Jadwal
-              </Text>
+//       <CustomDrawer
+//         id={`batalkan-tukar-jadwal-confirmation-${data.id}`}
+//         name={`${data.id}`}
+//         isOpen={isOpen}
+//         onOpen={onOpen}
+//         onClose={onClose}
+//         header={
+//           <Box pt={"18px"} pr={5} pb={5} pl={6}>
+//             <HStack justify={"space-between"} align={"start"}>
+//               <Text fontSize={20} fontWeight={500}>
+//                 Batalkan Tukar Jadwal
+//               </Text>
 
-              <BackOnCloseButton aria-label="back on close button" />
-            </HStack>
-          </Box>
-        }
-        footer={
-          <>
-            <Button
-              className="btn-solid clicky"
-              w={"100%"}
-              onClick={backOnClose}
-            >
-              Tidak
-            </Button>
+//               <BackOnCloseButton aria-label="back on close button" />
+//             </HStack>
+//           </Box>
+//         }
+//         footer={
+//           <>
+//             <Button
+//               className="btn-solid clicky"
+//               w={"100%"}
+//               onClick={backOnClose}
+//             >
+//               Tidak
+//             </Button>
 
-            <Button
-              colorScheme="red"
-              className="clicky"
-              w={"100%"}
-              onClick={batalkan}
-            >
-              Ya
-            </Button>
-          </>
-        }
-      >
-        <CContainer px={6}>
-          <Text>Apakah anda yakin akan membatalkan penukaran jadwal ini?</Text>
-        </CContainer>
-      </CustomDrawer>
-    </>
-  );
-};
+//             <Button
+//               colorScheme="red"
+//               className="clicky"
+//               w={"100%"}
+//               onClick={batalkan}
+//             >
+//               Ya
+//             </Button>
+//           </>
+//         }
+//       >
+//         <CContainer px={6}>
+//           <Text>Apakah anda yakin akan membatalkan penukaran jadwal ini?</Text>
+//         </CContainer>
+//       </CustomDrawer>
+//     </>
+//   );
+// };
 
 export default function TukarJadwalItem({ data }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // SX
   const lightDarkColor = useLightDarkColor();
+  const errorAlphaColor = useErrorAlphaColor();
 
   return (
     <>
@@ -141,13 +138,13 @@ export default function TukarJadwalItem({ data }: Props) {
             </Text>
             <Text fontWeight={500}>{data.user_ditukar.nama}</Text>
           </CContainer>
-
+          {/* 
           <CContainer gap={1}>
             <Text opacity={0.4} fontSize={12}>
               Disetujui oleh
             </Text>
             <Text fontWeight={500}>{"-"}</Text>
-          </CContainer>
+          </CContainer> */}
         </SimpleGrid>
       </CContainer>
 
@@ -161,6 +158,21 @@ export default function TukarJadwalItem({ data }: Props) {
       >
         <CContainer>
           <CContainer pb={0}>
+            {data?.alasan && (
+              <Alert
+                status="error"
+                bg={errorAlphaColor}
+                alignItems={"start"}
+                borderRadius={"0 !important"}
+                px={"24px !important"}
+              >
+                <AlertIcon />
+                <Box>
+                  <AlertTitle fontWeight={600}>Tukar Jadwal Ditolak</AlertTitle>
+                  <AlertDescription>{data?.alasan}</AlertDescription>
+                </Box>
+              </Alert>
+            )}
             {/* Profil User Ditukar */}
             <CContainer
               bg={lightDarkColor}
@@ -168,7 +180,7 @@ export default function TukarJadwalItem({ data }: Props) {
               flex={0}
               px={6}
               py={5}
-              borderTop={"6px solid var(--divider)"}
+              borderTop={data?.alasan ? "" : "6px solid var(--divider)"}
             >
               <Text fontWeight={500} mb={4}>
                 Karyawan Ditukar
@@ -205,22 +217,14 @@ export default function TukarJadwalItem({ data }: Props) {
               <HStack gap={1} flex={0}>
                 <Text opacity={0.4}>Status Penukaran</Text>
                 <FlexLine />
-                <BooleanBadge
-                  w={"fit-content"}
-                  mb={1}
-                  data={data.status_penukaran}
-                  nullValue="Menunggu"
-                  trueValue="Disetujui"
-                  falseValue="Tidak Disetujui"
-                  borderRadius={"full"}
-                />
+                <StatusApproval2Badge data={data?.status_pengajuan} />
               </HStack>
 
-              <HStack gap={1} flex={0}>
+              {/* <HStack gap={1} flex={0}>
                 <Text opacity={0.4}>Disetujui oleh</Text>
                 <FlexLine />
                 <Text fontWeight={500}>-</Text>
-              </HStack>
+              </HStack> */}
             </CContainer>
 
             {/* Jadwal yang Ditukar */}
@@ -330,36 +334,10 @@ export default function TukarJadwalItem({ data }: Props) {
             pt={6}
             // borderTop={"6px solid var(--divider)"}
           >
-            {data.user_ditukar.id !== 1 && <BatalkanTukarJadwal data={data} />}
-
-            {data.user_ditukar.id === 1 && (
-              <>
-                <Button
-                  w={"100%"}
-                  colorScheme="red"
-                  variant={"outline"}
-                  className="clicky"
-                  isDisabled={data.status_penukaran !== null}
-                  // border={"1px solid var(--divider3)"}
-                  leftIcon={<Icon as={RiCloseCircleLine} fontSize={iconSize} />}
-                >
-                  Tolak
-                </Button>
-                <Button
-                  w={"100%"}
-                  colorScheme="green"
-                  variant={"outline"}
-                  className="clicky"
-                  isDisabled={data.status_penukaran !== null}
-                  // border={"1px solid var(--divider3)"}
-                  leftIcon={
-                    <Icon as={RiCheckboxCircleLine} fontSize={iconSize} />
-                  }
-                >
-                  Terima
-                </Button>
-              </>
-            )}
+            {/* {data.user_ditukar.id !== 1 && <BatalkanTukarJadwal data={data} />} */}
+            <Button className="btn-solid clicky" onClick={backOnClose}>
+              Mengerti
+            </Button>
           </CContainer>
         </CContainer>
       </CustomDrawer>

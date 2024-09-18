@@ -66,8 +66,8 @@ const TukarButton = ({
 
     const payload = {
       // user_ditukar: userId,
-      jadwal_id_penukar: jadwalDitukar?.id,
-      jadwal_id_ditukar: selected?.id,
+      jadwal_id_penukar: selected?.id,
+      jadwal_id_ditukar: jadwalDitukar?.id,
     };
 
     req
@@ -76,6 +76,12 @@ const TukarButton = ({
         if (r.status === 200) {
           // setRt(!rt);
           backOnClose();
+          toast({
+            status: "success",
+            title: r?.data?.message,
+            position: "top",
+            isClosable: true,
+          });
         }
       })
       .catch((e) => {
@@ -86,7 +92,7 @@ const TukarButton = ({
             (typeof e?.response?.data?.message === "string" &&
               (e?.response?.data?.message as string)) ||
             "Maaf terjadi kesalahan pada sistem",
-          position: "bottom-right",
+          position: "top",
           isClosable: true,
         });
       })
