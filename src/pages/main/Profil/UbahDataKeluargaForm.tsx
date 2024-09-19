@@ -199,7 +199,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                         borderRadius={"full"}
                         colorScheme={anggota.is_bpjs ? "green" : "red"}
                       >
-                        {anggota.is_bpjs ? "Ya" : "Tidak"}
+                        {anggota.is_bpjs ? "Ditanggung" : "Tidak Ditanggung"}
                       </Badge>
                     </HStack>
                   </>
