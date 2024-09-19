@@ -104,7 +104,7 @@ export default function LengkapiDataUser1() {
         alamat: values.alamat,
         no_ijazah: values.no_ijazah,
         tahun_lulus: values.tahun_lulus,
-        pendidikan_terakhir: values.pendidikan_terakhir,
+        pendidikan_terakhir: values.pendidikan_terakhir?.value,
         gelar_depan: values.gelar_depan,
         gelar_belakang: values.gelar_belakang,
         asal_sekolah: values.asal_sekolah,
