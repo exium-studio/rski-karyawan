@@ -15,7 +15,7 @@ export default function ListTukarJadwal({ ...props }: Props) {
 
   const { error, notFound, loading, data, retry } = useDataState<any>({
     initialData: undefined,
-    url: `/api/get-pengajuan-swap`,
+    url: `/api/get-swap`,
     payload: {
       ...(filterTukarJadwal?.date_range && {
         tgl_mulai: filterTukarJadwal.date_range.from,

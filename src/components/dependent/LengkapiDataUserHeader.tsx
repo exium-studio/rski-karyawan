@@ -10,11 +10,10 @@ interface Props extends StackProps {
 export default function LengkapiDataUserHeader({ backLink, ...props }: Props) {
   // SX
   const lightDarkColor = useLightDarkColor();
-
   return (
     <HStack
-      bg={lightDarkColor}
       // px={4}
+      bg={lightDarkColor}
       py={5}
       justify={"space-between"}
       position={"sticky"}
@@ -29,7 +28,7 @@ export default function LengkapiDataUserHeader({ backLink, ...props }: Props) {
         colorScheme="ap"
         variant={"ghost"}
         color={"p.500"}
-        ml={"auto"}
+        mr={"auto"}
       />
 
       <BantuanButton ml={"0"} />
