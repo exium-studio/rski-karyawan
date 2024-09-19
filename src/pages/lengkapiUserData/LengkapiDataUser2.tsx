@@ -89,7 +89,7 @@ export default function LengkapiDataUser2() {
     },
   });
 
-  console.log(formik.values.keluarga);
+  // console.log(formik.values.keluarga);
 
   return (
     <Container px={5}>
@@ -189,7 +189,7 @@ export default function LengkapiDataUser2() {
                           textOverflow={"ellipsis"}
                           maxW={"140px"}
                         >
-                          {anggota.hubungan.label}
+                          {anggota?.hubungan?.label}
                         </Text>
                       </HStack>
                       <HStack>
@@ -202,7 +202,7 @@ export default function LengkapiDataUser2() {
                           textOverflow={"ellipsis"}
                           maxW={"140px"}
                         >
-                          {anggota.status_hidup?.label}
+                          {anggota?.status_hidup?.label}
                         </Text>
                       </HStack>
                       <HStack>
@@ -215,7 +215,7 @@ export default function LengkapiDataUser2() {
                           textOverflow={"ellipsis"}
                           maxW={"140px"}
                         >
-                          {anggota.pekerjaan}
+                          {anggota?.pekerjaan}
                         </Text>
                       </HStack>
                       <HStack>
@@ -228,7 +228,7 @@ export default function LengkapiDataUser2() {
                           textOverflow={"ellipsis"}
                           maxW={"140px"}
                         >
-                          {anggota.pendidikan_terakhir}
+                          {anggota?.pendidikan_terakhir?.label}
                         </Text>
                       </HStack>
                       <HStack>
@@ -241,7 +241,7 @@ export default function LengkapiDataUser2() {
                           textOverflow={"ellipsis"}
                           maxW={"140px"}
                         >
-                          {anggota.no_hp}
+                          {anggota?.no_hp}
                         </Text>
                       </HStack>
                       <HStack>
@@ -254,7 +254,7 @@ export default function LengkapiDataUser2() {
                           textOverflow={"ellipsis"}
                           maxW={"140px"}
                         >
-                          {anggota.email}
+                          {anggota?.email}
                         </Text>
                       </HStack>
                       <HStack>
@@ -264,7 +264,7 @@ export default function LengkapiDataUser2() {
                           borderRadius={"full"}
                           colorScheme={anggota.is_bpjs ? "green" : "red"}
                         >
-                          {anggota.is_bpjs ? "Ya" : "Tidak"}
+                          {anggota?.is_bpjs ? "Ya" : "Tidak"}
                         </Badge>
                       </HStack>
                     </>
