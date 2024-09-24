@@ -67,6 +67,7 @@ export default function LengkapiDataUser1() {
       asal_sekolah: "" as any,
       gelar_depan: "" as any,
       gelar_belakang: "" as any,
+      riwayat_penyakit: "" as any,
       // berat_badan: undefined as any,
     },
     validationSchema: yup.object().shape({
@@ -86,6 +87,7 @@ export default function LengkapiDataUser1() {
       pendidikan_terakhir: yup.object().required("Harus diisi"),
       gelar_depan: yup.string(),
       gelar_belakang: yup.string(),
+      riwayat_penyakit: yup.string(),
     }),
     onSubmit: (values, { resetForm }) => {
       setLoading(true);
@@ -108,6 +110,7 @@ export default function LengkapiDataUser1() {
         gelar_depan: values.gelar_depan,
         gelar_belakang: values.gelar_belakang,
         asal_sekolah: values.asal_sekolah,
+        riwayat_penyakit: values.riwayat_penyakit,
       };
 
       req
@@ -400,6 +403,24 @@ export default function LengkapiDataUser1() {
               </InputGroup>
               <FormErrorMessage>
                 {formik.errors.berat_badan as string}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl mb={4} isInvalid={!!formik.errors.riwayat_penyakit}>
+              <FormLabel>
+                Riwayat Penyakit
+                <RequiredForm />
+              </FormLabel>
+              <Textarea
+                name="riwayat_penyakit"
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("riwayat_penyakit", input);
+                }}
+                inputValue={formik.values.riwayat_penyakit}
+                placeholder="Masukkan riwayat penyakit"
+              />
+              <FormErrorMessage>
+                {formik.errors.riwayat_penyakit as string}
               </FormErrorMessage>
             </FormControl>
 

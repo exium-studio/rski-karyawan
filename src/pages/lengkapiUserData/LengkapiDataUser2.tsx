@@ -136,7 +136,7 @@ export default function LengkapiDataUser2() {
                   >
                     <HStack justify={"space-between"} mb={2} mr={-1}>
                       <Text fontWeight={600} fontSize={16}>
-                        {anggota.nama}
+                        {anggota.nama_keluarga}
                       </Text>
 
                       <HStack>

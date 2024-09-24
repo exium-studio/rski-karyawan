@@ -26,6 +26,7 @@ import StringInput from "../StringInput";
 import SelectHubunganKeluarga from "./SingleSelectHubunganKeluarga";
 import SelectStatusHidup from "./SingleSelectStatusHidup";
 import SingleSelectPendidikan from "./SingleSelectPendidikan";
+import { useEffect, useRef } from "react";
 
 interface Props {
   id: string;
@@ -64,7 +65,7 @@ export default function AddFamily({
       pendidikan_terakhir: yup.object().required("Harus diisi"),
       pekerjaan: yup.string().required("Harus diisi"),
       no_hp: yup.string().required("Harus diisi"),
-      email: yup.string().required("Harus diisi"),
+      email: yup.string(),
       is_bpjs: yup.boolean(),
     }),
     onSubmit: (values, { resetForm }) => {
@@ -80,7 +81,15 @@ export default function AddFamily({
     },
   });
 
-  // SX
+  const formikRef = useRef(formik);
+
+  const statusHidup = formik.values?.status_hidup;
+
+  useEffect(() => {
+    if (!statusHidup?.value) {
+      formikRef.current.setFieldValue("is_bpjs", false);
+    }
+  }, [statusHidup]);
 
   return (
     <>
@@ -249,7 +258,7 @@ export default function AddFamily({
             <FormControl mb={4} isInvalid={!!formik.errors.email}>
               <FormLabel>
                 Email
-                <RequiredForm />
+                {/* <RequiredForm /> */}
               </FormLabel>
               <StringInput
                 name="email"
@@ -276,6 +285,7 @@ export default function AddFamily({
                   formik.setFieldValue("is_bpjs", e.target.checked);
                 }}
                 isChecked={formik.values.is_bpjs}
+                isDisabled={!formik.values.status_hidup?.value}
               >
                 <Text mt={"-2.5px"}>Tanggungan BPJS</Text>
               </Checkbox>
