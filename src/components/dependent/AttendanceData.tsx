@@ -8,11 +8,11 @@ import { Interface__AttendanceData } from "../../constant/interfaces";
 import isClockOut from "../../lib/isClockOut";
 
 interface Props {
-  data: Interface__AttendanceData;
+  data?: Interface__AttendanceData;
 }
 
 export default function AttendanceData({ data }: Props) {
-  return (
+  return data ? (
     <SimpleGrid columns={3} w={"100%"}>
       <VStack gap={0}>
         <Icon as={RiTimeLine} fontSize={32} mb={2} transform={"scaleX(-1)"} />
@@ -44,5 +44,5 @@ export default function AttendanceData({ data }: Props) {
         <Text fontSize={14}>Jam Kerja</Text>
       </VStack>
     </SimpleGrid>
-  );
+  ) : null;
 }

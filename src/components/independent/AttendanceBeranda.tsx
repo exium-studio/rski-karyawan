@@ -92,7 +92,9 @@ export default function AttendanceBeranda() {
 
               <CurrentAddress />
 
-              <SimpleGrid columns={3} w={"100%"} gap={2}>
+              <AttendanceData data={data} />
+
+              {/* <SimpleGrid columns={3} w={"100%"} gap={2}>
                 <VStack gap={0} h={"85px"}>
                   <Icon
                     as={RiTimeLine}
@@ -138,7 +140,7 @@ export default function AttendanceBeranda() {
                   </Text>
                   <Text fontSize={14}>Jam Kerja</Text>
                 </VStack>
-              </SimpleGrid>
+              </SimpleGrid> */}
             </>
           )}
 
