@@ -556,7 +556,7 @@ export default function LengkapiDataUser1() {
               <FormLabel>Gelar Belakang</FormLabel>
               <StringInput
                 name="gelar_belakang"
-                placeholder="dr."
+                placeholder="S.Kom"
                 onChangeSetter={(input) => {
                   formik.setFieldValue("gelar_belakang", input);
                 }}
