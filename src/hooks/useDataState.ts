@@ -87,6 +87,8 @@ const useDataState = <T>({
 
           if (error?.response?.status === 404) {
             setNotFound(true);
+            setData(error?.response?.data?.data)
+            console.log('error',error)
           }
           setError(true);
           console.log(error);

@@ -44,5 +44,51 @@ export default function AttendanceData({ data }: Props) {
         <Text fontSize={14}>Jam Kerja</Text>
       </VStack>
     </SimpleGrid>
-  ) : null;
+  ) :  <SimpleGrid columns={3} w={"100%"} gap={2}>
+    <VStack gap={0} h={"85px"}>
+      <Icon
+        as={RiTimeLine}
+        fontSize={32}
+        mb={2}
+        transform={"scaleX(-1)"}
+      />
+      <Text
+        fontSize={[16, null, 18]}
+        className="num"
+        fontWeight={500}
+      >
+        -
+      </Text>
+      <Text fontSize={14}>Masuk</Text>
+    </VStack>
+
+    <VStack gap={0} h={"85px"}>
+      <Icon as={RiTimeLine} fontSize={32} mb={2} />
+      <Text
+        fontSize={[16, null, 18]}
+        className="num"
+        fontWeight={500}
+      >
+        -
+      </Text>
+      <Text fontSize={14}>Keluar</Text>
+    </VStack>
+
+    <VStack gap={0} h={"85px"}>
+      <Icon
+        as={RiHourglass2Fill}
+        fontSize={32}
+        mb={2}
+        transform={"scaleX(-1)"}
+      />
+      <Text
+        fontSize={[16, null, 18]}
+        className="num"
+        fontWeight={500}
+      >
+        -
+      </Text>
+      <Text fontSize={14}>Jam Kerja</Text>
+    </VStack>
+  </SimpleGrid>;
 }
