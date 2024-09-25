@@ -580,11 +580,9 @@ export default function DataKaryawan() {
                           </Box>
                           <FlexLine />
                           <HStack>
-                            {data.pendidikan_terakhir && (
-                              <Text fontWeight={500} textAlign={"right"}>
-                                {data?.asal_sekolah}
-                              </Text>
-                            )}
+                            <Text fontWeight={500} textAlign={"right"}>
+                              {data?.asal_sekolah}
+                            </Text>
                           </HStack>
                         </HStack>
 
@@ -965,7 +963,9 @@ export default function DataKaryawan() {
                           <Text fontWeight={500} textAlign={"right"}>
                             {data?.masa_berlaku_str
                               ? formatDate(data?.masa_berlaku_str)
-                              : "Seumur Hidup"}
+                              : data?.no_str
+                              ? "Seumur Hidup"
+                              : ""}
                           </Text>
                         </HStack>
 
@@ -1003,9 +1003,11 @@ export default function DataKaryawan() {
                           </Box>
                           <FlexLine />
                           <Text fontWeight={500} textAlign={"right"}>
-                            {data.masa_berlaku_sip
-                              ? formatDate(data.masa_berlaku_sip)
-                              : "Seumur Hidup"}
+                            {data?.masa_berlaku_sip
+                              ? formatDate(data?.masa_berlaku_sip)
+                              : data?.no_sip
+                              ? "Seumur Hidup"
+                              : ""}
                           </Text>
                         </HStack>
                       </VStack>

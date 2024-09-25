@@ -51,9 +51,11 @@ export default function RiwayatPerubahanData() {
                 )}
 
                 {(data || (data && data.length > 0)) &&
-                  data.map((riwayat: any, i: number) => (
-                    <RiwayatPerubahanDataItem key={i} data={riwayat} />
-                  ))}
+                  data
+                    ?.reverse()
+                    .map((riwayat: any, i: number) => (
+                      <RiwayatPerubahanDataItem key={i} data={riwayat} />
+                    ))}
               </>
             )}
           </>

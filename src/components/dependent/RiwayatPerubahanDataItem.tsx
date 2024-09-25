@@ -1,4 +1,8 @@
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
   Box,
   Button,
   HStack,
@@ -9,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { RiArrowRightLine, RiFileLine } from "@remixicon/react";
 import { Link } from "react-router-dom";
-import { useLightDarkColor } from "../../constant/colors";
+import { useErrorAlphaColor, useLightDarkColor } from "../../constant/colors";
 import dataLabels from "../../constant/dataLabels";
 import backOnClose from "../../lib/backOnClose";
 import formatDate from "../../lib/formatDate";
@@ -78,6 +82,7 @@ export default function RiwayatPerubahanDataItem({ data }: Props) {
 
   // SX
   const lightDarkColor = useLightDarkColor();
+  const errorAlphaColor = useErrorAlphaColor();
 
   return (
     <>
@@ -134,41 +139,59 @@ export default function RiwayatPerubahanDataItem({ data }: Props) {
           </>
         }
       >
-        <CContainer
-          gap={3}
-          flex={0}
-          px={6}
-          py={5}
-          borderTop={"6px solid var(--divider)"}
-        >
-          <Text fontWeight={500}>Rincian Pengajuan</Text>
+        <CContainer pb={0}>
+          {data?.alasan && (
+            <Alert
+              status="error"
+              bg={errorAlphaColor}
+              alignItems={"start"}
+              borderRadius={"0 !important"}
+              px={"24px !important"}
+            >
+              <AlertIcon />
+              <Box>
+                <AlertTitle fontWeight={600}>Perubahan Data Ditolak</AlertTitle>
+                <AlertDescription>{data?.alasan}</AlertDescription>
+              </Box>
+            </Alert>
+          )}
 
-          <HStack>
-            <Text opacity={0.4}>Kolom</Text>
-            <FlexLine />
-            <Text>
-              {/* @ts-ignore */}
-              {dataLabels[data.kolom]}
-            </Text>
-          </HStack>
+          <CContainer
+            gap={3}
+            flex={0}
+            px={6}
+            py={5}
+            borderTop={data?.alasan ? "" : "6px solid var(--divider)"}
+          >
+            <Text fontWeight={500}>Rincian Pengajuan</Text>
 
-          <HStack>
-            <Text opacity={0.4}>Tanggal Pengajuan</Text>
-            <FlexLine />
-            <Text>{formatDate(data.created_at)}</Text>
-          </HStack>
+            <HStack>
+              <Text opacity={0.4}>Kolom</Text>
+              <FlexLine />
+              <Text>
+                {/* @ts-ignore */}
+                {dataLabels[data.kolom]}
+              </Text>
+            </HStack>
 
-          <HStack>
-            <Text opacity={0.4}>Tanggal Persetujuan</Text>
-            <FlexLine />
-            <Text>{formatDate(data.updated_at)}</Text>
-          </HStack>
+            <HStack>
+              <Text opacity={0.4}>Tanggal Pengajuan</Text>
+              <FlexLine />
+              <Text>{formatDate(data.created_at)}</Text>
+            </HStack>
 
-          <HStack>
-            <Text opacity={0.4}>Status Pengajuan</Text>
-            <FlexLine />
-            <StatusApprovalBadge data={data.status_perubahan_id} />
-          </HStack>
+            <HStack>
+              <Text opacity={0.4}>Tanggal Persetujuan</Text>
+              <FlexLine />
+              <Text>{formatDate(data.updated_at)}</Text>
+            </HStack>
+
+            <HStack>
+              <Text opacity={0.4}>Status Pengajuan</Text>
+              <FlexLine />
+              <StatusApprovalBadge data={data.status_perubahan_id} />
+            </HStack>
+          </CContainer>
         </CContainer>
 
         <CContainer
