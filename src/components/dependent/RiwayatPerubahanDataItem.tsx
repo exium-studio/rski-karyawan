@@ -117,12 +117,12 @@ export default function RiwayatPerubahanDataItem({ data }: Props) {
           <Text fontWeight={500}>{formatDate(data.created_at)}</Text>
         </CContainer>
 
-        <CContainer gap={1}>
+        {/* <CContainer gap={1}>
           <Text opacity={0.4} fontSize={12}>
             Tanggal Persetujuan
           </Text>
           <Text fontWeight={500}>{formatDate(data.tgl_disetujui)}</Text>
-        </CContainer>
+        </CContainer> */}
       </CContainer>
 
       <CustomDrawer
@@ -170,7 +170,7 @@ export default function RiwayatPerubahanDataItem({ data }: Props) {
               <FlexLine />
               <Text>
                 {/* @ts-ignore */}
-                {dataLabels[data.kolom]}
+                {dataLabels[data.kolom] || "Invalid"}
               </Text>
             </HStack>
 
@@ -180,11 +180,11 @@ export default function RiwayatPerubahanDataItem({ data }: Props) {
               <Text>{formatDate(data.created_at)}</Text>
             </HStack>
 
-            <HStack>
+            {/* <HStack>
               <Text opacity={0.4}>Tanggal Persetujuan</Text>
               <FlexLine />
               <Text>{formatDate(data.updated_at)}</Text>
-            </HStack>
+            </HStack> */}
 
             <HStack>
               <Text opacity={0.4}>Status Pengajuan</Text>

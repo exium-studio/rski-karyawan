@@ -1,4 +1,5 @@
 const dataLabels: any = {
+  "Data Keluarga": "Data Keluarga",
   user: "Data User",
   role: "Role",
   potongan_gaji: "Data Potongan",
