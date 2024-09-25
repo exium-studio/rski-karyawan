@@ -89,6 +89,12 @@ export default function AjukanDiklatEksternal() {
           if (r.status === 200) {
             setRt(!rt);
             backOnClose();
+            toast({
+              status: "success",
+              title: r.data?.message,
+              position: "top",
+              isClosable: true,
+            });
           }
         })
         .catch((e) => {

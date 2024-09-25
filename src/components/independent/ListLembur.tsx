@@ -8,6 +8,7 @@ import Retry from "../dependent/Retry";
 import NoData from "./NoData";
 import Skeleton from "./Skeleton";
 import CContainer from "./wrapper/CContainer";
+import formatDurationShort from "../../lib/formatDurationShort";
 
 export default function ListLembur() {
   // SX
@@ -100,7 +101,7 @@ export default function ListLembur() {
                             Durasi
                           </Text>
                           <Text fontWeight={500}>
-                            {formatTime(lembur.durasi)}
+                            {formatDurationShort(lembur.durasi)}
                           </Text>
                         </CContainer>
 
