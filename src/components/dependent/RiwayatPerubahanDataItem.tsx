@@ -15,14 +15,114 @@ import { RiArrowRightLine, RiFileLine } from "@remixicon/react";
 import { Link } from "react-router-dom";
 import { useErrorAlphaColor, useLightDarkColor } from "../../constant/colors";
 import dataLabels from "../../constant/dataLabels";
+import { iconSize } from "../../constant/sizes";
 import backOnClose from "../../lib/backOnClose";
 import formatDate from "../../lib/formatDate";
 import formatNumber from "../../lib/formatNumber";
 import FlexLine from "../independent/FlexLine";
+import NoData from "../independent/NoData";
 import CContainer from "../independent/wrapper/CContainer";
 import CustomDrawer from "../independent/wrapper/CustomDrawer";
+import BooleanBadge from "./BooleanBadge";
+import DisclosureHeader from "./DisclosureHeader";
 import DrawerHeader from "./DrawerHeader";
 import StatusApprovalBadge from "./StatusApprovalBadge";
+
+const ListKeluargaModal = ({ data, index }: any) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  // console.log(data);
+
+  return (
+    <>
+      <Button
+        colorScheme="ap"
+        variant={"ghost"}
+        className="btn-clear clicky"
+        onClick={onOpen}
+      >
+        Lihat
+      </Button>
+
+      <CustomDrawer
+        id={`anggota-keluarga-modal-${index}`}
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+        header={<DisclosureHeader title="Data Keluarga" />}
+        footer={
+          <Button className="btn-solid clicky" onClick={backOnClose}>
+            Mengerti
+          </Button>
+        }
+      >
+        <CContainer px={6} gap={3}>
+          {data?.length > 0 && (
+            <>
+              {data?.map((anggota: any, i: number) => (
+                <CContainer
+                  key={i}
+                  borderBottom={
+                    i !== data?.length - 1 ? "1px solid var(--divider)" : ""
+                  }
+                  // pt={i !== 0 ? 4 : 0}
+                  // pb={i !== data?.length - 1 ? 4 : 0}
+                  p={4}
+                  borderRadius={8}
+                  gap={2}
+                  bg={"var(--divider)"}
+                >
+                  <Text fontWeight={600}>{anggota?.nama_keluarga}</Text>
+                  <HStack>
+                    <Text opacity={0.4}>Hubungan Keluarga</Text>
+                    <FlexLine />
+                    <Text>{anggota?.hubungan}</Text>
+                  </HStack>
+                  <HStack>
+                    <Text opacity={0.4}>Status Hidup</Text>
+                    <FlexLine />
+                    <Text>{anggota?.status_hidup ? "Hidup" : "Meninggal"}</Text>
+                  </HStack>
+                  <HStack>
+                    <Text opacity={0.4}>Pendidikan Terakhir</Text>
+                    <FlexLine />
+                    <Text>{anggota?.pendidikan_terakhir?.label}</Text>
+                  </HStack>
+                  <HStack>
+                    <Text opacity={0.4}>Pekerjaan</Text>
+                    <FlexLine />
+                    <Text>{anggota.pekerjaan}</Text>
+                  </HStack>
+                  <HStack>
+                    <Text opacity={0.4}>Nomor Telepon</Text>
+                    <FlexLine />
+                    <Text>{anggota.no_hp}</Text>
+                  </HStack>
+                  <HStack>
+                    <Text opacity={0.4}>Email</Text>
+                    <FlexLine />
+                    <Text>{anggota.email}</Text>
+                  </HStack>
+                  <HStack>
+                    <Text opacity={0.4}>Tanggungan BPJS</Text>
+                    <FlexLine />
+                    <BooleanBadge
+                      data={anggota.is_bpjs}
+                      trueValue="Ditanggung"
+                      falseValue="Tidak Ditanggung"
+                    />
+                  </HStack>
+                </CContainer>
+              ))}
+            </>
+          )}
+
+          {(!data || data?.length === 0) && <NoData minH={"300px"} />}
+        </CContainer>
+      </CustomDrawer>
+    </>
+  );
+};
 
 interface Props {
   data: any;
@@ -40,10 +140,16 @@ export default function RiwayatPerubahanDataItem({ data }: Props) {
   const PerubahanDataRenderer = ({ kolom, type }: DataRendererProps) => {
     switch (kolom) {
       default:
-        return <Text>{data[type]}</Text>;
+        return <Text>Invalid</Text>;
+      case "pendidikan_terakhir":
+        return <Text>{data[type]?.label || "Invalid Constant"}</Text>;
+      case "data keluarga":
+      case "Data Keluarga":
+        return <ListKeluargaModal data={data[type]} />;
       case "foto_profil":
         return (
           <Image
+            maxW={"32px"}
             src={data[type]}
             aspectRatio={1}
             objectFit={"cover"}
@@ -52,11 +158,30 @@ export default function RiwayatPerubahanDataItem({ data }: Props) {
         );
       case "tgl_lahir":
         return <Text whiteSpace={"nowrap"}>{formatDate(data[type])}</Text>;
+      case "jenis_kelamin":
+        return (
+          <Text whiteSpace={"nowrap"}>
+            {data[type] ? "Laki - laki" : "Perempuan"}
+          </Text>
+        );
       case "golongan_darah":
       case "agama":
         return <Text whiteSpace={"nowrap"}>{data[type].label}</Text>;
       case "tinggi_badan":
+      case "berat_badan":
         return <Text whiteSpace={"nowrap"}>{formatNumber(data[type])} cm</Text>;
+      case "alamat":
+      case "tempat_lahir":
+      case "no_hp":
+      case "nik_ktp":
+      case "no_kk":
+      case "no_ijazah":
+      case "tahun_lulus":
+      case "gelar_depan":
+      case "gelar_belakang":
+      case "riwayat_penyakit":
+      case "asal_sekolah":
+        return <Text>{typeof data[type] === "string" ? data[type] : "-"}</Text>;
       case "ktp":
       case "bpjsksh":
       case "bpjsktk":
@@ -64,17 +189,12 @@ export default function RiwayatPerubahanDataItem({ data }: Props) {
       case "sertifikat_kompetensi":
         return (
           <Link to={data[type]}>
-            <CContainer
-              p={4}
-              borderRadius={8}
-              align={"center"}
-              // border={"1px solid var(--divider)"}
-            >
-              <Icon as={RiFileLine} fontSize={52} />
+            <HStack p={4} borderRadius={8} align={"center"}>
+              <Icon as={RiFileLine} fontSize={iconSize} />
               <Text fontSize={12} mt={2} noOfLines={1} opacity={0.4}>
                 {data[type]}
               </Text>
-            </CContainer>
+            </HStack>
           </Link>
         );
     }
