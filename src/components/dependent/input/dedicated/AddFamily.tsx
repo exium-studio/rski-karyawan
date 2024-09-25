@@ -290,9 +290,9 @@ export default function AddFamily({
                 <Text mt={"-2.5px"}>Tanggungan BPJS</Text>
               </Checkbox>
               <FormHelperText mt={2}>
-                Jika dicentang, BPJS anggota keluarga akan ditanggung oleh
-                karyawan dan akan dikalkulasikan sebagai potongan dalam
-                penggajian.
+                Jika anggota keluarga masih hidup dan tanggungan BPJS dicentang,
+                BPJS anggota keluarga akan ditanggung oleh karyawan dan akan
+                dikalkulasikan sebagai potongan dalam penggajian.
               </FormHelperText>
 
               <FormErrorMessage>

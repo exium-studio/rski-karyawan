@@ -56,14 +56,14 @@ export default function EditFamily({
             label: data.hubungan.label || data.hubungan,
           }
         : undefined,
-      nama_keluarga: data.nama_keluarga,
+      nama_keluarga: data.nama_keluarga || "",
       status_hidup: {
-        value: data.status_hidup ? 1 : 0,
+        value: data.status_hidup ? true : false,
         label: data.status_hidup ? "Hidup" : "Meninggal",
       },
       pendidikan_terakhir: data.pendidikan_terakhir
         ? {
-            value: data.pendidikan_terakhir?.value,
+            value: data.pendidikan_terakhir?.id,
             label: data.pendidikan_terakhir?.label,
           }
         : undefined,
@@ -295,9 +295,9 @@ export default function EditFamily({
                 <Text mt={"-2.5px"}>Tanggungan BPJS</Text>
               </Checkbox>
               <FormHelperText mt={2}>
-                Jika dicentang, BPJS anggota keluarga akan ditanggung oleh
-                karyawan dan akan dikalkulasikan sebagai potongan dalam
-                penggajian.
+                Jika anggota keluarga masih hidup dan tanggungan BPJS dicentang,
+                BPJS anggota keluarga akan ditanggung oleh karyawan dan akan
+                dikalkulasikan sebagai potongan dalam penggajian.
               </FormHelperText>
 
               <FormErrorMessage>
