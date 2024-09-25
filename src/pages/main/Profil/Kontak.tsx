@@ -35,39 +35,12 @@ export default function Kontak() {
             >
               <AccordionButton h="48px">
                 <Text textAlign={"left"} flex={1} fontWeight={500}>
-                  Section 1 title
+                  Reza Hawari
                 </Text>
                 <AccordionIcon />
               </AccordionButton>
               <AccordionPanel pb={4}>
-                <Text>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
-                </Text>
-              </AccordionPanel>
-            </AccordionItem>
-
-            <AccordionItem
-              bg={lightDarkColor}
-              border={"none"}
-              borderRadius={12}
-              overflow={"clip"}
-            >
-              <AccordionButton h="48px">
-                <Text textAlign={"left"} flex={1} fontWeight={500}>
-                  Section 2 title
-                </Text>
-                <AccordionIcon />
-              </AccordionButton>
-              <AccordionPanel pb={4}>
-                <Text>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
-                </Text>
+                <Text>Nomornya Reza</Text>
               </AccordionPanel>
             </AccordionItem>
           </CContainer>

@@ -47,11 +47,35 @@ export default function UbahDataKeluargaForm({ data }: Props) {
 
   // SX
 
-  console.log(formik.values.keluarga);
+  const remappedData = formik.values.keluarga.map((anggota) => ({
+    data_keluarga_id: anggota.id, // Mengubah data_keluarga_id
+    hubungan: anggota?.hubungan?.label || anggota.hubungan, // Mengambil label dari hubungan
+    pendidikan_terakhir: {
+      id:
+        anggota?.pendidikan_terakhir?.id || anggota.pendidikan_terakhir?.value, // Mengambil id pendidikan terakhir
+      label: anggota?.pendidikan_terakhir?.label || "", // Mengambil label pendidikan terakhir
+    },
+    nama_keluarga: anggota.nama_keluarga, // Menyalin nama_keluarga
+    status_hidup:
+      anggota.status_hidup?.value !== undefined
+        ? anggota.status_hidup.value
+        : anggota.status_hidup,
+    pekerjaan: anggota.pekerjaan,
+    no_hp: anggota.no_hp,
+    email: anggota.email,
+    status_keluarga_id: anggota.status_keluarga_id,
+    is_bpjs: anggota.is_bpjs,
+    verifikator_1: anggota.verifikator_1,
+    alasan: anggota.alasan,
+    created_at: anggota.created_at,
+    updated_at: anggota.updated_at,
+  }));
+
+  console.log(remappedData);
 
   return (
     <>
-      <CContainer flex={0} gap={6}>
+      <CContainer flex={0} gap={3}>
         <AnimatePresence>
           {formik.values.keluarga &&
             formik.values.keluarga.length > 0 &&
@@ -67,7 +91,12 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                 exit={{ opacity: 0, scale: 0.5, height: 0 }}
                 transition={{ duration: newItemAdded ? 0.5 : 0.3 }}
               >
-                <VStack align={"stretch"} borderRadius={8}>
+                <VStack
+                  align={"stretch"}
+                  borderRadius={8}
+                  p={4}
+                  bg={"var(--divider)"}
+                >
                   <HStack justify={"space-between"} mr={-1}>
                     <Text fontWeight={600} fontSize={16}>
                       {anggota.nama_keluarga}
@@ -124,7 +153,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                         textOverflow={"ellipsis"}
                         maxW={"140px"}
                       >
-                        {anggota.hubungan?.label}
+                        {anggota.hubungan?.label || anggota?.hubungan}
                       </Text>
                     </HStack>
                     <HStack>
@@ -237,12 +266,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                   formik.validateField("keluarga");
                 }}
                 column="keluarga"
-                payload={JSON.stringify(
-                  formik.values.keluarga.map((anggota) => ({
-                    data_keluarga_id: anggota.id,
-                    ...anggota,
-                  }))
-                )}
+                payload={JSON.stringify(remappedData)}
                 url="/api/update-data-keluarga"
                 isDisabled={formik.values.keluarga?.length === 0}
               />

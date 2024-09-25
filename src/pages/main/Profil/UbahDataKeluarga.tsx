@@ -3,13 +3,12 @@ import { RiArrowUpCircleLine, RiHistoryLine } from "@remixicon/react";
 import Retry from "../../../components/dependent/Retry";
 import Skeleton from "../../../components/independent/Skeleton";
 import CContainer from "../../../components/independent/wrapper/CContainer";
-import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
+import { useContentBgColor } from "../../../constant/colors";
 import useDataState from "../../../hooks/useDataState";
 import UbahDataKeluargaForm from "./UbahDataKeluargaForm";
 
 const UbahDataForm = ({ data }: any) => {
   // SX
-  const lightDarkColor = useLightDarkColor();
 
   return (
     <>
@@ -39,7 +38,7 @@ const UbahDataForm = ({ data }: any) => {
         </Text>
       </Alert>
 
-      <CContainer flex={0} bg={lightDarkColor} borderRadius={12} p={4} pt={3}>
+      <CContainer flex={0} borderRadius={12}>
         <UbahDataKeluargaForm data={data} />
       </CContainer>
     </>

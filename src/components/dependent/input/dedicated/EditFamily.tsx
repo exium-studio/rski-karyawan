@@ -52,8 +52,8 @@ export default function EditFamily({
     initialValues: {
       hubungan: data.hubungan
         ? {
-            value: data.hubungan.value,
-            label: data.hubungan.label,
+            value: data.hubungan.value || data.hubungan,
+            label: data.hubungan.label || data.hubungan,
           }
         : undefined,
       nama_keluarga: data.nama_keluarga,
