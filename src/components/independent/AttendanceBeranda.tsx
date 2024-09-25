@@ -2,16 +2,11 @@ import {
   Button,
   Icon,
   SimpleGrid,
-  Text,
   useColorModeValue,
   useToast,
   VStack,
 } from "@chakra-ui/react";
-import {
-  RiCalendarCloseLine,
-  RiHourglass2Fill,
-  RiTimeLine,
-} from "@remixicon/react";
+import { RiCalendarCloseLine } from "@remixicon/react";
 import { useRef } from "react";
 import { Interface__AttendanceData } from "../../constant/interfaces";
 import useDataState from "../../hooks/useDataState";
