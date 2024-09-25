@@ -100,7 +100,7 @@ export default function EditDataPersonalForm({ data }: Props) {
       berat_badan: yup.string().required("Harus diisi"),
       alamat: yup.string().required("Harus diisi"),
       no_ijazah: yup.string().required("Harus diisi"),
-      pendidikan_terakhir: yup.string().required("Harus diisi"),
+      pendidikan_terakhir: yup.object().required("Harus diisi"),
       tahun_lulus: yup.string().required("Harus diisi"),
       gelar_depan: yup.string(),
       gelar_belakang: yup.string(),
@@ -588,7 +588,7 @@ export default function EditDataPersonalForm({ data }: Props) {
               formik.validateField("pendidikan_terakhir");
             }}
             column="pendidikan_terakhir"
-            payload={formik.values.pendidikan_terakhir}
+            payload={formik.values.pendidikan_terakhir?.value}
           />
         </HStack>
         <FormErrorMessage>
