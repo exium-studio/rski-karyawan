@@ -67,9 +67,9 @@ export default function EditFamily({
             label: data.pendidikan_terakhir?.label,
           }
         : undefined,
-      pekerjaan: data.pekerjaan,
-      no_hp: data.no_hp,
-      email: data.email,
+      pekerjaan: data.pekerjaan || "",
+      no_hp: data.no_hp || "",
+      email: data.email || "",
       is_bpjs: data.is_bpjs,
     },
     validationSchema: yup.object().shape({
