@@ -66,7 +66,8 @@ export default function AttendanceBeranda() {
                   ripple(liburButtonRef);
                   toast({
                     status: "error",
-                    title: "Hari ini tidak ada jadwal kerja",
+                    title:
+                      "Hari ini tidak ada jadwal kerja / belum boleh presensi (harus -2 jam sebelum jam masuk)",
                     isClosable: true,
                     position: "top",
                   });
