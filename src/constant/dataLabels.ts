@@ -1,4 +1,6 @@
 const dataLabels: any = {
+  riwayat_penyakit: "Riwayat Penyakit",
+  asal_sekolah: "Asal Sekolah",
   "Data Keluarga": "Data Keluarga",
   user: "Data User",
   role: "Role",
@@ -29,6 +31,7 @@ const dataLabels: any = {
   no_kk: "No. Kartu Keluarga",
   alamat: "Alamat",
   gelar_depan: "Gelar Depan",
+  gelar_belakang: "Gelar Belakang",
   no_hp: "No. Telepon",
   no_bpjsksh: "No. BPJS Kesehatan",
   no_bpjsktk: "No. BPJS Ketenagakerjaan",

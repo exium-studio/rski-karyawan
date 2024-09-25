@@ -84,6 +84,7 @@ export default function EditDataPersonalForm({ data }: Props) {
       gelar_depan: data?.gelar_depan,
       gelar_belakang: data?.gelar_belakang,
       asal_sekolah: data?.asal_sekolah,
+      riwayat_penyakit: data?.riwayat_penyakit,
     },
     validationSchema: yup.object().shape({
       foto_profil: yup.mixed().required("Harus diisi"),
@@ -104,10 +105,10 @@ export default function EditDataPersonalForm({ data }: Props) {
       gelar_depan: yup.string(),
       gelar_belakang: yup.string(),
       asal_sekolah: yup.string(),
+      riwayat_penyakit: yup.string(),
     }),
     onSubmit: (values, { resetForm }) => {
       console.log(values);
-      // TODO hit api simpan profil
     },
   });
 
@@ -510,6 +511,28 @@ export default function EditDataPersonalForm({ data }: Props) {
         <FormErrorMessage>
           {formik.errors.tinggi_badan as string}
         </FormErrorMessage>
+      </FormControl>
+
+      <FormControl mb={4} isInvalid={!!formik.errors.riwayat_penyakit}>
+        <FormLabel>
+          Riwayat Penyakit
+          <RequiredForm />
+        </FormLabel>
+        <HStack align={"start"}>
+          <Textarea
+            formik={formik}
+            name="riwayat_penyakit"
+            placeholder="Masukkan riwayat penyakit"
+          />
+          <RequestPatchDataButton
+            validator={() => {
+              formik.validateField("riwayat_penyakit");
+            }}
+            column="riwayat_penyakit"
+            payload={formik.values.riwayat_penyakit}
+          />
+        </HStack>
+        <FormErrorMessage>{formik.errors.alamat as string}</FormErrorMessage>
       </FormControl>
 
       <FormControl mb={4} isInvalid={!!formik.errors.alamat}>
