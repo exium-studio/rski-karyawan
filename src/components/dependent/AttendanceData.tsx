@@ -17,7 +17,7 @@ export default function AttendanceData({ data }: Props) {
       <VStack gap={0}>
         <Icon as={RiTimeLine} fontSize={32} mb={2} transform={"scaleX(-1)"} />
         <Text fontSize={[16, null, 18]} className="num" fontWeight={500}>
-          {formatTime(data.shift?.jam_from)}
+          {data.shift?.jam_from ? formatTime(data.shift?.jam_from) : '-'}
         </Text>
         <Text fontSize={14}>Masuk</Text>
       </VStack>
