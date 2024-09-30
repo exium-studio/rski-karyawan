@@ -10,12 +10,12 @@ import CContainer from "./wrapper/CContainer";
 
 interface Props extends StackProps {}
 
-export default function ListTukarJadwal({ ...props }: Props) {
+export default function ListPengajuanTukarJadwal({ ...props }: Props) {
   const { filterTukarJadwal } = useFilterTukarJadwal();
 
   const { error, notFound, loading, data, retry } = useDataState<any>({
     initialData: undefined,
-    url: `/api/get-swap`,
+    url: `/get-pengajuan-swap`,
     payload: {
       ...(filterTukarJadwal?.date_range && {
         tgl_mulai: filterTukarJadwal.date_range.from,

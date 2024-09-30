@@ -192,7 +192,7 @@ export default function Inbox() {
               (typeof e?.response?.data?.message === "string" &&
                 (e?.response?.data?.message as string)) ||
               "Terjadi kendala, silahkan periksa jaringan atau hubungi SIM RS",
-            position: "bottom-right",
+            position: "top",
             isClosable: true,
           });
         })

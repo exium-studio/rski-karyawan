@@ -1,8 +1,24 @@
-import { Box, StackProps } from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  Icon,
+  StackProps,
+  Tab,
+  TabIndicator,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+} from "@chakra-ui/react";
+import { RiArrowDownLine, RiArrowUpLine } from "@remixicon/react";
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
 import Header from "../../dependent/Header";
 import FilterTukarJadwal from "../FilterTukarJadwal";
-import ListTukarJadwal from "../ListTukarJadwal";
+import ListPermintaanTukarJadwal from "../ListPermintaanTukarJadwal";
+import ListPengajuanTukarJadwal from "../ListTukarJadwal";
 import CContainer from "./CContainer";
 interface Props extends StackProps {
   title: string;
@@ -18,30 +34,30 @@ export default function TukarJadwalContainer({
 }: Props) {
   // const dummy = [null, null];
 
-  // const pengajuanTabRef = useRef<HTMLButtonElement>(null);
-  // const permintaanTabRef = useRef<HTMLButtonElement>(null);
-  // const [tabIndex, setTabIndex] = useState<number>(0);
-  // const location = useLocation();
-  // const navigate = useNavigate();
+  const pengajuanTabRef = useRef<HTMLButtonElement>(null);
+  const permintaanTabRef = useRef<HTMLButtonElement>(null);
+  const [tabIndex, setTabIndex] = useState<number>(0);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const queryParams = new URLSearchParams(location.search);
-  //   let tabIndexQuery = queryParams.get("tabindex");
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    let tabIndexQuery = queryParams.get("tabindex");
 
-  //   if (tabIndexQuery === "0") {
-  //     setTabIndex(0);
-  //     setTimeout(() => {
-  //       pengajuanTabRef?.current?.click();
-  //     }, 50);
-  //   }
+    if (tabIndexQuery === "0") {
+      setTabIndex(0);
+      setTimeout(() => {
+        pengajuanTabRef?.current?.click();
+      }, 50);
+    }
 
-  //   if (tabIndexQuery === "1") {
-  //     setTabIndex(1);
-  //     setTimeout(() => {
-  //       permintaanTabRef?.current?.click();
-  //     }, 50);
-  //   }
-  // }, [location, navigate]);
+    if (tabIndexQuery === "1") {
+      setTabIndex(1);
+      setTimeout(() => {
+        permintaanTabRef?.current?.click();
+      }, 50);
+    }
+  }, [location, navigate]);
 
   // SX
 
@@ -56,7 +72,7 @@ export default function TukarJadwalContainer({
         <FilterTukarJadwal />
       </Box>
 
-      <CContainer bg={contentBgColor}>
+      {/* <CContainer bg={contentBgColor}>
         <CContainer
           p={5}
           pb={8}
@@ -65,9 +81,9 @@ export default function TukarJadwalContainer({
         >
           <ListTukarJadwal />
         </CContainer>
-      </CContainer>
+      </CContainer> */}
 
-      {/* <Tabs position="relative" variant="unstyled">
+      <Tabs position="relative" variant="unstyled">
         <Box
           bg={lightDarkColor}
           position={"sticky"}
@@ -94,7 +110,7 @@ export default function TukarJadwalContainer({
                 <Text fontWeight={500} opacity={tabIndex === 0 ? 1 : 0.4}>
                   Pengajuan
                 </Text>
-                <NotifCount data={data?.[0]} />
+                {/* <NotifCount data={data?.[0]} /> */}
               </HStack>
             </Tab>
 
@@ -112,7 +128,7 @@ export default function TukarJadwalContainer({
                 <Text fontWeight={500} opacity={tabIndex === 1 ? 1 : 0.4}>
                   Permintaan
                 </Text>
-                <NotifCount data={data?.[1]} />
+                {/* <NotifCount data={data?.[1]} /> */}
               </HStack>
             </Tab>
           </TabList>
@@ -149,7 +165,7 @@ export default function TukarJadwalContainer({
             </TabPanel>
           </TabPanels>
         </CContainer>
-      </Tabs> */}
+      </Tabs>
     </CContainer>
   );
 }
