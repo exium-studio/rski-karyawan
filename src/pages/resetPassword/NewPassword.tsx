@@ -1,14 +1,19 @@
-import Container from "../../components/independent/wrapper/Container";
-import { Box, Text } from "@chakra-ui/react";
-import BantuanButton from "../../components/independent/BantuanButton";
+import { Box, Image, Text } from "@chakra-ui/react";
+import LengkapiDataUserHeader from "../../components/dependent/LengkapiDataUserHeader";
 import NewPasswordForm from "../../components/form/NewPasswordForm";
+import Container from "../../components/independent/wrapper/Container";
+import CContainer from "../../components/independent/wrapper/CContainer";
 
 export default function NewPassword() {
   // SX
 
   return (
-    <Container p={4}>
-      <BantuanButton />
+    <Container px={4} pt={0} pb={8}>
+      <LengkapiDataUserHeader />
+
+      <CContainer h={"440px"} align={"center"} justify={"center"}>
+        <Image src={`/images/logo.webp`} w={"100%"} maxW={"260px"} />
+      </CContainer>
 
       <Text
         fontSize={[22, null, 24]}
@@ -28,7 +33,7 @@ export default function NewPassword() {
         <NewPasswordForm />
       </Box>
 
-      <Text textAlign={"center"} opacity={0.4} mt={4} fontSize={14}>
+      <Text textAlign={"center"} opacity={0.4} mt={8} fontSize={14}>
         {"App ver 1.0"}
       </Text>
     </Container>

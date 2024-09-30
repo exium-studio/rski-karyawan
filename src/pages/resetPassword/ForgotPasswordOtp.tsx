@@ -85,8 +85,7 @@ export default function ForgotPasswordOtp() {
         <LengkapiDataUserHeader />
 
         <CContainer h={"440px"} align={"center"} justify={"center"}>
-          {/* <Image src={`/images/logo.webp`} w={"100%"} maxW={"260px"} /> */}
-          <Image src={`/vectors/emailSent.png`} w={"100%"} maxW={"280px"} />
+          <Image src={`/images/logo.webp`} w={"100%"} maxW={"260px"} />
         </CContainer>
 
         <Text
