@@ -1,170 +1,166 @@
 import {
   Button,
-  Center,
   FormControl,
   FormErrorMessage,
   FormLabel,
-  HStack,
-  Icon,
-  Text,
-  useColorModeValue,
   useDisclosure,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
-import * as yup from "yup";
 import { useState } from "react";
-import { RiCheckLine, RiCloseLine } from "@remixicon/react";
+import { useParams } from "react-router-dom";
+import * as yup from "yup";
+import req from "../../lib/req";
 import AlertNewPasswordSuccess from "../dependent/AlertNewPasswordSuccess";
 import PasswordInput from "../dependent/input/PasswordInput";
 
 export default function NewPasswordForm() {
-  const [loading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const toast = useToast();
+
+  const { email, otp } = useParams();
+
   const { isOpen, onOpen } = useDisclosure();
 
-  function isSixChar(password: string) {
-    return password.length >= 6;
-  }
+  // function isSixChar(password: string) {
+  //   return password.length >= 6;
+  // }
 
-  function isContainNum(password: string) {
-    const numRegex = /\d/;
-    return numRegex.test(password);
-  }
+  // function isContainNum(password: string) {
+  //   const numRegex = /\d/;
+  //   return numRegex.test(password);
+  // }
 
-  function isContainSpecialChar(password: string) {
-    const allowedSpecialChar = [
-      "!",
-      "@",
-      "#",
-      "$",
-      "%",
-      "^",
-      "&",
-      "*",
-      "(",
-      ")",
-      "-",
-      "=",
-      "_",
-      "+",
-      "[",
-      "]",
-      "{",
-      "}",
-      ";",
-      ":",
-      "/",
-      ",",
-      ".",
-      "<",
-      ">",
-      "?",
-    ];
-    return allowedSpecialChar.some((char) => password.includes(char));
-  }
+  // function isContainSpecialChar(password: string) {
+  //   const allowedSpecialChar = [
+  //     "!",
+  //     "@",
+  //     "#",
+  //     "$",
+  //     "%",
+  //     "^",
+  //     "&",
+  //     "*",
+  //     "(",
+  //     ")",
+  //     "-",
+  //     "=",
+  //     "_",
+  //     "+",
+  //     "[",
+  //     "]",
+  //     "{",
+  //     "}",
+  //     ";",
+  //     ":",
+  //     "/",
+  //     ",",
+  //     ".",
+  //     "<",
+  //     ">",
+  //     "?",
+  //   ];
+  //   return allowedSpecialChar.some((char) => password.includes(char));
+  // }
 
-  function isMatch(password: string, confirmPassword: string) {
-    return password === confirmPassword;
-  }
+  // function isMatch(password: string, confirmPassword: string) {
+  //   return password === confirmPassword;
+  // }
 
-  function isPasswordValid() {
-    return (
-      isSixChar(formik.values.password) &&
-      isContainNum(formik.values.password) &&
-      isContainSpecialChar(formik.values.password) &&
-      isMatch(formik.values.password, formik.values.confirmPassword)
-    );
-  }
+  // function isPasswordValid() {
+  //   return (
+  //     isSixChar(formik.values.password) &&
+  //     isContainNum(formik.values.password) &&
+  //     isContainSpecialChar(formik.values.password) &&
+  //     isMatch(formik.values.password, formik.values.confirmPassword)
+  //   );
+  // }
 
   const formik = useFormik({
     validateOnChange: false,
-    initialValues: { password: "", confirmPassword: "" },
+    initialValues: { new_password: "", confirm_password: "" },
     validationSchema: yup.object().shape({
-      password: yup.string().required("Kata Sandi harus diisi"),
-      confirmPassword: yup
+      new_password: yup
         .string()
-        .required("Konfirmasi Kata Sandi harus diisi"),
+        .min(8, "Minimal 8 karakter")
+        .required("Harus diisi"),
+      confirm_password: yup
+        .string()
+        .oneOf([yup.ref("new_password")], "Password tidak cocok")
+        .required("Harus diisi"),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
+      setLoading(true);
 
-      onOpen();
-      // TODO implement cek email for forgot password api
+      const payload = {
+        email: email,
+        kode_otp: otp,
+        password: values.new_password,
+        password_confirmation: values.confirm_password,
+      };
 
-      // const payload = {
-      //   password: values.password,
-      //   confirmPassword: values.confirmPassword,
-      // };
-
-      // const url = ``;
-      // clientRequest.then(() => {
-      //   reqWithHeader
-      //     .post(url, payload)
-      //     .then((r) => {
-      //       if (r.status === 200) {
-      //         // TODO isi userData (opsioanl)
-      //         const userData = {};
-      //         setCookie("userData", JSON.stringify(userData));
-      //         navigate("/beranda");
-      //         toast({
-      //           status: "success",
-      //           title: "Berhasil Masuk",
-      //           description: "Selamat datang",
-      //           isClosable: true,
-      //         });
-      //       }
-      //     })
-      //     .catch((e) => {
-      //       console.log(e);
-      //       toast({
-      //         status: "error",
-      //         title: "Gagal Masuk",
-      //         description:
-      //           e?.error?.response?.message || "Maaf terjadi kesalahan",
-      //         isClosable: true,
-      //       });
-      //     })
-      //     .finally(() => {
-      //       setLoading(false);
-      //     });
-      // });
+      req
+        .post(`/api/reset-password`, payload)
+        .then((r) => {
+          if (r.status === 200) {
+            onOpen();
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          toast({
+            status: "error",
+            title:
+              (typeof e?.response?.data?.message === "string" &&
+                (e?.response?.data?.message as string)) ||
+              "Terjadi kendala, silahkan periksa jaringan atau hubungi SIM RS",
+            isClosable: true,
+            position: "top",
+          });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     },
   });
 
   // SX
-  const redColor = useColorModeValue("red.500", "red.300");
 
   return (
     <form id="forgotPasswordForm" onSubmit={formik.handleSubmit}>
       <AlertNewPasswordSuccess isOpen={isOpen} onOpen={onOpen} />
 
-      <FormControl mb={4} isInvalid={formik.errors.password ? true : false}>
-        <FormLabel>Kata Sandi</FormLabel>
+      <FormControl mb={4} isInvalid={formik.errors.new_password ? true : false}>
+        <FormLabel>Password</FormLabel>
         <PasswordInput
           name={"password"}
           onChangeSetter={(inputValue) => {
-            formik.setFieldValue("password", inputValue);
+            formik.setFieldValue("new_password", inputValue);
           }}
-          inputValue={formik.values.password}
+          inputValue={formik.values.new_password}
           placeholder={"Kata sandi baru"}
         />
-        <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+        <FormErrorMessage>{formik.errors.new_password}</FormErrorMessage>
       </FormControl>
 
-      <FormControl mb={4} isInvalid={formik.errors.password ? true : false}>
-        <FormLabel>Konfirmasi Kata Sandi</FormLabel>
+      <FormControl
+        mb={4}
+        isInvalid={formik.errors.confirm_password ? true : false}
+      >
+        <FormLabel>Konfirmasi Password</FormLabel>
         <PasswordInput
-          name={"confirmPassword"}
+          name={"confirm_password"}
           onChangeSetter={(inputValue) => {
-            formik.setFieldValue("confirmPassword", inputValue);
+            formik.setFieldValue("confirm_password", inputValue);
           }}
-          inputValue={formik.values.confirmPassword}
+          inputValue={formik.values.confirm_password}
           placeholder={"Konfirmasi kata sandi"}
         />
-        <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+        <FormErrorMessage>{formik.errors.confirm_password}</FormErrorMessage>
       </FormControl>
 
-      <VStack
+      {/* <VStack
         align={"stretch"}
         opacity={formik.values.password ? 1 : 0}
         transition={"200ms"}
@@ -268,7 +264,7 @@ export default function NewPasswordForm() {
             Kata Sandi Cocok
           </Text>
         </HStack>
-      </VStack>
+      </VStack> */}
 
       <VStack mt={6}>
         <Button
@@ -280,9 +276,8 @@ export default function NewPasswordForm() {
           w={"100%"}
           isLoading={loading}
           h={"50px"}
-          isDisabled={!isPasswordValid()}
         >
-          Lanjut
+          Lanjutkan
         </Button>
       </VStack>
     </form>

@@ -29,6 +29,7 @@ export default function LengkapiDataUserHeader({ backLink, ...props }: Props) {
         variant={"ghost"}
         color={"p.500"}
         mr={"auto"}
+        ml={0}
       />
 
       <BantuanButton ml={"0"} />

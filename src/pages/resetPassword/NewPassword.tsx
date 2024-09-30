@@ -17,10 +17,10 @@ export default function NewPassword() {
         mb={2}
         mt={"auto"}
       >
-        Kata Sandi Baru
+        Password Baru
       </Text>
       <Text textAlign={"center"} mb={6}>
-        Silahkan Masukan kata sandi baru dan kornfirmasi kata sandi baru anda
+        Silahkan Masukan password baru dan kornfirmasi password baru anda
         dibawah ini
       </Text>
 

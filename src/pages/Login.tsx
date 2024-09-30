@@ -31,7 +31,7 @@ export default function Login() {
           <BantuanButton ml={"0"} />
         </HStack>
 
-        <CContainer flex={1} align={"center"} justify={"center"}>
+        <CContainer h={"440px"} align={"center"} justify={"center"}>
           <Image src={`/images/logo.webp`} w={"100%"} maxW={"260px"} />
         </CContainer>
 

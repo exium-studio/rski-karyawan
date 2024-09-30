@@ -124,7 +124,7 @@ export default function LoginForm() {
           as={Link}
           to={"/forgot-password"}
         >
-          Lupa kata sandi?
+          Lupa password?
         </Text>
 
         <Button

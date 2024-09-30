@@ -43,8 +43,8 @@ import RiwayatPerubahanData from "./pages/main/Profil/RiwayatPerubahanData";
 import SyaratDanKetentuan from "./pages/main/Profil/SyaratDanKetentuan";
 import Aktivitas from "./pages/main/SemuaAktivitas";
 import Onboarding from "./pages/Onboarding";
-import EmailVerfication from "./pages/resetPassword/EmailVerfication";
 import ForgotPassword from "./pages/resetPassword/ForgotPassword";
+import ForgotPasswordOtp from "./pages/resetPassword/ForgotPasswordOtp";
 import NewPassword from "./pages/resetPassword/NewPassword";
 import { globalTheme } from "./theme/globalTheme";
 
@@ -106,10 +106,14 @@ export const App = () => {
             />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route
+              path="/forgot-password/:email"
+              element={<ForgotPasswordOtp />}
+            />
+            {/* <Route
               path="/forgot-password-email-verif"
               element={<EmailVerfication />}
-            />
-            <Route path="/new-password" element={<NewPassword />} />
+            /> */}
+            <Route path="/new-password/:email/:otp" element={<NewPassword />} />
             <Route
               path="/lengkapi-data-personal-1"
               element={

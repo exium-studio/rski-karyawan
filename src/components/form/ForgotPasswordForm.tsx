@@ -3,17 +3,19 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Input,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import { useState } from "react";
+import StringInput from "../dependent/input/StringInput";
+import req from "../../lib/req";
 
 export default function ForgotPasswordForm() {
-  const [loading] = useState<boolean>(false);
-  // const toast = useToast();
+  const [loading, setLoading] = useState<boolean>(false);
+  const toast = useToast();
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -22,49 +24,41 @@ export default function ForgotPasswordForm() {
     validationSchema: yup.object().shape({
       email: yup.string().required("Email harus diisi"),
     }),
-    onSubmit: (values, { resetForm }) => {
-      console.log(values);
+    onSubmit: (values) => {
+      setLoading(true);
 
-      // TODO implement cek email for forgot password api
+      const payload = {
+        email: values.email,
+      };
 
-      navigate(`/forgot-password-email-verif?email=${formik.values.email}`);
-      // const payload = {
-      //   email: values.email,
-      //   password: values.password,
-      // };
-
-      // const url = ``;
-      // clientRequest.then(() => {
-      //   reqWithHeader
-      //     .post(url, payload)
-      //     .then((r) => {
-      //       if (r.status === 200) {
-      //         // TODO isi userData (opsioanl)
-      //         const userData = {};
-      //         setCookie("userData", JSON.stringify(userData));
-      //         navigate("/beranda");
-      //         toast({
-      //           status: "success",
-      //           title: "Berhasil Masuk",
-      //           description: "Selamat datang",
-      //           isClosable: true,
-      //         });
-      //       }
-      //     })
-      //     .catch((e) => {
-      //       console.log(e);
-      //       toast({
-      //         status: "error",
-      //         title: "Gagal Masuk",
-      //         description:
-      //           e?.error?.response?.message || "Maaf terjadi kesalahan",
-      //         isClosable: true,
-      //       });
-      //     })
-      //     .finally(() => {
-      //       setLoading(false);
-      //     });
-      // });
+      req
+        .post(`/api/forgot-password-sendOtp`, payload)
+        .then((r) => {
+          if (r.status === 200) {
+            navigate(`/forgot-password/${values.email}`);
+            toast({
+              status: "success",
+              title: r.data.message,
+              isClosable: true,
+              position: "top",
+            });
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          toast({
+            status: "error",
+            title:
+              (typeof e?.response?.data?.message === "string" &&
+                (e?.response?.data?.message as string)) ||
+              "Terjadi kendala, silahkan periksa jaringan atau hubungi SIM RS",
+            isClosable: true,
+            position: "top",
+          });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     },
   });
 
@@ -72,11 +66,14 @@ export default function ForgotPasswordForm() {
     <form id="forgotPasswordForm" onSubmit={formik.handleSubmit}>
       <FormControl mb={4} isInvalid={formik.errors.email ? true : false}>
         <FormLabel>Email</FormLabel>
-        <Input
+        <StringInput
           name="email"
-          onChange={formik.handleChange}
+          onChangeSetter={(input) => {
+            formik.setFieldValue("email", input);
+          }}
+          inputValue={formik.values.email}
           placeholder="email@gmail.com"
-        ></Input>
+        />
         <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
       </FormControl>
 

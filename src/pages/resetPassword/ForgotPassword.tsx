@@ -1,39 +1,43 @@
-import Container from "../../components/independent/wrapper/Container";
-import { Box, Image, Text, VStack } from "@chakra-ui/react";
-import ForgotPasswordForm from "../../components/form/ForgotPasswordForm";
+import { Box, Image, Text } from "@chakra-ui/react";
 import LengkapiDataUserHeader from "../../components/dependent/LengkapiDataUserHeader";
+import ForgotPasswordForm from "../../components/form/ForgotPasswordForm";
 import CContainer from "../../components/independent/wrapper/CContainer";
+import Container from "../../components/independent/wrapper/Container";
 
 export default function ForgotPassword() {
   // SX
 
   return (
     <Container px={5}>
-      <CContainer>
+      <CContainer flex={1}>
         <LengkapiDataUserHeader />
 
-        <VStack h={"420px"} justify={"center"}>
-          <Image src={`/images/logo.webp`} w={"100%"} maxW={"280px"} />
-        </VStack>
+        <CContainer h={"440px"} align={"center"} justify={"center"}>
+          <Image src={`/images/logo.webp`} w={"100%"} maxW={"260px"} />
+        </CContainer>
 
         <Text
-          fontSize={[22, null, 24]}
+          fontSize={20}
           fontWeight={600}
           textAlign={"center"}
+          mt={"auto"}
           mb={2}
         >
-          Lupa Kata Sandi
+          Lupa Password? Tenang
         </Text>
-        <Text textAlign={"center"}>
-          Masukkan alamat email yang terkait dengan akunmu dan kami akan
-          mengirimkan instruksi untuk mengatur ulang kata sandi
+        <Text textAlign={"center"} mb={4} opacity={0.6}>
+          Masukkan email anda dan kami akan mengirimkan OTP ke email anda.
+        </Text>
+        <Text textAlign={"center"} mb={6} opacity={0.6}>
+          Jika kamu tidak memiliki email, silakan hubungi bagian personalia
+          untuk meminta bantuan dalam mereset kata sandi kamu.
         </Text>
 
-        <Box mt={"auto"}>
+        <Box>
           <ForgotPasswordForm />
         </Box>
 
-        <Text textAlign={"center"} opacity={0.4} mt={4} fontSize={14}>
+        <Text textAlign={"center"} opacity={0.4} mt={8} fontSize={14}>
           {"App ver 1.0"}
         </Text>
       </CContainer>
