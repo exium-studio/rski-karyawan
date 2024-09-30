@@ -34,6 +34,7 @@ import Pengumuman from "./pages/main/Beranda/SemuaPengumuman";
 import SlipGajiku from "./pages/main/Beranda/SlipGajiku";
 import Jadwal from "./pages/main/Jadwal/Jadwal";
 import Karyawan from "./pages/main/Karyawan/Karyawan";
+import ChangePassword from "./pages/main/Profil/ChangePassword";
 import DataKaryawan from "./pages/main/Profil/DataKaryawan";
 import Faqs from "./pages/main/Profil/Faqs";
 import Kontak from "./pages/main/Profil/Kontak";
@@ -382,6 +383,16 @@ export const App = () => {
                 <AuthMiddleware>
                   <NavContainer active={4} noNavs>
                     <DataKaryawan />
+                  </NavContainer>
+                </AuthMiddleware>
+              }
+            />
+            <Route
+              path="/profil/change-password"
+              element={
+                <AuthMiddleware>
+                  <NavContainer active={4} noNavs>
+                    <ChangePassword />
                   </NavContainer>
                 </AuthMiddleware>
               }

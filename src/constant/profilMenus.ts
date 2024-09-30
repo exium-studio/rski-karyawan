@@ -1,6 +1,7 @@
 import {
   RiBriefcaseLine,
   RiInformationLine,
+  RiLock2Line,
   RiPhoneLine,
   RiShieldStarLine,
   RiUserLine,
@@ -20,6 +21,11 @@ const profilMenus = [
         label: "Data Personal & Keluarga",
         link: "/profil/ubah",
         icon: RiUserLine,
+      },
+      {
+        label: "Ubah Kata Sandi",
+        link: "/profil/change-password",
+        icon: RiLock2Line,
       },
     ],
   },
