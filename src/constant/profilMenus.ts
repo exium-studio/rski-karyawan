@@ -1,6 +1,5 @@
 import {
   RiBriefcaseLine,
-  RiInformationLine,
   RiLock2Line,
   RiPhoneLine,
   RiShieldStarLine,
@@ -37,11 +36,11 @@ const profilMenus = [
         link: "/profil/syarat-dan-ketentuan",
         icon: RiShieldStarLine,
       },
-      {
-        label: "FAQs",
-        link: "/profil/faqs",
-        icon: RiInformationLine,
-      },
+      // {
+      //   label: "FAQs",
+      //   link: "/profil/faqs",
+      //   icon: RiInformationLine,
+      // },
       { label: "Kontak Bantuan", link: "/profil/kontak", icon: RiPhoneLine },
     ],
   },

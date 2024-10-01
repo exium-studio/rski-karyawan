@@ -30,7 +30,7 @@ export default function Kontak() {
             <AccordionItem
               bg={lightDarkColor}
               border={"none"}
-              borderRadius={12}
+              borderRadius={8}
               overflow={"clip"}
             >
               <AccordionButton h="48px">
