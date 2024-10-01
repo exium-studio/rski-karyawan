@@ -18,7 +18,7 @@ import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
 import Header from "../../dependent/Header";
 import FilterTukarJadwal from "../FilterTukarJadwal";
 import ListPermintaanTukarJadwal from "../ListPermintaanTukarJadwal";
-import ListPengajuanTukarJadwal from "../ListTukarJadwal";
+import ListPengajuanTukarJadwal from "../ListPengajuanTukarJadwal";
 import CContainer from "./CContainer";
 interface Props extends StackProps {
   title: string;
@@ -150,7 +150,7 @@ export default function TukarJadwalContainer({
                 h={"calc(100vh - 56px - 40px - 40px)"}
                 overflowY={"auto"}
               >
-                <ListPengajuanTukarJadwal />
+                <ListPengajuanTukarJadwal tabIndex={tabIndex} />
               </CContainer>
             </TabPanel>
             <TabPanel p={0}>
@@ -160,7 +160,7 @@ export default function TukarJadwalContainer({
                 h={"calc(100vh - 56px - 40px - 40px)"}
                 overflowY={"auto"}
               >
-                <ListPermintaanTukarJadwal />
+                <ListPermintaanTukarJadwal tabIndex={tabIndex} />
               </CContainer>
             </TabPanel>
           </TabPanels>
