@@ -297,32 +297,33 @@ export default function TukarJadwalItem({ data }: Props) {
                 </span> */}
               </Text>
 
-              <HStack
-                w={"100%"}
-                mb={4}
-                gap={16}
-                px={6}
-                // border={"1px solid red"}
-              >
-                <CContainer w={"50%"}>
+              <HStack w={"100%"} mb={4} px={6} overflow={"clip"}>
+                <HStack w={"100%"} overflow={"hidden"}>
                   <AvatarAndNameTableData
                     data={{
                       id: data.user_pengajuan.id,
                       nama: data.user_pengajuan.nama,
                       foto_profil: data.user_pengajuan.foto_profil,
                     }}
+                    w={"calc(50% - 50px)"}
                   />
-                </CContainer>
 
-                <CContainer w={"50%"}>
+                  <Icon
+                    as={RiArrowUpDownLine}
+                    transform={"rotate(90deg)"}
+                    mx={5}
+                    visibility={"hidden"}
+                  />
+
                   <AvatarAndNameTableData
                     data={{
                       id: data.user_ditukar.id,
                       nama: data.user_ditukar.nama,
                       foto_profil: data.user_ditukar.foto_profil,
                     }}
+                    w={"calc(50% - 50px)"}
                   />
-                </CContainer>
+                </HStack>
               </HStack>
 
               <CContainer>

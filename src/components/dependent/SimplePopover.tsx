@@ -25,7 +25,7 @@ export default function SimplePopover({
   return (
     <Popover>
       <PopoverTrigger>{children}</PopoverTrigger>
-      <PopoverContent {...contentProps}>
+      <PopoverContent w={"fit-content"} {...contentProps}>
         <PopoverCloseButton />
         <PopoverArrow />
         {header && <PopoverHeader>{header}</PopoverHeader>}

@@ -231,6 +231,12 @@ button[aria-label="Close"] > svg {
   width: 12px !important;
 }
 
+.noofline-1 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .chakra-alert {
   border-radius: 8px !important;
   padding: 16px !important;

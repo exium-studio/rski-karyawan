@@ -1,8 +1,8 @@
-import { Avatar, HStack, StackProps, Text, Tooltip } from "@chakra-ui/react";
-import { Interface__UnitKerja } from "../../constant/interfaces";
-import BooleanBadge from "./BooleanBadge";
+import { Avatar, HStack, StackProps, Text } from "@chakra-ui/react";
 import { ReactNode } from "react";
+import { Interface__UnitKerja } from "../../constant/interfaces";
 import CContainer from "../independent/wrapper/CContainer";
+import BooleanBadge from "./BooleanBadge";
 
 interface Props extends StackProps {
   detailKaryawanId?: string;
@@ -23,7 +23,7 @@ export default function AvatarAndNameTableData({
   ...props
 }: Props) {
   return (
-    <HStack w={"100%"} gap={3} {...props}>
+    <HStack flex={1} {...props}>
       <Avatar
         cursor={"pointer"}
         src={data.foto_profil || ""}
@@ -31,29 +31,8 @@ export default function AvatarAndNameTableData({
         size={data.unit_kerja ? "md" : "sm"}
       />
 
-      <CContainer
-        w={"100%"}
-        gap={2}
-        overflow={"hidden"}
-        // border={"1px solid yellow"}
-      >
-        <Tooltip
-          w={"100%"}
-          label={data.nama}
-          placement="right"
-          openDelay={500}
-          // border={"1px solid green"}
-        >
-          <Text
-            w={"100%"}
-            whiteSpace={"nowrap"}
-            overflow={"hidden"}
-            textOverflow={"ellipsis"}
-            // border={"1px solid blue"}
-          >
-            {data.fullName || data.nama}
-          </Text>
-        </Tooltip>
+      <CContainer flex={1} gap={2} overflow={"hidden"}>
+        <Text className="noofline-1">{data.fullName || data.nama}</Text>
 
         {(data.unit_kerja || addition) && (
           <HStack>
