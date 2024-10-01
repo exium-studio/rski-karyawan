@@ -150,7 +150,7 @@ export default function TukarJadwalContainer({
                 h={"calc(100vh - 56px - 40px - 40px)"}
                 overflowY={"auto"}
               >
-                <ListPengajuanTukarJadwal tabIndex={tabIndex} />
+                <ListPengajuanTukarJadwal tabIndex={tabIndex} index={0} />
               </CContainer>
             </TabPanel>
             <TabPanel p={0}>
@@ -160,7 +160,7 @@ export default function TukarJadwalContainer({
                 h={"calc(100vh - 56px - 40px - 40px)"}
                 overflowY={"auto"}
               >
-                <ListPermintaanTukarJadwal tabIndex={tabIndex} />
+                <ListPermintaanTukarJadwal tabIndex={tabIndex} index={1} />
               </CContainer>
             </TabPanel>
           </TabPanels>

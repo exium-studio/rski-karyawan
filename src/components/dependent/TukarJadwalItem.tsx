@@ -6,22 +6,30 @@ import {
   Avatar,
   Box,
   Button,
+  ButtonGroup,
   HStack,
   Icon,
   SimpleGrid,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
-import { RiArrowUpDownLine, RiUserLine } from "@remixicon/react";
+import { RiArrowUpDownLine } from "@remixicon/react";
+import { useState } from "react";
 import { useErrorAlphaColor, useLightDarkColor } from "../../constant/colors";
+import useRenderTrigger from "../../global/useRenderTrigger";
 import backOnClose from "../../lib/backOnClose";
 import formatDate from "../../lib/formatDate";
+import getUserData from "../../lib/getUserData";
+import req from "../../lib/req";
 import FlexLine from "../independent/FlexLine";
 import CContainer from "../independent/wrapper/CContainer";
 import CustomDrawer from "../independent/wrapper/CustomDrawer";
+import AvatarAndNameTableData from "./AvatarAndNameTableData";
 import DrawerHeader from "./DrawerHeader";
 import JadwalDitukarItem from "./JadwalDitukarItem";
 import StatusApproval2Badge from "./StatusApproval2Badge";
+import StatusApprovalBadge from "./StatusApprovalBadge";
 
 interface Props {
   data: any;
@@ -100,6 +108,51 @@ export default function TukarJadwalItem({ data }: Props) {
   const lightDarkColor = useLightDarkColor();
   const errorAlphaColor = useErrorAlphaColor();
 
+  const userData = getUserData();
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const toast = useToast();
+  const { rt, setRt } = useRenderTrigger();
+
+  function handleKonfirmasiTukar(acc: boolean) {
+    setLoading(true);
+
+    const payload = {
+      tukar_jadwal_id: data?.id,
+      is_acc: acc,
+    };
+
+    req
+      .post(`/api/acc-swap`, payload)
+      .then((r) => {
+        if (r.status === 200) {
+          setRt(!rt);
+          backOnClose();
+          toast({
+            status: "success",
+            title: r?.data?.message,
+            position: "top",
+            isClosable: true,
+          });
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        toast({
+          status: "error",
+          title:
+            (typeof e?.response?.data?.message === "string" &&
+              (e?.response?.data?.message as string)) ||
+            "Maaf terjadi kesalahan pada sistem",
+          position: "top",
+          isClosable: true,
+        });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
   return (
     <>
       <CContainer
@@ -158,6 +211,7 @@ export default function TukarJadwalItem({ data }: Props) {
       >
         <CContainer>
           <CContainer pb={0}>
+            {/* Ditolak admin */}
             {data?.alasan && (
               <Alert
                 status="error"
@@ -173,6 +227,7 @@ export default function TukarJadwalItem({ data }: Props) {
                 </Box>
               </Alert>
             )}
+
             {/* Profil User Ditukar */}
             <CContainer
               bg={lightDarkColor}
@@ -220,6 +275,12 @@ export default function TukarJadwalItem({ data }: Props) {
                 <StatusApproval2Badge data={data?.status_pengajuan} />
               </HStack>
 
+              <HStack gap={1} flex={0}>
+                <Text opacity={0.4}>Disetujui Karyawan</Text>
+                <FlexLine />
+                <StatusApprovalBadge data={data?.acc_user_ditukar} />
+              </HStack>
+
               {/* <HStack gap={1} flex={0}>
                 <Text opacity={0.4}>Disetujui oleh</Text>
                 <FlexLine />
@@ -231,15 +292,43 @@ export default function TukarJadwalItem({ data }: Props) {
             <CContainer pt={5} borderTop={"6px solid var(--divider)"}>
               <Text px={6} fontWeight={500} mb={4}>
                 Penukaran Jadwal{" "}
-                <span style={{ opacity: 0.3, fontSize: 12, fontWeight: 400 }}>
+                {/* <span style={{ opacity: 0.3, fontSize: 12, fontWeight: 400 }}>
                   ( jadwal anda di kanan )
-                </span>
+                </span> */}
               </Text>
+
+              <HStack
+                w={"100%"}
+                mb={4}
+                gap={16}
+                px={6}
+                // border={"1px solid red"}
+              >
+                <CContainer w={"50%"}>
+                  <AvatarAndNameTableData
+                    data={{
+                      id: data.user_pengajuan.id,
+                      nama: data.user_pengajuan.nama,
+                      foto_profil: data.user_pengajuan.foto_profil,
+                    }}
+                  />
+                </CContainer>
+
+                <CContainer w={"50%"}>
+                  <AvatarAndNameTableData
+                    data={{
+                      id: data.user_ditukar.id,
+                      nama: data.user_ditukar.nama,
+                      foto_profil: data.user_ditukar.foto_profil,
+                    }}
+                  />
+                </CContainer>
+              </HStack>
 
               <CContainer>
                 <HStack px={6}>
                   <JadwalDitukarItem
-                    data={data.jadwal_ditukar}
+                    data={data.jadwal_pengajuan}
                     noArrow
                     className=""
                     _active={{ opacity: 1 }}
@@ -262,15 +351,15 @@ export default function TukarJadwalItem({ data }: Props) {
                     // border={"1px solid var(--divider2)"}
                     // bg={"var(--divider)"}
                   >
-                    <Icon
+                    {/* <Icon
                       as={RiUserLine}
                       color={"p.500"}
                       position={"absolute"}
                       top={0}
                       right={0}
-                    />
+                    /> */}
                     <JadwalDitukarItem
-                      data={data.jadwal_pengajuan}
+                      data={data.jadwal_ditukar}
                       noArrow
                       className=""
                       _active={{ opacity: 1 }}
@@ -279,49 +368,7 @@ export default function TukarJadwalItem({ data }: Props) {
                   </CContainer>
                 </HStack>
 
-                <Box h={"1px"} w={"100%"} bg={"var(--divider)"} my={4} />
-
-                <HStack px={6}>
-                  <JadwalDitukarItem
-                    data={data.jadwal_ditukar}
-                    noArrow
-                    className=""
-                    _active={{ opacity: 1 }}
-                    cursor={"auto"}
-                    flex={1}
-                    // p={"14px"}
-                    // border={"1px solid var(--divider2)"}
-                    // bg={"var(--divider)"}
-                  />
-                  <Icon
-                    as={RiArrowUpDownLine}
-                    transform={"rotate(90deg)"}
-                    mx={5}
-                  />
-                  <CContainer
-                    position={"relative"}
-                    flex={1}
-                    borderRadius={12}
-                    // p={"14px"}
-                    // border={"1px solid var(--divider2)"}
-                    // bg={"var(--divider)"}
-                  >
-                    <Icon
-                      as={RiUserLine}
-                      color={"p.500"}
-                      position={"absolute"}
-                      top={0}
-                      right={0}
-                    />
-                    <JadwalDitukarItem
-                      data={data.jadwal_pengajuan}
-                      noArrow
-                      className=""
-                      _active={{ opacity: 1 }}
-                      cursor={"auto"}
-                    />
-                  </CContainer>
-                </HStack>
+                {/* <Box h={"1px"} w={"100%"} bg={"var(--divider)"} my={4} /> */}
               </CContainer>
             </CContainer>
           </CContainer>
@@ -331,13 +378,45 @@ export default function TukarJadwalItem({ data }: Props) {
             gap={2}
             px={6}
             flex={0}
-            pt={6}
+            pt={8}
             // borderTop={"6px solid var(--divider)"}
           >
+            {userData.id === data.user_ditukar.id ? (
+              <ButtonGroup>
+                <Button
+                  w={"100%"}
+                  colorScheme="red"
+                  variant={"outline"}
+                  className="clicky"
+                  onClick={() => {
+                    handleKonfirmasiTukar(false);
+                  }}
+                  isLoading={loading}
+                >
+                  Tolak
+                </Button>
+                <Button
+                  w={"100%"}
+                  colorScheme="green"
+                  variant={"outline"}
+                  className="clicky"
+                  onClick={() => {
+                    handleKonfirmasiTukar(true);
+                  }}
+                  isLoading={loading}
+                >
+                  Setujui
+                </Button>
+              </ButtonGroup>
+            ) : (
+              <Button className="btn-solid clicky" onClick={backOnClose}>
+                Mengerti
+              </Button>
+            )}
             {/* {data.user_ditukar.id !== 1 && <BatalkanTukarJadwal data={data} />} */}
-            <Button className="btn-solid clicky" onClick={backOnClose}>
+            {/* <Button className="btn-solid clicky" onClick={backOnClose}>
               Mengerti
-            </Button>
+            </Button> */}
           </CContainer>
         </CContainer>
       </CustomDrawer>

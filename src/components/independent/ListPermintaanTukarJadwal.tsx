@@ -7,9 +7,16 @@ import NoData from "./NoData";
 import Skeleton from "./Skeleton";
 import CContainer from "./wrapper/CContainer";
 
-interface Props extends StackProps {}
+interface Props extends StackProps {
+  index: number;
+  tabIndex: number;
+}
 
-export default function ListPermintaanTukarJadwal({ ...props }: Props) {
+export default function ListPermintaanTukarJadwal({
+  index,
+  tabIndex,
+  ...props
+}: Props) {
   const { filterTukarJadwal } = useFilterTukarJadwal();
 
   const { error, notFound, loading, data, retry } = useDataState<any>({
@@ -32,6 +39,7 @@ export default function ListPermintaanTukarJadwal({ ...props }: Props) {
       }),
       offset: 6,
     },
+    conditions: tabIndex === index,
     dependencies: [filterTukarJadwal],
   });
 

@@ -8,9 +8,16 @@ import NoData from "./NoData";
 import Skeleton from "./Skeleton";
 import CContainer from "./wrapper/CContainer";
 
-interface Props extends StackProps {}
+interface Props extends StackProps {
+  index: number;
+  tabIndex: number;
+}
 
-export default function ListPengajuanTukarJadwal({ ...props }: Props) {
+export default function ListPengajuanTukarJadwal({
+  index,
+  tabIndex,
+  ...props
+}: Props) {
   const { filterTukarJadwal } = useFilterTukarJadwal();
 
   const { error, notFound, loading, data, retry } = useDataState<any>({
