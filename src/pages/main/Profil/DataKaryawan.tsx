@@ -130,7 +130,7 @@ export default function DataKaryawan() {
           {!error && (
             <>
               {data && (
-                <CContainer p={5} pb={8} bg={contentBgColor}>
+                <CContainer p={5} pb={8} gap={6} bg={contentBgColor}>
                   <DetailDataKaryawan data={data} searchQuery={searchQuery} />
                 </CContainer>
               )}
