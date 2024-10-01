@@ -453,7 +453,11 @@ export default function DateRangePickerDrawer({
             <HStack w={"100%"} position={"relative"}>
               <Box flex={1}>
                 <VStack borderRadius={8} bg={"var(--divider)"} p={2} gap={1}>
-                  <Text textAlign={"center"} opacity={selected?.from ? 1 : 0.6}>
+                  <Text
+                    textAlign={"center"}
+                    opacity={selected?.from ? 1 : 0.6}
+                    fontWeight={selected && "600"}
+                  >
                     {`${
                       selected?.from
                         ? `${formatDate(selected.from, "basicShort")}`

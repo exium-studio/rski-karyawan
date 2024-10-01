@@ -277,7 +277,7 @@ export default function DatePickerDrawer({
             justify={"center"}
             h={"40px"}
           >
-            <Text opacity={selected ? 1 : 0.6} fontWeight={500}>
+            <Text opacity={selected ? 1 : 0.6} fontWeight={selected && "600"}>
               {selected
                 ? `${formatDate(selected, "longShort")}`
                 : "Pilih tanggal"}
