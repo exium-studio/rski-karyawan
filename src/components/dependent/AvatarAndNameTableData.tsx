@@ -28,7 +28,7 @@ export default function AvatarAndNameTableData({
         cursor={"pointer"}
         src={data.foto_profil || ""}
         name={data.nama}
-        size={data.unit_kerja ? "md" : "sm"}
+        size={"xs"}
       />
 
       <CContainer flex={1} gap={2} overflow={"hidden"}>
