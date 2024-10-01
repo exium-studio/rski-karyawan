@@ -17,8 +17,6 @@ interface Props {
 export default function DetailDataKaryawan({ data, searchQuery }: Props) {
   const userData = getUserData();
 
-  console.log(userData);
-
   return (
     <>
       <VStack align={"stretch"} gap={0}>

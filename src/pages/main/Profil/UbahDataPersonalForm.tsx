@@ -48,7 +48,9 @@ export default function EditDataPersonalForm({ data }: Props) {
     initialValues: {
       foto_profil: data?.user?.foto_profil || undefined,
       tempat_lahir: data?.tempat_lahir,
-      tgl_lahir: new Date(formatDate(data?.tanggal_lahir, "iso")) || undefined,
+      tgl_lahir: data?.tanggal_lahir
+        ? new Date(formatDate(data?.tanggal_lahir, "iso"))
+        : undefined,
       telepon: data?.no_hp,
       jenis_kelamin: data?.jenis_kelamin
         ? {
@@ -260,7 +262,10 @@ export default function EditDataPersonalForm({ data }: Props) {
               formik.validateField("tgl_lahir");
             }}
             column="tgl_lahir"
-            payload={formatDate(formik.values.tgl_lahir, "short2")}
+            payload={formatDate(
+              formik.values.tgl_lahir as unknown as string,
+              "short2"
+            )}
           />
         </HStack>
         <FormErrorMessage>{formik.errors.tgl_lahir as string}</FormErrorMessage>
