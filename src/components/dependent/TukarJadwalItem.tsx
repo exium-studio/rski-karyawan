@@ -30,6 +30,7 @@ import DrawerHeader from "./DrawerHeader";
 import JadwalDitukarItem from "./JadwalDitukarItem";
 import StatusApproval2Badge from "./StatusApproval2Badge";
 import StatusApprovalBadge from "./StatusApprovalBadge";
+import BooleanConfirmationDrawerDisclosure from "./BooleanConfirmationDrawerDisclosure";
 
 interface Props {
   data: any;
@@ -384,30 +385,57 @@ export default function TukarJadwalItem({ data }: Props) {
           >
             {userData.id === data.user_ditukar.id ? (
               <ButtonGroup>
-                <Button
-                  w={"100%"}
-                  colorScheme="red"
-                  variant={"outline"}
-                  className="clicky"
-                  onClick={() => {
+                <BooleanConfirmationDrawerDisclosure
+                  id={"konfirmasi-ditolak-tukar-jadwal"}
+                  title="Konfirmasi Ditolak"
+                  content={
+                    <Text opacity={0.4}>
+                      Apakah anda yakin akan menolak Tukar Jadwal ini?
+                    </Text>
+                  }
+                  onConfirm={() => {
                     handleKonfirmasiTukar(false);
                   }}
-                  isLoading={loading}
+                  boxProps={{ w: "100%" }}
+                  loading={loading}
                 >
-                  Tolak
-                </Button>
-                <Button
-                  w={"100%"}
-                  colorScheme="green"
-                  variant={"outline"}
-                  className="clicky"
-                  onClick={() => {
+                  <Button
+                    w={"100%"}
+                    colorScheme="red"
+                    variant={"outline"}
+                    className="clicky"
+                    isLoading={loading}
+                    isDisabled={[2, 3].includes(data?.acc_user_ditukar)}
+                  >
+                    Tolak
+                  </Button>
+                </BooleanConfirmationDrawerDisclosure>
+
+                <BooleanConfirmationDrawerDisclosure
+                  id={"konfirmasi-disetujui-tukar-jadwal"}
+                  title="Konfirmasi Disetujui"
+                  content={
+                    <Text opacity={0.4}>
+                      Apakah anda yakin akan menyetujui Tukar Jadwal ini?
+                    </Text>
+                  }
+                  onConfirm={() => {
                     handleKonfirmasiTukar(true);
                   }}
-                  isLoading={loading}
+                  boxProps={{ w: "100%" }}
+                  loading={loading}
                 >
-                  Setujui
-                </Button>
+                  <Button
+                    w={"100%"}
+                    colorScheme="green"
+                    variant={"outline"}
+                    className="clicky"
+                    isLoading={loading}
+                    isDisabled={[2, 3].includes(data?.acc_user_ditukar)}
+                  >
+                    Setujui
+                  </Button>
+                </BooleanConfirmationDrawerDisclosure>
               </ButtonGroup>
             ) : (
               <Button className="btn-solid clicky" onClick={backOnClose}>

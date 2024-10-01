@@ -16,6 +16,7 @@ import {
   RiArrowDownLine,
   RiArrowUpDownLine,
   RiArrowUpLine,
+  RiCloseCircleLine,
   RiLoginBoxLine,
   RiLogoutBoxLine,
 } from "@remixicon/react";
@@ -30,7 +31,6 @@ import backOnClose from "../../lib/backOnClose";
 import formatDate from "../../lib/formatDate";
 import formatTime from "../../lib/formatTime";
 import req from "../../lib/req";
-import NoData from "../independent/NoData";
 import NotFound from "../independent/NotFound";
 import Skeleton from "../independent/Skeleton";
 import CContainer from "../independent/wrapper/CContainer";
@@ -195,24 +195,6 @@ const TukarButton = ({
               justify={"center"}
               px={2}
             >
-              {/* <VStack gap={0}>
-                <Text
-                  fontWeight={600}
-                  fontSize={12}
-                  maxW={"80px"}
-                  textAlign={"center"}
-                >
-                  Jadwal
-                </Text>
-                <Text
-                  fontWeight={600}
-                  fontSize={12}
-                  maxW={"80px"}
-                  textAlign={"center"}
-                >
-                  Ditukar
-                </Text>
-              </VStack> */}
               <Icon as={RiArrowDownLine} fontSize={32} color={"p.500"} />
             </VStack>
 
@@ -246,6 +228,7 @@ const TukarButton = ({
                   ))}
                 </>
               )}
+
               {!loading && (
                 <>
                   {error && (
@@ -266,7 +249,38 @@ const TukarButton = ({
 
                   {!error && (
                     <>
-                      {data && data?.length === 0 && <NoData minH={"110px"} />}
+                      {data && data?.length === 0 && (
+                        <HStack
+                          borderRadius={8}
+                          border={"1px solid var(--divider3)"}
+                          align={"stretch"}
+                          overflow={"clip"}
+                          mb={"1px"}
+                          cursor={"pointer"}
+                          className="clicky"
+                          minH={"110px"}
+                          w={"100%"}
+                          maxW={"calc(100% - 30px)"}
+                          // minW={`calc(100vw - 48px)`}
+                          _active={{ opacity: 0.6 }}
+                          gap={0}
+                        >
+                          <VStack
+                            // w={"80px"}
+                            bg={"var(--divider)"}
+                            justify={"center"}
+                            px={2}
+                          >
+                            <Icon as={RiCloseCircleLine} fontSize={32} />
+                          </VStack>
+
+                          <CContainer flex={1} p={4} justify={"center"}>
+                            <Text flexShrink={1}>
+                              Jadwal valid untuk ditukar tidak ditemukan
+                            </Text>
+                          </CContainer>
+                        </HStack>
+                      )}
 
                       {data &&
                         data?.length > 0 &&
