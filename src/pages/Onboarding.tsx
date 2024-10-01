@@ -43,7 +43,7 @@ export default function Onboarding() {
 
   return (
     <Container p={4}>
-      <HStack ml={"auto"} onClick={handleLewati}>
+      <HStack ml={"auto"} cursor={"pointer"} onClick={handleLewati}>
         <Text>Lewati</Text>
         <Icon as={RiArrowRightSLine} fontSize={20} />
       </HStack>
