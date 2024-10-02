@@ -11,12 +11,15 @@ import {
 } from "@chakra-ui/react";
 import { RiCheckLine } from "@remixicon/react";
 import { Link } from "react-router-dom";
+import useRenderTrigger from "../../global/useRenderTrigger";
 
 interface Props {
   isOpen: boolean;
 }
 
 export default function AlertPresensiSukses({ isOpen }: Props) {
+  const { rt, setRt } = useRenderTrigger();
+
   return (
     <Modal isOpen={isOpen} onClose={() => null} isCentered size={"sm"}>
       <ModalOverlay />
@@ -55,6 +58,11 @@ export default function AlertPresensiSukses({ isOpen }: Props) {
             w={"100%"}
             as={Link}
             to={"/beranda"}
+            onClick={() => {
+              setTimeout(() => {
+                setRt(!rt);
+              }, 100);
+            }}
           >
             Beranda
           </Button>
