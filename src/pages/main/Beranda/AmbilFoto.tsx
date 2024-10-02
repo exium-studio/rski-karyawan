@@ -22,16 +22,16 @@ import {
   RiCameraSwitchFill,
 } from "@remixicon/react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import AlertPresensiSukses from "../../../components/dependent/AlertPresensiSukses";
 import DisclosureHeader from "../../../components/dependent/DisclosureHeader";
+import Header from "../../../components/dependent/Header";
 import CContainer from "../../../components/independent/wrapper/CContainer";
+import { Interface__AttendanceData } from "../../../constant/interfaces";
 import useBackOnClose from "../../../hooks/useBackOnClose";
+import useCallBackOnNavigate from "../../../hooks/useCallBackOnNavigate";
 import backOnClose from "../../../lib/backOnClose";
 import getLocation from "../../../lib/getLocation";
 import req from "../../../lib/req";
-import useCallBackOnNavigate from "../../../hooks/useCallBackOnNavigate";
-import Header from "../../../components/dependent/Header";
-import { Interface__AttendanceData } from "../../../constant/interfaces";
 
 interface PhotoConfirmationProps {
   attendanceData: Interface__AttendanceData;
@@ -55,9 +55,10 @@ const PhotoConfirmation = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
   useBackOnClose("photo-confirmation", isOpen, onOpen, onClose);
 
+  const [alertIsOpen, setAlertIsOpen] = useState<boolean>(false);
+
   const [loading, setLoading] = useState<boolean>(false);
   const toast = useToast();
-  const navigate = useNavigate();
 
   const startCameraRef = useRef(startCamera);
   const stopCameraRef = useRef(stopCamera);
@@ -106,16 +107,7 @@ const PhotoConfirmation = ({
           .post(url, payload)
           .then((r) => {
             if (r.status === 200) {
-              navigate("/beranda");
-              toast({
-                status: "success",
-                title: r.data.message,
-                position: "top",
-                isClosable: true,
-              });
-              setTimeout(() => {
-                window.location.reload();
-              }, 10);
+              setAlertIsOpen(true);
             }
           })
           .catch((e) => {
@@ -141,6 +133,8 @@ const PhotoConfirmation = ({
 
   return (
     <>
+      <AlertPresensiSukses isOpen={alertIsOpen} />
+
       <Center p={1} borderRadius={"full"}>
         <Center
           w={"50px"}
@@ -246,6 +240,8 @@ export default function AmbilFoto({ attendanceData, ...props }: Props) {
 
   const stopCamera = () => {
     let videoElement: HTMLVideoElement | undefined;
+
+    console.log("videoElement", videoElement);
 
     if (videoRef.current) {
       videoElement = videoRef.current;

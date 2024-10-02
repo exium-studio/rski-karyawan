@@ -25,26 +25,6 @@ export default function Beranda() {
 
   const today = new Date();
   const todayDate = formatDate(today.toString());
-  // const [isScrollToBottom, setIsScrollToBottom] = useState<boolean>(false);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const bottomOfWindow =
-  //       window.scrollY + window.innerHeight ===
-  //       document.documentElement.scrollHeight;
-  //     if (bottomOfWindow) {
-  //       setIsScrollToBottom(true);
-  //     } else {
-  //       setIsScrollToBottom(false);
-  //     }
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
 
   // SX
   const contentBgColor = useContentBgColor();

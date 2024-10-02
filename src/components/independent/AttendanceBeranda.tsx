@@ -28,7 +28,6 @@ export default function AttendanceBeranda() {
       dependencies: [],
     });
 
-
   const liburButtonRef = useRef<HTMLDivElement>(null);
   const toast = useToast();
 
@@ -89,8 +88,6 @@ export default function AttendanceBeranda() {
               <CurrentAddress />
 
               <AttendanceData data={data} />
-
-             
             </>
           )}
 
