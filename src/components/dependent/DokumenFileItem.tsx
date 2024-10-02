@@ -185,14 +185,8 @@ const MoreOptions = ({ data }: Props) => {
         >
           <RenameDrawer />
 
-          <MenuItem>
-            <HStack
-              as={Link}
-              to={data.path}
-              target="_blank"
-              w={"100%"}
-              justify={"space-between"}
-            >
+          <MenuItem as={Link} to={data.path} target="_blank">
+            <HStack w={"100%"} justify={"space-between"}>
               <Text fontWeight={500}>Download</Text>
               <Icon as={RiDownload2Line} fontSize={iconSize} />
             </HStack>
@@ -217,7 +211,8 @@ export default function DokumenFileItem({ data }: Props) {
   const initialRef = useRef(null);
   useBackOnClose(`file-viewer-${data.path}`, isOpen, onOpen, onClose);
 
-  const dataType = data.path.split(".").pop().toLowerCase();
+  // const dataType = data.path.split(".").pop().toLowerCase();
+  const dataType = data.ext;
 
   // SX
   const lightDarkColor = useLightDarkColor();
@@ -274,7 +269,7 @@ export default function DokumenFileItem({ data }: Props) {
             <Text mb={4} textAlign={"center"} opacity={0.4}>
               {data.label}
             </Text>
-            <CContainer my={"auto"} flex={0}>
+            <CContainer my={"auto"} flex={1} justify={"center"}>
               <FileViewer fileUrl={data.path} fileType={dataType} />
             </CContainer>
           </ModalBody>

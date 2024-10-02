@@ -1,10 +1,6 @@
 import { Image } from "@chakra-ui/react";
-import { Viewer, Worker } from "@react-pdf-viewer/core";
-import "@react-pdf-viewer/core/lib/styles/index.css";
-import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import React from "react";
 import NotSupported from "../independent/NotSupported";
-import CContainer from "../independent/wrapper/CContainer";
 
 interface FileViewerProps {
   fileUrl: string;
@@ -34,13 +30,22 @@ const FileViewer: React.FC<FileViewerProps> = ({ fileUrl, fileType }) => {
         );
       case "pdf":
         return (
-          <CContainer>
-            <Worker
-              workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}
-            >
-              <Viewer fileUrl={fileUrl} />
-            </Worker>
-          </CContainer>
+          <object
+            data={fileUrl}
+            type="application/pdf"
+            aria-label="PDF document"
+            style={{ height: "calc(100vh - 220px)" }}
+          >
+            <p>
+              Perangkat anda tidak mendukung file PDF, silahkan download untuk
+              melihat file <a href={fileUrl}>Download PDF</a>.
+            </p>
+          </object>
+          //   <PDFViewer
+          //     document={{
+          //         url: 'https://arxiv.org/pdf/quant-ph/0410100.pdf',
+          //     }}
+          // />
         );
       case "jpg":
       case "jpeg":
@@ -59,7 +64,7 @@ const FileViewer: React.FC<FileViewerProps> = ({ fileUrl, fileType }) => {
     }
   };
 
-  return <div>{renderViewer()}</div>;
+  return renderViewer();
 };
 
 export default FileViewer;
