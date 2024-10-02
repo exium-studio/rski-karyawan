@@ -432,7 +432,7 @@ export default function SlipGajiku() {
 
           {error && (
             <>
-              {notFound && <NoData label="Slip gaji belum ada" />}
+              {notFound && <NoData label="Tidak ada data slip gaji" />}
 
               {!notFound && (
                 <Box my={"auto"}>

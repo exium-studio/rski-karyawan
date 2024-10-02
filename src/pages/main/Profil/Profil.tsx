@@ -67,9 +67,9 @@ const ProfilStatus = () => {
               >
                 <HStack justify={"space-between"}>
                   <Text>Reward Presensi</Text>
-                  <HStack>
-                    <Popover>
-                      <PopoverTrigger>
+                  <Popover>
+                    <PopoverTrigger>
+                      <HStack>
                         <Center>
                           {data.status_presensi ? (
                             <Icon
@@ -80,21 +80,23 @@ const ProfilStatus = () => {
                             <Icon as={RiCloseCircleFill} color={"red.400"} />
                           )}
                         </Center>
-                      </PopoverTrigger>
-                      <PopoverContent>
-                        <PopoverArrow />
-                        <PopoverCloseButton />
-                        <PopoverHeader>Status Reward Presensi</PopoverHeader>
-                        <PopoverBody opacity={0.4}>
-                          Pertahankan status ini agar tetap hijau untuk mendapat
-                          reward presensi. Reward presensi akan ditambahkan di
-                          penggajian.
-                        </PopoverBody>
-                      </PopoverContent>
-                    </Popover>
-
-                    <Text>Rp 300.000</Text>
-                  </HStack>
+                        <Text>Rp 300.000</Text>
+                      </HStack>
+                    </PopoverTrigger>
+                    <PopoverContent mr={5}>
+                      <PopoverArrow />
+                      <PopoverCloseButton />
+                      <PopoverHeader>
+                        {data.status_presensi ? "" : "Tidak"} Mendapat Reward
+                        Presensi
+                      </PopoverHeader>
+                      <PopoverBody opacity={0.4}>
+                        Pertahankan status ini agar tetap hijau untuk mendapat
+                        reward presensi. Reward presensi akan ditambahkan di
+                        penggajian.
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
                 </HStack>
                 <HStack justify={"space-between"}>
                   <Text>Masa Diklat</Text>
