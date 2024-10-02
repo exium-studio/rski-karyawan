@@ -23,6 +23,7 @@ const useDataState = <T>({
   page = 1,
   noRt = false,
 }: Props<T>) => {
+  const [message, setMessage] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
   const [notFound, setNotFound] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -76,6 +77,7 @@ const useDataState = <T>({
         setError(false);
         if (response.status === 200) {
           setData(response.data.data);
+          setMessage(response.data.message);
           setPaginationData(response.data?.pagination);
         }
       })
@@ -88,6 +90,7 @@ const useDataState = <T>({
           if (error?.response?.status === 404) {
             setNotFound(true);
             setData(error?.response?.data?.data);
+            setMessage(error?.response?.data?.message);
             console.log("error", error);
           }
           setError(true);
@@ -149,6 +152,8 @@ const useDataState = <T>({
     setData,
     loading,
     setLoading,
+    message,
+    setMessage,
     notFound,
     setNotFound,
     error,

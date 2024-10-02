@@ -21,7 +21,7 @@ import Skeleton from "./Skeleton";
 import CContainer from "./wrapper/CContainer";
 
 export default function AttendanceBeranda() {
-  const { error, notFound, loading, data, retry } =
+  const { error, message, notFound, loading, data, retry } =
     useDataState<Interface__AttendanceData>({
       initialData: undefined,
       url: "/api/get-today-jadwal",
@@ -61,8 +61,7 @@ export default function AttendanceBeranda() {
                   ripple(liburButtonRef);
                   toast({
                     status: "error",
-                    title:
-                      "Hari ini tidak ada jadwal kerja / belum boleh presensi (harus -2 jam sebelum jam masuk)",
+                    title: message,
                     isClosable: true,
                     position: "top",
                   });
