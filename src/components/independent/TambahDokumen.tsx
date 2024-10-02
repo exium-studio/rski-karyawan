@@ -50,6 +50,7 @@ export default function TambahDokumen() {
         .post(`/api/store-berkas-karyawan`, payload)
         .then((r) => {
           if (r.status === 200) {
+            resetForm();
             setRt(!rt);
             backOnClose();
             toast({
