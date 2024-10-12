@@ -48,6 +48,8 @@ import ForgotPassword from "./pages/resetPassword/ForgotPassword";
 import ForgotPasswordOtp from "./pages/resetPassword/ForgotPasswordOtp";
 import NewPassword from "./pages/resetPassword/NewPassword";
 import { globalTheme } from "./theme/globalTheme";
+import Tentang from "./pages/main/Beranda/Tentang";
+import Materi from "./pages/main/Beranda/Materi";
 
 // function disableRightClick(event: MouseEvent) {
 //   event.preventDefault();
@@ -307,6 +309,27 @@ export const App = () => {
                 </AuthMiddleware>
               }
             />
+            <Route
+              path="/beranda/tentang"
+              element={
+                <AuthMiddleware allowedJenisKaryawan={[1, 0]}>
+                  <NavContainer active={0} noNavs>
+                    <Tentang />
+                  </NavContainer>
+                </AuthMiddleware>
+              }
+            />
+            <Route
+              path="/beranda/materi"
+              element={
+                <AuthMiddleware allowedJenisKaryawan={[1, 0]}>
+                  <NavContainer active={0} noNavs>
+                    <Materi />
+                  </NavContainer>
+                </AuthMiddleware>
+              }
+            />
+
             <Route
               path="/beranda/pengumuman"
               element={

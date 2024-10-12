@@ -62,6 +62,20 @@ const berandaMenus = [
     jenis_karyawan: [1, 0],
   },
 
+  {
+    image: "/vectors/icons/hospital.png",
+    label: "Tentang",
+    link: "/beranda/tentang",
+    jenis_karyawan: [1, 0],
+  },
+
+  {
+    image: "/vectors/icons/book.png",
+    label: "Materi",
+    link: "/beranda/materi",
+    jenis_karyawan: [1, 0],
+  },
+
   // {
   //   image: "/vectors/icons/Form.png",
   //   label: "Feedback",
