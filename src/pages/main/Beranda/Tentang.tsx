@@ -10,12 +10,12 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react";
-import { RiAwardLine, RiFocus3Line, RiHospitalLine } from "@remixicon/react";
+import { RiAwardLine, RiBardLine, RiHospitalLine } from "@remixicon/react";
 import { useState } from "react";
 import Header from "../../../components/dependent/Header";
+import TentangContent from "../../../components/dependent/TentangContent";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
-import TentangContent from "../../../components/dependent/TentangContent";
 
 export default function Tentang() {
   // SX
@@ -72,7 +72,7 @@ export default function Tentang() {
               }}
             >
               <HStack>
-                <Icon as={RiFocus3Line} opacity={tabIndex === 1 ? 1 : 0.4} />
+                <Icon as={RiBardLine} opacity={tabIndex === 1 ? 1 : 0.4} />
                 <Text fontWeight={500} opacity={tabIndex === 1 ? 1 : 0.4}>
                   Visi & Misi
                 </Text>
