@@ -46,10 +46,12 @@ import DrawerHeader from "./DrawerHeader";
 import FileTypeIcon from "./FileTypeIcon";
 import FileViewer from "./FileViewer";
 import StringInput from "./input/StringInput";
+import formatBytes from "../../lib/formatBytes";
 
 interface Props {
   data: any;
   noOptions?: boolean;
+  title?: string;
 }
 
 const MoreOptions = ({ data }: Props) => {
@@ -186,7 +188,7 @@ const MoreOptions = ({ data }: Props) => {
         >
           <RenameDrawer />
 
-          <MenuItem as={Link} to={data.path} target="_blank">
+          <MenuItem as={Link} to={data?.path} target="_blank">
             <HStack w={"100%"} justify={"space-between"}>
               <Text fontWeight={500}>Download</Text>
               <Icon as={RiDownload2Line} fontSize={iconSize} />
@@ -207,13 +209,17 @@ const MoreOptions = ({ data }: Props) => {
   );
 };
 
-export default function DokumenFileItem({ data, noOptions = false }: Props) {
+export default function DokumenFileItem({
+  data,
+  noOptions = false,
+  title,
+}: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef(null);
-  useBackOnClose(`file-viewer-${data.path}`, isOpen, onOpen, onClose);
+  useBackOnClose(`file-viewer-${data?.path}`, isOpen, onOpen, onClose);
 
   // const dataType = data.path.split(".").pop().toLowerCase();
-  const dataType = data.ext;
+  const dataType = data?.ext;
 
   // SX
   const lightDarkColor = useLightDarkColor();
@@ -230,9 +236,9 @@ export default function DokumenFileItem({ data, noOptions = false }: Props) {
         overflow={"clip"}
       >
         <HStack justify={"space-between"} pl={3} pr={0} py={1}>
-          <HStack>
+          <HStack h={"32px"}>
             <Text fontSize={12} fontWeight={500} noOfLines={1}>
-              {data?.label}
+              {title || data?.label || data?.nama}
             </Text>
           </HStack>
 
@@ -245,9 +251,9 @@ export default function DokumenFileItem({ data, noOptions = false }: Props) {
 
         <HStack opacity={0.4} p={2} justify={"space-between"}>
           <Text fontSize={11} opacity={0.4}>
-            {data.size}
+            {formatBytes(data?.size.split(" ")[0])}
           </Text>
-          <Text fontSize={11}>{formatDate(data.created_at, "short")}</Text>
+          <Text fontSize={11}>{formatDate(data?.created_at, "short")}</Text>
         </HStack>
       </CContainer>
 
@@ -268,17 +274,17 @@ export default function DokumenFileItem({ data, noOptions = false }: Props) {
 
           <ModalBody>
             <Text mb={4} textAlign={"center"} opacity={0.4}>
-              {data.label}
+              {title || data?.label || data?.nama}
             </Text>
             <CContainer my={"auto"} flex={1} justify={"center"}>
-              <FileViewer fileUrl={data.path} fileType={dataType} />
+              <FileViewer fileUrl={data?.path} fileType={dataType} />
             </CContainer>
           </ModalBody>
 
           <ModalFooter>
             <Button
               as={Link}
-              to={data.path}
+              to={data?.path}
               target="_blank"
               w={"100%"}
               colorScheme="ap"

@@ -16,7 +16,6 @@ import BackButton from "../../../components/independent/BackButton";
 import NoData from "../../../components/independent/NoData";
 import NotFound from "../../../components/independent/NotFound";
 import Skeleton from "../../../components/independent/Skeleton";
-import TambahDokumen from "../../../components/independent/TambahDokumen";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
 import { iconSize } from "../../../constant/sizes";
@@ -32,7 +31,7 @@ export default function Dokumen() {
   const [search, setSearch] = useState<string | undefined>("");
   const fd = data?.filter((item: any) => {
     const searchTerm = search?.toLowerCase();
-    return item?.label?.toLowerCase().includes(searchTerm as string);
+    return item?.judul?.toLowerCase().includes(searchTerm as string);
   });
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -173,8 +172,6 @@ export default function Dokumen() {
             )}
           </>
         )}
-
-        <TambahDokumen />
       </CContainer>
     </CContainer>
   );
