@@ -1,250 +1,181 @@
-import { Image, Text } from "@chakra-ui/react";
-import Header from "../../../components/dependent/Header";
+import {
+  Box,
+  Center,
+  HStack,
+  Icon,
+  IconButton,
+  SimpleGrid,
+  Text,
+} from "@chakra-ui/react";
+import { RiCloseLine, RiSearchLine } from "@remixicon/react";
+import { useEffect, useRef, useState } from "react";
+import SearchComponent from "../../../components/dependent/input/SearchComponent";
+import MateriItem from "../../../components/dependent/MateriItem";
+import Retry from "../../../components/dependent/Retry";
+import BackButton from "../../../components/independent/BackButton";
+import NoData from "../../../components/independent/NoData";
+import NotFound from "../../../components/independent/NotFound";
+import Skeleton from "../../../components/independent/Skeleton";
+import TambahDokumen from "../../../components/independent/TambahDokumen";
 import CContainer from "../../../components/independent/wrapper/CContainer";
-import { useContentBgColor } from "../../../constant/colors";
+import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
+import { iconSize } from "../../../constant/sizes";
+import useDataState from "../../../hooks/useDataState";
 
-export default function Materi() {
-  // const [loading, setLoading] = useState<boolean>(false);
-  // const toast = useToast();
+export default function Dokumen() {
+  const { error, notFound, loading, data, retry } = useDataState<any>({
+    initialData: undefined,
+    url: `/api/get-materi`,
+    dependencies: [],
+  });
+  const [searchMode, setSearchMode] = useState<boolean>(false);
+  const [search, setSearch] = useState<string | undefined>("");
+  const fd = data?.filter((item: any) => {
+    const searchTerm = search?.toLowerCase();
+    return item?.label?.toLowerCase().includes(searchTerm as string);
+  });
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
-  // const formik = useFormik({
-  //   validateOnChange: false,
-  //   initialValues: {
-  //     pelaku: "",
-  //     tgl_kejadian: undefined as any,
-  //     lokasi: "",
-  //     waktu: undefined as any,
-  //     kronologi: "",
-  //     foto: undefined as any,
-  //   },
-  //   validationSchema: yup.object().shape({
-  //     pelaku: yup.string().required("Harus diisi"),
-  //     tgl_kejadian: yup.date().required("Harus diisi"),
-  //     lokasi: yup.string().required("Harus diisi"),
-  //     waktu: yup.string().required("Harus diisi"),
-  //     kronologi: yup.string().required("Harus diisi"),
-  //     foto: yup.mixed().required("Harus diisi"),
-  //   }),
-  //   onSubmit: (values, { resetForm }) => {
-  //     setLoading(true);
-
-  //     const payload = new FormData();
-  //     payload.append("pelaku", values.pelaku);
-  //     payload.append("tgl_kejadian", formatDate(values.tgl_kejadian, "short2"));
-  //     payload.append("lokasi", values.lokasi);
-  //     payload.append("waktu", values.waktu);
-  //     payload.append("kronologi", values.kronologi);
-  //     payload.append("foto", values.foto);
-
-  //     req
-  //       .post(`/api/store-laporan`, payload)
-  //       .then((r) => {
-  //         if (r.status === 200) {
-  //           toast({
-  //             status: "success",
-  //             title: r.data.message,
-  //             position: "top",
-  //             isClosable: true,
-  //           });
-  //         }
-  //       })
-  //       .catch((e) => {
-  //         console.log(e);
-  //         toast({
-  //           status: "error",
-  //           title:
-  //             (typeof e?.response?.data?.message === "string" &&
-  //               (e?.response?.data?.message as string)) ||
-  //             "Terjadi kendala, silahkan periksa jaringan atau hubungi SIM RS",
-  //           isClosable: true,
-  //           position: "top",
-  //         });
-  //       })
-  //       .finally(() => {
-  //         setLoading(false);
-  //       });
-  //   },
-  // });
+  useEffect(() => {
+    if (searchMode) {
+      setTimeout(() => {
+        if (searchInputRef.current) {
+          searchInputRef.current.focus();
+        }
+      }, 200);
+    }
+  }, [searchInputRef, searchMode]);
 
   // SX
   const contentBgColor = useContentBgColor();
+  const lightDarkColor = useLightDarkColor();
 
   return (
     <CContainer flex={1}>
-      <Header
-        left={"back"}
-        title="Pelaporan"
-        px={4}
-        borderBottom={"1px solid var(--divider2)"}
-      />
-
-      <CContainer
-        flex={1}
-        p={5}
-        bg={contentBgColor}
-        align={"center"}
-        justify={"center"}
+      <Box
+        position={"sticky"}
+        top={"0"}
+        bg={lightDarkColor}
+        borderBottom={"1px solid var(--divider2) !important"}
+        zIndex={2}
       >
-        <Image src="/vectors/error503.webp" maxW={"300px"} mb={6} />
-        <Text fontSize={16} fontWeight={600}>
-          Maaf, fitur ini belum tersedia
-        </Text>
-      </CContainer>
-
-      {/* <CContainer
-        flex={1}
-        p={5}
-        bg={contentBgColor}
-        gap={3}
-        position={"relative"}
-        overflow={"clip"}
-      >
-        <Alert status="info" p={4} borderRadius={8}>
-          <Text fontSize={14}>
-            Harap gunakan fitur lapor ini dengan bijak. Segala bentuk
-            pelanggaran akan diproses sesuai dengan peraturan instansi.
-          </Text>
-        </Alert>
-
-        <CContainer
-          flex={0}
-          borderRadius={12}
+        <HStack
           bg={lightDarkColor}
-          p={4}
-          zIndex={4}
+          h={"56px"}
+          pl={5}
+          pr={4}
+          py={4}
+          justify={"space-between"}
+          position={"sticky"}
+          top={0}
+          left={0}
+          zIndex={99}
+          w={"100%"}
         >
-          <HStack mb={4}>
-            <Text fontSize={16} fontWeight={600}>
-              Buat Laporan
-            </Text>
+          <HStack w={"40px"}>
+            <BackButton />
           </HStack>
 
-          <form id="laporanForm" onSubmit={formik.handleSubmit}>
-            <FormControl mb={4} isInvalid={!!formik.errors.pelaku}>
-              <FormLabel>
-                Pelaku/Subjek
-                <RequiredForm />
-              </FormLabel>
-              <StringInput
-                name="pelaku"
-                placeholder="Jolitos Kurniawan"
-                onChangeSetter={(input) => {
-                  formik.setFieldValue("pelaku", input);
-                }}
-                inputValue={formik.values.pelaku}
-              />
-              <FormErrorMessage>
-                {formik.errors.pelaku as string}
-              </FormErrorMessage>
-            </FormControl>
+          {!searchMode && (
+            <Text
+              textAlign={"center"}
+              noOfLines={1}
+              fontWeight={600}
+              fontSize={[16, null, 18]}
+            >
+              Materi
+            </Text>
+          )}
 
-            <FormControl mb={4} isInvalid={!!formik.errors.tgl_kejadian}>
-              <FormLabel>
-                Tanggal Kejadian
-                <RequiredForm />
-              </FormLabel>
-              <DatePickerDrawer
-                id="laporan-date-picker"
-                name="tgl_kejadian"
-                placeholder=""
-                onConfirm={(inputValue) => {
-                  formik.setFieldValue("tgl_kejadian", inputValue);
-                }}
-                inputValue={formik.values.tgl_kejadian}
-                isError={!!formik.errors.tgl_kejadian}
-              />
-              <FormErrorMessage>
-                {formik.errors.tgl_kejadian as string}
-              </FormErrorMessage>
-            </FormControl>
+          <HStack
+            w={searchMode ? "100%" : "40px"}
+            justify={searchMode ? "start" : "end"}
+            transition={"200ms"}
+          >
+            <IconButton
+              aria-label="Search Button"
+              icon={<Icon as={RiSearchLine} fontSize={iconSize} />}
+              borderRadius={"full"}
+              size={"sm"}
+              className="btn"
+              onClick={() => {
+                setSearchMode(true);
+              }}
+              display={!searchMode ? "flex" : "none"}
+            />
 
-            <FormControl mb={4} isInvalid={!!formik.errors.lokasi}>
-              <FormLabel>
-                Lokasi Kejadian
-                <RequiredForm />
-              </FormLabel>
-              <StringInput
-                name="lokasi"
-                placeholder="Dekat tangga gudang obat lt. 2"
-                onChangeSetter={(input) => {
-                  formik.setFieldValue("lokasi", input);
-                }}
-                inputValue={formik.values.lokasi}
-              />
-              <FormErrorMessage>
-                {formik.errors.lokasi as string}
-              </FormErrorMessage>
-            </FormControl>
+            <SearchComponent
+              name="search"
+              inputValue={search}
+              onChangeSetter={(inputValue) => {
+                setSearch(inputValue);
+              }}
+              inputRef={searchInputRef}
+              display={searchMode ? "flex" : "none"}
+              minW={"0px !important"}
+              size="sm"
+            />
 
-            <FormControl mb={4} isInvalid={!!formik.errors.waktu}>
-              <FormLabel>
-                Waktu Kejadian
-                <RequiredForm />
-              </FormLabel>
-              <TimePickerDrawer
-                id="laporan-time-picker"
-                name="waktu"
-                onConfirm={(inputValue) => {
-                  formik.setFieldValue("waktu", inputValue);
-                }}
-                inputValue={formik.values.waktu}
-                isError={!!formik.errors.waktu}
-              />
-              <FormErrorMessage>
-                {formik.errors.waktu as string}
-              </FormErrorMessage>
-            </FormControl>
+            <IconButton
+              display={searchMode ? "flex" : "none"}
+              transition={"200ms"}
+              aria-label="Tombol Kembali"
+              icon={<Icon as={RiCloseLine} fontSize={20} />}
+              className="btn"
+              size={"sm"}
+              borderRadius={"full"}
+              onClick={() => {
+                setSearchMode(false);
+                setSearch("");
+              }}
+            />
+          </HStack>
+        </HStack>
+      </Box>
 
-            <FormControl mb={4} isInvalid={!!formik.errors.kronologi}>
-              <FormLabel>
-                Kronologi
-                <RequiredForm />
-              </FormLabel>
-              <Textarea
-                name="kronologi"
-                placeholder="Waktu itu saat saya sedang..."
-                onChangeSetter={(inputValue) => {
-                  formik.setFieldValue("kronologi", inputValue);
-                }}
-                inputValue={formik.values.kronologi}
-              />
-              <FormErrorMessage>
-                {formik.errors.kronologi as string}
-              </FormErrorMessage>
-            </FormControl>
+      <CContainer flex={1} bg={contentBgColor} p={5} pb={"calc(92px)"}>
+        {error && (
+          <>
+            {notFound && <NoData minH={"132px"} label="Tidak ada materi" />}
 
-            <FormControl isInvalid={!!formik.errors.kronologi}>
-              <FormLabel>
-                Foto
-                <RequiredForm />
-              </FormLabel>
-              <FileInput
-                name="foto"
-                onChangeSetter={(input) => {
-                  formik.setFieldValue("foto", input);
-                }}
-                inputValue={formik.values.foto}
-                isError={!!formik.errors.foto}
-              />
-              <FormErrorMessage>
-                {formik.errors.kronologi as string}
-              </FormErrorMessage>
-            </FormControl>
-          </form>
-        </CContainer>
+            {!notFound && (
+              <Center my={"auto"} minH={"300px"}>
+                <Retry loading={loading} retry={retry} />
+              </Center>
+            )}
+          </>
+        )}
 
-        <Button
-          type="submit"
-          form="laporanForm"
-          className="btn-ap clicky"
-          colorScheme="ap"
-          mt={"auto"}
-          size={"lg"}
-          isLoading={loading}
-        >
-          Kirim
-        </Button>
-      </CContainer> */}
+        {!error && (
+          <>
+            {loading && (
+              <SimpleGrid columns={2} gap={3}>
+                {Array.from({ length: 10 }).map((_, i) => (
+                  <Skeleton key={i} flex={1} h={"145.5px"} mx={"auto"} />
+                ))}
+              </SimpleGrid>
+            )}
+
+            {!loading && (
+              <>
+                {(!data || (data && data.length === 0)) && <NoData />}
+
+                {fd && fd.length === 0 && <NotFound />}
+
+                {(fd || (fd && fd.length) > 0) && (
+                  <SimpleGrid columns={2} gap={3}>
+                    {fd.map((materi: any, i: number) => (
+                      <MateriItem key={i} data={materi} />
+                    ))}
+                  </SimpleGrid>
+                )}
+              </>
+            )}
+          </>
+        )}
+
+        <TambahDokumen />
+      </CContainer>
     </CContainer>
   );
 }

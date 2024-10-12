@@ -49,6 +49,7 @@ import StringInput from "./input/StringInput";
 
 interface Props {
   data: any;
+  noOptions?: boolean;
 }
 
 const MoreOptions = ({ data }: Props) => {
@@ -206,7 +207,7 @@ const MoreOptions = ({ data }: Props) => {
   );
 };
 
-export default function DokumenFileItem({ data }: Props) {
+export default function DokumenFileItem({ data, noOptions = false }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef(null);
   useBackOnClose(`file-viewer-${data.path}`, isOpen, onOpen, onClose);
@@ -235,7 +236,7 @@ export default function DokumenFileItem({ data }: Props) {
             </Text>
           </HStack>
 
-          <MoreOptions data={data} />
+          {!noOptions && <MoreOptions data={data} />}
         </HStack>
 
         <CContainer align={"center"} py={2} px={4} gap={1}>
