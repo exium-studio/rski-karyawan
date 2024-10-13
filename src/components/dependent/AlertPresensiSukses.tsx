@@ -45,10 +45,10 @@ export default function AlertPresensiSukses({ isOpen }: Props) {
             mb={2}
             lineHeight={8}
           >
-            Yeay! Kamu berhasil melakukan presensi.
+            Presensi berhasil dilakukan
           </Text>
           <Text textAlign={"center"} opacity={0.4} maxW={"300px"} mx={"auto"}>
-            Untuk kamu, semangat bekerja yaa, semoga berkah
+            Terima kasih, presensi Anda telah berhasil tercatat.
           </Text>
         </ModalBody>
         <ModalFooter gap={4}>
