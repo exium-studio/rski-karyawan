@@ -81,7 +81,7 @@ export default function MateriItem({ data }: Props) {
             py={6}
             borderTop={"1px solid var(--divider2)"}
           >
-            <SimpleGrid columns={2} gap={3}>
+            <SimpleGrid columns={1} gap={3}>
               {data?.dokumen_materi_1 && (
                 <DokumenFileItem
                   title="Materi 1"
