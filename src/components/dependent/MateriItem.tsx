@@ -61,6 +61,15 @@ export default function MateriItem({ data }: Props) {
           >
             <Text fontSize={11}>{formatDate(data.created_at, "short")}</Text>
           </Tooltip>
+
+          <Tooltip
+            label={`Diunggah pada ${formatDate(data.updated_at)}`}
+            openDelay={500}
+          >
+            <Text opacity={0.4} fontSize={11}>
+              {formatDate(data.updated_at, "short")}
+            </Text>
+          </Tooltip>
         </HStack>
       </CContainer>
 

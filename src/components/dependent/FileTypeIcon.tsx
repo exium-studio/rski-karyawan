@@ -21,6 +21,7 @@ export default function FileTypeIcon({ type, ...props }: Props) {
       default:
         return RiFileFill;
       case "pdf":
+      case "application/pdf":
         color.current = "red.400";
         return RiFilePdf2Fill;
       case "docx":

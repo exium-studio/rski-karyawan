@@ -19,6 +19,7 @@ import {
   ModalOverlay,
   Portal,
   Text,
+  Tooltip,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
@@ -253,7 +254,12 @@ export default function DokumenFileItem({
           <Text fontSize={11} opacity={0.4}>
             {formatBytes(data?.size.split(" ")[0])}
           </Text>
-          <Text fontSize={11}>{formatDate(data?.created_at, "short")}</Text>
+          <Tooltip
+            label={`Diunggah pada ${formatDate(data.tgl_upload)}`}
+            openDelay={500}
+          >
+            <Text fontSize={11}>{formatDate(data.tgl_upload, "short")}</Text>
+          </Tooltip>
         </HStack>
       </CContainer>
 
