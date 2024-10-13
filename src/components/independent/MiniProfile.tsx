@@ -135,10 +135,10 @@ const InfoPresensi = () => {
               </Center>
             </Center>
             <CContainer gap={2}>
-              <Text fontWeight={500}>Tidak Ada Jadwal</Text>
+              <Text fontWeight={500}>Tidak Boleh Presensi</Text>
               <Text opacity={0.4} fontSize={12}>
-                Tombol ini muncul jika Anda tidak memiliki jadwal untuk hari
-                ini.
+                Tombol ini akan muncul jika Anda tidak memiliki jadwal hari ini
+                atau belum memasuki waktu presensi.
               </Text>
             </CContainer>
           </HStack>
