@@ -83,7 +83,8 @@ const ProfilStatus = () => {
                         <Text>Rp 300.000</Text>
                       </HStack>
                     </PopoverTrigger>
-                    <PopoverContent mr={5}>
+
+                    <PopoverContent maxW={"calc(100vw - 40px)"}>
                       <PopoverArrow />
                       <PopoverCloseButton />
                       <PopoverHeader>
@@ -98,6 +99,7 @@ const ProfilStatus = () => {
                     </PopoverContent>
                   </Popover>
                 </HStack>
+
                 <HStack justify={"space-between"}>
                   <Text>Masa Diklat</Text>
                   <HStack>
