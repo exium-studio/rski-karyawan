@@ -16,7 +16,7 @@ export default function NavContainer({ children, active, noNavs }: Props) {
   const dummy = [null, null, null, null, null];
   const { data } = useDataState<(number | null)[]>({
     initialData: dummy,
-    url: "",
+    url: `/api/count-notifikasi`,
     dependencies: [],
   });
 
@@ -60,7 +60,7 @@ export default function NavContainer({ children, active, noNavs }: Props) {
                   nav={nav}
                   index={i}
                   active={active}
-                  notifCount={data?.[i]}
+                  notifCount={data}
                 />
               ))}
             </SimpleGrid>

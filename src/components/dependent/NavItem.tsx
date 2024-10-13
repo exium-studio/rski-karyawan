@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import NotifCount from "./NotifCount";
 
 interface Props {
-  nav: { label: string; icon: any; iconFill: any; link: string };
+  nav: any;
   index: number;
   active: number;
-  notifCount?: number | null;
+  notifCount?: any;
 }
 
 export default function NavItem({ nav, index, active, notifCount }: Props) {
@@ -39,7 +39,7 @@ export default function NavItem({ nav, index, active, notifCount }: Props) {
     >
       <Box position={"relative"} h={"22px"}>
         <NotifCount
-          data={notifCount}
+          data={notifCount?.[nav.inboxKey]}
           position={"absolute"}
           top={"-6px"}
           right={"-6px"}
