@@ -13,7 +13,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { RiBook2Fill } from "@remixicon/react";
-import { useContentBgColor } from "../../constant/colors";
+import { useContentBgColor, useLightDarkColor } from "../../constant/colors";
 import useBackOnClose from "../../hooks/useBackOnClose";
 import backOnClose from "../../lib/backOnClose";
 import formatDate from "../../lib/formatDate";
@@ -28,6 +28,7 @@ interface Props {
 export default function MateriItem({ data }: Props) {
   // SX
   const contentBgColor = useContentBgColor();
+  const lightDarkColor = useLightDarkColor();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   useBackOnClose(`detail-materi-modal-${data.id}`, isOpen, onOpen, onClose);
@@ -36,7 +37,7 @@ export default function MateriItem({ data }: Props) {
     <>
       <CContainer
         flex={0}
-        bg={"var(--divider)"}
+        bg={lightDarkColor}
         borderRadius={8}
         cursor={"pointer"}
         position={"relative"}
@@ -49,9 +50,6 @@ export default function MateriItem({ data }: Props) {
 
         <Center p={4} flexDir={"column"}>
           <Icon as={RiBook2Fill} fontSize={52} mb={2} />
-          <Text textAlign={"center"} opacity={0.4}>
-            Klik untuk lihat materi
-          </Text>
         </Center>
 
         <HStack opacity={0.4} justify={"space-between"} py={3} px={4}>

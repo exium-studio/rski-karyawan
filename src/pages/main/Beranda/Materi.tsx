@@ -1,4 +1,7 @@
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
   Box,
   Center,
   HStack,
@@ -148,11 +151,13 @@ export default function Dokumen() {
         {!error && (
           <>
             {loading && (
-              <SimpleGrid columns={2} gap={3}>
-                {Array.from({ length: 10 }).map((_, i) => (
-                  <Skeleton key={i} flex={1} h={"145.5px"} mx={"auto"} />
-                ))}
-              </SimpleGrid>
+              <>
+                <SimpleGrid columns={2} gap={3}>
+                  {Array.from({ length: 10 }).map((_, i) => (
+                    <Skeleton key={i} flex={1} h={"145.5px"} mx={"auto"} />
+                  ))}
+                </SimpleGrid>
+              </>
             )}
 
             {!loading && (
@@ -162,11 +167,20 @@ export default function Dokumen() {
                 {fd && fd.length === 0 && <NotFound />}
 
                 {(fd || (fd && fd.length) > 0) && (
-                  <SimpleGrid columns={2} gap={3}>
-                    {fd.map((materi: any, i: number) => (
-                      <MateriItem key={i} data={materi} />
-                    ))}
-                  </SimpleGrid>
+                  <>
+                    <Alert mb={4}>
+                      <AlertIcon />
+                      <AlertDescription>
+                        Klik untuk lihat materi
+                      </AlertDescription>
+                    </Alert>
+
+                    <SimpleGrid columns={2} gap={3}>
+                      {fd.map((materi: any, i: number) => (
+                        <MateriItem key={i} data={materi} />
+                      ))}
+                    </SimpleGrid>
+                  </>
                 )}
               </>
             )}
