@@ -57,7 +57,11 @@ export default function Tentang() {
             >
               <HStack>
                 <Icon as={RiHospitalLine} opacity={tabIndex === 0 ? 1 : 0.4} />
-                <Text fontWeight={500} opacity={tabIndex === 0 ? 1 : 0.4}>
+                <Text
+                  noOfLines={1}
+                  fontWeight={500}
+                  opacity={tabIndex === 0 ? 1 : 0.4}
+                >
                   Tentang
                 </Text>
               </HStack>
@@ -73,7 +77,11 @@ export default function Tentang() {
             >
               <HStack>
                 <Icon as={RiBardLine} opacity={tabIndex === 1 ? 1 : 0.4} />
-                <Text fontWeight={500} opacity={tabIndex === 1 ? 1 : 0.4}>
+                <Text
+                  noOfLines={1}
+                  fontWeight={500}
+                  opacity={tabIndex === 1 ? 1 : 0.4}
+                >
                   Visi & Misi
                 </Text>
               </HStack>
@@ -89,7 +97,11 @@ export default function Tentang() {
             >
               <HStack>
                 <Icon as={RiAwardLine} opacity={tabIndex === 2 ? 1 : 0.4} />
-                <Text fontWeight={500} opacity={tabIndex === 2 ? 1 : 0.4}>
+                <Text
+                  noOfLines={1}
+                  fontWeight={500}
+                  opacity={tabIndex === 2 ? 1 : 0.4}
+                >
                   Mutu
                 </Text>
               </HStack>
