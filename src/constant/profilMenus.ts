@@ -1,7 +1,6 @@
 import {
   RiBriefcaseLine,
   RiLock2Line,
-  RiPhoneLine,
   RiShieldStarLine,
   RiUserLine,
 } from "@remixicon/react";
@@ -41,7 +40,7 @@ const profilMenus = [
       //   link: "/profil/faqs",
       //   icon: RiInformationLine,
       // },
-      { label: "Kontak Bantuan", link: "/profil/kontak", icon: RiPhoneLine },
+      // { label: "Kontak Bantuan", link: "/profil/kontak", icon: RiPhoneLine },
     ],
   },
 ];
