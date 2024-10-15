@@ -27,6 +27,7 @@ import {
   RiDeleteBinLine,
   RiDownload2Line,
   RiMore2Fill,
+  RiVerifiedBadgeFill,
 } from "@remixicon/react";
 import { useFormik } from "formik";
 import { useRef, useState } from "react";
@@ -37,6 +38,7 @@ import { iconSize } from "../../constant/sizes";
 import useRenderTrigger from "../../global/useRenderTrigger";
 import useBackOnClose from "../../hooks/useBackOnClose";
 import backOnClose from "../../lib/backOnClose";
+import formatBytes from "../../lib/formatBytes";
 import formatDate from "../../lib/formatDate";
 import req from "../../lib/req";
 import RequiredForm from "../form/RequiredForm";
@@ -47,7 +49,101 @@ import DrawerHeader from "./DrawerHeader";
 import FileTypeIcon from "./FileTypeIcon";
 import FileViewer from "./FileViewer";
 import StringInput from "./input/StringInput";
-import formatBytes from "../../lib/formatBytes";
+
+const DeleteConfirmation = ({ data }: any) => {
+  // SX
+  const errorColor = useErrorColor();
+
+  // States
+  const [loading, setLoading] = useState<boolean>(false);
+
+  // Utils
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
+  const { rt, setRt } = useRenderTrigger();
+  function onDelete() {
+    setLoading(true);
+    const url = `/api/delete-berkas`;
+    const payload = {
+      berkas_id: data?.id,
+    };
+    req
+      .post(url, payload)
+      .then((r) => {
+        if (r.status === 200) {
+          setRt(!rt);
+          backOnClose();
+          toast({
+            status: "success",
+            title: r?.data?.message,
+            position: "bottom-right",
+            isClosable: true,
+          });
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        toast({
+          status: "error",
+          title:
+            (typeof e?.response?.data?.message === "string" &&
+              (e?.response?.data?.message as string)) ||
+            "Terjadi kendala, silahkan periksa jaringan atau hubungi SIM RS",
+          position: "bottom-right",
+          isClosable: true,
+        });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
+  return (
+    <>
+      <MenuItem onClick={onOpen}>
+        <HStack w={"100%"} justify={"space-between"} color={errorColor}>
+          <Text fontWeight={500}>Delete</Text>
+          <Icon as={RiDeleteBinLine} fontSize={iconSize} />
+        </HStack>
+      </MenuItem>
+
+      <CustomDrawer
+        id={`delete-berkas-confirmation-${data?.id}`}
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+        header={<DisclosureHeader title="Delete Berkas" />}
+        footer={
+          <CContainer gap={2}>
+            <Button
+              w={"100%"}
+              className="btn-solid clicky"
+              onClick={backOnClose}
+              isDisabled={loading}
+            >
+              Tidak
+            </Button>
+            <Button
+              w={"100%"}
+              colorScheme="red"
+              className="clicky"
+              onClick={onDelete}
+              isLoading={loading}
+            >
+              Ya
+            </Button>
+          </CContainer>
+        }
+      >
+        <CContainer px={6}>
+          <Text>
+            Apakah anda yakin akan menghapus berkas ini <b>{data?.label}</b>?
+          </Text>
+        </CContainer>
+      </CustomDrawer>
+    </>
+  );
+};
 
 interface Props {
   data: any;
@@ -163,9 +259,6 @@ const MoreOptions = ({ data }: Props) => {
     );
   };
 
-  // SX
-  const errorColor = useErrorColor();
-
   return (
     <Menu>
       <MenuButton
@@ -198,12 +291,7 @@ const MoreOptions = ({ data }: Props) => {
 
           <MenuDivider />
 
-          <MenuItem>
-            <HStack w={"100%"} justify={"space-between"} color={errorColor}>
-              <Text fontWeight={500}>Delete</Text>
-              <Icon as={RiDeleteBinLine} fontSize={iconSize} />
-            </HStack>
-          </MenuItem>
+          <DeleteConfirmation data={data} />
         </MenuList>
       </Portal>
     </Menu>
@@ -222,6 +310,13 @@ export default function DokumenFileItem({
   // const dataType = data.path.split(".").pop().toLowerCase();
   const dataType = data?.ext;
 
+  const statusColor =
+    data?.status_berkas?.id === 1
+      ? "yellow.400"
+      : data?.status_berkas?.id === 2
+      ? "green.400"
+      : "red.400";
+
   // SX
   const lightDarkColor = useLightDarkColor();
 
@@ -238,6 +333,11 @@ export default function DokumenFileItem({
       >
         <HStack justify={"space-between"} pl={3} pr={0} py={1}>
           <HStack h={"32px"}>
+            <Icon
+              as={RiVerifiedBadgeFill}
+              color={statusColor}
+              fontSize={iconSize}
+            />
             <Text fontSize={12} fontWeight={500} noOfLines={1}>
               {title || data?.label || data?.nama}
             </Text>
