@@ -5,7 +5,7 @@ import DetailDataKaryawan from "../../../components/dependent/DetailDataKaryawan
 import SearchComponent from "../../../components/dependent/input/SearchComponent";
 import Retry from "../../../components/dependent/Retry";
 import BackButton from "../../../components/independent/BackButton";
-import ComponentSpinner from "../../../components/independent/ComponentSpinner";
+import Skeleton from "../../../components/independent/Skeleton";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
 import { iconSize } from "../../../constant/sizes";
@@ -117,7 +117,11 @@ export default function DataKaryawan() {
         </HStack>
       </HStack>
 
-      {loading && <ComponentSpinner m={"auto"} />}
+      {loading && (
+        <CContainer p={5} pb={8} flex={1}>
+          <Skeleton flex={1} />
+        </CContainer>
+      )}
 
       {!loading && (
         <>
