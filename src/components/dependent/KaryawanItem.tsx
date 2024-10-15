@@ -10,6 +10,7 @@ interface Props extends StackProps {
   noStatus?: boolean;
   forwardRef?: any;
 }
+
 export default function KaryawanItem({
   data,
   forwardRef,
@@ -17,7 +18,6 @@ export default function KaryawanItem({
   noStatus,
   ...props
 }: Props) {
-  // SX
   const lightDarkColor = useLightDarkColor();
 
   return (
@@ -32,25 +32,26 @@ export default function KaryawanItem({
       w={"100%"}
       {...props}
     >
-      <HStack flex={1}>
+      <HStack flex={1} maxW={"calc(100% - 100px)"} overflow={"hidden"}>
         <Avatar name={data.user.nama} src={data.user.foto_profil || ""} />
 
-        <CContainer flex={1}>
+        <CContainer flex={1} overflow="hidden">
           <Text
-            whiteSpace={"nowrap"}
-            overflow={"hidden"}
-            textOverflow={"ellipsis"}
-            maxW={"140px"}
+            whiteSpace="nowrap"
+            overflow="hidden"
+            textOverflow="ellipsis"
+            isTruncated
+            maxW="100%"
           >
             {data.user.nama}
           </Text>
-          <Text fontSize={12} opacity={0.4} noOfLines={1}>
-            {data?.kompetensi?.nama_kompetensi || "Tidak Ada Kompetensi "}
+          <Text fontSize={12} opacity={0.4} noOfLines={1} isTruncated>
+            {data?.kompetensi?.nama_kompetensi || "Tidak Ada Kompetensi"}
           </Text>
         </CContainer>
       </HStack>
 
-      <HStack ml={"auto"} flexShrink={0}>
+      <HStack ml="auto" flexShrink={0}>
         {!noStatus && <StatusKaryawanBadge data={{ id: 1, label: "Tetap" }} />}
 
         {!noArrowIcon && (
