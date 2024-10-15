@@ -138,7 +138,7 @@ export default function FilterKaryawan({ ...props }: Props) {
         <CContainer px={6}>
           <form id="ajukanCutiForm" onSubmit={formik.handleSubmit}>
             <FormControl isInvalid={!!formik.errors.status}>
-              <FormLabel>Status Kepegawaian</FormLabel>
+              <FormLabel>Status Karyawan</FormLabel>
               <MultipleSelectStatusKaryawan
                 id="filter-karyawan-select-status-kerja"
                 name="status"
@@ -146,7 +146,7 @@ export default function FilterKaryawan({ ...props }: Props) {
                   formik.setFieldValue("status", inputValue);
                 }}
                 inputValue={formik.values.status}
-                placeholder="Filter Status Kepegawaian"
+                placeholder="Filter Status Karyawan"
                 optionsDisplay="chip"
                 maxSelectedDisplay={3}
               />
