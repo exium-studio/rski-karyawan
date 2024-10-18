@@ -10,7 +10,6 @@ import {
 import { useFormik } from "formik";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { removeCookie } from "typescript-cookie";
 import * as yup from "yup";
 import HorizontalSliderIndicator from "../../components/dependent/HorizontalSliderIndicator";
 import PasswordInput from "../../components/dependent/input/PasswordInput";
@@ -20,8 +19,8 @@ import CContainer from "../../components/independent/wrapper/CContainer";
 import Container from "../../components/independent/wrapper/Container";
 import useDcs from "../../global/useAuth";
 import useScrollToTop from "../../hooks/useScrollToTop";
-import req from "../../lib/req";
 import getAuthToken from "../../lib/getAuthToken";
+import req from "../../lib/req";
 
 export default function LengkapiDataUser5() {
   useScrollToTop();
@@ -61,7 +60,7 @@ export default function LengkapiDataUser5() {
         .then((r) => {
           if (r.status === 200) {
             setDcs(0);
-            removeCookie("__auth_token");
+            localStorage.removeItem("__auth_token");
             navigate("/beranda");
             toast({
               status: "success",

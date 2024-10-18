@@ -1,5 +1,4 @@
 import axios from "axios";
-import { removeCookie } from "typescript-cookie";
 import getAuthToken from "./getAuthToken";
 
 const req = axios.create({
@@ -38,7 +37,7 @@ req.interceptors.response.use(
           window.location.href = "/maintenance";
           break;
         case 401:
-          removeCookie("__auth_token");
+          localStorage.removeItem("__auth_token");
           localStorage.removeItem("__user_data");
           // window.location.href = "/";
           break;
