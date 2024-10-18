@@ -1,13 +1,12 @@
 import { Avatar, Box, Button, HStack, Image, Text } from "@chakra-ui/react";
-import { getCookie } from "typescript-cookie";
 import { ColorModeSwitcher } from "../ColorModeSwitcher";
 import LoginForm from "../components/form/LoginForm";
 import BantuanButton from "../components/independent/BantuanButton";
 import CContainer from "../components/independent/wrapper/CContainer";
 import Container from "../components/independent/wrapper/Container";
+import useAuth from "../global/useAuth";
 import useAutoNavigate from "../hooks/useAutoNavigate";
 import getUserData from "../lib/getUserData";
-import useAuth from "../global/useAuth";
 
 export default function Login() {
   // SX

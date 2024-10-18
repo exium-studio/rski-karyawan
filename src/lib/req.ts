@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie, removeCookie } from "typescript-cookie";
+import { removeCookie } from "typescript-cookie";
 
 const req = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,

@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCookie } from "typescript-cookie";
 import FullPageSpinner from "../components/independent/FullPageSpinner";
 import logout from "../lib/logout";
 

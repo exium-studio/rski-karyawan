@@ -2,7 +2,6 @@ import { Icon, useToast, VStack } from "@chakra-ui/react";
 import { RiShieldUserFill } from "@remixicon/react";
 import { ReactNode, useEffect, useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { getCookie } from "typescript-cookie";
 import useAuth from "../../../global/useAuth";
 import req from "../../../lib/req";
 import ComponentSpinner from "../ComponentSpinner";

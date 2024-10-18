@@ -10,6 +10,7 @@ import {
 import { useFormik } from "formik";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { removeCookie } from "typescript-cookie";
 import * as yup from "yup";
 import HorizontalSliderIndicator from "../../components/dependent/HorizontalSliderIndicator";
 import PasswordInput from "../../components/dependent/input/PasswordInput";
@@ -20,7 +21,6 @@ import Container from "../../components/independent/wrapper/Container";
 import useDcs from "../../global/useAuth";
 import useScrollToTop from "../../hooks/useScrollToTop";
 import req from "../../lib/req";
-import { getCookie, removeCookie } from "typescript-cookie";
 
 export default function LengkapiDataUser5() {
   useScrollToTop();
