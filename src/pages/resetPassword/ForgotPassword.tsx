@@ -12,7 +12,7 @@ export default function ForgotPassword() {
       <CContainer flex={1}>
         <LengkapiDataUserHeader />
 
-        <CContainer h={"400px"} align={"center"} justify={"center"}>
+        <CContainer my={"auto"} align={"center"} justify={"center"}>
           <Image src={`/images/logo.webp`} w={"100%"} maxW={"260px"} />
         </CContainer>
 

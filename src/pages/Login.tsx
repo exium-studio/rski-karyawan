@@ -8,6 +8,7 @@ import useAuth from "../global/useAuth";
 import useAutoNavigate from "../hooks/useAutoNavigate";
 import getUserData from "../lib/getUserData";
 import getAuthToken from "../lib/getAuthToken";
+import useRenderTrigger from "../global/useRenderTrigger";
 
 export default function Login() {
   // SX
@@ -16,6 +17,13 @@ export default function Login() {
   const user = getUserData();
   const autoNavigate = useAutoNavigate();
   const { dcs, statusAktif } = useAuth();
+  const { rt, setRt } = useRenderTrigger();
+
+  function handleRelogin() {
+    localStorage.removeItem("__auth_token");
+    localStorage.removeItem("__user_data");
+    setRt(!rt);
+  }
 
   return (
     <Container px={5}>
@@ -31,7 +39,7 @@ export default function Login() {
           <BantuanButton ml={"0"} />
         </HStack>
 
-        <CContainer h={"400px"} align={"center"} justify={"center"}>
+        <CContainer my={"auto"} align={"center"} justify={"center"}>
           <Image src={`/images/logo.webp`} w={"100%"} maxW={"260px"} />
         </CContainer>
 
@@ -69,6 +77,20 @@ export default function Login() {
                 }}
               >
                 Klik untuk masuk
+              </Button>
+
+              <Button
+                w={"100%"}
+                colorScheme="ap"
+                variant={"ghost"}
+                className="clicky"
+                size={"lg"}
+                mt={4}
+                // as={Link}
+                // to={"/beranda"}
+                onClick={handleRelogin}
+              >
+                Masuk Ulang
               </Button>
             </CContainer>
           )}
