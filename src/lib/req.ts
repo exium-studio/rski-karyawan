@@ -14,7 +14,7 @@ const req = axios.create({
 // Add a request interceptor
 req.interceptors.request.use(
   (config) => {
-    const token = getCookie("__auth_token");
+    const token = localStorage.getItem("__auth_token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

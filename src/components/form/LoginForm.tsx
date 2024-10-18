@@ -11,7 +11,6 @@ import {
 import { useFormik } from "formik";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { setCookie } from "typescript-cookie";
 import * as yup from "yup";
 import useAuth from "../../global/useAuth";
 import useAutoNavigate from "../../hooks/useAutoNavigate";
@@ -52,7 +51,11 @@ export default function LoginForm() {
             setStatusAktif(userData.status_aktif);
             setJenisKaryawan(userData?.unit_kerja?.[0]?.jenis_karyawan);
 
-            setCookie("__auth_token", userData.arrtoken.token);
+            // setCookie("__auth_token", userData.arrtoken.token);
+            localStorage.setItem(
+              "__auth_token",
+              JSON.stringify(userData.arrtoken.token)
+            );
             localStorage.setItem("__user_data", JSON.stringify(userData));
 
             autoNavigate(

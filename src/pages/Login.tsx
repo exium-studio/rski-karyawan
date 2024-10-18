@@ -12,7 +12,7 @@ import useAuth from "../global/useAuth";
 export default function Login() {
   // SX
 
-  const authToken = getCookie("__auth_token");
+  const authToken = localStorage.getItem("__auth_token");
   const user = getUserData();
   const autoNavigate = useAutoNavigate();
   const { dcs, statusAktif } = useAuth();

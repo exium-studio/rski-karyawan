@@ -18,7 +18,7 @@ export default function AuthMiddleware({
   children,
   allowedJenisKaryawan,
 }: Props) {
-  const authToken = getCookie("__auth_token");
+  const authToken = localStorage.getItem("__auth_token");
   const {
     dcs,
     setDcs,

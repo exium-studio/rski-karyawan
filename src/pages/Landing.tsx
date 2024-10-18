@@ -12,7 +12,7 @@ export default function Landing() {
     if (!firstTime) {
       navigate("/onboarding");
     } else {
-      const authToken = getCookie("__auth_token");
+      const authToken = localStorage.getItem("__auth_token");
       if (!authToken) {
         logout();
       }

@@ -50,7 +50,7 @@ export default function LengkapiDataUser5() {
       setLoading(true);
 
       const payload = {
-        token: getCookie("__auth_token"),
+        token: localStorage.getItem("__auth_token"),
         password: values.new_password,
         password_confirmation: values.confirm_password,
       };
