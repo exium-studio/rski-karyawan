@@ -21,6 +21,7 @@ import Container from "../../components/independent/wrapper/Container";
 import useDcs from "../../global/useAuth";
 import useScrollToTop from "../../hooks/useScrollToTop";
 import req from "../../lib/req";
+import getAuthToken from "../../lib/getAuthToken";
 
 export default function LengkapiDataUser5() {
   useScrollToTop();
@@ -50,7 +51,7 @@ export default function LengkapiDataUser5() {
       setLoading(true);
 
       const payload = {
-        token: localStorage.getItem("__auth_token"),
+        token: getAuthToken(),
         password: values.new_password,
         password_confirmation: values.confirm_password,
       };

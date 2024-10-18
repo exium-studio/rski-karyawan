@@ -7,11 +7,12 @@ import Container from "../components/independent/wrapper/Container";
 import useAuth from "../global/useAuth";
 import useAutoNavigate from "../hooks/useAutoNavigate";
 import getUserData from "../lib/getUserData";
+import getAuthToken from "../lib/getAuthToken";
 
 export default function Login() {
   // SX
 
-  const authToken = localStorage.getItem("__auth_token");
+  const authToken = getAuthToken();
   const user = getUserData();
   const autoNavigate = useAutoNavigate();
   const { dcs, statusAktif } = useAuth();

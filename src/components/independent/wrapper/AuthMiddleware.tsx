@@ -5,6 +5,7 @@ import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../global/useAuth";
 import req from "../../../lib/req";
 import ComponentSpinner from "../ComponentSpinner";
+import getAuthToken from "../../../lib/getAuthToken";
 
 interface Props {
   ldp?: number;
@@ -17,7 +18,7 @@ export default function AuthMiddleware({
   children,
   allowedJenisKaryawan,
 }: Props) {
-  const authToken = localStorage.getItem("__auth_token");
+  const authToken = getAuthToken();
   const {
     dcs,
     setDcs,

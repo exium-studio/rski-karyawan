@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import FullPageSpinner from "../components/independent/FullPageSpinner";
 import logout from "../lib/logout";
+import getAuthToken from "../lib/getAuthToken";
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ export default function Landing() {
     if (!firstTime) {
       navigate("/onboarding");
     } else {
-      const authToken = localStorage.getItem("__auth_token");
+      const authToken = getAuthToken();
       if (!authToken) {
         logout();
       }
