@@ -7,7 +7,7 @@ interface Props extends CenterProps {
 export default function NotifCount({ data, ...props }: Props) {
   return (
     <>
-      {data && (
+      {data ? (
         <Center
           minW={"15px"}
           h={"15px"}
@@ -20,6 +20,8 @@ export default function NotifCount({ data, ...props }: Props) {
             {data < 99 ? data : 99}
           </Text>
         </Center>
+      ) : (
+        ""
       )}
     </>
   );

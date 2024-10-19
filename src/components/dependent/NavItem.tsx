@@ -25,6 +25,8 @@ export default function NavItem({ nav, index, active, notifCount }: Props) {
     }
   };
 
+  console.log(notifCount);
+
   return (
     <VStack
       ref={navItemRef}

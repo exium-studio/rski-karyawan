@@ -1,4 +1,12 @@
-import { Avatar, Box, Button, HStack, Image, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Button,
+  HStack,
+  Image,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import { ColorModeSwitcher } from "../ColorModeSwitcher";
 import LoginForm from "../components/form/LoginForm";
 import BantuanButton from "../components/independent/BantuanButton";
@@ -9,6 +17,8 @@ import useAutoNavigate from "../hooks/useAutoNavigate";
 import getUserData from "../lib/getUserData";
 import getAuthToken from "../lib/getAuthToken";
 import useRenderTrigger from "../global/useRenderTrigger";
+import req from "../lib/req";
+import { useState } from "react";
 
 export default function Login() {
   // SX
@@ -17,12 +27,41 @@ export default function Login() {
   const user = getUserData();
   const autoNavigate = useAutoNavigate();
   const { dcs, statusAktif } = useAuth();
+  const [loading, setLoading] = useState<boolean>(false);
+  const toast = useToast();
   const { rt, setRt } = useRenderTrigger();
 
   function handleRelogin() {
-    localStorage.removeItem("__auth_token");
-    localStorage.removeItem("__user_data");
-    setRt(!rt);
+    setLoading(true);
+    req
+      .post(`/api/logout`)
+      .then((r) => {
+        if (r.status === 200) {
+          toast({
+            status: "success",
+            title: r.data.message,
+            position: "top",
+            isClosable: true,
+          });
+          localStorage.removeItem("__auth_token");
+          localStorage.removeItem("__user_data");
+          setRt(!rt);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        toast({
+          status: "error",
+          title:
+            e.response.data.message ||
+            "Terjadi kendala, silahkan periksa jaringan atau hubungi SIM RS",
+          position: "top",
+          isClosable: true,
+        });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   return (
@@ -75,6 +114,7 @@ export default function Login() {
                 onClick={() => {
                   autoNavigate(authToken, dcs, statusAktif);
                 }}
+                isDisabled={loading}
               >
                 Klik untuk masuk
               </Button>
@@ -85,10 +125,11 @@ export default function Login() {
                 variant={"ghost"}
                 className="clicky"
                 size={"lg"}
-                mt={4}
+                mt={2}
                 // as={Link}
                 // to={"/beranda"}
                 onClick={handleRelogin}
+                isLoading={loading}
               >
                 Masuk Ulang
               </Button>
