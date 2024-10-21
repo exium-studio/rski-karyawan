@@ -286,61 +286,58 @@ const TukarButton = ({
                         data?.length > 0 &&
                         data.map((jadwal: any, i: number) => {
                           return (
-                            i < 2 && (
-                              <HStack
-                                key={i}
-                                scrollSnapAlign={"center"}
-                                borderRadius={8}
-                                border={"1px solid var(--divider3)"}
-                                borderLeft={
-                                  selected?.id === jadwal.id
-                                    ? "4px solid var(--p500)"
-                                    : "1px solid var(--divider3)"
-                                }
-                                align={"stretch"}
-                                overflow={"clip"}
-                                mb={"1px"}
-                                cursor={"pointer"}
-                                className="clicky"
-                                minH={"110px"}
-                                // w={"calc(100vw - 48px)"}
-                                w={"100%"}
-                                _active={{ opacity: 0.6 }}
-                                // mr={3}
-                                gap={0}
-                                onClick={() => {
-                                  setSelected(jadwal);
-                                }}
-                              >
-                                <JadwalItem
-                                  as={HStack}
-                                  data={jadwal}
-                                  noArrow
-                                  noAvatars
-                                  className=""
-                                  _active={{ opacity: 1 }}
-                                  flex={"1 1 0 !important"}
-                                  // border={"1px solid red"}
-                                />
+                            <HStack
+                              key={i}
+                              scrollSnapAlign={"center"}
+                              borderRadius={8}
+                              border={"1px solid var(--divider3)"}
+                              borderLeft={
+                                selected?.id === jadwal.id
+                                  ? "4px solid var(--p500)"
+                                  : "1px solid var(--divider3)"
+                              }
+                              align={"stretch"}
+                              overflow={"clip"}
+                              mb={"1px"}
+                              cursor={"pointer"}
+                              className="clicky"
+                              minH={"110px"}
+                              // w={"calc(100vw - 48px)"}
+                              w={"100%"}
+                              _active={{ opacity: 0.6 }}
+                              // mr={3}
+                              gap={0}
+                              onClick={() => {
+                                setSelected(jadwal);
+                              }}
+                            >
+                              <JadwalItem
+                                as={HStack}
+                                data={jadwal}
+                                noArrow
+                                noAvatars
+                                className=""
+                                _active={{ opacity: 1 }}
+                                flex={"1 1 0 !important"}
+                                // border={"1px solid red"}
+                              />
 
-                                <VStack
-                                  flexShrink={0}
-                                  // w={"80px"}
-                                  px={2}
-                                  bg={"var(--divider)"}
-                                  justify={"center"}
-                                >
-                                  <Icon
-                                    as={RiArrowUpLine}
-                                    fontSize={32}
-                                    color={
-                                      selected?.id === jadwal.id ? "p.500" : ""
-                                    }
-                                    opacity={
-                                      selected?.id === jadwal.id ? 1 : 0.4
-                                    }
-                                  />
-                                  {/* <VStack
+                              <VStack
+                                flexShrink={0}
+                                // w={"80px"}
+                                px={2}
+                                bg={"var(--divider)"}
+                                justify={"center"}
+                              >
+                                <Icon
+                                  as={RiArrowUpLine}
+                                  fontSize={32}
+                                  color={
+                                    selected?.id === jadwal.id ? "p.500" : ""
+                                  }
+                                  opacity={selected?.id === jadwal.id ? 1 : 0.4}
+                                />
+                                {/* <VStack
                             gap={0}
                             opacity={selected?.id === jadwal.id ? 1 : 0.4}
                           >
@@ -361,9 +358,8 @@ const TukarButton = ({
                               Anda
                             </Text>
                           </VStack> */}
-                                </VStack>
-                              </HStack>
-                            )
+                              </VStack>
+                            </HStack>
                           );
                         })}
                     </>

@@ -692,7 +692,7 @@ export default function EditDataPersonalForm({ data }: Props) {
       <FormControl mb={4} isInvalid={formik.errors.gelar_depan ? true : false}>
         <FormLabel>
           Gelar Depan
-          <RequiredForm />
+          {/* <RequiredForm /> */}
         </FormLabel>
         <HStack>
           <StringInput
@@ -719,7 +719,7 @@ export default function EditDataPersonalForm({ data }: Props) {
       <FormControl isInvalid={formik.errors.gelar_belakang ? true : false}>
         <FormLabel>
           Gelar Belakang
-          <RequiredForm />
+          {/* <RequiredForm /> */}
         </FormLabel>
         <HStack>
           <StringInput
