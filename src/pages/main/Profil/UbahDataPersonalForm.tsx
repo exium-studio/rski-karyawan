@@ -31,7 +31,6 @@ import RequestPatchDataButton from "../../../components/dependent/RequestPatchDa
 import RequiredForm from "../../../components/form/RequiredForm";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import CustomDrawer from "../../../components/independent/wrapper/CustomDrawer";
-import { useLightDarkColor } from "../../../constant/colors";
 import { iconSize } from "../../../constant/sizes";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
@@ -115,7 +114,7 @@ export default function EditDataPersonalForm({ data }: Props) {
   });
 
   // SX
-  const lightDarkColor = useLightDarkColor();
+  // const lightDarkColor = useLightDarkColor();
 
   const FileInputDrawer = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
