@@ -14,7 +14,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { RiArrowUpCircleLine, RiCameraLine } from "@remixicon/react";
+import { RiArrowUpCircleLine } from "@remixicon/react";
 import { useFormik } from "formik";
 import { useState } from "react";
 import * as yup from "yup";
@@ -23,6 +23,7 @@ import DatePickerDrawer from "../../../components/dependent/input/DatePickerDraw
 import SelectAgama from "../../../components/dependent/input/dedicated/SingleSelectAgama";
 import SelectGender from "../../../components/dependent/input/dedicated/SingleSelectGender";
 import SelectGoldar from "../../../components/dependent/input/dedicated/SIngleSelectGoldar";
+import SingleSelectPendidikan from "../../../components/dependent/input/dedicated/SingleSelectPendidikan";
 import FileInputLarge from "../../../components/dependent/input/FileInputLarge";
 import StringInput from "../../../components/dependent/input/StringInput";
 import Textarea from "../../../components/dependent/input/Textareaold";
@@ -36,7 +37,6 @@ import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
 import formatNumber from "../../../lib/formatNumber";
 import parseNumber from "../../../lib/parseNumber";
-import SingleSelectPendidikan from "../../../components/dependent/input/dedicated/SingleSelectPendidikan";
 
 interface Props {
   data: any;
@@ -130,7 +130,7 @@ export default function EditDataPersonalForm({ data }: Props) {
           position={"relative"}
           w={"fit-content"}
           mr={1}
-          onClick={onOpen}
+          // onClick={onOpen}
         >
           <Avatar
             size={"lg"}
@@ -138,7 +138,7 @@ export default function EditDataPersonalForm({ data }: Props) {
             name={data?.user?.nama}
             bg={"gray"}
           />
-          <Center
+          {/* <Center
             position={"absolute"}
             borderRadius={"full"}
             w={"28px"}
@@ -148,7 +148,7 @@ export default function EditDataPersonalForm({ data }: Props) {
             right={0}
           >
             <Icon as={RiCameraLine} color={lightDarkColor} />
-          </Center>
+          </Center> */}
         </Center>
 
         <CustomDrawer
