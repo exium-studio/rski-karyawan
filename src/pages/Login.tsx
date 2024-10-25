@@ -33,6 +33,7 @@ export default function Login() {
 
   function handleRelogin() {
     setLoading(true);
+
     req
       .post(`/api/logout`)
       .then((r) => {
@@ -61,6 +62,10 @@ export default function Login() {
       })
       .finally(() => {
         setLoading(false);
+        // ! DEBUG
+        localStorage.removeItem("__auth_token");
+        localStorage.removeItem("__user_data");
+        setRt(!rt);
       });
   }
 
