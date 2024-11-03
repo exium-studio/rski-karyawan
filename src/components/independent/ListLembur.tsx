@@ -78,7 +78,7 @@ export default function ListLembur() {
                             Tanggal Lembur
                           </Text>
                           <Text fontWeight={500}>{`${formatDate(
-                            lembur?.jadwal?.tgl_mulai,
+                            lembur?.tgl_pengajuan,
                             "basicShort"
                           )}`}</Text>
                         </CContainer>
