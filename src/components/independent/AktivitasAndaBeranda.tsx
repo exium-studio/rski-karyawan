@@ -17,7 +17,7 @@ export default function AktivitasAndaBeranda() {
   // SX
 
   return (
-    <CContainer px={5} flex={1}>
+    <CContainer px={5} pb={5} flex={1}>
       <HStack mb={4} justify={"space-between"}>
         <Text fontWeight={600}>Aktivitas Anda</Text>
 
