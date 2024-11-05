@@ -78,7 +78,9 @@ export default function PengumumanBeranda() {
                             key={i}
                             data={pengumuman}
                             scrollSnapAlign={"center"}
-                            w={"calc(100vw - 64px)"}
+                            w={`calc(100vw - ${
+                              data?.length ? "40px" : "64px"
+                            })`}
                             maxW={"600px"}
                           />
                         ))}
