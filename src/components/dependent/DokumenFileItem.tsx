@@ -76,7 +76,7 @@ const DeleteConfirmation = ({ data }: any) => {
           toast({
             status: "success",
             title: r?.data?.message,
-            position: "bottom-right",
+            position: "top",
             isClosable: true,
           });
         }
@@ -89,7 +89,7 @@ const DeleteConfirmation = ({ data }: any) => {
             (typeof e?.response?.data?.message === "string" &&
               (e?.response?.data?.message as string)) ||
             "Terjadi kendala, silahkan periksa jaringan atau hubungi SIM RS",
-          position: "bottom-right",
+          position: "top",
           isClosable: true,
         });
       })
