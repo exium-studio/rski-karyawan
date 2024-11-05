@@ -59,8 +59,6 @@ const TukarButton = ({
     dependencies: [isOpen, jadwalDitukar.id],
   });
 
-  console.log(userId);
-
   const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
   const toast = useToast();
 
@@ -260,7 +258,7 @@ const TukarButton = ({
                           className="clicky"
                           minH={"110px"}
                           w={"100%"}
-                          maxW={"calc(100% - 30px)"}
+                          // maxW={"calc(100% - 30px)"}
                           // minW={`calc(100vw - 48px)`}
                           _active={{ opacity: 0.6 }}
                           gap={0}
