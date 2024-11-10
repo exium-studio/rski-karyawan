@@ -92,9 +92,8 @@ const ProfilStatus = () => {
                         Presensi
                       </PopoverHeader>
                       <PopoverBody opacity={0.4}>
-                        Pertahankan status ini agar tetap hijau untuk mendapat
-                        reward presensi. Reward presensi akan ditambahkan di
-                        penggajian.
+                        Alpha, terlambat, pulang awal tidak akan mendapat reward
+                        presensi.
                       </PopoverBody>
                     </PopoverContent>
                   </Popover>
