@@ -3,6 +3,7 @@ import {
   Checkbox,
   FormControl,
   FormErrorMessage,
+  FormHelperText,
   FormLabel,
   Text,
   useToast,
@@ -183,6 +184,9 @@ export default function LengkapiDataUser3() {
                   Masa berlaku seumur hidup
                 </Text>
               </Checkbox>
+              <FormHelperText>
+                Jika tidak dicentang maka masa berlaku seumur hidup
+              </FormHelperText>
               <FormErrorMessage>
                 {formik.errors.masa_berlaku_str as string}
               </FormErrorMessage>
@@ -240,6 +244,9 @@ export default function LengkapiDataUser3() {
                   Masa berlaku seumur hidup
                 </Text>
               </Checkbox>
+              <FormHelperText>
+                Jika tidak dicentang maka masa berlaku seumur hidup
+              </FormHelperText>
               <FormErrorMessage>
                 {formik.errors.masa_berlaku_sip as string}
               </FormErrorMessage>
