@@ -241,8 +241,6 @@ export default function AmbilFoto({ attendanceData, ...props }: Props) {
   const stopCamera = () => {
     let videoElement: HTMLVideoElement | undefined;
 
-    console.log("videoElement", videoElement);
-
     if (videoRef.current) {
       videoElement = videoRef.current;
     }
