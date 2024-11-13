@@ -312,7 +312,7 @@ export default function EditDataPersonalForm({ data }: Props) {
             id="lengkapi-data-user-1-select-gender"
             name="kelamin"
             onConfirm={(inputValue) => {
-              formik.setFieldValue("kelamin", inputValue);
+              formik.setFieldValue("jenis_kelamin", inputValue);
             }}
             inputValue={formik.values.jenis_kelamin}
             isError={!!formik.errors.jenis_kelamin}
