@@ -44,7 +44,6 @@ export default function AuthMiddleware({
           if (r.status === 200) {
             const newUnitKerja = r.data.data.unit_kerja;
             const newUserData = { ...userData, unit_kerja: [newUnitKerja] };
-            console.log(newUserData);
             localStorage.setItem("__user_data", JSON.stringify(newUserData));
             const newDcs = r.data.data.user.data_completion_step;
             setDcs(newDcs);
