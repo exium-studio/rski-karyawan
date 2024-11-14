@@ -54,7 +54,7 @@ export default function ListAktivitas({ ...props }: Props) {
       {!error && !loading && data && (
         <>
           {data.map((activity, i) => (
-            <AktivitasItem key={i} data={activity} />
+            <AktivitasItem key={i} initialData={activity} />
           ))}
           {/* <Button
             flexShrink={0}

@@ -1,3 +1,8 @@
+export interface LatLng {
+  lat: number;
+  lng: number;
+}
+
 export interface Interface__AttendanceData {
   id: number;
   user_id: number;

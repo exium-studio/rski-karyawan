@@ -58,7 +58,7 @@ export default function AktivitasAndaBeranda() {
                 {data &&
                   data.length > 0 &&
                   data.map((activity, i) => (
-                    <AktivitasItem key={i} data={activity} />
+                    <AktivitasItem key={i} initialData={activity} />
                   ))}
 
                 {data && data.length === 0 && (
