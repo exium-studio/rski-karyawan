@@ -11,8 +11,12 @@ import {
 import { RiLoginBoxLine, RiLogoutBoxRLine } from "@remixicon/react";
 import { useLightDarkColor } from "../../constant/colors";
 import useDataState from "../../hooks/useDataState";
+import backOnClose from "../../lib/backOnClose";
 import formatDate from "../../lib/formatDate";
+import formatDuration from "../../lib/formatDuration";
 import formatTime from "../../lib/formatTime";
+import formatTimeOld from "../../lib/formatTimeOld";
+import FlexLine from "../independent/FlexLine";
 import Skeleton from "../independent/Skeleton";
 import CContainer from "../independent/wrapper/CContainer";
 import CustomDrawer from "../independent/wrapper/CustomDrawer";
@@ -20,9 +24,6 @@ import DisclosureHeader from "./DisclosureHeader";
 import Img from "./Img";
 import LokasiPresensi from "./LokasiPresensi";
 import Retry from "./Retry";
-import FlexLine from "../independent/FlexLine";
-import formatTimeOld from "../../lib/formatTimeOld";
-import formatDuration from "../../lib/formatDuration";
 
 interface Props {
   initialData: any;
@@ -99,7 +100,9 @@ export default function AktivitasItem({ initialData }: Props) {
         }
         footer={
           <>
-            <Button className="btn-solid clicky">Mengerti</Button>
+            <Button className="btn-solid clicky" onClick={backOnClose}>
+              Mengerti
+            </Button>
           </>
         }
       >
