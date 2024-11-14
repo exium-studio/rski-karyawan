@@ -1,5 +1,4 @@
 import { Center, StackProps } from "@chakra-ui/react";
-import { dummyActivity } from "../../constant/dummy";
 import { Interface__Aktivitas } from "../../constant/interfaces";
 import useFilterAktivitas from "../../global/useFilterAktivitas";
 import useDataState from "../../hooks/useDataState";
@@ -16,12 +15,13 @@ export default function ListAktivitas({ ...props }: Props) {
   useScrollToTop();
 
   const { filterAktivitas } = useFilterAktivitas();
-
+  console.log(filterAktivitas);
   const { error, notFound, loading, data, retry } = useDataState<
     Interface__Aktivitas[]
   >({
-    initialData: dummyActivity,
+    initialData: undefined,
     url: "/api/get-activity-presensi",
+    // payload: {},
     dependencies: [filterAktivitas],
   });
 

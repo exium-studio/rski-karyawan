@@ -36,12 +36,15 @@ import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
 import formatNumber from "../../../lib/formatNumber";
 import parseNumber from "../../../lib/parseNumber";
+import getUserData from "../../../lib/getUserData";
 
 interface Props {
   data: any;
 }
 
 export default function EditDataPersonalForm({ data }: Props) {
+  const userData = getUserData();
+
   const formik = useFormik({
     validateOnChange: false,
     initialValues: {
@@ -196,10 +199,10 @@ export default function EditDataPersonalForm({ data }: Props) {
 
             <CContainer justify={"center"}>
               <Text fontSize={14} fontWeight={500} mb={"2px"}>
-                {data?.user?.nama}
+                {userData?.nama}
               </Text>
               <Text fontSize={12} opacity={0.4}>
-                {data?.unit_kerja?.nama_unit}
+                {userData?.unit_kerja[0]?.nama_unit}
               </Text>
             </CContainer>
           </HStack>

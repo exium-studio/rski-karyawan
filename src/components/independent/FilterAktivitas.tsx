@@ -22,6 +22,7 @@ import MultipleSelectJenisAktivitas from "../dependent/input/dedicated/MultipleS
 import BackOnCloseButton from "./BackOnCloseButton";
 import CContainer from "./wrapper/CContainer";
 import CustomDrawer from "./wrapper/CustomDrawer";
+import { endOfWeek, startOfWeek } from "date-fns";
 
 export default function FilterAktivitas() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -30,13 +31,20 @@ export default function FilterAktivitas() {
     useFilterAktivitas();
   useCallBackOnNavigate(clearFilterAktivitas);
 
-  // console.log(filterAktivitas);
+  const today = new Date();
+  const startOfWeekDate = startOfWeek(today, { weekStartsOn: 1 });
+  const endOfWeekDate = endOfWeek(today, { weekStartsOn: 1 });
+
+  const defaultRangeTgl = {
+    from: startOfWeekDate,
+    to: endOfWeekDate,
+  };
 
   // local
   const formik = useFormik({
     validateOnChange: false,
     initialValues: {
-      date_range: undefined,
+      date_range: defaultRangeTgl,
       jenis_aktivitas: undefined,
     },
     validationSchema: yup.object().shape({
