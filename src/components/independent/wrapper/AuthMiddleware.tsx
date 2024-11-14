@@ -6,6 +6,7 @@ import useAuth from "../../../global/useAuth";
 import req from "../../../lib/req";
 import ComponentSpinner from "../ComponentSpinner";
 import getAuthToken from "../../../lib/getAuthToken";
+import getUserData from "../../../lib/getUserData";
 
 interface Props {
   ldp?: number;
@@ -18,7 +19,9 @@ export default function AuthMiddleware({
   children,
   allowedJenisKaryawan,
 }: Props) {
+  const userData = getUserData();
   const authToken = getAuthToken();
+
   const {
     dcs,
     setDcs,
@@ -39,7 +42,10 @@ export default function AuthMiddleware({
         .get("/api/getuserinfo")
         .then((r) => {
           if (r.status === 200) {
-            // console.log(r.data.data);
+            const newUnitKerja = r.data.data.unit_kerja;
+            const newUserData = { ...userData, unit_kerja: [newUnitKerja] };
+            console.log(newUserData);
+            localStorage.setItem("__user_data", JSON.stringify(newUserData));
             const newDcs = r.data.data.user.data_completion_step;
             setDcs(newDcs);
             setStatusAktif(r.data.data.user.status_aktif);
@@ -72,6 +78,7 @@ export default function AuthMiddleware({
     setStatusAktif,
     navigate,
     setJenisKaryawan,
+    userData,
   ]);
 
   // console.log(statusAktif, dcs);
