@@ -655,7 +655,7 @@ export default function EditDataPersonalForm({ data }: Props) {
           />
           <RequestPatchDataButton
             validator={() => {
-              formik.validateField("no_ijasah");
+              formik.validateField("no_ijazah");
             }}
             column="no_ijazah"
             payload={formik.values.no_ijazah}
