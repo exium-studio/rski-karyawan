@@ -22,6 +22,7 @@ export default function DisclosureHeader({
       h="60px"
       pr={5}
       pl={6}
+      flexShrink={0}
       // pb={"18px !important"}
       {...props}
     >

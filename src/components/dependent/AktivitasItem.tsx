@@ -106,14 +106,12 @@ export default function AktivitasItem({ initialData }: Props) {
           </>
         }
       >
-        <CContainer px={5}>
+        <CContainer>
           {loading && (
             <CContainer gap={4}>
-              <SimpleGrid columns={2} gap={4}>
-                <Skeleton w={"100%"} h={"auto"} aspectRatio={1} />
+              <Skeleton w={"100%"} h={"auto"} aspectRatio={1} />
 
-                <Skeleton w={"100%"} h={"auto"} aspectRatio={1} />
-              </SimpleGrid>
+              <Skeleton w={"100%"} h={"auto"} aspectRatio={1} />
 
               <Skeleton minH={"483px"} />
             </CContainer>
@@ -131,7 +129,15 @@ export default function AktivitasItem({ initialData }: Props) {
                 <>
                   {data && (
                     <CContainer gap={4}>
-                      <SimpleGrid columns={2} gap={4}>
+                      <Box
+                        p={5}
+                        borderTop={
+                          data?.alasan ? "" : "6px solid var(--divider)"
+                        }
+                      >
+                        <Text fontSize={16} fontWeight={600} mb={4}>
+                          Foto Presensi
+                        </Text>
                         <Img
                           initialSrc={
                             isMasuk
@@ -143,6 +149,17 @@ export default function AktivitasItem({ initialData }: Props) {
                           aspectRatio={1}
                           objectFit={"cover"}
                         />
+                      </Box>
+
+                      <Box
+                        p={5}
+                        borderTop={
+                          data?.alasan ? "" : "6px solid var(--divider)"
+                        }
+                      >
+                        <Text fontSize={16} fontWeight={600} mb={4}>
+                          Lokasi Presensi
+                        </Text>
 
                         <LokasiPresensi
                           center={{
@@ -163,220 +180,222 @@ export default function AktivitasItem({ initialData }: Props) {
                             data?.data_presensi?.lokasi_kantor?.radius || 100
                           }
                         />
-                      </SimpleGrid>
+                      </Box>
 
-                      <CContainer gap={4}>
-                        <Box>
-                          <Text fontSize={20} fontWeight={600} mb={4}>
-                            Data Jadwal
-                          </Text>
+                      <Box
+                        p={5}
+                        borderTop={
+                          data?.alasan ? "" : "6px solid var(--divider)"
+                        }
+                      >
+                        <Text fontSize={16} fontWeight={600} mb={4}>
+                          Data Jadwal
+                        </Text>
 
-                          <CContainer gap={4}>
-                            <HStack justify={"space-between"}>
-                              <Box opacity={0.6}>
-                                <Text>Nama (Label)</Text>
-                              </Box>
-                              <FlexLine />
-                              <Text fontWeight={500} textAlign={"right"}>
-                                {data?.unit_kerja?.jenis_karyawan === 1
+                        <CContainer gap={4}>
+                          <HStack justify={"space-between"}>
+                            <Box opacity={0.6}>
+                              <Text>Nama (Label)</Text>
+                            </Box>
+                            <FlexLine />
+                            <Text fontWeight={500} textAlign={"right"}>
+                              {data?.unit_kerja?.jenis_karyawan === 1
+                                ? data?.data_presensi?.jadwal_shift?.shift?.nama
+                                : data?.data_presensi?.jadwal_non_shift?.nama}
+                            </Text>
+                          </HStack>
+
+                          <HStack justify={"space-between"}>
+                            <Box opacity={0.6}>
+                              <Text>Jadwal Tanggal Mulai</Text>
+                            </Box>
+                            <FlexLine />
+                            <Text fontWeight={500} textAlign={"right"}>
+                              {formatDate(
+                                data?.unit_kerja?.jenis_karyawan === 1
+                                  ? data?.data_presensi?.jadwal_shift?.tgl_mulai
+                                  : data?.data_presensi?.created_at
+                              )}
+                            </Text>
+                          </HStack>
+
+                          <HStack justify={"space-between"}>
+                            <Box opacity={0.6}>
+                              <Text>Jadwal Tanggal Selesai</Text>
+                            </Box>
+                            <FlexLine />
+                            <Text fontWeight={500} textAlign={"right"}>
+                              {formatDate(
+                                data?.unit_kerja?.jenis_karyawan === 1
+                                  ? data?.data_presensi?.jadwal_shift
+                                      ?.tgl_selesai
+                                  : data?.data_presensi?.updated_at
+                              )}
+                            </Text>
+                          </HStack>
+
+                          <HStack justify={"space-between"}>
+                            <Box opacity={0.6}>
+                              <Text>Jadwal Jam Masuk</Text>
+                            </Box>
+                            <FlexLine />
+                            <Text fontWeight={500} textAlign={"right"}>
+                              {formatTime(
+                                data?.unit_kerja?.jenis_karyawan === 1
                                   ? data?.data_presensi?.jadwal_shift?.shift
-                                      ?.nama
-                                  : data?.data_presensi?.jadwal_non_shift?.nama}
-                              </Text>
-                            </HStack>
+                                      ?.jam_from
+                                  : data?.data_presensi?.jadwal_non_shift
+                                      ?.jam_from
+                              )}
+                            </Text>
+                          </HStack>
 
+                          <HStack justify={"space-between"}>
+                            <Box opacity={0.6}>
+                              <Text>Jadwal Jam Keluar</Text>
+                            </Box>
+                            <FlexLine />
+                            <Text fontWeight={500} textAlign={"right"}>
+                              {formatTime(
+                                data?.unit_kerja?.jenis_karyawan === 1
+                                  ? data?.data_presensi?.jadwal_shift?.shift
+                                      ?.jam_to
+                                  : data?.data_presensi?.jadwal_non_shift
+                                      ?.jam_to
+                              )}
+                            </Text>
+                          </HStack>
+                        </CContainer>
+                      </Box>
+
+                      <Box
+                        p={5}
+                        borderTop={
+                          data?.alasan ? "" : "6px solid var(--divider)"
+                        }
+                      >
+                        <Text fontSize={16} fontWeight={600} mb={4}>
+                          Data Presensi
+                        </Text>
+
+                        <CContainer gap={4}>
+                          {isMasuk && (
                             <HStack justify={"space-between"}>
                               <Box opacity={0.6}>
-                                <Text>Jadwal Tanggal Mulai</Text>
+                                <Text>Presensi Masuk</Text>
                               </Box>
                               <FlexLine />
                               <Text fontWeight={500} textAlign={"right"}>
-                                {formatDate(
-                                  data?.unit_kerja?.jenis_karyawan === 1
-                                    ? data?.data_presensi?.jadwal_shift
-                                        ?.tgl_mulai
-                                    : data?.data_presensi?.created_at
-                                )}
+                                {formatTimeOld(data?.data_presensi?.jam_masuk)}
                               </Text>
                             </HStack>
+                          )}
 
+                          {!isMasuk && (
                             <HStack justify={"space-between"}>
                               <Box opacity={0.6}>
-                                <Text>Jadwal Tanggal Selesai</Text>
+                                <Text>Presensi Keluar</Text>
                               </Box>
                               <FlexLine />
                               <Text fontWeight={500} textAlign={"right"}>
-                                {formatDate(
-                                  data?.unit_kerja?.jenis_karyawan === 1
-                                    ? data?.data_presensi?.jadwal_shift
-                                        ?.tgl_selesai
-                                    : data?.data_presensi?.updated_at
-                                )}
+                                {formatTimeOld(data?.data_presensi?.jam_keluar)}
                               </Text>
                             </HStack>
+                          )}
 
+                          {isMasuk && (
                             <HStack justify={"space-between"}>
                               <Box opacity={0.6}>
-                                <Text>Jadwal Jam Masuk</Text>
+                                <Text>Tanggal Masuk</Text>
                               </Box>
                               <FlexLine />
                               <Text fontWeight={500} textAlign={"right"}>
-                                {formatTime(
-                                  data?.unit_kerja?.jenis_karyawan === 1
-                                    ? data?.data_presensi?.jadwal_shift?.shift
-                                        ?.jam_from
-                                    : data?.data_presensi?.jadwal_non_shift
-                                        ?.jam_from
-                                )}
+                                {formatDate(data?.data_presensi?.jam_masuk)}
                               </Text>
                             </HStack>
+                          )}
 
+                          {!isMasuk && (
                             <HStack justify={"space-between"}>
                               <Box opacity={0.6}>
-                                <Text>Jadwal Jam Keluar</Text>
+                                <Text>Tanggal Keluar</Text>
                               </Box>
                               <FlexLine />
                               <Text fontWeight={500} textAlign={"right"}>
-                                {formatTime(
-                                  data?.unit_kerja?.jenis_karyawan === 1
-                                    ? data?.data_presensi?.jadwal_shift?.shift
-                                        ?.jam_to
-                                    : data?.data_presensi?.jadwal_non_shift
-                                        ?.jam_to
-                                )}
+                                {formatDate(data?.data_presensi?.jam_keluar)}
                               </Text>
                             </HStack>
-                          </CContainer>
-                        </Box>
+                          )}
 
-                        <Box>
-                          <Text fontSize={20} fontWeight={600} mb={4}>
-                            Data Presensi
-                          </Text>
+                          <HStack justify={"space-between"}>
+                            <Box opacity={0.6}>
+                              <Text>Durasi</Text>
+                            </Box>
+                            <FlexLine />
+                            <Text fontWeight={500} textAlign={"right"}>
+                              {formatDuration(data?.data_presensi?.durasi)}
+                            </Text>
+                          </HStack>
 
-                          <CContainer gap={4}>
-                            {isMasuk && (
+                          <HStack justify={"space-between"}>
+                            <Box opacity={0.6}>
+                              <Text>Kategori Presensi</Text>
+                            </Box>
+                            <FlexLine />
+                            <Text fontWeight={500} textAlign={"right"}>
+                              {data?.data_presensi?.kategori_presensi?.label ||
+                                "Invalid"}
+                            </Text>
+                          </HStack>
+
+                          {isMasuk && (
+                            <>
                               <HStack justify={"space-between"}>
                                 <Box opacity={0.6}>
-                                  <Text>Presensi Masuk</Text>
+                                  <Text>Latitude Masuk</Text>
                                 </Box>
                                 <FlexLine />
                                 <Text fontWeight={500} textAlign={"right"}>
-                                  {formatTimeOld(
-                                    data?.data_presensi?.jam_masuk
-                                  )}
+                                  {data?.data_presensi?.lat_masuk}
                                 </Text>
                               </HStack>
-                            )}
 
-                            {!isMasuk && (
                               <HStack justify={"space-between"}>
                                 <Box opacity={0.6}>
-                                  <Text>Presensi Keluar</Text>
+                                  <Text>Longitude Masuk</Text>
                                 </Box>
                                 <FlexLine />
                                 <Text fontWeight={500} textAlign={"right"}>
-                                  {formatTimeOld(
-                                    data?.data_presensi?.jam_keluar
-                                  )}
+                                  {data?.data_presensi?.long_masuk}
                                 </Text>
                               </HStack>
-                            )}
+                            </>
+                          )}
 
-                            {isMasuk && (
+                          {!isMasuk && (
+                            <>
                               <HStack justify={"space-between"}>
                                 <Box opacity={0.6}>
-                                  <Text>Tanggal Masuk</Text>
+                                  <Text>Latitude Keluar</Text>
                                 </Box>
                                 <FlexLine />
                                 <Text fontWeight={500} textAlign={"right"}>
-                                  {formatDate(data?.data_presensi?.jam_masuk)}
+                                  {data?.data_presensi?.lat_keluar}
                                 </Text>
                               </HStack>
-                            )}
-
-                            {!isMasuk && (
                               <HStack justify={"space-between"}>
                                 <Box opacity={0.6}>
-                                  <Text>Tanggal Keluar</Text>
+                                  <Text>Longitude Keluar</Text>
                                 </Box>
                                 <FlexLine />
                                 <Text fontWeight={500} textAlign={"right"}>
-                                  {formatDate(data?.data_presensi?.jam_keluar)}
+                                  {data?.data_presensi?.long_keluar}
                                 </Text>
                               </HStack>
-                            )}
-
-                            <HStack justify={"space-between"}>
-                              <Box opacity={0.6}>
-                                <Text>Durasi</Text>
-                              </Box>
-                              <FlexLine />
-                              <Text fontWeight={500} textAlign={"right"}>
-                                {formatDuration(data?.data_presensi?.durasi)}
-                              </Text>
-                            </HStack>
-
-                            <HStack justify={"space-between"}>
-                              <Box opacity={0.6}>
-                                <Text>Kategori Presensi</Text>
-                              </Box>
-                              <FlexLine />
-                              <Text fontWeight={500} textAlign={"right"}>
-                                {data?.data_presensi?.kategori_presensi
-                                  ?.label || "Invalid"}
-                              </Text>
-                            </HStack>
-
-                            {isMasuk && (
-                              <>
-                                <HStack justify={"space-between"}>
-                                  <Box opacity={0.6}>
-                                    <Text>Latitude Masuk</Text>
-                                  </Box>
-                                  <FlexLine />
-                                  <Text fontWeight={500} textAlign={"right"}>
-                                    {data?.data_presensi?.lat_masuk}
-                                  </Text>
-                                </HStack>
-
-                                <HStack justify={"space-between"}>
-                                  <Box opacity={0.6}>
-                                    <Text>Longitude Masuk</Text>
-                                  </Box>
-                                  <FlexLine />
-                                  <Text fontWeight={500} textAlign={"right"}>
-                                    {data?.data_presensi?.long_masuk}
-                                  </Text>
-                                </HStack>
-                              </>
-                            )}
-
-                            {!isMasuk && (
-                              <>
-                                <HStack justify={"space-between"}>
-                                  <Box opacity={0.6}>
-                                    <Text>Latitude Keluar</Text>
-                                  </Box>
-                                  <FlexLine />
-                                  <Text fontWeight={500} textAlign={"right"}>
-                                    {data?.data_presensi?.lat_keluar}
-                                  </Text>
-                                </HStack>
-                                <HStack justify={"space-between"}>
-                                  <Box opacity={0.6}>
-                                    <Text>Longitude Keluar</Text>
-                                  </Box>
-                                  <FlexLine />
-                                  <Text fontWeight={500} textAlign={"right"}>
-                                    {data?.data_presensi?.long_keluar}
-                                  </Text>
-                                </HStack>
-                              </>
-                            )}
-                          </CContainer>
-                        </Box>
-                      </CContainer>
+                            </>
+                          )}
+                        </CContainer>
+                      </Box>
                     </CContainer>
                   )}
                 </>
