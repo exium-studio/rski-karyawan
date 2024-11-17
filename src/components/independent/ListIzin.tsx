@@ -1,4 +1,17 @@
-import { Center, HStack, SimpleGrid, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  HStack,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverTrigger,
+  Portal,
+  SimpleGrid,
+  Text,
+} from "@chakra-ui/react";
 import { useLightDarkColor } from "../../constant/colors";
 import useFilterIzin from "../../global/useFilterIzin";
 import useDataState from "../../hooks/useDataState";
@@ -77,7 +90,32 @@ export default function ListIzin() {
                           </Text>
                         </CContainer>
 
-                        <StatusApprovalBadge data={izin?.statusizin?.id} />
+                        <Popover>
+                          <PopoverTrigger>
+                            <Box>
+                              <StatusApprovalBadge
+                                data={izin?.statusizin?.id}
+                              />
+                            </Box>
+                          </PopoverTrigger>
+                          {izin?.alasan && (
+                            <Portal>
+                              <PopoverContent
+                                mr={5}
+                                minW={"calc(100vw - 60px)"}
+                              >
+                                <PopoverArrow />
+                                <PopoverCloseButton />
+                                <PopoverBody>
+                                  <CContainer>
+                                    <Text mb={4}>Alasan ditolak</Text>
+                                    <Text opacity={0.6}>{izin?.alasan}</Text>
+                                  </CContainer>
+                                </PopoverBody>
+                              </PopoverContent>
+                            </Portal>
+                          )}
+                        </Popover>
                       </HStack>
 
                       <CContainer gap={1}>

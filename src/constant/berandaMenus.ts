@@ -49,16 +49,9 @@ const berandaMenus = [
   },
 
   {
-    image: "/vectors/icons/Bank Building.png",
-    label: "Koperasi",
-    link: "/beranda/koperasi",
-    jenis_karyawan: [1, 0],
-  },
-
-  {
-    image: "/vectors/icons/System Report.png",
-    label: "Pelaporan",
-    link: "/beranda/laporan",
+    image: "/vectors/icons/book.png",
+    label: "Materi",
+    link: "/beranda/materi",
     jenis_karyawan: [1, 0],
   },
 
@@ -70,9 +63,16 @@ const berandaMenus = [
   },
 
   {
-    image: "/vectors/icons/book.png",
-    label: "Materi",
-    link: "/beranda/materi",
+    image: "/vectors/icons/Bank Building.png",
+    label: "Koperasi",
+    link: "/beranda/koperasi",
+    jenis_karyawan: [1, 0],
+  },
+
+  {
+    image: "/vectors/icons/System Report.png",
+    label: "Pelaporan",
+    link: "/beranda/laporan",
     jenis_karyawan: [1, 0],
   },
 

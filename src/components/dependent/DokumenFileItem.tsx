@@ -1,4 +1,9 @@
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Box,
   Button,
   FormControl,
   FormErrorMessage,
@@ -33,7 +38,11 @@ import { useFormik } from "formik";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
-import { useErrorColor, useLightDarkColor } from "../../constant/colors";
+import {
+  useErrorAlphaColor,
+  useErrorColor,
+  useLightDarkColor,
+} from "../../constant/colors";
 import { iconSize } from "../../constant/sizes";
 import useRenderTrigger from "../../global/useRenderTrigger";
 import useBackOnClose from "../../hooks/useBackOnClose";
@@ -150,7 +159,6 @@ interface Props {
   noOptions?: boolean;
   title?: string;
 }
-
 const MoreOptions = ({ data }: Props) => {
   // Children
   const RenameDrawer = () => {
@@ -303,6 +311,9 @@ export default function DokumenFileItem({
   noOptions = false,
   title,
 }: Props) {
+  // SX
+  const errorAlphaColor = useErrorAlphaColor();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef(null);
   useBackOnClose(`file-viewer-${data?.path}`, isOpen, onOpen, onClose);
@@ -378,12 +389,32 @@ export default function DokumenFileItem({
             </HStack>
           </ModalHeader>
 
-          <ModalBody>
-            <Text mb={4} textAlign={"center"} opacity={0.4}>
-              {title || data?.label || data?.nama}
-            </Text>
-            <CContainer my={"auto"} flex={1} justify={"center"}>
-              <FileViewer fileUrl={data?.path} fileType={dataType} />
+          <ModalBody px={0}>
+            {data?.alasan && (
+              <Alert
+                status="error"
+                bg={errorAlphaColor}
+                alignItems={"start"}
+                borderRadius={"0 !important"}
+                px={"24px !important"}
+                mb={4}
+              >
+                <AlertIcon />
+                <Box>
+                  <AlertTitle fontWeight={600}>
+                    Perubahan Data Ditolak
+                  </AlertTitle>
+                  <AlertDescription>{data?.alasan}</AlertDescription>
+                </Box>
+              </Alert>
+            )}
+            <CContainer flex={1} px={5} justify={"center"}>
+              <Text mb={4} textAlign={"center"} opacity={0.4}>
+                {title || data?.label || data?.nama}
+              </Text>
+              <CContainer my={"auto"} flex={1} justify={"center"}>
+                <FileViewer fileUrl={data?.path} fileType={dataType} />
+              </CContainer>
             </CContainer>
           </ModalBody>
 

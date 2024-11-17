@@ -7,7 +7,11 @@ import {
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
-import { RiCloseLine, RiSearchLine } from "@remixicon/react";
+import {
+  RiCloseLine,
+  RiSearchLine,
+  RiVerifiedBadgeFill,
+} from "@remixicon/react";
 import { useEffect, useRef, useState } from "react";
 import DokumenFileItem from "../../../components/dependent/DokumenFileItem";
 import SearchComponent from "../../../components/dependent/input/SearchComponent";
@@ -16,11 +20,11 @@ import BackButton from "../../../components/independent/BackButton";
 import NoData from "../../../components/independent/NoData";
 import NotFound from "../../../components/independent/NotFound";
 import Skeleton from "../../../components/independent/Skeleton";
+import TambahDokumen from "../../../components/independent/TambahDokumen";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
 import { iconSize } from "../../../constant/sizes";
 import useDataState from "../../../hooks/useDataState";
-import TambahDokumen from "../../../components/independent/TambahDokumen";
 
 export default function Dokumen() {
   const { error, notFound, loading, data, retry } = useDataState<any>({
@@ -163,11 +167,48 @@ export default function Dokumen() {
                 {fd && fd.length === 0 && <NotFound />}
 
                 {(fd || (fd && fd.length) > 0) && (
-                  <SimpleGrid columns={2} gap={3}>
-                    {fd.map((dokumen: any, i: number) => (
-                      <DokumenFileItem key={i} data={dokumen} />
-                    ))}
-                  </SimpleGrid>
+                  <>
+                    <SimpleGrid columns={2} gap={3}>
+                      {fd.map((dokumen: any, i: number) => (
+                        <DokumenFileItem key={i} data={dokumen} />
+                      ))}
+                    </SimpleGrid>
+
+                    <Box mt={5}>
+                      <Text fontWeight={500} mb={2} opacity={0.6}>
+                        Status Berkas
+                      </Text>
+
+                      <CContainer gap={2}>
+                        <HStack>
+                          <Icon
+                            as={RiVerifiedBadgeFill}
+                            color={"yellow.400"}
+                            fontSize={iconSize}
+                          />
+                          <Text opacity={0.6}>Menunggu Verifikasi</Text>
+                        </HStack>
+
+                        <HStack>
+                          <Icon
+                            as={RiVerifiedBadgeFill}
+                            color={"red.400"}
+                            fontSize={iconSize}
+                          />
+                          <Text opacity={0.6}>Verifikasi ditolak</Text>
+                        </HStack>
+
+                        <HStack>
+                          <Icon
+                            as={RiVerifiedBadgeFill}
+                            color={"green.400"}
+                            fontSize={iconSize}
+                          />
+                          <Text opacity={0.6}>Verifikasi disetujui</Text>
+                        </HStack>
+                      </CContainer>
+                    </Box>
+                  </>
                 )}
               </>
             )}

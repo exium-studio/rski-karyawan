@@ -1,4 +1,17 @@
-import { Center, HStack, SimpleGrid, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  HStack,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverTrigger,
+  Portal,
+  SimpleGrid,
+  Text,
+} from "@chakra-ui/react";
 import { useLightDarkColor } from "../../constant/colors";
 import useFilterCuti from "../../global/useFilterCuti";
 import useDataState from "../../hooks/useDataState";
@@ -81,7 +94,30 @@ export default function ListCuti() {
                           </Text>
                         </CContainer>
 
-                        <StatusApproval2Badge data={cuti?.statuscuti} />
+                        <Popover>
+                          <PopoverTrigger>
+                            <Box>
+                              <StatusApproval2Badge data={cuti?.statuscuti} />
+                            </Box>
+                          </PopoverTrigger>
+                          {cuti?.alasan && (
+                            <Portal>
+                              <PopoverContent
+                                mr={5}
+                                minW={"calc(100vw - 60px)"}
+                              >
+                                <PopoverArrow />
+                                <PopoverCloseButton />
+                                <PopoverBody>
+                                  <CContainer>
+                                    <Text mb={4}>Alasan ditolak</Text>
+                                    <Text opacity={0.6}>{cuti?.alasan}</Text>
+                                  </CContainer>
+                                </PopoverBody>
+                              </PopoverContent>
+                            </Portal>
+                          )}
+                        </Popover>
                       </HStack>
 
                       <CContainer gap={1}>

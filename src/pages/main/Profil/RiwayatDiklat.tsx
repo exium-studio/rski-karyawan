@@ -1,4 +1,8 @@
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
   Box,
   Button,
   HStack,
@@ -15,7 +19,11 @@ import NotFound from "../../../components/independent/NotFound";
 import Skeleton from "../../../components/independent/Skeleton";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import CustomDrawer from "../../../components/independent/wrapper/CustomDrawer";
-import { useContentBgColor, useLightDarkColor } from "../../../constant/colors";
+import {
+  useContentBgColor,
+  useErrorAlphaColor,
+  useLightDarkColor,
+} from "../../../constant/colors";
 import useDataState from "../../../hooks/useDataState";
 import formatDate from "../../../lib/formatDate";
 import formatTime from "../../../lib/formatTime";
@@ -26,6 +34,7 @@ import formatNumber from "../../../lib/formatNumber";
 import { RiCalendarLine } from "@remixicon/react";
 
 const DetailRiwayat = ({ data }: any) => {
+  const errorAlphaColor = useErrorAlphaColor();
   const lightDarkColor = useLightDarkColor();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -90,6 +99,22 @@ const DetailRiwayat = ({ data }: any) => {
           </>
         }
       >
+        {data?.alasan && (
+          <Alert
+            status="error"
+            bg={errorAlphaColor}
+            alignItems={"start"}
+            borderRadius={"0 !important"}
+            px={"24px !important"}
+            mb={4}
+          >
+            <AlertIcon />
+            <Box>
+              <AlertTitle fontWeight={600}>Perubahan Data Ditolak</AlertTitle>
+              <AlertDescription>{data?.alasan}</AlertDescription>
+            </Box>
+          </Alert>
+        )}
         {data.gambar && (
           <Img src={data.gambar} fallbackSrc={"/vectors/noImage.svg"} />
         )}
