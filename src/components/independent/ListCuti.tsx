@@ -76,7 +76,7 @@ export default function ListCuti() {
             <>
               {data && data?.data?.length > 0 ? (
                 <>
-                  {data?.data?.map((cuti: any, i: number) => (
+                  {data?.data?.reverse()?.map((cuti: any, i: number) => (
                     <CContainer
                       key={i}
                       p={4}
@@ -110,7 +110,7 @@ export default function ListCuti() {
                                 <PopoverCloseButton />
                                 <PopoverBody>
                                   <CContainer>
-                                    <Text mb={4}>Alasan ditolak</Text>
+                                    <Text mb={2}>Alasan ditolak</Text>
                                     <Text opacity={0.6}>{cuti?.alasan}</Text>
                                   </CContainer>
                                 </PopoverBody>
@@ -147,6 +147,7 @@ export default function ListCuti() {
                       </SimpleGrid>
                     </CContainer>
                   ))}
+
                   {/* <Button
                     flexShrink={0}
                     colorScheme="ap"

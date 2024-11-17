@@ -110,7 +110,7 @@ const DetailRiwayat = ({ data }: any) => {
           >
             <AlertIcon />
             <Box>
-              <AlertTitle fontWeight={600}>Perubahan Data Ditolak</AlertTitle>
+              <AlertTitle fontWeight={600}>Pengajuan Diklat Ditolak</AlertTitle>
               <AlertDescription>{data?.alasan}</AlertDescription>
             </Box>
           </Alert>

@@ -402,7 +402,7 @@ export default function DokumenFileItem({
                 <AlertIcon />
                 <Box>
                   <AlertTitle fontWeight={600}>
-                    Perubahan Data Ditolak
+                    Verifikasi Berkas Ditolak
                   </AlertTitle>
                   <AlertDescription>{data?.alasan}</AlertDescription>
                 </Box>

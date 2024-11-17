@@ -62,6 +62,7 @@ export default function AjukanCuti() {
         .post(`/api/store-cuti`, payload)
         .then((r) => {
           if (r.status === 200) {
+            resetForm();
             setRt(!rt);
             backOnClose();
           }

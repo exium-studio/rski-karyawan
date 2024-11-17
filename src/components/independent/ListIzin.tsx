@@ -108,7 +108,7 @@ export default function ListIzin() {
                                 <PopoverCloseButton />
                                 <PopoverBody>
                                   <CContainer>
-                                    <Text mb={4}>Alasan ditolak</Text>
+                                    <Text mb={2}>Alasan ditolak</Text>
                                     <Text opacity={0.6}>{izin?.alasan}</Text>
                                   </CContainer>
                                 </PopoverBody>
