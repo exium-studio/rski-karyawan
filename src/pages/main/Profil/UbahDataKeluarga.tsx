@@ -24,7 +24,7 @@ const UbahDataForm = ({ data }: any) => {
             />
           </span>{" "}
           untuk mengajukan perubahan data. Data di database tidak akan berubah
-          jika tidak meneken tombol tersebut. Riwayat perubahan dapat dilihat di{" "}
+          jika tidak menekan tombol tersebut. Riwayat perubahan dapat dilihat di{" "}
           <span>
             <Icon
               as={RiHistoryLine}

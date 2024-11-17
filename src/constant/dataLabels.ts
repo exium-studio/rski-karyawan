@@ -2,6 +2,7 @@ const dataLabels: any = {
   riwayat_penyakit: "Riwayat Penyakit",
   asal_sekolah: "Asal Sekolah",
   "Data Keluarga": "Data Keluarga",
+  keluarga: "Data Keluarga",
   user: "Data User",
   role: "Role",
   potongan_gaji: "Data Potongan",

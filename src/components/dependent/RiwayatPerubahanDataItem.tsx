@@ -142,7 +142,7 @@ export default function RiwayatPerubahanDataItem({ data }: Props) {
       default:
         return <Text>Invalid</Text>;
       case "pendidikan_terakhir":
-        return <Text>{data[type]?.label || "Invalid Constant"}</Text>;
+        return <Text>{data[type]?.label || "-"}</Text>;
       case "data keluarga":
       case "Data Keluarga":
         return <ListKeluargaModal data={data[type]} />;

@@ -4,7 +4,6 @@ import {
   Center,
   HStack,
   Icon,
-  SimpleGrid,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";

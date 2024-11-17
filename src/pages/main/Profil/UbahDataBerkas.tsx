@@ -59,7 +59,7 @@ export default function UbahDataBerkas() {
                     />
                   </span>{" "}
                   untuk mengajukan perubahan data. Data di database tidak akan
-                  berubah jika tidak meneken tombol tersebut. Riwayat perubahan
+                  berubah jika tidak menekan tombol tersebut. Riwayat perubahan
                   dapat dilihat di{" "}
                   <span>
                     <Icon
