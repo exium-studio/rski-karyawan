@@ -168,8 +168,9 @@ export default function RiwayatPerubahanDataItem({ data }: Props) {
       case "agama":
         return <Text whiteSpace={"nowrap"}>{data[type].label}</Text>;
       case "tinggi_badan":
-      case "berat_badan":
         return <Text whiteSpace={"nowrap"}>{formatNumber(data[type])} cm</Text>;
+      case "berat_badan":
+        return <Text whiteSpace={"nowrap"}>{formatNumber(data[type])} kg</Text>;
       case "alamat":
       case "tempat_lahir":
       case "no_hp":
