@@ -1,86 +1,78 @@
-import {
-  Box,
-  Button,
-  Center,
-  FormControl,
-  FormLabel,
-  HStack,
-  Icon,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
-import { RiEqualizer3Line } from "@remixicon/react";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import { useLightDarkColor } from "../../constant/colors";
-import { iconSize } from "../../constant/sizes";
 import useFilterAktivitas from "../../global/useFilterAktivitas";
-import useCallBackOnNavigate from "../../hooks/useCallBackOnNavigate";
-import backOnClose from "../../lib/backOnClose";
 import DateRangePickerDrawer from "../dependent/input/DateRangePickerDrawer";
-import MultipleSelectJenisAktivitas from "../dependent/input/dedicated/MultipleSelectJenisAktivitas";
-import BackOnCloseButton from "./BackOnCloseButton";
-import CContainer from "./wrapper/CContainer";
-import CustomDrawer from "./wrapper/CustomDrawer";
-import { endOfWeek, startOfWeek } from "date-fns";
 
 export default function FilterAktivitas() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { filterAktivitas, setFilterAktivitas, clearFilterAktivitas } =
-    useFilterAktivitas();
-  useCallBackOnNavigate(clearFilterAktivitas);
+  const { filterAktivitas, setFilterAktivitas } = useFilterAktivitas();
+  // useCallBackOnNavigate(clearFilterAktivitas);
 
-  const today = new Date();
-  const startOfWeekDate = startOfWeek(today, { weekStartsOn: 1 });
-  const endOfWeekDate = endOfWeek(today, { weekStartsOn: 1 });
+  // const today = new Date();
+  // const startOfWeekDate = startOfWeek(today, { weekStartsOn: 1 });
+  // const endOfWeekDate = endOfWeek(today, { weekStartsOn: 1 });
 
-  const defaultRangeTgl = {
-    from: startOfWeekDate,
-    to: endOfWeekDate,
-  };
+  // const defaultRangeTgl = {
+  //   from: startOfWeekDate,
+  //   to: endOfWeekDate,
+  // };
 
   // local
-  const formik = useFormik({
-    validateOnChange: false,
-    initialValues: {
-      date_range: defaultRangeTgl,
-      jenis_aktivitas: undefined,
-    },
-    validationSchema: yup.object().shape({
-      date_range: yup.object(),
-      jenis_aktivitas: yup.array(),
-    }),
-    onSubmit: (values, { resetForm }) => {
-      console.log(values);
-    },
-  });
+  // const formik = useFormik({
+  //   validateOnChange: false,
+  //   initialValues: {
+  //     date_range: defaultRangeTgl,
+  //     jenis_aktivitas: undefined,
+  //   },
+  //   validationSchema: yup.object().shape({
+  //     date_range: yup.object(),
+  //     jenis_aktivitas: yup.array(),
+  //   }),
+  //   onSubmit: (values, { resetForm }) => {
+  //     console.log(values);
+  //   },
+  // });
 
-  function filterCount(values: any) {
-    let count = 0;
-    if (values.date_range) count++;
-    if (values.date_range && values.date_range.length > 0) {
-      count += values.date_range.length;
-    }
-    if (values.jenis_aktivitas && values.jenis_aktivitas.length > 0) {
-      count += values.jenis_aktivitas.length;
-    }
-    return count;
-  }
-  function applyFilter() {
-    setFilterAktivitas(formik.values);
-    backOnClose();
-  }
-  function resetFilter() {
-    formik.resetForm();
-  }
+  // function filterCount(values: any) {
+  //   let count = 0;
+  //   if (values.date_range) count++;
+  //   if (values.date_range && values.date_range.length > 0) {
+  //     count += values.date_range.length;
+  //   }
+  //   if (values.jenis_aktivitas && values.jenis_aktivitas.length > 0) {
+  //     count += values.jenis_aktivitas.length;
+  //   }
+  //   return count;
+  // }
+  // function applyFilter() {
+  //   setFilterAktivitas(formik.values);
+  //   backOnClose();
+  // }
+  // function resetFilter() {
+  //   formik.resetForm();
+  // }
 
   // SX
-  const lightDarkColor = useLightDarkColor();
+  // const lightDarkColor = useLightDarkColor();
 
   return (
     <>
-      <Button
+      <DateRangePickerDrawer
+        id="jadwal_daterange_picker_drawer"
+        name="jadwal_daterange"
+        onConfirm={(inputValue) => {
+          setFilterAktivitas({ ...filterAktivitas, date_range: inputValue });
+        }}
+        inputValue={filterAktivitas?.date_range}
+        maxRange={7}
+        nonNullable
+        border={"none"}
+        borderRadius={0}
+        px={"20px !important"}
+        fontWeight={600}
+        _focus={{ border: "none" }}
+        presetsConfig={["thisWeek", "nextWeek"]}
+      />
+      {/* <Button
         onClick={() => {
           onOpen();
           formik.setFieldValue("date_range", filterAktivitas.date_range);
@@ -174,7 +166,7 @@ export default function FilterAktivitas() {
             </FormControl>
           </form>
         </CContainer>
-      </CustomDrawer>
+      </CustomDrawer> */}
     </>
   );
 }

@@ -7,11 +7,24 @@ import Retry from "../dependent/Retry";
 import NoData from "./NoData";
 import Skeleton from "./Skeleton";
 import CContainer from "./wrapper/CContainer";
+import useFilterAktivitas from "../../global/useFilterAktivitas";
+import formatDate from "../../lib/formatDate";
 
 export default function AktivitasAndaBeranda() {
+  const { filterAktivitas } = useFilterAktivitas();
+
   const { error, notFound, loading, data, retry } = useDataState({
     initialData: dummyActivity,
     url: "/api/get-activity-presensi",
+    payload: {
+      tgl_mulai: filterAktivitas?.date_range?.from
+        ? formatDate(filterAktivitas?.date_range?.from, "short2")
+        : "",
+      tgl_selesai: filterAktivitas?.date_range?.to
+        ? formatDate(filterAktivitas?.date_range?.to, "short2")
+        : "",
+      limit: 10,
+    },
   });
 
   // SX

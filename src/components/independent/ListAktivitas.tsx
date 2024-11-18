@@ -8,6 +8,7 @@ import Retry from "../dependent/Retry";
 import NoData from "./NoData";
 import Skeleton from "./Skeleton";
 import CContainer from "./wrapper/CContainer";
+import formatDate from "../../lib/formatDate";
 
 interface Props extends StackProps {}
 
@@ -15,13 +16,19 @@ export default function ListAktivitas({ ...props }: Props) {
   useScrollToTop();
 
   const { filterAktivitas } = useFilterAktivitas();
-  console.log(filterAktivitas);
   const { error, notFound, loading, data, retry } = useDataState<
     Interface__Aktivitas[]
   >({
     initialData: undefined,
     url: "/api/get-activity-presensi",
-    // payload: {},
+    payload: {
+      tgl_mulai: filterAktivitas?.date_range?.from
+        ? formatDate(filterAktivitas?.date_range?.from, "short2")
+        : "",
+      tgl_selesai: filterAktivitas?.date_range?.to
+        ? formatDate(filterAktivitas?.date_range?.to, "short2")
+        : "",
+    },
     dependencies: [filterAktivitas],
   });
 

@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { Interface__FilterAktivitas } from "../constant/interfaces";
+import getCurrentWeeksDateRange from "../lib/getCurrentWeeksDateRange";
 
 interface State {
   filterAktivitas: Interface__FilterAktivitas;
@@ -11,7 +12,7 @@ interface Actions {
 }
 
 const defaultFilter = {
-  date_range: undefined,
+  date_range: getCurrentWeeksDateRange(),
   jenis_aktivitas: undefined,
 };
 
