@@ -1,6 +1,6 @@
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, useToast } from "@chakra-ui/react";
 import "leaflet/dist/leaflet.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import AuthMiddleware from "./components/independent/wrapper/AuthMiddleware";
 import NavContainer from "./components/independent/wrapper/NavContainer";
@@ -91,6 +91,52 @@ export const App = () => {
   //     document.removeEventListener("contextmenu", disableRightClick);
   //   };
   // }, []);
+
+  const [firstLoad, setFirstLoad] = useState<boolean>(true);
+  const toast = useToast();
+
+  useEffect(() => {
+    const handleOnline = () => {
+      if (!firstLoad) {
+        toast({
+          title: "Koneksi Pulih",
+          description: "Anda kembali online.",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "top",
+        });
+      }
+    };
+
+    const handleOffline = () => {
+      toast({
+        title: "Jaringan Terputus",
+        description: "Anda sedang offline.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
+    };
+
+    // Tambahkan event listener
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    // Cleanup event listener saat komponen di-unmount
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, [toast, firstLoad]);
+
+  // Hindari toast pertama kali
+  useEffect(() => {
+    if (firstLoad) {
+      setFirstLoad(false);
+    }
+  }, []);
 
   return (
     <ChakraProvider theme={globalTheme}>
