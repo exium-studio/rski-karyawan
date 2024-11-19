@@ -1,10 +1,10 @@
 import { Button, Icon, VStack } from "@chakra-ui/react";
-import { RiLoginBoxLine, RiLogoutBoxLine } from "@remixicon/react";
+import { RiArrowDownLine, RiArrowUpLine } from "@remixicon/react";
 import { useRef, useState } from "react";
-import { Interface__AttendanceData } from "../../constant/interfaces";
-import ConfirmMyLocation from "../../pages/main/Beranda/ConfirmMyLocation";
-import ripple from "../../lib/ripple";
 import { useErrorAlphaColor } from "../../constant/colors";
+import { Interface__AttendanceData } from "../../constant/interfaces";
+import ripple from "../../lib/ripple";
+import ConfirmMyLocation from "../../pages/main/Beranda/ConfirmMyLocation";
 
 interface Props {
   data: Interface__AttendanceData;
@@ -73,7 +73,7 @@ export default function AttendanceButton({ data }: Props) {
           p={4}
         >
           <Icon
-            as={!data?.aktivitas ? RiLoginBoxLine : RiLogoutBoxLine}
+            as={!data?.aktivitas ? RiArrowUpLine : RiArrowDownLine}
             fontSize={58}
             color={!data?.aktivitas ? "p.500" : "red.500"}
           />

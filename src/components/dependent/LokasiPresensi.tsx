@@ -64,8 +64,9 @@ export default function LokasiPresensi({
         minZoom={minZoomLevel}
         maxZoom={maxZoomLevel}
         maxBounds={maxBounds}
-        maxBoundsViscosity={1.0} // Biarkan peta memantul ketika mencapai batas
-        scrollWheelZoom={false} // Nonaktifkan scroll zoom
+        maxBoundsViscosity={1.0}
+        scrollWheelZoom={false}
+        dragging={false}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 

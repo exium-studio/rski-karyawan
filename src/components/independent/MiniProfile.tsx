@@ -12,18 +12,18 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import {
-  RiCalendarCloseLine,
+  RiArrowDownLine,
+  RiArrowUpLine,
+  RiCloseLine,
   RiInformationLine,
-  RiLoginBoxLine,
-  RiLogoutBoxLine,
 } from "@remixicon/react";
 import { useErrorAlphaColor } from "../../constant/colors";
 import { Interface__User } from "../../constant/interfaces";
 import { responsiveSpacing } from "../../constant/sizes";
 import backOnClose from "../../lib/backOnClose";
+import DisclosureHeader from "../dependent/DisclosureHeader";
 import CContainer from "./wrapper/CContainer";
 import CustomDrawer from "./wrapper/CustomDrawer";
-import DisclosureHeader from "../dependent/DisclosureHeader";
 
 interface Props extends StackProps {
   data: Interface__User;
@@ -79,14 +79,14 @@ const InfoPresensi = () => {
                 borderRadius={"full"}
                 bg={"var(--p500a5)"}
               >
-                <Icon as={RiLoginBoxLine} fontSize={52} color={"p.500"} />
+                <Icon as={RiArrowUpLine} fontSize={52} color={"p.500"} />
               </Center>
             </Center>
             <CContainer gap={2}>
               <Text fontWeight={500}>Presensi Masuk</Text>
               <Text opacity={0.4} fontSize={12}>
-                Tombol ini digunakan untuk presensi masuk dan hanya muncul jika
-                Anda belum melakukan presensi hari ini.
+                Tombol ini digunakan untuk presensi masuk, muncul jika Anda
+                belum melakukan presensi hari ini.
               </Text>
             </CContainer>
           </HStack>
@@ -105,14 +105,14 @@ const InfoPresensi = () => {
                 borderRadius={"full"}
                 bg={errorAlphaColor}
               >
-                <Icon as={RiLogoutBoxLine} fontSize={52} color={"red.500"} />
+                <Icon as={RiArrowDownLine} fontSize={52} color={"red.500"} />
               </Center>
             </Center>
             <CContainer gap={2}>
               <Text fontWeight={500}>Presensi Keluar</Text>
               <Text opacity={0.4} fontSize={12}>
-                Tombol ini muncul untuk presensi keluar setelah Anda melakukan
-                presensi masuk.
+                Tombol ini digunakan untuk presensi keluar, muncul jika Anda
+                sudah melakukan presensi masuk.
               </Text>
             </CContainer>
           </HStack>
@@ -131,7 +131,7 @@ const InfoPresensi = () => {
                 borderRadius={"full"}
                 bg={"var(--divider)"}
               >
-                <Icon as={RiCalendarCloseLine} fontSize={52} color={"dark"} />
+                <Icon as={RiCloseLine} fontSize={52} color={"dark"} />
               </Center>
             </Center>
             <CContainer gap={2}>

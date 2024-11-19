@@ -6,7 +6,7 @@ import {
   useToast,
   VStack,
 } from "@chakra-ui/react";
-import { RiCalendarCloseLine } from "@remixicon/react";
+import { RiCloseLine } from "@remixicon/react";
 import { useRef } from "react";
 import { Interface__AttendanceData } from "../../constant/interfaces";
 import useDataState from "../../hooks/useDataState";
@@ -42,6 +42,7 @@ export default function AttendanceBeranda() {
         <>
           {notFound && (
             <>
+              {/* No Jadwal Button */}
               <VStack
                 ref={liburButtonRef}
                 as={Button}
@@ -76,16 +77,13 @@ export default function AttendanceBeranda() {
                   borderRadius={"full"}
                   p={4}
                 >
-                  <Icon
-                    as={RiCalendarCloseLine}
-                    fontSize={58}
-                    color={"#303030df"}
-                  />
+                  <Icon as={RiCloseLine} fontSize={58} color={"#303030df"} />
                 </VStack>
               </VStack>
 
               <CurrentAddress />
 
+              {/* Jam Masuk, Jam Keluar, Jam Kerja */}
               <AttendanceData data={data} />
             </>
           )}
