@@ -136,7 +136,7 @@ export const App = () => {
     if (firstLoad) {
       setFirstLoad(false);
     }
-  }, []);
+  }, [firstLoad]);
 
   return (
     <ChakraProvider theme={globalTheme}>
