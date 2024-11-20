@@ -8,9 +8,9 @@ import {
   Text,
 } from "@chakra-ui/react";
 import {
+  RiArrowDownLine,
   RiArrowRightSLine,
-  RiLoginBoxLine,
-  RiLogoutBoxLine,
+  RiArrowUpLine,
 } from "@remixicon/react";
 import { getWeekOfMonth } from "date-fns";
 import { useLightDarkColor } from "../../constant/colors";
@@ -67,14 +67,14 @@ export default function JadwalItem({
           <HStack gap={3}>
             <HStack gap={1}>
               <Center p={1} borderRadius={"full"} bg={"var(--p500a4)"}>
-                <Icon as={RiLoginBoxLine} fontSize={12} color={"p.500"} />
+                <Icon as={RiArrowDownLine} fontSize={12} color={"p.500"} />
               </Center>
               <Text fontSize={13}>{formatTime(data?.shift?.jam_from)}</Text>
             </HStack>
 
             <HStack gap={1}>
               <Center p={1} borderRadius={"full"} bg={"var(--reda)"}>
-                <Icon as={RiLogoutBoxLine} fontSize={12} color={"red.400"} />
+                <Icon as={RiArrowUpLine} fontSize={12} color={"red.400"} />
               </Center>
               <Text fontSize={13}>{formatTime(data?.shift?.jam_to)}</Text>
             </HStack>

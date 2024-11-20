@@ -73,7 +73,7 @@ export default function AttendanceButton({ data }: Props) {
           p={4}
         >
           <Icon
-            as={!data?.aktivitas ? RiArrowUpLine : RiArrowDownLine}
+            as={!data?.aktivitas ? RiArrowDownLine : RiArrowUpLine}
             fontSize={58}
             color={!data?.aktivitas ? "p.500" : "red.500"}
           />

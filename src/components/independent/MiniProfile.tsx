@@ -79,7 +79,7 @@ const InfoPresensi = () => {
                 borderRadius={"full"}
                 bg={"var(--p500a5)"}
               >
-                <Icon as={RiArrowUpLine} fontSize={52} color={"p.500"} />
+                <Icon as={RiArrowDownLine} fontSize={52} color={"p.500"} />
               </Center>
             </Center>
             <CContainer gap={2}>
@@ -105,7 +105,7 @@ const InfoPresensi = () => {
                 borderRadius={"full"}
                 bg={errorAlphaColor}
               >
-                <Icon as={RiArrowDownLine} fontSize={52} color={"red.500"} />
+                <Icon as={RiArrowUpLine} fontSize={52} color={"red.500"} />
               </Center>
             </Center>
             <CContainer gap={2}>

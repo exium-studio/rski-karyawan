@@ -7,7 +7,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { RiLoginBoxLine, RiLogoutBoxRLine } from "@remixicon/react";
+import { RiArrowDownLine, RiArrowUpLine } from "@remixicon/react";
 import { useLightDarkColor } from "../../constant/colors";
 import useDataState from "../../hooks/useDataState";
 import backOnClose from "../../lib/backOnClose";
@@ -67,8 +67,8 @@ export default function AktivitasItem({ initialData }: Props) {
           <Icon
             as={
               initialData?.presensi === "Masuk"
-                ? RiLoginBoxLine
-                : RiLogoutBoxRLine
+                ? RiArrowDownLine
+                : RiArrowUpLine
             }
             fontSize={initialData?.presensi === "Masuk" ? 20 : 20}
             color={initialData?.presensi === "Masuk" ? "p.500" : "red.400"}
@@ -87,6 +87,7 @@ export default function AktivitasItem({ initialData }: Props) {
         </Text>
       </HStack>
 
+      {/* Drawer */}
       <CustomDrawer
         id={`detail-aktivitas-${initialData?.id}-${initialData.presensi}`}
         isOpen={isOpen}
