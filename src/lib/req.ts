@@ -39,7 +39,7 @@ req.interceptors.response.use(
         case 401:
           localStorage.removeItem("__auth_token");
           localStorage.removeItem("__user_data");
-          // window.location.href = "/";
+          window.location.href = "/";
           break;
         default:
           return Promise.reject(error);
