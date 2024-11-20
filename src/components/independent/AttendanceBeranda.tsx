@@ -109,7 +109,7 @@ export default function AttendanceBeranda() {
       {!error && (
         <>
           {loading && (
-            <>
+            <CContainer align={"center"} gap={8} mt={8}>
               <Skeleton
                 h={"120px"}
                 w={"120px"}
@@ -125,7 +125,7 @@ export default function AttendanceBeranda() {
                 <Skeleton h={"85px"} bg={skeletonBg} />
                 <Skeleton h={"85px"} bg={skeletonBg} />
               </SimpleGrid>
-            </>
+            </CContainer>
           )}
 
           {!loading && (
