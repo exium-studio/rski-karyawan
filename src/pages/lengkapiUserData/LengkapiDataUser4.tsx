@@ -28,6 +28,7 @@ export default function LengkapiDataUser4() {
   const [loading, setLoading] = useState<boolean>(false);
   const toast = useToast();
   const { setDcs } = useDcs();
+  // const userData = getUserData();
 
   const formik = useFormik({
     validateOnChange: false,
@@ -43,11 +44,11 @@ export default function LengkapiDataUser4() {
     validationSchema: yup.object().shape({
       ktp: fileValidation.required("Harus diisi"),
       kk: fileValidation.required("Harus diisi"),
-      sip: fileValidation.required("Harus diisi"),
+      sip: fileValidation,
       bpjsksh: fileValidation.required("Harus diisi"),
       bpjsktk: fileValidation.required("Harus diisi"),
       ijazah: yup.string().required("Harus diisi"),
-      sertifikat_kompetensi: fileValidation.required("Harus diisi"),
+      sertifikat_kompetensi: fileValidation,
     }),
     onSubmit: (values, { resetForm }) => {
       setLoading(true);
