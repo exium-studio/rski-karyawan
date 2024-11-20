@@ -25,6 +25,8 @@ import getLocation from "../../../lib/getLocation";
 import isWithinRadius from "../../../lib/isWithinRadius";
 import AmbilFoto from "./AmbilFoto";
 import { RiMapPin2Line } from "@remixicon/react";
+import req from "../../../lib/req";
+import reload from "../../../lib/reload";
 
 interface Props {
   isOpen: boolean;
@@ -41,8 +43,6 @@ export default function ConfirmMyLocation({
   attendanceData,
 }: Props) {
   useBackOnClose("confirm-my-location-full-modal", isOpen, onOpen, onClose);
-
-  // console.log(attendanceData);
 
   const toast = useToast();
 
@@ -66,44 +66,48 @@ export default function ConfirmMyLocation({
           getCurrentAddress(myLocation.lat, myLocation.long)
             .then((address) => {
               setAddress(address);
-              if (
-                myLocation &&
-                data &&
-                isWithinRadius(
-                  myLocation.lat,
-                  myLocation.long,
-                  data.office_lat,
-                  data.office_long,
-                  data.radius
-                )
-              ) {
-              } else {
-                if (myLocation) {
-                  setOutsideRadius(true);
-                  setAlertOutsideRadius(true);
-                  // toast({
-                  //   status: "error",
-                  //   title: "Location Info (Debug)",
-                  //   description: `myLat: ${myLocation.lat}, myLong:${
-                  //     myLocation.long
-                  //   }, officeLat: ${data.office_lat}, officeLong: ${
-                  //     data.office_long
-                  //   }, myDistance: ${formatNumber(
-                  //     calculateDistance(
-                  //       myLocation.lat,
-                  //       myLocation.long,
-                  //       data.office_lat,
-                  //       data.office_long
-                  //     )
-                  //   )} meter, preferredDistance: ${data.radius} meter`,
-                  //   duration: 10000,
-                  //   isClosable: true,
-                  // });
-                }
-              }
+              req
+                .get(`/api/get-office-location`)
+                .then((r) => {
+                  if (r.status === 200) {
+                    const officeLocationData = r.data.data;
+                    if (
+                      myLocation &&
+                      data &&
+                      isWithinRadius(
+                        myLocation.lat,
+                        myLocation.long,
+                        parseFloat(officeLocationData?.lat),
+                        parseFloat(officeLocationData?.long),
+                        officeLocationData?.radius
+                      )
+                    ) {
+                    } else {
+                      if (myLocation) {
+                        setOutsideRadius(true);
+                        setAlertOutsideRadius(true);
+                      }
+                    }
+                  }
+                })
+                .catch((e) => {
+                  console.log(e);
+                  toast({
+                    status: "error",
+                    title:
+                      (typeof e?.response?.data?.message === "string" &&
+                        (e?.response?.data?.message as string)) ||
+                      "Terjadi kendala, silahkan periksa jaringan atau hubungi SIM RS",
+                    position: "top",
+                    isClosable: true,
+                  });
+                })
+                .finally(() => {
+                  setLoading(false);
+                });
             })
             .catch((error) => {
-              setAddress("Error, silahkan refresh");
+              setAddress("Error, silahkan reload");
               console.error(error);
             })
             .finally(() => {
@@ -201,7 +205,7 @@ export default function ConfirmMyLocation({
                       maxW={"656px"}
                       mx={"auto"}
                     >
-                      <HStack justify={"space-between"} opacity={0.4}>
+                      <HStack justify={"space-between"} opacity={0.4} mb={2}>
                         <Text fontSize={[12, null, 16]}>Konfirmasi Alamat</Text>
                         <Text fontSize={[12, null, 16]}>
                           Akurat hingga 1.5 km
@@ -210,6 +214,9 @@ export default function ConfirmMyLocation({
 
                       <Text mb={4}>{address}</Text>
 
+                      <Button className="btn-outline clicky" onClick={reload}>
+                        Muat Ulang
+                      </Button>
                       <ButtonGroup>
                         <Button
                           className="btn-solid clicky"
