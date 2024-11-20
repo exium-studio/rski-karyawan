@@ -214,6 +214,9 @@ export default function AmbilFoto({ attendanceData, ...props }: Props) {
     onClose();
     stopCamera();
   });
+  useCallBackOnNavigate(() => {
+    stopCamera();
+  });
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isFrontCamera, setIsFrontCamera] = useState<boolean>(true);
