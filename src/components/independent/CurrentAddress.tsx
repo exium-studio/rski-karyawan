@@ -82,13 +82,7 @@ export default function CurrentAddress() {
       {!loading && data !== "promt" && (
         <Popover>
           <PopoverTrigger>
-            <HStack
-              mb={8}
-              align={"flex-start"}
-              maxW={"280px"}
-              gap={1}
-              h={"36px"}
-            >
+            <HStack align={"flex-start"} maxW={"280px"} gap={1} h={"36px"}>
               <Text
                 noOfLines={2}
                 fontSize={[13, null, 15]}

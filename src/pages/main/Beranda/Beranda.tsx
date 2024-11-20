@@ -37,17 +37,18 @@ export default function Beranda() {
       h={"100vh"}
       bg={attendancePanelBg}
       flex={0}
-      maxH={"calc(100vh - 80px)"}
-      // border={"1px solid red"}
+      // maxH={"calc(100vh - 80px)"}
+      // border={"10px solid red"}
     >
       <CContainer
-        minH={"520px"}
-        position={"fixed"}
-        top={0}
-        left={"50%"}
-        transform={"translateX(-50%)"}
         maxW={"720px"}
-        zIndex={1}
+        position={"relative"}
+        // minH={"520px"}
+        // position={"fixed"}
+        // top={0}
+        // left={"50%"}
+        // transform={"translateX(-50%)"}
+        // border={"10px solid blue"}
         // overflowY={"auto"}
       >
         <HStack p={4} justify={"space-between"} color={"white"} zIndex={2}>
@@ -75,6 +76,7 @@ export default function Beranda() {
             <AttendanceBeranda />
           </CContainer>
 
+          {/* Icon Sun, Moon, untuk Waktu */}
           <Icon
             as={
               timeIs() === "morning"
@@ -97,11 +99,11 @@ export default function Beranda() {
 
       <CContainer
         id="berandaMenus&others"
-        // overflowY={"auto"}
-        mt={"520px"}
         zIndex={3}
-        minH={"calc(100vh - 160px)"}
-        maxH={"calc(100vh - 80px)"}
+        // overflowY={"auto"}
+        // mt={"520px"}
+        // minH={"calc(100vh - 160px)"}
+        // maxH={"calc(100vh - 80px)"}
         // className="noScroll"
         // border={"1px solid green"}
       >
