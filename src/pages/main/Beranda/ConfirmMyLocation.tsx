@@ -57,8 +57,6 @@ export default function ConfirmMyLocation({
   const [officeLocation, setOfficeLocation] = useState<any>(undefined);
   const [address, setAddress] = useState<string | null>(null);
 
-  console.log(officeLocation);
-
   useEffect(() => {
     if (isOpen) {
       setLoading(true);
@@ -144,7 +142,7 @@ export default function ConfirmMyLocation({
         <ModalContent m={0} border={"none"}>
           <ModalBody>
             <CContainer flex={1}>
-              {!loading && !myLocation && (
+              {!loading && officeLocation && !myLocation && (
                 <VStack justify={"center"} p={6} flex={1}>
                   <Text mb={4}>Error, silahkan kembali dan coba lagi</Text>
                   <Button
