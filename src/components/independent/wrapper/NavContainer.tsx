@@ -17,6 +17,7 @@ export default function NavContainer({ children, active, noNavs }: Props) {
   const { data } = useDataState<(number | null)[]>({
     initialData: dummy,
     url: `/api/count-notifikasi`,
+    conditions: !noNavs,
     dependencies: [],
   });
 
