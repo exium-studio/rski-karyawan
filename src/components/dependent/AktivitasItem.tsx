@@ -67,8 +67,8 @@ export default function AktivitasItem({ initialData }: Props) {
           <Icon
             as={
               initialData?.presensi === "Masuk"
-                ? RiArrowDownLine
-                : RiArrowUpLine
+                ? RiArrowUpLine
+                : RiArrowDownLine
             }
             fontSize={initialData?.presensi === "Masuk" ? 20 : 20}
             color={initialData?.presensi === "Masuk" ? "p.500" : "red.400"}

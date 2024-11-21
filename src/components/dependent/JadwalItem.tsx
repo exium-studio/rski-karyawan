@@ -66,15 +66,15 @@ export default function JadwalItem({
         {data?.shift?.jam_from && data?.shift?.jam_to && (
           <HStack gap={3}>
             <HStack gap={1}>
-              <Center p={1} borderRadius={"full"} bg={"var(--p500a4)"}>
-                <Icon as={RiArrowDownLine} fontSize={12} color={"p.500"} />
+              <Center p={"2px"} borderRadius={"full"} bg={"var(--p500a4)"}>
+                <Icon as={RiArrowUpLine} fontSize={14} color={"p.500"} />
               </Center>
               <Text fontSize={13}>{formatTime(data?.shift?.jam_from)}</Text>
             </HStack>
 
             <HStack gap={1}>
-              <Center p={1} borderRadius={"full"} bg={"var(--reda)"}>
-                <Icon as={RiArrowUpLine} fontSize={12} color={"red.400"} />
+              <Center p={"2px"} borderRadius={"full"} bg={"var(--reda)"}>
+                <Icon as={RiArrowDownLine} fontSize={14} color={"red.400"} />
               </Center>
               <Text fontSize={13}>{formatTime(data?.shift?.jam_to)}</Text>
             </HStack>
