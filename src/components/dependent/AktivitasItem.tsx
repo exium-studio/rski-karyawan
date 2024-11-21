@@ -106,7 +106,7 @@ export default function AktivitasItem({ initialData }: Props) {
           </>
         }
       >
-        <CContainer>
+        <>
           {loading && (
             <CContainer gap={4}>
               <Skeleton w={"100%"} h={"auto"} aspectRatio={1} />
@@ -128,7 +128,7 @@ export default function AktivitasItem({ initialData }: Props) {
               {!error && (
                 <>
                   {data && (
-                    <CContainer gap={4}>
+                    <CContainer>
                       <Box
                         p={5}
                         borderTop={
@@ -402,7 +402,7 @@ export default function AktivitasItem({ initialData }: Props) {
               )}
             </>
           )}
-        </CContainer>
+        </>
       </CustomDrawer>
     </>
   );
