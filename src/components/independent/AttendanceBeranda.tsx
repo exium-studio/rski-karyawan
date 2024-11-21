@@ -41,7 +41,7 @@ export default function AttendanceBeranda() {
       {error && (
         <>
           {notFound && (
-            <>
+            <CContainer align={"center"} gap={8} mt={8}>
               {/* No Jadwal Button */}
               <VStack
                 ref={liburButtonRef}
@@ -85,7 +85,7 @@ export default function AttendanceBeranda() {
 
               {/* Jam Masuk, Jam Keluar, Jam Kerja */}
               <AttendanceData data={data} />
-            </>
+            </CContainer>
           )}
 
           {!notFound && (
@@ -133,7 +133,7 @@ export default function AttendanceBeranda() {
               {!data && <NoData label="Tidak ada jadwal masuk" opacity={0.4} />}
 
               {data && (
-                <CContainer align={"center"} mt={8}>
+                <CContainer align={"center"} mt={8} gap={8}>
                   <AttendanceButton data={data} />
                   <CurrentAddress />
                   <AttendanceData data={data} />

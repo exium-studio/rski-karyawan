@@ -8,7 +8,6 @@ import {
   PopoverBody,
   PopoverCloseButton,
   PopoverContent,
-  PopoverHeader,
   PopoverTrigger,
   Text,
 } from "@chakra-ui/react";
@@ -87,13 +86,17 @@ const ProfilStatus = () => {
                     <PopoverContent maxW={"calc(100vw - 40px)"}>
                       <PopoverArrow />
                       <PopoverCloseButton />
-                      <PopoverHeader>
-                        {data.status_presensi ? "" : "Tidak"} Mendapat Reward
-                        Presensi
-                      </PopoverHeader>
-                      <PopoverBody opacity={0.4}>
-                        Alpha, terlambat, pulang awal tidak akan mendapat reward
-                        presensi.
+
+                      <PopoverBody>
+                        <Text mb={2}>
+                          {data.status_presensi ? "" : "Tidak"} Mendapat Reward
+                          Presensi
+                        </Text>
+
+                        <Text opacity={0.4}>
+                          Alpha, terlambat, pulang awal tidak akan mendapat
+                          reward presensi bulan ini.
+                        </Text>
                       </PopoverBody>
                     </PopoverContent>
                   </Popover>

@@ -58,7 +58,7 @@ export default function CurrentAddress() {
 
   return (
     <>
-      {loading && <Skeleton bg={skeletonBg} h={"36px"} mt={8} maxW={"280px"} />}
+      {loading && <Skeleton bg={skeletonBg} h={"36px"} maxW={"280px"} />}
 
       {!loading && data === "promt" && (
         <HStack h={"42px"} mb={8}>
@@ -82,13 +82,7 @@ export default function CurrentAddress() {
       {!loading && data !== "promt" && (
         <Popover>
           <PopoverTrigger>
-            <HStack
-              align={"flex-start"}
-              maxW={"280px"}
-              gap={1}
-              h={"36px"}
-              mt={8}
-            >
+            <HStack align={"flex-start"} maxW={"280px"} gap={1} h={"36px"}>
               <Text
                 noOfLines={2}
                 fontSize={[13, null, 15]}

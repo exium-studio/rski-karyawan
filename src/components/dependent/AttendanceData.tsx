@@ -13,7 +13,7 @@ interface Props {
 
 export default function AttendanceData({ data }: Props) {
   return data ? (
-    <SimpleGrid columns={3} mt={8} w={"100%"}>
+    <SimpleGrid columns={3} w={"100%"}>
       <VStack gap={0}>
         <Icon as={RiTimeLine} fontSize={32} mb={2} transform={"scaleX(-1)"} />
         <Text fontSize={[16, null, 18]} className="num" fontWeight={500}>
