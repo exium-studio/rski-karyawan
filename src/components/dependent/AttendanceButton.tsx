@@ -10,7 +10,7 @@ interface Props {
   data: Interface__AttendanceData;
 }
 
-export default function AttendanceButton({ data }: Props) {
+export default function AttendanceButton({ data, ...props }: Props) {
   // SX
   const errorAlphaColor = useErrorAlphaColor();
 
@@ -20,19 +20,17 @@ export default function AttendanceButton({ data }: Props) {
   return (
     <>
       {/* Confirm location modal */}
-      <>
-        <ConfirmMyLocation
-          isOpen={confirmLocation}
-          onOpen={() => {
-            setConfrimLocation(true);
-          }}
-          onClose={() => {
-            setConfrimLocation(false);
-          }}
-          data={data}
-          attendanceData={data}
-        />
-      </>
+      <ConfirmMyLocation
+        isOpen={confirmLocation}
+        onOpen={() => {
+          setConfrimLocation(true);
+        }}
+        onClose={() => {
+          setConfrimLocation(false);
+        }}
+        data={data}
+        attendanceData={data}
+      />
 
       <VStack
         zIndex={4}
@@ -60,6 +58,7 @@ export default function AttendanceButton({ data }: Props) {
         }}
         cursor={data ? "pointer" : "default"}
         opacity={data ? 1 : 0.6}
+        {...props}
         // pointerEvents={data ? "auto" : "none"}
         // isDisabled={locationPermission === null}
       >

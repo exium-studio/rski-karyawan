@@ -133,7 +133,7 @@ export default function AttendanceBeranda() {
               {!data && <NoData label="Tidak ada jadwal masuk" opacity={0.4} />}
 
               {data && (
-                <CContainer align={"center"} gap={8} mt={8}>
+                <CContainer align={"center"} mt={8}>
                   <AttendanceButton data={data} />
                   <CurrentAddress />
                   <AttendanceData data={data} />

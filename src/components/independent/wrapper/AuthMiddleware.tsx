@@ -1,12 +1,12 @@
 import { Icon, useToast, VStack } from "@chakra-ui/react";
 import { RiShieldUserFill } from "@remixicon/react";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../global/useAuth";
-import req from "../../../lib/req";
-import ComponentSpinner from "../ComponentSpinner";
 import getAuthToken from "../../../lib/getAuthToken";
 import getUserData from "../../../lib/getUserData";
+import req from "../../../lib/req";
+import ComponentSpinner from "../ComponentSpinner";
 
 interface Props {
   ldp?: number;
@@ -20,6 +20,7 @@ export default function AuthMiddleware({
   allowedJenisKaryawan,
 }: Props) {
   const userData = getUserData();
+  const userDataRef = useRef(userData);
   const authToken = getAuthToken();
 
   const {
@@ -43,7 +44,10 @@ export default function AuthMiddleware({
         .then((r) => {
           if (r.status === 200) {
             const newUnitKerja = r.data.data.unit_kerja;
-            const newUserData = { ...userData, unit_kerja: [newUnitKerja] };
+            const newUserData = {
+              ...userDataRef.current,
+              unit_kerja: [newUnitKerja],
+            };
             localStorage.setItem("__user_data", JSON.stringify(newUserData));
             const newDcs = r.data.data.user.data_completion_step;
             setDcs(newDcs);
@@ -77,7 +81,6 @@ export default function AuthMiddleware({
     setStatusAktif,
     navigate,
     setJenisKaryawan,
-    userData,
   ]);
 
   // console.log(statusAktif, dcs);
