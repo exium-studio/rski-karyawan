@@ -21,7 +21,7 @@ import getLocation from "../../lib/getLocation";
 import Skeleton from "../independent/Skeleton";
 
 export default function CurrentAddress() {
-  const { loading, setLoading, data, setData } = useDataState<string>({
+  const { setLoading, loading, data, setData } = useDataState<string>({
     initialData: "",
     url: "",
     dependencies: [],
@@ -58,7 +58,7 @@ export default function CurrentAddress() {
 
   return (
     <>
-      {loading && <Skeleton bg={skeletonBg} h={"36px"} mb={8} maxW={"280px"} />}
+      {loading && <Skeleton bg={skeletonBg} h={"36px"} mt={8} maxW={"280px"} />}
 
       {!loading && data === "promt" && (
         <HStack h={"42px"} mb={8}>
@@ -82,7 +82,13 @@ export default function CurrentAddress() {
       {!loading && data !== "promt" && (
         <Popover>
           <PopoverTrigger>
-            <HStack align={"flex-start"} maxW={"280px"} gap={1} h={"36px"}>
+            <HStack
+              align={"flex-start"}
+              maxW={"280px"}
+              gap={1}
+              h={"36px"}
+              mt={8}
+            >
               <Text
                 noOfLines={2}
                 fontSize={[13, null, 15]}

@@ -21,7 +21,7 @@ import Skeleton from "./Skeleton";
 import CContainer from "./wrapper/CContainer";
 
 export default function AttendanceBeranda() {
-  const { error, message, notFound, loading, data, retry } =
+  const { loading, error, message, notFound, data, retry } =
     useDataState<Interface__AttendanceData>({
       initialData: undefined,
       url: "/api/get-today-jadwal",
@@ -109,7 +109,7 @@ export default function AttendanceBeranda() {
       {!error && (
         <>
           {loading && (
-            <CContainer align={"center"} gap={8} mt={8}>
+            <CContainer align={"center"} mt={8}>
               <Skeleton
                 h={"120px"}
                 w={"120px"}
@@ -118,7 +118,7 @@ export default function AttendanceBeranda() {
                 borderRadius={24}
               />
 
-              <Skeleton bg={skeletonBg} h={"36px"} mb={8} maxW={"280px"} />
+              <Skeleton bg={skeletonBg} h={"36px"} my={8} maxW={"280px"} />
 
               <SimpleGrid columns={3} w={"100%"} gap={2}>
                 <Skeleton h={"85px"} bg={skeletonBg} />
