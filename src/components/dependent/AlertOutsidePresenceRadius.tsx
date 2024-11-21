@@ -57,8 +57,8 @@ export default function AlertOutsidePresenceRadius({
             Anda berada di luar area kehadiran
           </Text>
           <Text textAlign={"center"} opacity={0.4} maxW={"300px"} mx={"auto"}>
-            Maaf, sepertinya Anda berada di luar area absen. Untuk melanjutkan,
-            silakan lakukan dengan izin.
+            Maaf, sepertinya Anda berada di luar area absen. Untuk presensi
+            harus berada di dalam radius presensi.
           </Text>
         </ModalBody>
         <ModalFooter gap={4}>

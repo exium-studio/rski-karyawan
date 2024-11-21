@@ -350,7 +350,6 @@ export default function AmbilFoto({ attendanceData, ...props }: Props) {
       <Button
         className="btn-ap clicky"
         colorScheme="ap"
-        w={"50%"}
         onClick={onOpen}
         {...props}
         // isDisabled={outsideRadius}

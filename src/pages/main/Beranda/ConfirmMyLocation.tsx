@@ -116,8 +116,6 @@ export default function ConfirmMyLocation({
             position: "top",
             isClosable: true,
           });
-        })
-        .finally(() => {
           setLoading(false);
         });
     }
@@ -216,9 +214,6 @@ export default function ConfirmMyLocation({
 
                       <Text mb={4}>{address}</Text>
 
-                      <Button className="btn-outline clicky" onClick={reload}>
-                        Muat Ulang
-                      </Button>
                       <ButtonGroup>
                         <Button
                           className="btn-solid clicky"
@@ -230,11 +225,19 @@ export default function ConfirmMyLocation({
                           Kembali
                         </Button>
 
-                        <AmbilFoto
-                          attendanceData={attendanceData}
-                          isDisabled={outsideRadius}
-                        />
+                        <Button
+                          w={"50%"}
+                          className="btn-solid clicky"
+                          onClick={reload}
+                        >
+                          Muat Ulang
+                        </Button>
                       </ButtonGroup>
+
+                      <AmbilFoto
+                        attendanceData={attendanceData}
+                        isDisabled={outsideRadius}
+                      />
                     </VStack>
                   </VStack>
                 </>
