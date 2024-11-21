@@ -54,23 +54,27 @@ export default function ConfirmMyLocation({
     lat: number;
     long: number;
   } | null>(null);
+  const [officeLocation, setOfficeLocation] = useState<any>(undefined);
   const [address, setAddress] = useState<string | null>(null);
+
+  console.log(officeLocation);
 
   useEffect(() => {
     if (isOpen) {
       setLoading(true);
 
-      getLocation()
-        .then((myLocation) => {
-          setMyLocation(myLocation);
-          getCurrentAddress(myLocation.lat, myLocation.long)
-            .then((address) => {
-              setAddress(address);
-              req
-                .get(`/api/get-office-location`)
-                .then((r) => {
-                  if (r.status === 200) {
-                    const officeLocationData = r.data.data;
+      req
+        .get(`/api/get-office-location`)
+        .then((r) => {
+          if (r.status === 200) {
+            const officeLocationData = r.data.data;
+            setOfficeLocation(officeLocationData);
+            getLocation()
+              .then((myLocation) => {
+                setMyLocation(myLocation);
+                getCurrentAddress(myLocation.lat, myLocation.long)
+                  .then((address) => {
+                    setAddress(address);
                     if (
                       myLocation &&
                       data &&
@@ -88,34 +92,34 @@ export default function ConfirmMyLocation({
                         setAlertOutsideRadius(true);
                       }
                     }
-                  }
-                })
-                .catch((e) => {
-                  console.log(e);
-                  toast({
-                    status: "error",
-                    title:
-                      (typeof e?.response?.data?.message === "string" &&
-                        (e?.response?.data?.message as string)) ||
-                      "Terjadi kendala, silahkan periksa jaringan atau hubungi SIM RS",
-                    position: "top",
-                    isClosable: true,
+                  })
+                  .catch((error) => {
+                    setAddress("Error, silahkan reload");
+                    console.error(error);
+                  })
+                  .finally(() => {
+                    setLoading(false);
                   });
-                })
-                .finally(() => {
-                  setLoading(false);
-                });
-            })
-            .catch((error) => {
-              setAddress("Error, silahkan reload");
-              console.error(error);
-            })
-            .finally(() => {
-              setLoading(false);
-            });
+              })
+              .catch((error) => {
+                console.error("Gagal mendapatkan lokasi:", error);
+                setLoading(false);
+              });
+          }
         })
-        .catch((error) => {
-          console.error("Gagal mendapatkan lokasi:", error);
+        .catch((e) => {
+          console.log(e);
+          toast({
+            status: "error",
+            title:
+              (typeof e?.response?.data?.message === "string" &&
+                (e?.response?.data?.message as string)) ||
+              "Terjadi kendala, silahkan periksa jaringan atau hubungi SIM RS",
+            position: "top",
+            isClosable: true,
+          });
+        })
+        .finally(() => {
           setLoading(false);
         });
     }
@@ -181,11 +185,11 @@ export default function ConfirmMyLocation({
                       lng: myLocation.long,
                     }}
                     officeCenter={{
-                      lat: attendanceData?.office_lat || -7.5626538,
-                      lng: attendanceData?.office_long || 110.8018715,
+                      lat: officeLocation?.lat || -7.5626538,
+                      lng: officeLocation?.long || 110.8018715,
                     }}
                     zoom={20}
-                    presence_radius={attendanceData?.radius || 100}
+                    presence_radius={officeLocation?.radius || 100}
                   />
 
                   <VStack
