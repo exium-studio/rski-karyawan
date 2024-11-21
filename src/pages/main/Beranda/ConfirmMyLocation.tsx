@@ -142,21 +142,6 @@ export default function ConfirmMyLocation({
         <ModalContent m={0} border={"none"}>
           <ModalBody>
             <CContainer flex={1}>
-              {!loading && officeLocation && !myLocation && (
-                <VStack justify={"center"} p={6} flex={1}>
-                  <Text mb={4}>Error, silahkan kembali dan coba lagi</Text>
-                  <Button
-                    className="btn-solid clicky"
-                    w={"50%"}
-                    onClick={() => {
-                      window.history.back();
-                    }}
-                  >
-                    Kembali
-                  </Button>
-                </VStack>
-              )}
-
               {loading && (
                 <VStack
                   p={5}
@@ -172,6 +157,21 @@ export default function ConfirmMyLocation({
                   />
 
                   <Icon as={RiMapPin2Line} fontSize={32} opacity={0.4} />
+                </VStack>
+              )}
+
+              {!loading && officeLocation && !myLocation && (
+                <VStack justify={"center"} p={6} flex={1}>
+                  <Text mb={4}>Error, silahkan kembali dan coba lagi</Text>
+                  <Button
+                    className="btn-solid clicky"
+                    w={"50%"}
+                    onClick={() => {
+                      window.history.back();
+                    }}
+                  >
+                    Kembali
+                  </Button>
                 </VStack>
               )}
 
