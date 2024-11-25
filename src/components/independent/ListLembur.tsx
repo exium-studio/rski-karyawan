@@ -1,14 +1,13 @@
-import { Box, Center, SimpleGrid, Text } from "@chakra-ui/react";
+import { Center, SimpleGrid, Text } from "@chakra-ui/react";
 import { useLightDarkColor } from "../../constant/colors";
 import useDataState from "../../hooks/useDataState";
 import formatDate from "../../lib/formatDate";
+import formatDurationShort from "../../lib/formatDurationShort";
 import formatTime from "../../lib/formatTime";
-import isDatePassed from "../../lib/isDatePassed";
 import Retry from "../dependent/Retry";
 import NoData from "./NoData";
 import Skeleton from "./Skeleton";
 import CContainer from "./wrapper/CContainer";
-import formatDurationShort from "../../lib/formatDurationShort";
 
 export default function ListLembur() {
   // SX
@@ -61,7 +60,7 @@ export default function ListLembur() {
                       gap={3}
                       position={"relative"}
                     >
-                      {!isDatePassed(lembur?.jadwal?.tgl_mulai) && (
+                      {/* {!isDatePassed(lembur?.jadwal?.tgl_mulai) && (
                         <Box
                           w={"6px"}
                           h={"6px"}
@@ -71,7 +70,7 @@ export default function ListLembur() {
                           top={4}
                           right={4}
                         />
-                      )}
+                      )} */}
                       <SimpleGrid columns={2} gap={6}>
                         <CContainer gap={1}>
                           <Text opacity={0.4} fontSize={12}>
