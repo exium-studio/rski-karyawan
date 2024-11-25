@@ -481,9 +481,9 @@ export default function JadwalKaryawanItem({
       {...props}
     >
       <CContainer gap={2}>
-        <Text fontSize={12} opacity={0.4}>{`Minggu ${getWeekOfMonth(
-          data.tgl_mulai
-        )}`}</Text>
+        <Text fontSize={12} opacity={0.4}>{`${
+          data.shift?.nama || "Libur"
+        } - Minggu ${getWeekOfMonth(data.tgl_mulai)}`}</Text>
 
         <Text fontWeight={600} opacity={data.shift?.jam_from ? 1 : 0.6}>
           {formatDate(data.tgl_mulai, "long")}

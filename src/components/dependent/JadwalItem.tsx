@@ -18,6 +18,7 @@ import { Interface__Jadwal } from "../../constant/interfaces";
 import formatDate from "../../lib/formatDate";
 import formatTime from "../../lib/formatTime";
 import CContainer from "../independent/wrapper/CContainer";
+import getUserData from "../../lib/getUserData";
 
 interface Props extends StackProps {
   data: Interface__Jadwal;
@@ -36,6 +37,8 @@ export default function JadwalItem({
   // SX
   const lightDarkColor = useLightDarkColor();
 
+  const unitKerja = getUserData().unit_kerja?.[0];
+
   return (
     <HStack
       ref={forwardRef || null}
@@ -51,9 +54,11 @@ export default function JadwalItem({
       {...props}
     >
       <CContainer gap={2}>
-        <Text fontSize={12} opacity={0.4}>{`Minggu ${getWeekOfMonth(
-          data.tgl_mulai
-        )}`}</Text>
+        <Text fontSize={12} opacity={0.4}>{`${
+          unitKerja?.jenis_karyawan === 1
+            ? `${data.shift?.nama || "Libur"} - `
+            : ""
+        }Minggu ${getWeekOfMonth(data.tgl_mulai)}`}</Text>
 
         <Text
           fontWeight={600}
