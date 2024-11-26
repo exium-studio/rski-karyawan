@@ -34,7 +34,7 @@ export default function LogoutProfil() {
         if (r.status === 200) {
           toast({
             status: "success",
-            title: r.data.message,
+            title: r?.data?.message,
             position: "top",
             isClosable: true,
           });
@@ -47,7 +47,7 @@ export default function LogoutProfil() {
         toast({
           status: "error",
           title:
-            e.response.data.message ||
+            e.response?.data.message ||
             "Terjadi kendala, silahkan periksa jaringan atau hubungi SIM RS",
           position: "top",
           isClosable: true,
