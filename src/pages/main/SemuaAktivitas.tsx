@@ -33,7 +33,7 @@ export default function SemuaAktivitas() {
         onClick={onOpen}
         cursor={"pointer"}
       >
-        Semua Aktivitas
+        Semua Presensi
       </Text>
 
       <Modal

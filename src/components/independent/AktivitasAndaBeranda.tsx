@@ -32,7 +32,7 @@ export default function AktivitasAndaBeranda() {
   return (
     <CContainer px={5} pb={5} flex={1}>
       <HStack mb={4} justify={"space-between"}>
-        <Text fontWeight={600}>Aktivitas Anda</Text>
+        <Text fontWeight={600}>Presensi Minggu Ini</Text>
 
         <SemuaAktivitas />
       </HStack>
