@@ -3,6 +3,7 @@ import {
   AlertDescription,
   AlertIcon,
   AlertTitle,
+  Badge,
   Box,
   Button,
   HStack,
@@ -145,6 +146,15 @@ const DetailRiwayat = ({ data }: any) => {
               "short"
             )} - ${formatDate(data?.tgl_selesai, "short")}`}</Text>
           </HStack>
+
+          <Badge
+            w={"fit-content"}
+            borderRadius={"full"}
+            bg={"var(--divider3)"}
+            opacity={0.6}
+          >
+            {data?.kategori?.label}
+          </Badge>
 
           <Text opacity={0.6} mt={4}>
             {data?.deskripsi}

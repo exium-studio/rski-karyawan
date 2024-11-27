@@ -1,4 +1,4 @@
-import { Box, Icon, IconButton } from "@chakra-ui/react";
+import { Box, Icon, IconButton, Text } from "@chakra-ui/react";
 import { RiHistoryLine } from "@remixicon/react";
 import { Link } from "react-router-dom";
 import EventDiklatItem from "../../../components/dependent/EventDiklatItem";
@@ -99,6 +99,7 @@ export default function EventDiklat() {
 
                 {data && data.length > 0 && (
                   <>
+                    <Text fontWeight={600}>Daftar Diklat internal</Text>
                     {data.map((eventDiklat, i) => (
                       <EventDiklatItem key={i} data={eventDiklat} />
                     ))}
