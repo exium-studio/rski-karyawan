@@ -69,7 +69,7 @@ export default function ListLembur() {
                           position={"absolute"}
                           top={4}
                           right={4}
-                        />
+                        /> 
                       )} */}
                       <SimpleGrid columns={2} gap={6}>
                         <CContainer gap={1}>
