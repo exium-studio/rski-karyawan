@@ -251,12 +251,20 @@ export default function TukarJadwalItem({ data }: Props) {
               borderTop={data?.alasan ? "" : "6px solid var(--divider)"}
             >
               <Text fontWeight={500} mb={4}>
-                Karyawan Ditukar
+                {userPengajuan ? "Karyawan Ditukar" : "Karyawan Pengajuan"}
               </Text>
 
               <Avatar
-                name={data?.user_ditukar.nama}
-                src={data?.user_ditukar.foto_profil || ""}
+                name={
+                  userPengajuan
+                    ? data.user_ditukar.nama
+                    : data.user_pengajuan.nama
+                }
+                src={
+                  userPengajuan
+                    ? data.user_ditukar.foto_profil
+                    : data.user_pengajuan.foto_profil
+                }
                 size={"xl"}
                 mx={"auto"}
                 w={"150px"}
@@ -273,19 +281,17 @@ export default function TukarJadwalItem({ data }: Props) {
               <HStack gap={1} flex={0}>
                 <Text opacity={0.4}>Nama</Text>
                 <FlexLine />
-                <Text fontWeight={500}>{data.user_ditukar.nama}</Text>
+                <Text fontWeight={500}>
+                  {userPengajuan
+                    ? data.user_ditukar.nama
+                    : data.user_pengajuan.nama}
+                </Text>
               </HStack>
 
               <HStack gap={1} flex={0}>
                 <Text opacity={0.4}>Tanggal Pengajuan</Text>
                 <FlexLine />
                 <Text fontWeight={500}>{formatDate(data.created_at)}</Text>
-              </HStack>
-
-              <HStack gap={1} flex={0}>
-                <Text opacity={0.4}>Status Penukaran</Text>
-                <FlexLine />
-                <StatusApproval2Badge data={data?.status_pengajuan} />
               </HStack>
 
               <HStack gap={1} flex={0}>
@@ -387,6 +393,7 @@ export default function TukarJadwalItem({ data }: Props) {
             </CContainer>
           </CContainer>
 
+          {/* Footer */}
           <CContainer
             pb={8}
             gap={2}
