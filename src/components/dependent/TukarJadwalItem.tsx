@@ -31,6 +31,7 @@ import JadwalDitukarItem from "./JadwalDitukarItem";
 import StatusApproval2Badge from "./StatusApproval2Badge";
 import StatusApprovalBadge from "./StatusApprovalBadge";
 import BooleanConfirmationDrawerDisclosure from "./BooleanConfirmationDrawerDisclosure";
+import StatusTukarJadwalApprovalKaryawanBadge from "./StatusTukarJadwalApprovalKaryawanBadge";
 
 interface Props {
   data: any;
@@ -110,6 +111,7 @@ export default function TukarJadwalItem({ data }: Props) {
   const errorAlphaColor = useErrorAlphaColor();
 
   const userData = getUserData();
+  const userPengajuan = userData.id !== data.user_ditukar.id;
 
   const [loading, setLoading] = useState<boolean>(false);
   const toast = useToast();
@@ -168,12 +170,18 @@ export default function TukarJadwalItem({ data }: Props) {
         <HStack justify={"space-between"} align={"start"}>
           <CContainer gap={1}>
             <Text opacity={0.4} fontSize={12}>
-              Jenis Penukaran
+              Jenis Tukar Jadwal
             </Text>
             <Text fontWeight={500}>{data?.kategori_pengajuan?.label}</Text>
           </CContainer>
 
-          <StatusApproval2Badge data={data?.status_pengajuan} />
+          {userPengajuan ? (
+            <StatusApproval2Badge data={data?.status_pengajuan} />
+          ) : (
+            <StatusTukarJadwalApprovalKaryawanBadge
+              data={data?.acc_user_ditukar}
+            />
+          )}
         </HStack>
 
         <CContainer gap={1}>
@@ -188,9 +196,13 @@ export default function TukarJadwalItem({ data }: Props) {
         <SimpleGrid columns={2} gap={6}>
           <CContainer gap={1}>
             <Text opacity={0.4} fontSize={12}>
-              Karyawan Ditukar
+              {userPengajuan ? "Karyawan Ditukar" : "Karyawan Pengajuan"}
             </Text>
-            <Text fontWeight={500}>{data.user_ditukar.nama}</Text>
+            <Text fontWeight={500}>
+              {userPengajuan
+                ? data.user_ditukar.nama
+                : data.user_pengajuan.nama}
+            </Text>
           </CContainer>
           {/* 
           <CContainer gap={1}>
@@ -383,7 +395,7 @@ export default function TukarJadwalItem({ data }: Props) {
             pt={8}
             // borderTop={"6px solid var(--divider)"}
           >
-            {userData.id === data.user_ditukar.id ? (
+            {!userPengajuan ? (
               <ButtonGroup>
                 <BooleanConfirmationDrawerDisclosure
                   id={"konfirmasi-ditolak-tukar-jadwal"}

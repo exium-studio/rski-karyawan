@@ -248,7 +248,7 @@ export const App = () => {
               element={
                 <AuthMiddleware allowedJenisKaryawan={[1]}>
                   <NavContainer active={0} noNavs>
-                    <TukarJadwal title="Pengajuan Tukar Jadwal" active={0}>
+                    <TukarJadwal title="Tukar Jadwal" active={0}>
                       <PengajuanTukarJadwal />
                     </TukarJadwal>
                   </NavContainer>

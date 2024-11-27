@@ -26,7 +26,7 @@ interface Props extends StackProps {
   children?: any;
 }
 
-export default function TukarJadwalContainer({
+export default function TukarJadwal({
   title,
   active,
   children,
