@@ -23,6 +23,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Portal,
+  StackProps,
   Text,
   Tooltip,
   useDisclosure,
@@ -154,12 +155,7 @@ const DeleteConfirmation = ({ data }: any) => {
   );
 };
 
-interface Props {
-  data: any;
-  noOptions?: boolean;
-  title?: string;
-}
-const MoreOptions = ({ data }: Props) => {
+const MoreOptions = ({ data }: any) => {
   // Children
   const RenameDrawer = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -306,10 +302,16 @@ const MoreOptions = ({ data }: Props) => {
   );
 };
 
+interface Props extends StackProps {
+  data: any;
+  noOptions?: boolean;
+  title?: string;
+}
 export default function DokumenFileItem({
   data,
   noOptions = false,
   title,
+  ...props
 }: Props) {
   // SX
   const errorAlphaColor = useErrorAlphaColor();
@@ -339,6 +341,7 @@ export default function DokumenFileItem({
         cursor={"pointer"}
         position={"relative"}
         overflow={"clip"}
+        {...props}
       >
         <HStack justify={"space-between"} pl={3} pr={0} py={1}>
           <HStack h={"32px"}>

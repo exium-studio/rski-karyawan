@@ -157,15 +157,18 @@ const DetailRiwayat = ({ data }: any) => {
             {data?.kategori?.label}
           </Badge>
 
-          <Text opacity={0.6} mt={4}>
+          <Text opacity={0.6} my={4}>
             {data?.deskripsi}
           </Text>
 
-          <DokumenFileItem
-            data={data?.dokumen_eksternal}
-            title={data?.dokumen_eksternal?.nama}
-            noOptions
-          />
+          {data?.kategori?.id === 2 && (
+            <DokumenFileItem
+              data={data?.dokumen_eksternal}
+              title={data?.dokumen_eksternal?.nama}
+              noOptions
+              border={"1px solid var(--divider2)"}
+            />
+          )}
         </CContainer>
       </CustomDrawer>
     </>
