@@ -40,6 +40,7 @@ export default function ListPengajuanTukarJadwal({
       }),
       offset: 6,
     },
+    conditions: tabIndex === index,
     dependencies: [filterTukarJadwal],
   });
 
