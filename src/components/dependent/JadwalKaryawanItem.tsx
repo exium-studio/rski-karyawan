@@ -50,7 +50,7 @@ const TukarButton = ({
     undefined
   );
 
-  const { error, notFound, loading, data, retry } = useDataState<any>({
+  const { error, loading, notFound, data, retry } = useDataState<any>({
     initialData: undefined,
     url: `/api/get-jadwal/${jadwalDitukar?.id}/ditukar`,
     conditions: isOpen,
@@ -220,7 +220,7 @@ const TukarButton = ({
               {loading && (
                 <>
                   {Array.from({ length: 2 }).map((_, i) => (
-                    <Skeleton key={i} h={"110px"} minW={"304px"} w={"100%"} />
+                    <Skeleton key={i} h={"110px"} w={"calc(100vw - 48px)"} />
                   ))}
                 </>
               )}
@@ -255,7 +255,7 @@ const TukarButton = ({
                           cursor={"pointer"}
                           className="clicky"
                           minH={"110px"}
-                          w={"100%"}
+                          w={"calc(100vw - 48px)"}
                           // maxW={"calc(100% - 30px)"}
                           // minW={`calc(100vw - 48px)`}
                           _active={{ opacity: 0.6 }}
@@ -270,8 +270,8 @@ const TukarButton = ({
                             <Icon as={RiCloseCircleLine} fontSize={32} />
                           </VStack>
 
-                          <CContainer flex={1} p={4} justify={"center"}>
-                            <Text flexShrink={1}>
+                          <CContainer p={4} justify={"center"} w={"100%"}>
+                            <Text>
                               Jadwal valid untuk ditukar tidak ditemukan
                             </Text>
                           </CContainer>
