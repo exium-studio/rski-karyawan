@@ -8,14 +8,14 @@ interface Props extends ImageProps {
 
 export default function Img({ initialSrc, fallbackSrc, ...props }: Props) {
   const [src, setSrc] = useState<string | undefined>(
-    initialSrc || "/images/defaultProfilePhoto.webp"
+    initialSrc || "/vectors/noImage.svg"
   );
 
   return (
     <Image
       src={src}
       onError={() => {
-        setSrc(fallbackSrc || "/images/defaultProfilePhoto.webp");
+        setSrc(fallbackSrc || "/vectors/noImage.svg");
       }}
       {...props}
     />

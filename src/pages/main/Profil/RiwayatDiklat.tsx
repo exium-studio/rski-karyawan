@@ -33,6 +33,7 @@ import backOnClose from "../../../lib/backOnClose";
 import timeSince from "../../../lib/timeSince";
 import formatNumber from "../../../lib/formatNumber";
 import { RiCalendarLine } from "@remixicon/react";
+import DokumenFileItem from "../../../components/dependent/DokumenFileItem";
 
 const DetailRiwayat = ({ data }: any) => {
   const errorAlphaColor = useErrorAlphaColor();
@@ -117,7 +118,7 @@ const DetailRiwayat = ({ data }: any) => {
           </Alert>
         )}
         {data.gambar && (
-          <Img src={data.gambar} fallbackSrc={"/vectors/noImage.svg"} />
+          <Img src={data.gambar.path} fallbackSrc={"/vectors/noImage.svg"} />
         )}
 
         <CContainer px={6} gap={2}>
@@ -159,6 +160,12 @@ const DetailRiwayat = ({ data }: any) => {
           <Text opacity={0.6} mt={4}>
             {data?.deskripsi}
           </Text>
+
+          <DokumenFileItem
+            data={data?.dokumen_eksternal}
+            title={data?.dokumen_eksternal?.nama}
+            noOptions
+          />
         </CContainer>
       </CustomDrawer>
     </>

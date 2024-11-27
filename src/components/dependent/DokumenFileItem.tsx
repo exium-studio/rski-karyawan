@@ -313,6 +313,7 @@ export default function DokumenFileItem({
 }: Props) {
   // SX
   const errorAlphaColor = useErrorAlphaColor();
+  const lightDarkColor = useLightDarkColor();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef(null);
@@ -327,9 +328,6 @@ export default function DokumenFileItem({
       : data?.status_berkas?.id === 2
       ? "green.400"
       : "red.400";
-
-  // SX
-  const lightDarkColor = useLightDarkColor();
 
   return (
     <>
