@@ -29,7 +29,6 @@ import AvatarAndNameTableData from "./AvatarAndNameTableData";
 import DrawerHeader from "./DrawerHeader";
 import JadwalDitukarItem from "./JadwalDitukarItem";
 import StatusApproval2Badge from "./StatusApproval2Badge";
-import StatusApprovalBadge from "./StatusApprovalBadge";
 import BooleanConfirmationDrawerDisclosure from "./BooleanConfirmationDrawerDisclosure";
 import StatusTukarJadwalApprovalKaryawanBadge from "./StatusTukarJadwalApprovalKaryawanBadge";
 
@@ -295,9 +294,15 @@ export default function TukarJadwalItem({ data }: Props) {
               </HStack>
 
               <HStack gap={1} flex={0}>
+                <Text opacity={0.4}> Status Penukaran</Text>
+                <FlexLine />
+                <StatusApproval2Badge data={data?.status_pengajuan} />
+              </HStack>
+
+              <HStack gap={1} flex={0}>
                 <Text opacity={0.4}>Disetujui Karyawan</Text>
                 <FlexLine />
-                <StatusApprovalBadge data={data?.acc_user_ditukar} />
+                <StatusTukarJadwalApprovalKaryawanBadge data={data?.acc_user_ditukar} />
               </HStack>
 
               {/* <HStack gap={1} flex={0}>
