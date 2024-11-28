@@ -20,17 +20,13 @@ export default function JadwalDitukarItem({
   return (
     <HStack ref={forwardRef} gap={8} borderRadius={12} {...props}>
       <Box>
-        <Text
-              lineHeight={1.3}
-              fontSize={12}
-              opacity={0.4}
-              mb={2}
-              pr={6}
-            >{`${data?.shift?.nama || 'Libur'}`}</Text>
+        <Text lineHeight={1.3} fontSize={12} opacity={0.4} mb={2} pr={6}>{`${
+          data?.shift?.nama || "Libur"
+        }`}</Text>
 
-            <Text fontWeight={600} mb={2}>
-              {formatDate(data.tgl_mulai)}
-            </Text>
+        <Text fontWeight={600} mb={2}>
+          {formatDate(data.tgl_mulai)}
+        </Text>
 
         {/* {data.keterangan && (
           <Text fontWeight={600} opacity={data.jam_to ? 1 : 0.6}>
@@ -56,7 +52,7 @@ export default function JadwalDitukarItem({
           </HStack>
         )}
 
-        {!(data?.shift?.jam_from && data?.shift?.jam_to) && '-'}
+        {!(data?.shift?.jam_from && data?.shift?.jam_to) && "-"}
       </Box>
     </HStack>
   );
