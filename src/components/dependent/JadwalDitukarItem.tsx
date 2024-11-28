@@ -30,11 +30,7 @@ export default function JadwalDitukarItem({
               pr={6}
             >{`${data?.shift?.nama}`}</Text>
 
-            <Text
-              fontWeight={600}
-              mb={2}
-              opacity={data?.shift?.jam_to ? 1 : 0.6}
-            >
+            <Text fontWeight={600} mb={2}>
               {formatDate(data.tgl_mulai)}
             </Text>
           </>

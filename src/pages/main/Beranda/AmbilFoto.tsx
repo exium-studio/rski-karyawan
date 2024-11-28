@@ -82,7 +82,9 @@ const PhotoConfirmation = ({
   }, [isTakePhotoPageOpen, isOpen]);
 
   useCallBackOnNavigate(() => {
-    stopCamera();
+    setTimeout(() => {
+      stopCamera();
+    }, 50);
   });
 
   function attendance() {
@@ -96,7 +98,7 @@ const PhotoConfirmation = ({
         payload.append("long", long.toString());
         payload.append("foto", imageSrc, "photo.jpg");
 
-        console.log("img Src", imageSrc);
+        // console.log("img Src", imageSrc);
 
         let url = "";
         if (attendanceData?.aktivitas) {
