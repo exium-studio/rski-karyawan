@@ -7,26 +7,23 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { ColorModeSwitcher } from "../ColorModeSwitcher";
 import LoginForm from "../components/form/LoginForm";
 import BantuanButton from "../components/independent/BantuanButton";
 import CContainer from "../components/independent/wrapper/CContainer";
 import Container from "../components/independent/wrapper/Container";
-import useAuth from "../global/useAuth";
-import useAutoNavigate from "../hooks/useAutoNavigate";
-import getUserData from "../lib/getUserData";
-import getAuthToken from "../lib/getAuthToken";
 import useRenderTrigger from "../global/useRenderTrigger";
+import getAuthToken from "../lib/getAuthToken";
+import getUserData from "../lib/getUserData";
 import req from "../lib/req";
-import { useState } from "react";
 
 export default function Login() {
   // SX
 
   const authToken = getAuthToken();
   const user = getUserData();
-  const autoNavigate = useAutoNavigate();
-  const { dcs, statusAktif } = useAuth();
   const [loading, setLoading] = useState<boolean>(false);
   const toast = useToast();
   const { rt, setRt } = useRenderTrigger();
@@ -62,9 +59,6 @@ export default function Login() {
       })
       .finally(() => {
         setLoading(false);
-        // ! DEBUG
-        localStorage.removeItem("__auth_token");
-        localStorage.removeItem("__user_data");
         setRt(!rt);
       });
   }
@@ -109,16 +103,15 @@ export default function Login() {
               </CContainer>
 
               <Button
-                w={"100%"}
+                as={Link}
+                to={"/beranda"}
                 colorScheme="ap"
                 className="btn-ap clicky"
                 size={"lg"}
                 mt={4}
-                // as={Link}
-                // to={"/beranda"}
-                onClick={() => {
-                  autoNavigate(authToken, dcs, statusAktif);
-                }}
+                // onClick={() => {
+                //   autoNavigate(authToken, dcs, statusAktif);
+                // }}
                 isDisabled={loading}
               >
                 Klik untuk masuk
