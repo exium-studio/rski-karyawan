@@ -96,6 +96,8 @@ const PhotoConfirmation = ({
         payload.append("long", long.toString());
         payload.append("foto", imageSrc, "photo.jpg");
 
+        console.log("img Src", imageSrc);
+
         let url = "";
         if (attendanceData?.aktivitas) {
           url = `/api/check-out-presensi`;
