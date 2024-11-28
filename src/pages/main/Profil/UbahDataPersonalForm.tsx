@@ -60,8 +60,8 @@ export default function EditDataPersonalForm({ data }: Props) {
             label: data.jenis_kelamin === 1 ? "Laki - laki" : "Permpuan",
           }
         : undefined,
-      nik: data?.nik_ktp,
-      nik_ktp: data?.no_kk,
+      nik_ktp: data?.nik_ktp,
+      no_kk: data?.no_kk,
       agama: data?.agama
         ? {
             value: data.agama.id,
@@ -333,34 +333,9 @@ export default function EditDataPersonalForm({ data }: Props) {
         </FormErrorMessage>
       </FormControl>
 
-      <FormControl mb={4} isInvalid={!!formik.errors.nik}>
-        <FormLabel>
-          Nomor Induk Kependudukan
-          <RequiredForm />
-        </FormLabel>
-        <HStack>
-          <StringInput
-            name="nik"
-            placeholder="3301************"
-            onChangeSetter={(input) => {
-              formik.setFieldValue("nik", input);
-            }}
-            inputValue={formik.values.nik}
-          />
-          <RequestPatchDataButton
-            validator={() => {
-              formik.validateField("nik");
-            }}
-            column="nik_ktp"
-            payload={formik.values.nik}
-          />
-        </HStack>
-        <FormErrorMessage>{formik.errors.nik as string}</FormErrorMessage>
-      </FormControl>
-
       <FormControl mb={4} isInvalid={!!formik.errors.nik_ktp}>
         <FormLabel>
-          Nomor Kartu Keluarga
+          Nomor Induk Kependudukan
           <RequiredForm />
         </FormLabel>
         <HStack>
@@ -381,6 +356,31 @@ export default function EditDataPersonalForm({ data }: Props) {
           />
         </HStack>
         <FormErrorMessage>{formik.errors.nik_ktp as string}</FormErrorMessage>
+      </FormControl>
+
+      <FormControl mb={4} isInvalid={!!formik.errors.no_kk}>
+        <FormLabel>
+          Nomor Kartu Keluarga
+          <RequiredForm />
+        </FormLabel>
+        <HStack>
+          <StringInput
+            name="no_kk"
+            placeholder="3301************"
+            onChangeSetter={(input) => {
+              formik.setFieldValue("no_kk", input);
+            }}
+            inputValue={formik.values.no_kk}
+          />
+          <RequestPatchDataButton
+            validator={() => {
+              formik.validateField("no_kk");
+            }}
+            column="no_kk"
+            payload={formik.values.no_kk}
+          />
+        </HStack>
+        <FormErrorMessage>{formik.errors.no_kk as string}</FormErrorMessage>
       </FormControl>
 
       <FormControl mb={4} isInvalid={!!formik.errors.agama}>
