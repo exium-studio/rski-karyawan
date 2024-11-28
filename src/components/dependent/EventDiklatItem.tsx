@@ -7,7 +7,12 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { RiCalendarLine, RiCircleFill, RiTimeLine } from "@remixicon/react";
+import {
+  RiCalendarLine,
+  RiCircleFill,
+  RiTeamLine,
+  RiTimeLine,
+} from "@remixicon/react";
 import { useState } from "react";
 import { useLightDarkColor } from "../../constant/colors";
 import useRenderTrigger from "../../global/useRenderTrigger";
@@ -147,26 +152,29 @@ export default function EventDiklatItem({ data, ...props }: Props) {
           objectFit={"cover"}
         />
         <CContainer p={4} gap={2}>
-          <HStack justify={"space-between"}>
+          <HStack mb={2}>
+            <Text fontWeight={600} noOfLines={2} flex={1}>
+              {data.nama}
+            </Text>
             <Text fontSize={12} opacity={0.4}>
               {timeSince(data.created_at)}
             </Text>
-
-            <Text fontWeight={500} fontSize={12}>
-              Peserta: {formatNumber(data?.total_peserta) || 0}/{data.kuota}
-            </Text>
           </HStack>
 
-          <Text fontWeight={600} noOfLines={2}>
-            {data.nama}
-          </Text>
+          <HStack opacity={0.4}>
+            <Icon as={RiTeamLine} fontSize={14} />
+            <Text fontWeight={500} fontSize={12}>
+              Kuota Peserta: {formatNumber(data?.total_peserta) || 0}/
+              {data.kuota}
+            </Text>
+          </HStack>
 
           <HStack opacity={0.4}>
             <Icon as={RiCalendarLine} fontSize={14} />
             <Text fontSize={12}>{`${formatDate(
               data.tgl_mulai,
-              "short"
-            )} - ${formatDate(data.tgl_selesai, "short")}`}</Text>
+              "basicShort"
+            )} - ${formatDate(data.tgl_selesai, "basicShort")}`}</Text>
           </HStack>
 
           <HStack opacity={0.4}>
@@ -174,7 +182,7 @@ export default function EventDiklatItem({ data, ...props }: Props) {
             <Text fontSize={12}>{`${formatTime(data.jam_mulai)} - ${formatTime(
               data.jam_selesai
             )}`}</Text>
-            <Icon as={RiCircleFill} fontSize={8} opacity={0.2} />
+            <Icon as={RiCircleFill} fontSize={6} opacity={0.4} />
             <Text fontSize={12}>{formatDuration(data.durasi)}</Text>
           </HStack>
         </CContainer>
@@ -198,30 +206,29 @@ export default function EventDiklatItem({ data, ...props }: Props) {
           mb={4}
         />
         <CContainer px={6} gap={2}>
-          <HStack justify={"space-between"}>
+          <HStack mb={2}>
+            <Text fontWeight={600} noOfLines={2} flex={1}>
+              {data.nama}
+            </Text>
             <Text fontSize={12} opacity={0.4}>
               {timeSince(data.created_at)}
             </Text>
-
-            {/* <Text fontSize={12} opacity={0.4}>
-              Kuota : {data.kuota}
-            </Text> */}
-
-            <Text fontWeight={500} fontSize={12}>
-              Peserta: {formatNumber(data?.total_peserta) || 0}/{data.kuota}
-            </Text>
           </HStack>
 
-          <Text fontWeight={600} fontSize={16} noOfLines={2}>
-            {data.nama}
-          </Text>
+          <HStack opacity={0.4}>
+            <Icon as={RiTeamLine} fontSize={14} />
+            <Text fontWeight={500} fontSize={12}>
+              Kuota Peserta: {formatNumber(data?.total_peserta) || 0}/
+              {data.kuota}
+            </Text>
+          </HStack>
 
           <HStack opacity={0.4}>
             <Icon as={RiCalendarLine} fontSize={14} />
             <Text fontSize={12}>{`${formatDate(
               data.tgl_mulai,
-              "short"
-            )} - ${formatDate(data.tgl_selesai, "short")}`}</Text>
+              "basicShort"
+            )} - ${formatDate(data.tgl_selesai, "basicShort")}`}</Text>
           </HStack>
 
           <HStack opacity={0.4}>
@@ -229,7 +236,7 @@ export default function EventDiklatItem({ data, ...props }: Props) {
             <Text fontSize={12}>{`${formatTime(data.jam_mulai)} - ${formatTime(
               data.jam_selesai
             )}`}</Text>
-            <Icon as={RiCircleFill} fontSize={8} opacity={0.2} />
+            <Icon as={RiCircleFill} fontSize={6} opacity={0.4} />
             <Text fontSize={12}>{formatDuration(data.durasi)}</Text>
           </HStack>
 
