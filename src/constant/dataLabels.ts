@@ -15,7 +15,7 @@ const dataLabels: any = {
   unit_kerja: "Unit Kerja",
   jabatan: "Jabatan",
   kompetensi: "Kompetensi",
-  nik_ktp: "Nomor Induk Keluarga (NIK KTP)",
+  nik_ktp: "Nomor Induk Kependudukan ",
   status_karyawan: "Status Karyawan",
   tempat_lahir: "Tempat Lahir",
   tgl_lahir: "Tanggal Lahir",
