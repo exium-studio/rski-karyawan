@@ -36,7 +36,13 @@ export default function Dokumen() {
   const [search, setSearch] = useState<string | undefined>("");
   const fd = data?.filter((item: any) => {
     const searchTerm = search?.toLowerCase();
-    return item?.label?.toLowerCase().includes(searchTerm as string);
+    return (
+      item?.label?.toLowerCase().includes(searchTerm as string) &&
+      item?.status_berkas?.id !== 3
+    );
+  });
+  const rejected = data?.filter((item: any) => {
+    return item?.status_berkas?.id === 3;
   });
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -173,6 +179,15 @@ export default function Dokumen() {
                         <DokumenFileItem key={i} data={dokumen} />
                       ))}
                     </SimpleGrid>
+
+                    <CContainer mt={8} gap={5}>
+                      <Text fontWeight={600}>Berkas yang ditolak</Text>
+                      <SimpleGrid columns={2} gap={3}>
+                        {rejected.map((dokumen: any, i: number) => (
+                          <DokumenFileItem key={i} data={dokumen} />
+                        ))}
+                      </SimpleGrid>
+                    </CContainer>
 
                     <Box mt={5}>
                       <Text fontWeight={500} mb={2} opacity={0.6}>
