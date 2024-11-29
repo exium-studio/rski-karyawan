@@ -7,8 +7,11 @@ import Skeleton from "../../../components/independent/Skeleton";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import { useContentBgColor } from "../../../constant/colors";
 import useDataState from "../../../hooks/useDataState";
+import useScrollToTop from "../../../hooks/useScrollToTop";
 
 export default function RiwayatPerubahanData() {
+  useScrollToTop();
+
   const { error, loading, data, retry } = useDataState<any>({
     initialData: undefined,
     url: `/api/get-riwayat-perubahan`,
