@@ -38,7 +38,7 @@ export default function DetailJadwal({
   const user = getUserData();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  useBackOnClose(`detail-jadwal-${jadwal.id}`, isOpen, onOpen, onClose);
+  useBackOnClose(`detail-jadwal-${index}`, isOpen, onOpen, onClose);
 
   const [activeJadwal, setActiveJadwal] = useState<Interface__Jadwal>(jadwal);
   useEffect(() => {
