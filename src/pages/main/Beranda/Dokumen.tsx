@@ -180,7 +180,7 @@ export default function Dokumen() {
                       ))}
                     </SimpleGrid>
 
-                    <CContainer mt={8} gap={5}>
+                    <CContainer mt={5} gap={2}>
                       <Text fontWeight={600}>Berkas yang ditolak</Text>
                       <SimpleGrid columns={2} gap={3}>
                         {rejected.map((dokumen: any, i: number) => (
@@ -190,8 +190,8 @@ export default function Dokumen() {
                     </CContainer>
 
                     <Box mt={5}>
-                      <Text fontWeight={500} mb={2} opacity={0.6}>
-                        Status Berkas
+                      <Text fontWeight={500} mb={2}>
+                        Informasi status berkas
                       </Text>
 
                       <CContainer gap={2}>
