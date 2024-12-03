@@ -131,8 +131,6 @@ export default function EventDiklatItem({ data, ...props }: Props) {
   // SX
   const lightDarkColor = useLightDarkColor();
 
-  // console.log(data?.path);
-
   return (
     <>
       <CContainer
