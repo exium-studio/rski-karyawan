@@ -152,7 +152,7 @@ export default function EventDiklatItem({ data, ...props }: Props) {
           objectFit={"cover"}
         />
         <CContainer p={4} gap={2}>
-          <HStack mb={2}>
+          <HStack mb={2} align={"start"}>
             <Text fontWeight={600} noOfLines={2} flex={1}>
               {data.nama}
             </Text>
@@ -206,7 +206,7 @@ export default function EventDiklatItem({ data, ...props }: Props) {
           mb={4}
         />
         <CContainer px={6} gap={2}>
-          <HStack mb={2}>
+          <HStack mb={2} align={"start"}>
             <Text fontWeight={600} noOfLines={2} flex={1}>
               {data.nama}
             </Text>
