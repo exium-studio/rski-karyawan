@@ -44,11 +44,11 @@ export default function LengkapiDataUser4() {
     validationSchema: yup.object().shape({
       ktp: fileValidation.required("Harus diisi"),
       kk: fileValidation.required("Harus diisi"),
-      sip: fileValidation,
+      sip: yup.mixed(),
       bpjsksh: fileValidation.required("Harus diisi"),
       bpjsktk: fileValidation.required("Harus diisi"),
       ijazah: yup.string().required("Harus diisi"),
-      sertifikat_kompetensi: fileValidation,
+      sertifikat_kompetensi: yup.mixed(),
     }),
     onSubmit: (values, { resetForm }) => {
       setLoading(true);
