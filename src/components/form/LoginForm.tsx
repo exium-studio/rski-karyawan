@@ -94,7 +94,7 @@ export default function LoginForm() {
   return (
     <form id="loginForm" onSubmit={formik.handleSubmit}>
       <FormControl mb={4} isInvalid={formik.errors.email ? true : false}>
-        <FormLabel>Email</FormLabel>
+        <FormLabel>Username/NIK/Email</FormLabel>
         <StringInput
           name="email"
           onChangeSetter={(input) => {
