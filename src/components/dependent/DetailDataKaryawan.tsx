@@ -237,7 +237,7 @@ export default function DetailDataKaryawan({ data, searchQuery }: Props) {
             <Text fontWeight={500} textAlign={"right"}>
               {data.jenis_kelamin === 1
                 ? "Laki - laki"
-                : data.jenis_kelamin === 0
+                : data.jenis_kelamin === 2
                 ? "Perempuan"
                 : ""}
             </Text>
@@ -1016,7 +1016,7 @@ export default function DetailDataKaryawan({ data, searchQuery }: Props) {
               </Box>
               <FlexLine />
               <Text fontWeight={500} textAlign={"right"}>
-                {potongan.jenis_premi === "0"
+                {potongan.jenis_premi === 0 || potongan.jenis_premi === "0"
                   ? `${formatNumber(potongan.besaran_premi || 0)}%`
                   : `Rp ${formatNumber(potongan.besaran_premi || 0)}`}
               </Text>
