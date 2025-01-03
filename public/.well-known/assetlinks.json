@@ -1,8 +1,8 @@
 [{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "org.distrostudio.hr.twa",
-        "sha256_cert_fingerprints": ["65:54:73:5D:38:02:F9:20:96:5B:90:2E:22:24:AA:D3:DE:7C:7C:36:32:46:31:21:09:55:53:EA:55:4E:6F:75"]
-      }
-    }]
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "app.netlify.rski_karyawan.twa",
+    "sha256_cert_fingerprints": ["B9:A8:0B:F4:33:E3:82:95:8D:9F:3A:C2:EB:FC:5C:E7:7A:78:B9:F3:E2:A6:98:98:DF:6E:E5:26:F7:10:F9:9A"]
+  }
+}]
