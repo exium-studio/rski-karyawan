@@ -58,7 +58,7 @@ export default function AjukanDiklatEksternal() {
       jam_selesai: yup.string().required("Harus diisi"),
       lokasi: yup.string().required("Harus diisi"),
       skp: yup.string().required("Harus diisi"),
-      dokumen: fileValidation.required("Harus diisi"),
+      dokumen: fileValidation().required("Harus diisi"),
     }),
     onSubmit: (values, { resetForm }) => {
       setLoading(true);
