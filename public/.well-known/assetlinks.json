@@ -2,7 +2,7 @@
   "relation": ["delegate_permission/common.handle_all_urls"],
   "target": {
     "namespace": "android_app",
-    "package_name": "app.netlify.rski_karyawan.twa",
-    "sha256_cert_fingerprints": ["B9:A8:0B:F4:33:E3:82:95:8D:9F:3A:C2:EB:FC:5C:E7:7A:78:B9:F3:E2:A6:98:98:DF:6E:E5:26:F7:10:F9:9A"]
+    "package_name": "app.rski.sika.twa",
+    "sha256_cert_fingerprints": ["82:0A:03:3C:66:89:55:6B:07:70:82:DC:93:F6:CE:87:E3:A3:38:85:3B:4D:20:22:35:DB:30:11:58:7C:3E:D9"]
   }
 }]
