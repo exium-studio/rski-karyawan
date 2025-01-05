@@ -1,8 +1,8 @@
 [{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "org.distrostudio.hr.twa",
-        "sha256_cert_fingerprints": ["65:54:73:5D:38:02:F9:20:96:5B:90:2E:22:24:AA:D3:DE:7C:7C:36:32:46:31:21:09:55:53:EA:55:4E:6F:75"]
-      }
-    }]
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "app.rski.sika.twa",
+    "sha256_cert_fingerprints": ["82:0A:03:3C:66:89:55:6B:07:70:82:DC:93:F6:CE:87:E3:A3:38:85:3B:4D:20:22:35:DB:30:11:58:7C:3E:D9"]
+  }
+}]
