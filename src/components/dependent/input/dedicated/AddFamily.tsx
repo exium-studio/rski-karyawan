@@ -29,6 +29,7 @@ import SelectStatusHidup from "./SingleSelectStatusHidup";
 import SingleSelectPendidikan from "./SingleSelectPendidikan";
 import { useEffect, useRef } from "react";
 import NumberInput from "../NumberInput";
+import DatePickerDrawer from "../DatePickerDrawer";
 
 interface Props {
   id: string;
@@ -59,7 +60,7 @@ export default function AddFamily({
       no_hp: "" as any,
       email: "" as any,
       is_bpjs: true,
-      umur: undefined as any,
+      tgl_lahir: undefined as any,
     },
     validationSchema: yup.object().shape({
       hubungan: yup.object().required("Harus diisi"),
@@ -71,6 +72,7 @@ export default function AddFamily({
       email: yup.string(),
       is_bpjs: yup.boolean(),
       umur: yup.number().required(),
+      tgl_lahir: yup.string().required(),
     }),
     onSubmit: (values, { resetForm }) => {
       onConfirm(values);
@@ -166,6 +168,25 @@ export default function AddFamily({
               </FormErrorMessage>
             </FormControl>
 
+            <FormControl mb={4} isInvalid={!!formik.errors.tgl_lahir}>
+              <FormLabel>
+                Tanggal Lahir
+                <RequiredForm />
+              </FormLabel>
+              <DatePickerDrawer
+                id={`tgl_lahir-${id}`}
+                name="tgl_lahir"
+                onConfirm={(input) => {
+                  formik.setFieldValue("tgl_lahir", input);
+                }}
+                inputValue={formik.values.tgl_lahir}
+                isError={!!formik.errors.tgl_lahir}
+              />
+              <FormErrorMessage>
+                {formik.errors.tgl_lahir as string}
+              </FormErrorMessage>
+            </FormControl>
+
             <FormControl mb={4} isInvalid={!!formik.errors.status_hidup}>
               <FormLabel>
                 Status Hidup
@@ -186,29 +207,22 @@ export default function AddFamily({
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl mb={4} isInvalid={!!formik.errors.umur}>
+            <FormControl mb={4} isInvalid={!!formik.errors.tgl_lahir}>
               <FormLabel>
-                Usia
+                Tanggal Lahir
                 <RequiredForm />
               </FormLabel>
-              <InputGroup>
-                <InputRightElement>
-                  <Text mr={8} opacity={0.3}>
-                    Tahun
-                  </Text>
-                </InputRightElement>
-                <NumberInput
-                  name="umur"
-                  onChangeSetter={(inputValue) => {
-                    formik.setFieldValue("umur", inputValue);
-                  }}
-                  inputValue={formik.values.umur}
-                  placeholder="16"
-                  isError={!!formik.errors.umur}
-                />
-              </InputGroup>
+              <DatePickerDrawer
+                id={`tgl_lahir-${id}`}
+                name="tgl_lahir"
+                onConfirm={(input) => {
+                  formik.setFieldValue("tgl_lahir", input);
+                }}
+                inputValue={formik.values.tgl_lahir}
+                isError={!!formik.errors.tgl_lahir}
+              />
               <FormErrorMessage>
-                {formik.errors.umur as string}
+                {formik.errors.tgl_lahir as string}
               </FormErrorMessage>
             </FormControl>
 

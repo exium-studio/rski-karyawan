@@ -18,6 +18,8 @@ import FlexLine from "../../../components/independent/FlexLine";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import NoData from "../../../components/independent/NoData";
 import RequestPatchDataButton from "../../../components/dependent/RequestPatchDataButton";
+import formatDate from "../../../lib/formatDate";
+import calculateAge from "../../../lib/calculateAge";
 
 interface Props {
   data: any[];
@@ -170,7 +172,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                       </Text>
                     </HStack>
                     <HStack>
-                      <Text opacity={0.4}>Usia</Text>
+                      <Text opacity={0.4}>Tanggal Lahir</Text>
                       <FlexLine />
                       <Text
                         textAlign={"right"}
@@ -179,7 +181,10 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                         textOverflow={"ellipsis"}
                         maxW={"140px"}
                       >
-                        {anggota.umur} Tahun
+                        {anggota?.tgl_lahir
+                          ? `${formatDate(anggota?.tgl_lahir)} (
+                        ${calculateAge(anggota?.tgl_lahir)} Tahun)`
+                          : ""}
                       </Text>
                     </HStack>
                     <HStack>
