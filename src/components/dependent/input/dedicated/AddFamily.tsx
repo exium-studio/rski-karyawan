@@ -10,6 +10,7 @@ import {
   Icon,
   InputGroup,
   InputLeftElement,
+  InputRightElement,
   Text,
   useDisclosure,
   useToast,
@@ -27,6 +28,7 @@ import SelectHubunganKeluarga from "./SingleSelectHubunganKeluarga";
 import SelectStatusHidup from "./SingleSelectStatusHidup";
 import SingleSelectPendidikan from "./SingleSelectPendidikan";
 import { useEffect, useRef } from "react";
+import NumberInput from "../NumberInput";
 
 interface Props {
   id: string;
@@ -57,6 +59,7 @@ export default function AddFamily({
       no_hp: "" as any,
       email: "" as any,
       is_bpjs: true,
+      umur: undefined as any,
     },
     validationSchema: yup.object().shape({
       hubungan: yup.object().required("Harus diisi"),
@@ -67,6 +70,7 @@ export default function AddFamily({
       no_hp: yup.string().required("Harus diisi"),
       email: yup.string(),
       is_bpjs: yup.boolean(),
+      umur: yup.number().required(),
     }),
     onSubmit: (values, { resetForm }) => {
       onConfirm(values);
@@ -179,6 +183,32 @@ export default function AddFamily({
               />
               <FormErrorMessage>
                 {formik.errors.status_hidup as string}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl mb={4} isInvalid={!!formik.errors.umur}>
+              <FormLabel>
+                Usia
+                <RequiredForm />
+              </FormLabel>
+              <InputGroup>
+                <InputRightElement>
+                  <Text mr={8} opacity={0.3}>
+                    Tahun
+                  </Text>
+                </InputRightElement>
+                <NumberInput
+                  name="umur"
+                  onChangeSetter={(inputValue) => {
+                    formik.setFieldValue("umur", inputValue);
+                  }}
+                  inputValue={formik.values.umur}
+                  placeholder="16"
+                  isError={!!formik.errors.umur}
+                />
+              </InputGroup>
+              <FormErrorMessage>
+                {formik.errors.umur as string}
               </FormErrorMessage>
             </FormControl>
 

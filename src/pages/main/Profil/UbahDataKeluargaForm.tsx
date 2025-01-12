@@ -170,6 +170,19 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                       </Text>
                     </HStack>
                     <HStack>
+                      <Text opacity={0.4}>Usia</Text>
+                      <FlexLine />
+                      <Text
+                        textAlign={"right"}
+                        whiteSpace={"nowrap"}
+                        overflow={"hidden"}
+                        textOverflow={"ellipsis"}
+                        maxW={"140px"}
+                      >
+                        {anggota.umur} Tahun
+                      </Text>
+                    </HStack>
+                    <HStack>
                       <Text opacity={0.4}>Pekerjaan</Text>
                       <FlexLine />
                       <Text
