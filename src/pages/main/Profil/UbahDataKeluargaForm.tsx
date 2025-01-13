@@ -62,6 +62,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
       anggota.status_hidup?.value !== undefined
         ? anggota.status_hidup.value
         : anggota.status_hidup,
+    tgl_lahir: formatDate(anggota.tgl_lahir, "short2"),
     pekerjaan: anggota.pekerjaan,
     no_hp: anggota.no_hp,
     email: anggota.email,
@@ -73,7 +74,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
     updated_at: anggota.updated_at,
   }));
 
-  console.log(remappedData);
+  // console.log(remappedData);
 
   return (
     <>

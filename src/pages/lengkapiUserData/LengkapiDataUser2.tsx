@@ -24,6 +24,7 @@ import Container from "../../components/independent/wrapper/Container";
 import useScrollToTop from "../../hooks/useScrollToTop";
 import req from "../../lib/req";
 import useDcs from "../../global/useAuth";
+import formatDate from "../../lib/formatDate";
 
 export default function LengkapiDataUser2() {
   useScrollToTop();
@@ -54,7 +55,21 @@ export default function LengkapiDataUser2() {
       setLoading(true);
 
       const payload = {
-        keluarga: values,
+        keluarga: values.keluarga.map((anggota) => ({
+          data_keluarga_id: anggota.id,
+          hubungan: anggota.hubungan,
+          pendidikan_terakhir: anggota?.pendidikan_terakhir,
+          nama_keluarga: anggota.nama_keluarga,
+          status_hidup: anggota.status_hidup,
+          tgl_lahir: formatDate(anggota.tgl_lahir, "short2"),
+          pekerjaan: anggota.pekerjaan,
+          no_hp: anggota.no_hp,
+          email: anggota.email,
+          status_keluarga_id: anggota.status_keluarga_id,
+          is_bpjs: anggota.is_bpjs,
+          verifikator_1: anggota.verifikator_1,
+          alasan: anggota.alasan,
+        })),
       };
 
       req
