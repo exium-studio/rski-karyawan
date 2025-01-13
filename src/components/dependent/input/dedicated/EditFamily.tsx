@@ -11,26 +11,24 @@ import {
   IconButton,
   InputGroup,
   InputLeftElement,
-  InputRightElement,
   Text,
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
 import { RiEditLine } from "@remixicon/react";
 import { useFormik } from "formik";
+import { useEffect, useRef } from "react";
 import * as yup from "yup";
 import { iconSize } from "../../../../constant/sizes";
 import backOnClose from "../../../../lib/backOnClose";
 import RequiredForm from "../../../form/RequiredForm";
 import BackOnCloseButton from "../../../independent/BackOnCloseButton";
 import CustomDrawer from "../../../independent/wrapper/CustomDrawer";
+import DatePickerDrawer from "../DatePickerDrawer";
 import StringInput from "../StringInput";
 import SelectHubunganKeluarga from "./SingleSelectHubunganKeluarga";
-import SelectStatusHidup from "./SingleSelectStatusHidup";
 import SingleSelectPendidikan from "./SingleSelectPendidikan";
-import { useEffect, useRef } from "react";
-import NumberInput from "../NumberInput";
-import DatePickerDrawer from "../DatePickerDrawer";
+import SelectStatusHidup from "./SingleSelectStatusHidup";
 
 interface Props {
   data: any;
@@ -75,6 +73,7 @@ export default function EditFamily({
       email: data.email || "",
       is_bpjs: data.is_bpjs,
       tgl_lahir: data?.tgl_lahir,
+      is_menikah: data?.is_menikah,
     },
     validationSchema: yup.object().shape({
       hubungan: yup.object().required("Harus diisi"),
@@ -86,6 +85,7 @@ export default function EditFamily({
       email: yup.string(),
       is_bpjs: yup.boolean(),
       tgl_lahir: yup.string().required(),
+      is_menikah: yup.boolean(),
     }),
     onSubmit: (values, { resetForm }) => {
       onConfirm(values);
@@ -299,6 +299,31 @@ export default function EditFamily({
               />
               <FormErrorMessage>
                 {formik.errors.email as string}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={!!formik.errors.is_menikah} mb={4}>
+              {/* <FormLabel>
+                Tanggungan BPJS
+                 <RequiredForm />
+              </FormLabel> */}
+
+              <Checkbox
+                colorScheme="ap"
+                onChange={(e) => {
+                  formik.setFieldValue("is_menikah", e.target.checked);
+                }}
+                isChecked={formik.values.is_menikah}
+                isDisabled={!formik.values.status_hidup?.value}
+              >
+                <Text mt={"-2.5px"}>Sudah Menikah</Text>
+              </Checkbox>
+              <FormHelperText mt={2}>
+                Jika anggota keluarga sudah menikah, harap centang.
+              </FormHelperText>
+
+              <FormErrorMessage>
+                {formik.errors.is_menikah as string}
               </FormErrorMessage>
             </FormControl>
 

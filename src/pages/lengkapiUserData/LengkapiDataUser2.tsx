@@ -67,6 +67,7 @@ export default function LengkapiDataUser2() {
           email: anggota.email,
           status_keluarga_id: anggota.status_keluarga_id,
           is_bpjs: anggota.is_bpjs,
+          is_menikah: anggota.is_menikah,
           verifikator_1: anggota.verifikator_1,
           alasan: anggota.alasan,
         })),

@@ -68,6 +68,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
     email: anggota.email,
     status_keluarga_id: anggota.status_keluarga_id,
     is_bpjs: anggota.is_bpjs,
+    is_menikah: anggota.is_bpjs,
     verifikator_1: anggota.verifikator_1,
     alasan: anggota.alasan,
     created_at: anggota.created_at,
@@ -239,6 +240,16 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                       >
                         {anggota.email}
                       </Text>
+                    </HStack>
+                    <HStack>
+                      <Text opacity={0.4}>Sudah Menukah</Text>
+                      <FlexLine />
+                      <Badge
+                        borderRadius={"full"}
+                        colorScheme={anggota.is_menikah ? "green" : "red"}
+                      >
+                        {anggota.is_menikah ? "Sudah Menikah" : "Belum Menikah"}
+                      </Badge>
                     </HStack>
                     <HStack>
                       <Text opacity={0.4}>Tanggungan BPJS</Text>
