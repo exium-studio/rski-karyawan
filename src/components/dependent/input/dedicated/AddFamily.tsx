@@ -207,25 +207,6 @@ export default function AddFamily({
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl mb={4} isInvalid={!!formik.errors.tgl_lahir}>
-              <FormLabel>
-                Tanggal Lahir
-                <RequiredForm />
-              </FormLabel>
-              <DatePickerDrawer
-                id={`tgl_lahir-${id}`}
-                name="tgl_lahir"
-                onConfirm={(input) => {
-                  formik.setFieldValue("tgl_lahir", input);
-                }}
-                inputValue={formik.values.tgl_lahir}
-                isError={!!formik.errors.tgl_lahir}
-              />
-              <FormErrorMessage>
-                {formik.errors.tgl_lahir as string}
-              </FormErrorMessage>
-            </FormControl>
-
             <FormControl
               mb={4}
               isInvalid={formik.errors.pendidikan_terakhir ? true : false}
