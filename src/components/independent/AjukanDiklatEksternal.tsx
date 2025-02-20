@@ -57,8 +57,8 @@ export default function AjukanDiklatEksternal() {
       jam_mulai: yup.string().required("Harus diisi"),
       jam_selesai: yup.string().required("Harus diisi"),
       lokasi: yup.string().required("Harus diisi"),
-      skp: yup.string().required("Harus diisi"),
-      dokumen: fileValidation().required("Harus diisi"),
+      skp: yup.string(),
+      dokumen: fileValidation(),
     }),
     onSubmit: (values, { resetForm }) => {
       setLoading(true);
@@ -268,10 +268,7 @@ export default function AjukanDiklatEksternal() {
             </FormControl>
 
             <FormControl mb={6} isInvalid={!!formik.errors.dokumen}>
-              <FormLabel>
-                Sertifikat
-                <RequiredForm />
-              </FormLabel>
+              <FormLabel>Sertifikat</FormLabel>
               <FileInput
                 id="ajukan-diklat"
                 name="dokumen"
@@ -288,10 +285,7 @@ export default function AjukanDiklatEksternal() {
             </FormControl>
 
             <FormControl mb={6} isInvalid={!!formik.errors.skp}>
-              <FormLabel>
-                SKP
-                <RequiredForm />
-              </FormLabel>
+              <FormLabel>SKP</FormLabel>
               <StringInput
                 name="skp"
                 onChangeSetter={(inputValue) => {
