@@ -222,6 +222,19 @@ export default function LengkapiDataUser2() {
                         </Text>
                       </HStack>
                       <HStack>
+                        <Text opacity={0.4}>Tangal Lahir</Text>
+                        <FlexLine />
+                        <Text
+                          textAlign={"right"}
+                          whiteSpace={"nowrap"}
+                          overflow={"hidden"}
+                          textOverflow={"ellipsis"}
+                          maxW={"140px"}
+                        >
+                          {formatDate(anggota?.tgl_lahir)}
+                        </Text>
+                      </HStack>
+                      <HStack>
                         <Text opacity={0.4}>Pekerjaan</Text>
                         <FlexLine />
                         <Text
@@ -281,6 +294,16 @@ export default function LengkapiDataUser2() {
                           colorScheme={anggota.is_bpjs ? "green" : "red"}
                         >
                           {anggota?.is_bpjs ? "Ditanggung" : "Tidak Ditanggung"}
+                        </Badge>
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>Sudah Menikah</Text>
+                        <FlexLine />
+                        <Badge
+                          borderRadius={"full"}
+                          colorScheme={anggota.is_menikah ? "green" : "red"}
+                        >
+                          {anggota?.is_menikah ? "Menikah" : "Belum Menikah"}
                         </Badge>
                       </HStack>
                     </>

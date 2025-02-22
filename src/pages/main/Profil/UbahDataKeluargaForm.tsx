@@ -181,11 +181,12 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                         whiteSpace={"nowrap"}
                         overflow={"hidden"}
                         textOverflow={"ellipsis"}
-                        maxW={"140px"}
+                        maxW={"200px"}
                       >
                         {anggota?.tgl_lahir
-                          ? `${formatDate(anggota?.tgl_lahir)} (
-                        ${calculateAge(anggota?.tgl_lahir)} Tahun)`
+                          ? `${formatDate(anggota?.tgl_lahir)} (${calculateAge(
+                              anggota?.tgl_lahir
+                            )} Tahun)`
                           : ""}
                       </Text>
                     </HStack>
