@@ -39,8 +39,10 @@ export default function LengkapiDataUser3() {
   const formik = useFormik({
     validateOnChange: false,
     initialValues: {
+      created_str: undefined as any,
       str: "",
       masa_berlaku_str: undefined as any,
+      created_sip: undefined as any,
       sip: "",
       masa_berlaku_sip: undefined as any,
       bpjsKesehatan: "",
@@ -49,8 +51,10 @@ export default function LengkapiDataUser3() {
     },
     validationSchema: yup.object().shape({
       str: yup.string(),
+      created_str: yup.string(),
       masa_berlaku_str: yup.mixed(),
       sip: yup.string(),
+      created_sip: yup.string(),
       masa_berlaku_sip: yup.mixed(),
       bpjsKesehatan: yup.string().required("Harus diisi"),
       bpjsKetenagakerjaan: yup.string(),
@@ -61,11 +65,13 @@ export default function LengkapiDataUser3() {
 
       const payload = {
         no_str: values.str,
+        created_str: formatDate(values.created_str, "short2"),
         masa_berlaku_str:
           values.masa_berlaku_sip !== "Seumur Hidup"
             ? formatDate(values.masa_berlaku_sip, "short2")
             : "Seumur Hidup",
         no_sip: values.sip,
+        created_sip: formatDate(values.created_sip, "short2"),
         masa_berlaku_sip:
           values.masa_berlaku_sip !== "Seumur Hidup"
             ? formatDate(values.masa_berlaku_sip, "short2")
@@ -129,6 +135,7 @@ export default function LengkapiDataUser3() {
           </Text>
 
           <form id="LengkapiDataUser3Form" onSubmit={formik.handleSubmit}>
+            {/* STR */}
             <FormControl mb={4} isInvalid={formik.errors.str ? true : false}>
               <FormLabel>
                 No. STR
@@ -143,6 +150,33 @@ export default function LengkapiDataUser3() {
                 inputValue={formik.values.str}
               />
               <FormErrorMessage>{formik.errors.str}</FormErrorMessage>
+            </FormControl>
+
+            <FormControl
+              mb={4}
+              isInvalid={formik.errors.created_str ? true : false}
+            >
+              <FormLabel>
+                Tanggal Terbit STR
+                {/* <RequiredForm /> */}
+              </FormLabel>
+              <DatePickerDrawer
+                id="lengkapi-data-user-3-tgl-terbit-str"
+                name={"created_str"}
+                onConfirm={(inputValue) => {
+                  formik.setFieldValue("created_str", inputValue);
+                }}
+                inputValue={
+                  formik.values.created_str !== "Seumur Hidup"
+                    ? formik.values.created_str
+                    : undefined
+                }
+                isError={!!formik.errors.created_str}
+                isDisabled={noLimitStr}
+              />
+              <FormErrorMessage>
+                {formik.errors.created_str as string}
+              </FormErrorMessage>
             </FormControl>
 
             <FormControl
@@ -192,6 +226,7 @@ export default function LengkapiDataUser3() {
               </FormErrorMessage>
             </FormControl>
 
+            {/* SIP */}
             <FormControl mb={4} isInvalid={formik.errors.sip ? true : false}>
               <FormLabel>
                 No. SIP
@@ -206,6 +241,33 @@ export default function LengkapiDataUser3() {
                 inputValue={formik.values.sip}
               />
               <FormErrorMessage>{formik.errors.sip as string}</FormErrorMessage>
+            </FormControl>
+
+            <FormControl
+              mb={4}
+              isInvalid={formik.errors.created_sip ? true : false}
+            >
+              <FormLabel>
+                Tanggal Terbit SIP
+                {/* <RequiredForm /> */}
+              </FormLabel>
+              <DatePickerDrawer
+                id="lengkapi-data-user-3-tgl-terbit-sip"
+                name={"created_sip"}
+                onConfirm={(inputValue) => {
+                  formik.setFieldValue("created_sip", inputValue);
+                }}
+                inputValue={
+                  formik.values.created_sip !== "Seumur Hidup"
+                    ? formik.values.created_sip
+                    : undefined
+                }
+                isError={!!formik.errors.created_sip}
+                isDisabled={noLimitStr}
+              />
+              <FormErrorMessage>
+                {formik.errors.created_sip as string}
+              </FormErrorMessage>
             </FormControl>
 
             <FormControl mb={4} isInvalid={!!formik.errors.masa_berlaku_sip}>
@@ -252,6 +314,7 @@ export default function LengkapiDataUser3() {
               </FormErrorMessage>
             </FormControl>
 
+            {/* BPJS */}
             <FormControl
               mb={4}
               isInvalid={formik.errors.bpjsKesehatan ? true : false}
@@ -289,6 +352,7 @@ export default function LengkapiDataUser3() {
               </FormErrorMessage>
             </FormControl>
 
+            {/* NPWP */}
             <FormControl mb={6} isInvalid={formik.errors.npwp ? true : false}>
               <FormLabel>
                 NPWP
