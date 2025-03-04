@@ -55,7 +55,7 @@ import Materi from "./pages/main/Beranda/Materi";
 //   event.preventDefault();
 // }
 
-// styling notif bar color
+// Styling notif bar color
 const EndpointWrapper = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   const setStatusBarPrimary = useStatusBarColor("#16b3ac", "#191919");
@@ -82,16 +82,6 @@ const EndpointWrapper = ({ children }: { children: React.ReactNode }) => {
 };
 
 export const App = () => {
-  // useEffect(() => {
-  //   // Tambahkan event listener ke objek document saat komponen dimuat
-  //   document.addEventListener("contextmenu", disableRightClick);
-
-  //   // Bersihkan event listener saat komponen dibongkar
-  //   return () => {
-  //     document.removeEventListener("contextmenu", disableRightClick);
-  //   };
-  // }, []);
-
   const [firstLoad, setFirstLoad] = useState<boolean>(true);
   const toast = useToast();
 
