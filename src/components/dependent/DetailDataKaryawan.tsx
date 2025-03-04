@@ -732,7 +732,6 @@ export default function DetailDataKaryawan({ data, searchQuery }: Props) {
 
         <VStack align={"stretch"} gap={4}>
           <HStack justify={"space-between"}>
-            {/* <Text opacity={0.6}>No. STR</Text> */}
             <Box opacity={0.6}>
               <Highlighter
                 highlightClassName="hw"
@@ -753,7 +752,26 @@ export default function DetailDataKaryawan({ data, searchQuery }: Props) {
           </HStack>
 
           <HStack justify={"space-between"}>
-            {/* <Text opacity={0.6}>Masa Berlaku STR</Text> */}
+            <Box opacity={0.6}>
+              <Highlighter
+                highlightClassName="hw"
+                unhighlightClassName="uw"
+                searchWords={searchQuery}
+                autoEscape={true}
+                textToHighlight="Tanggal Terbit STR"
+              />
+            </Box>
+            <FlexLine />
+            <HStack>
+              {data?.created_str && (
+                <Text fontWeight={500} textAlign={"right"}>
+                  {formatDate(data?.created_str)}
+                </Text>
+              )}
+            </HStack>
+          </HStack>
+
+          <HStack justify={"space-between"}>
             <Box opacity={0.6}>
               <Highlighter
                 highlightClassName="hw"
@@ -774,7 +792,6 @@ export default function DetailDataKaryawan({ data, searchQuery }: Props) {
           </HStack>
 
           <HStack justify={"space-between"}>
-            {/* <Text opacity={0.6}>No. SIP</Text> */}
             <Box opacity={0.6}>
               <Highlighter
                 highlightClassName="hw"
@@ -789,6 +806,26 @@ export default function DetailDataKaryawan({ data, searchQuery }: Props) {
               {data?.no_sip && (
                 <Text fontWeight={500} textAlign={"right"}>
                   {data?.no_sip}
+                </Text>
+              )}
+            </HStack>
+          </HStack>
+
+          <HStack justify={"space-between"}>
+            <Box opacity={0.6}>
+              <Highlighter
+                highlightClassName="hw"
+                unhighlightClassName="uw"
+                searchWords={searchQuery}
+                autoEscape={true}
+                textToHighlight="Tanggal Terbit SIP"
+              />
+            </Box>
+            <FlexLine />
+            <HStack>
+              {data?.created_sip && (
+                <Text fontWeight={500} textAlign={"right"}>
+                  {formatDate(data?.created_sip)}
                 </Text>
               )}
             </HStack>
