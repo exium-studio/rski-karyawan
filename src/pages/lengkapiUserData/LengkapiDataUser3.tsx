@@ -166,11 +166,7 @@ export default function LengkapiDataUser3() {
                 onConfirm={(inputValue) => {
                   formik.setFieldValue("created_str", inputValue);
                 }}
-                inputValue={
-                  formik.values.created_str !== "Seumur Hidup"
-                    ? formik.values.created_str
-                    : undefined
-                }
+                inputValue={formik.values.created_str}
                 isError={!!formik.errors.created_str}
                 isDisabled={noLimitStr}
               />
@@ -257,11 +253,7 @@ export default function LengkapiDataUser3() {
                 onConfirm={(inputValue) => {
                   formik.setFieldValue("created_sip", inputValue);
                 }}
-                inputValue={
-                  formik.values.created_sip !== "Seumur Hidup"
-                    ? formik.values.created_sip
-                    : undefined
-                }
+                inputValue={formik.values.created_sip}
                 isError={!!formik.errors.created_sip}
                 isDisabled={noLimitStr}
               />
