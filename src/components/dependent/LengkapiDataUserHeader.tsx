@@ -1,7 +1,6 @@
 import { HStack, StackProps } from "@chakra-ui/react";
-import { useLightDarkColor } from "../../constant/colors";
-import BantuanButton from "../independent/BantuanButton";
 import { ColorModeSwitcher } from "../../ColorModeSwitcher";
+import { useLightDarkColor } from "../../constant/colors";
 
 interface Props extends StackProps {
   backLink?: string;
@@ -32,7 +31,7 @@ export default function LengkapiDataUserHeader({ backLink, ...props }: Props) {
         ml={0}
       />
 
-      <BantuanButton ml={"0"} />
+      {/* <BantuanButton ml={"0"} /> */}
     </HStack>
   );
 }

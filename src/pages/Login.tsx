@@ -11,7 +11,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ColorModeSwitcher } from "../ColorModeSwitcher";
 import LoginForm from "../components/form/LoginForm";
-import BantuanButton from "../components/independent/BantuanButton";
 import CContainer from "../components/independent/wrapper/CContainer";
 import Container from "../components/independent/wrapper/Container";
 import useRenderTrigger from "../global/useRenderTrigger";
@@ -74,7 +73,7 @@ export default function Login() {
             mr={"auto"}
             ml={0}
           />
-          <BantuanButton ml={"0"} />
+          {/* <BantuanButton ml={"0"} /> */}
         </HStack>
 
         <CContainer my={"auto"} align={"center"} justify={"center"}>
