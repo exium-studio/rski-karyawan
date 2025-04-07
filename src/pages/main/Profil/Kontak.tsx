@@ -15,6 +15,17 @@ export default function Kontak() {
   const lightDarkColor = useLightDarkColor();
   const contentBgColor = useContentBgColor();
 
+  const contacts = [
+    {
+      cp: "Reza Hawari",
+      phone: "nomornya reza",
+    },
+    {
+      cp: "Siapa aja sini",
+      phone: "nomornya siapa aja sini",
+    },
+  ];
+
   return (
     <CContainer flex={1}>
       <Header
@@ -27,22 +38,27 @@ export default function Kontak() {
       <CContainer flex={1} bg={contentBgColor} p={5}>
         <Accordion allowMultiple>
           <CContainer gap={3}>
-            <AccordionItem
-              bg={lightDarkColor}
-              border={"none"}
-              borderRadius={8}
-              overflow={"clip"}
-            >
-              <AccordionButton h="48px">
-                <Text textAlign={"left"} flex={1} fontWeight={500}>
-                  Reza Hawari
-                </Text>
-                <AccordionIcon />
-              </AccordionButton>
-              <AccordionPanel pb={4}>
-                <Text>Nomornya Reza</Text>
-              </AccordionPanel>
-            </AccordionItem>
+            {contacts.map((item, i) => {
+              return (
+                <AccordionItem
+                  key={i}
+                  bg={lightDarkColor}
+                  border={"none"}
+                  borderRadius={8}
+                  overflow={"clip"}
+                >
+                  <AccordionButton h="48px">
+                    <Text textAlign={"left"} flex={1} fontWeight={500}>
+                      {item.cp}
+                    </Text>
+                    <AccordionIcon />
+                  </AccordionButton>
+                  <AccordionPanel pb={4}>
+                    <Text>{item.phone}</Text>
+                  </AccordionPanel>
+                </AccordionItem>
+              );
+            })}
           </CContainer>
         </Accordion>
       </CContainer>
