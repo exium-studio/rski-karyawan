@@ -103,6 +103,7 @@ export interface Interface__Jadwal {
   tgl_selesai: Date | string;
   shift: Interface__Shift;
   assignees?: Interface__Karyawan[];
+  ex_libur: boolean;
   created_at: Date | string;
   updated_at: Date | string | null;
 }

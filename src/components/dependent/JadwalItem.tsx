@@ -56,7 +56,13 @@ export default function JadwalItem({
       <CContainer gap={2}>
         <Text fontSize={12} opacity={0.4}>{`${
           unitKerja?.jenis_karyawan === 1
-            ? `${data.shift?.nama || "Libur"} - `
+            ? `${
+                data.shift?.nama
+                  ? data.shift?.nama
+                  : data.ex_libur
+                  ? "Ex Libur"
+                  : "Libur"
+              } - `
             : ""
         }Minggu ${getWeekOfMonth(data.tgl_mulai)}`}</Text>
 
