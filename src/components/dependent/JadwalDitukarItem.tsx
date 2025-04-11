@@ -21,7 +21,11 @@ export default function JadwalDitukarItem({
     <HStack ref={forwardRef} gap={8} borderRadius={12} {...props}>
       <Box>
         <Text lineHeight={1.3} fontSize={12} opacity={0.4} mb={2} pr={6}>{`${
-          data?.shift?.nama || "Libur"
+          data.shift?.nama
+            ? data.shift?.nama
+            : data.ex_libur
+            ? "Ex Libur"
+            : "Libur"
         }`}</Text>
 
         <Text fontWeight={600} mb={2}>
