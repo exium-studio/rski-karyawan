@@ -51,7 +51,7 @@ export default function AuthMiddleware({
             localStorage.setItem("__user_data", JSON.stringify(newUserData));
             const newDcs = r.data.data.user.data_completion_step;
             setDcs(newDcs);
-            setStatusAktif(r.data.data.user.status_aktif_id.id);
+            setStatusAktif(r.data.data.user.status_aktif);
             setJenisKaryawan(r.data.data.unit_kerja?.jenis_karyawan);
           }
         })
