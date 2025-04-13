@@ -91,7 +91,10 @@ export interface Interface__User {
   foto_profil: string | null;
   data_completion_step: number;
   unit_kerja?: Interface__UnitKerja[];
-  status_aktif: number;
+  status_aktif_id: {
+    id: number;
+    label: string;
+  };
   created_at: Date | string;
   updated_at: Date | string | null;
 }

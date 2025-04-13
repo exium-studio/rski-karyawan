@@ -48,7 +48,7 @@ export default function LoginForm() {
             // console.log(userData);
 
             setDcs(userData.data_completion_step);
-            setStatusAktif(userData.status_aktif);
+            setStatusAktif(userData.status_aktif_id.id);
             setJenisKaryawan(userData?.unit_kerja?.[0]?.jenis_karyawan);
 
             // setCookie("__auth_token", userData.arrtoken.token);
@@ -61,7 +61,7 @@ export default function LoginForm() {
             autoNavigate(
               userData.arrtoken.token,
               userData.data_completion_step,
-              userData.status_aktif
+              userData.status_aktif_id.id
             );
 
             toast({
