@@ -37,30 +37,7 @@ interface Data {
 export default function FeedbackKuisioner() {
   // data kuosioner
   const { error, loading, data, retry } = useDataState<Data>({
-    initialData: {
-      user_dinilai: {
-        id: 1,
-        nama: "John Doe",
-        username: "johndoe123",
-        email_verified_at: new Date(),
-        role_id: 1,
-        foto_profil: "https://example.com/foto.jpg",
-        data_completion_step: 3,
-        status_aktif: 1,
-        created_at: new Date(),
-        updated_at: null,
-        unit_kerja: [
-          {
-            id: 2,
-            nama_unit: "Sumber Daya Manusia",
-            jenis_karyawan: 1,
-            created_at: new Date(),
-            updated_at: new Date(),
-          },
-        ],
-      },
-      kuisioner: dummyKuisioner,
-    },
+    initialData: undefined,
     url: "",
   });
 
