@@ -22,7 +22,6 @@ import {
   useErrorColor,
   useLightDarkColor,
 } from "../../../constant/colors";
-import { dummyKuisioner } from "../../../constant/dummy";
 import {
   Interface__Kuisioner,
   Interface__User,
