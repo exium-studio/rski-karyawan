@@ -4,13 +4,10 @@ import {
   Checkbox,
   FormControl,
   FormErrorMessage,
-  FormHelperText,
   FormLabel,
   HStack,
   Icon,
   IconButton,
-  InputGroup,
-  InputLeftElement,
   Text,
   useDisclosure,
   VStack,
@@ -26,12 +23,12 @@ import BackOnCloseButton from "../../../independent/BackOnCloseButton";
 import CustomDrawer from "../../../independent/wrapper/CustomDrawer";
 import DatePickerDrawer from "../DatePickerDrawer";
 import StringInput from "../StringInput";
+import SelectAgama from "./SingleSelectAgama";
+import SelectGender from "./SingleSelectGender";
+import SelectGoldar from "./SIngleSelectGoldar";
 import SelectHubunganKeluarga from "./SingleSelectHubunganKeluarga";
 import SingleSelectPendidikan from "./SingleSelectPendidikan";
 import SelectStatusHidup from "./SingleSelectStatusHidup";
-import SelectGender from "./SingleSelectGender";
-import SelectAgama from "./SingleSelectAgama";
-import SelectGoldar from "./SIngleSelectGoldar";
 
 interface Props {
   data: any;
@@ -67,7 +64,7 @@ export default function EditFamily({
         ? { value: 1, label: "Laki - laki" }
         : { value: 0, label: "Perempuan" },
       tempat_lahir: data?.tempat_lahir,
-      tgl_lahir: data?.tgl_lahir,
+      tgl_lahir: new Date(data?.tgl_lahir),
       pendidikan_terakhir: {
         value: data?.pendidikan_terakhir?.id,
         label: data?.pendidikan_terakhir?.label,
@@ -403,9 +400,9 @@ export default function EditFamily({
 
             <FormControl isInvalid={!!formik.errors.is_menikah} mb={4}>
               {/* <FormLabel>
-                                          Tanggungan BPJS
-                                           <RequiredForm />
-                                        </FormLabel> */}
+                  Tanggungan BPJS
+                    <RequiredForm />
+                </FormLabel> */}
 
               <Checkbox
                 colorScheme="ap"
