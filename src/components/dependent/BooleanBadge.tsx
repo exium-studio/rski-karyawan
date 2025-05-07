@@ -16,11 +16,14 @@ export default function BooleanBadge({
 }: Props) {
   return (
     <Badge
+      borderRadius={"full"}
       textAlign={"center"}
       colorScheme={
-        data ? "green" : data === null && nullValue ? "orange" : "red"
+        data ? "green" : data === null && nullValue ? "orange" : "divider"
       }
-      borderRadius={"full"}
+      // bg={
+      //   data ? "unset" : data === null && nullValue ? "unset" : "var(--divider)"
+      // }
       {...props}
     >
       {data ? trueValue : data === null && nullValue ? nullValue : falseValue}
