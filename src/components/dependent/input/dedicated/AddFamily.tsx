@@ -159,7 +159,7 @@ export default function AddFamily({
         }
       >
         <Box px={6}>
-          <form id="tambahDataKeluargaForm" onSubmit={formik.handleSubmit}>
+          <form id="data-keluarga-form" onSubmit={formik.handleSubmit}>
             <FormControl mb={4} isInvalid={!!formik.errors.nama_keluarga}>
               <FormLabel>
                 Nama Keluarga
@@ -433,7 +433,7 @@ export default function AddFamily({
 
             <Button
               type="submit"
-              form="tambahDataKeluargaForm"
+              form="data-keluarga-form"
               colorScheme="ap"
               className="btn-ap clicky"
               w={"100%"}

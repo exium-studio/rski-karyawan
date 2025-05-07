@@ -81,7 +81,9 @@ const ListKeluargaDrawer = ({ data, index }: any) => {
                   <HStack>
                     <Text opacity={0.4}>Status Hidup</Text>
                     <FlexLine />
-                    <Text>{anggota?.status_hidup ? "Hidup" : "Meninggal"}</Text>
+                    <Text>
+                      {anggota?.status_hidup ? "Aktif" : "Tidak Aktif"}
+                    </Text>
                   </HStack>
                   <HStack>
                     <Text opacity={0.4}>Jenis Kelamin</Text>
