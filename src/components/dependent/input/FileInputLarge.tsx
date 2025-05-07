@@ -188,7 +188,9 @@ export default function FileInputLarge({
                 textAlign={"center"}
                 opacity={0.4}
               >
-                {placeholder || "Mendukung semua tipe file"}
+                {placeholder || accept
+                  ? `Mendukung ${accept}`
+                  : "Mendukung semua tipe file"}
               </Text>
             </>
           )}

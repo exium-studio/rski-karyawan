@@ -14,7 +14,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { RiArrowUpCircleLine } from "@remixicon/react";
+import { RiArrowUpCircleLine, RiEditLine } from "@remixicon/react";
 import { useFormik } from "formik";
 import { useState } from "react";
 import * as yup from "yup";
@@ -31,12 +31,13 @@ import RequestPatchDataButton from "../../../components/dependent/RequestPatchDa
 import RequiredForm from "../../../components/form/RequiredForm";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import CustomDrawer from "../../../components/independent/wrapper/CustomDrawer";
+import { useLightDarkColor } from "../../../constant/colors";
 import { iconSize } from "../../../constant/sizes";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
 import formatNumber from "../../../lib/formatNumber";
-import parseNumber from "../../../lib/parseNumber";
 import getUserData from "../../../lib/getUserData";
+import parseNumber from "../../../lib/parseNumber";
 
 interface Props {
   data: any;
@@ -117,7 +118,7 @@ export default function EditDataPersonalForm({ data }: Props) {
   });
 
   // SX
-  // const lightDarkColor = useLightDarkColor();
+  const lightDarkColor = useLightDarkColor();
 
   const FileInputDrawer = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -132,24 +133,24 @@ export default function EditDataPersonalForm({ data }: Props) {
           position={"relative"}
           w={"fit-content"}
           mr={1}
-          // onClick={onOpen}
+          onClick={onOpen}
         >
           <Avatar
             src={formik.values.foto_profil || ""}
             name={data?.user?.nama}
             bg={"gray"}
           />
-          {/* <Center
+          <Center
             position={"absolute"}
             borderRadius={"full"}
-            w={"28px"}
-            h={"28px"}
+            w={"20px"}
+            h={"20px"}
             bg={"p.500"}
-            bottom={0}
-            right={0}
+            bottom={-1}
+            right={-1}
           >
-            <Icon as={RiCameraLine} color={lightDarkColor} />
-          </Center> */}
+            <Icon as={RiEditLine} color={lightDarkColor} fontSize={14} />
+          </Center>
         </Center>
 
         <CustomDrawer
@@ -165,15 +166,15 @@ export default function EditDataPersonalForm({ data }: Props) {
               onClick={() => {
                 backOnClose();
               }}
-              leftIcon={<Icon as={RiArrowUpCircleLine} fontSize={iconSize} />}
+              // leftIcon={<Icon as={RiArrowUpCircleLine} fontSize={iconSize} />}
             >
-              Ajukan Perubahan
+              Simpan
             </Button>
           }
         >
           <CContainer px={6}>
             <Text opacity={0.4} textAlign={"center"} mb={2}>
-              Gunakan foto 1:1
+              Gunakan foto 1:1 untuk hasil maksimal
             </Text>
 
             <FileInputLarge
@@ -181,6 +182,7 @@ export default function EditDataPersonalForm({ data }: Props) {
               onChangeSetter={(input) => {
                 setAvatar(input);
               }}
+              accept=".png .jpg .jpeg .HEIC"
               inputValue={avatar}
             />
           </CContainer>
