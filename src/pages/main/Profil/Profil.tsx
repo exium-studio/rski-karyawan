@@ -94,8 +94,10 @@ const ProfilStatus = () => {
                         </Text>
 
                         <Text opacity={0.4}>
-                          Alpha, terlambat, pulang awal tidak akan mendapat
-                          reward presensi bulan ini.
+                          Alpha, terlambat, pulang awal, izin, cuti yang tidak
+                          administratif (tidak dianggap masuk) tidak akan
+                          mendapat reward presensi. Unntuk reward presensi bulan
+                          ini akan didapatkan pada penggajian bulan berikutnya.
                         </Text>
                       </PopoverBody>
                     </PopoverContent>
