@@ -31,7 +31,7 @@ export default function Tentang() {
         left={"back"}
         title="Tentang"
         px={4}
-        borderBottom={"1px solid var(--divider2)"}
+        // borderBottom={"1px solid var(--divider2)"}
       />
 
       <Tabs position="relative" variant="unstyled">
