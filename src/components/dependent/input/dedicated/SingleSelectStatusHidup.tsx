@@ -29,8 +29,8 @@ export default function SelectStatusHidup({
   ...props
 }: Props) {
   const options = [
-    { value: true, label: "Hidup" },
-    { value: false, label: "Meninggal" },
+    { value: true, label: "Aktif" },
+    { value: false, label: "Tidak Aktif" },
   ];
 
   return (
