@@ -14,7 +14,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { RiArrowUpCircleLine, RiEditLine } from "@remixicon/react";
+import { RiEditLine } from "@remixicon/react";
 import { useFormik } from "formik";
 import { useState } from "react";
 import * as yup from "yup";
@@ -32,7 +32,6 @@ import RequiredForm from "../../../components/form/RequiredForm";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import CustomDrawer from "../../../components/independent/wrapper/CustomDrawer";
 import { useLightDarkColor } from "../../../constant/colors";
-import { iconSize } from "../../../constant/sizes";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
 import formatNumber from "../../../lib/formatNumber";
