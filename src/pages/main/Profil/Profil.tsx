@@ -83,7 +83,7 @@ const ProfilStatus = () => {
                       </HStack>
                     </PopoverTrigger>
 
-                    <PopoverContent maxW={"calc(100vw - 40px)"}>
+                    <PopoverContent maxW={"calc(100vw - 40px)"} mr={4}>
                       <PopoverArrow />
                       <PopoverCloseButton />
 
