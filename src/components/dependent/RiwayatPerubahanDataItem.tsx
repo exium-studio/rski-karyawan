@@ -28,7 +28,7 @@ import DisclosureHeader from "./DisclosureHeader";
 import DrawerHeader from "./DrawerHeader";
 import StatusApprovalBadge from "./StatusApprovalBadge";
 
-const ListKeluargaModal = ({ data, index }: any) => {
+const ListKeluargaDrawer = ({ data, index }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // console.log(data);
@@ -84,24 +84,56 @@ const ListKeluargaModal = ({ data, index }: any) => {
                     <Text>{anggota?.status_hidup ? "Hidup" : "Meninggal"}</Text>
                   </HStack>
                   <HStack>
+                    <Text opacity={0.4}>Jenis Kelamin</Text>
+                    <FlexLine />
+                    <Text>
+                      {anggota?.jenis_kelamin ? "Laki-laki" : "Perempuan"}
+                    </Text>
+                  </HStack>
+                  <HStack>
+                    <Text opacity={0.4}>Tempat Lahir</Text>
+                    <FlexLine />
+                    <Text>{anggota?.tempat_lahir}</Text>
+                  </HStack>
+                  <HStack>
+                    <Text opacity={0.4}>Tanggal Lahir</Text>
+                    <FlexLine />
+                    <Text>{formatDate(anggota?.tgl_lahir)}</Text>
+                  </HStack>
+                  <HStack>
                     <Text opacity={0.4}>Pendidikan Terakhir</Text>
                     <FlexLine />
                     <Text>{anggota?.pendidikan_terakhir?.label}</Text>
                   </HStack>
                   <HStack>
+                    <Text opacity={0.4}>Agama</Text>
+                    <FlexLine />
+                    <Text>{anggota?.agama?.label}</Text>
+                  </HStack>
+                  <HStack>
+                    <Text opacity={0.4}>Golongan Darah</Text>
+                    <FlexLine />
+                    <Text>{anggota?.kategori_darah?.label}</Text>
+                  </HStack>
+                  <HStack>
                     <Text opacity={0.4}>Pekerjaan</Text>
                     <FlexLine />
-                    <Text>{anggota.pekerjaan}</Text>
+                    <Text>{anggota?.pekerjaan}</Text>
                   </HStack>
                   <HStack>
                     <Text opacity={0.4}>Nomor Telepon</Text>
                     <FlexLine />
-                    <Text>{anggota.no_hp}</Text>
+                    <Text>{anggota?.no_hp}</Text>
                   </HStack>
                   <HStack>
                     <Text opacity={0.4}>Email</Text>
                     <FlexLine />
-                    <Text>{anggota.email}</Text>
+                    <Text>{anggota?.email}</Text>
+                  </HStack>
+                  <HStack>
+                    <Text opacity={0.4}>No. Rekam Medis</Text>
+                    <FlexLine />
+                    <Text>{anggota?.no_rm}</Text>
                   </HStack>
                   <HStack>
                     <Text opacity={0.4}>Tanggungan BPJS</Text>
@@ -110,6 +142,15 @@ const ListKeluargaModal = ({ data, index }: any) => {
                       data={anggota.is_bpjs}
                       trueValue="Ditanggung"
                       falseValue="Tidak Ditanggung"
+                    />
+                  </HStack>
+                  <HStack>
+                    <Text opacity={0.4}>Sudah Menikah</Text>
+                    <FlexLine />
+                    <BooleanBadge
+                      data={anggota?.is_menikah}
+                      trueValue="Menikah"
+                      falseValue="Belum Menikah"
                     />
                   </HStack>
                 </CContainer>
@@ -145,7 +186,7 @@ export default function RiwayatPerubahanDataItem({ data }: Props) {
         return <Text>{data[type]?.label || "-"}</Text>;
       case "data keluarga":
       case "Data Keluarga":
-        return <ListKeluargaModal data={data[type]} />;
+        return <ListKeluargaDrawer data={data[type]} />;
       case "foto_profil":
         return (
           <Image

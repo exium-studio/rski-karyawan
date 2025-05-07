@@ -139,8 +139,8 @@ export const globalTheme = extendTheme({
     Drawer: {
       baseStyle: (props) => ({
         overlay: {
-          bg: "#00000011",
-          backdropFilter: "blur(5px)",
+          // bg: "#00000011",
+          // backdropFilter: "blur(5px)",
         },
         dialog: {
           bg: props.colorMode === "dark" ? "dark" : "white",
@@ -193,7 +193,7 @@ export const globalTheme = extendTheme({
           // bg: props.colorMode === "dark" ? "dark" : "white",
           bg: "#303030df",
           color: "white",
-          backdropFilter: "blur(20px)",
+          // backdropFilter: "blur(20px)",
           border: "1px solid var(--divider)",
           overflow: "hidden",
           boxShadow: "none",
@@ -229,7 +229,7 @@ export const globalTheme = extendTheme({
           color: props.colorMode === "dark" ? "wt" : "bt",
           // bg: "#252525ee",
           // color: "white !important",
-          backdropFilter: "blur(40px)",
+          // backdropFilter: "blur(40px)",
           boxShadow: "none",
           borderRadius: 12,
           m: 4,
@@ -238,8 +238,8 @@ export const globalTheme = extendTheme({
           // maxH: "100%",
         },
         overlay: {
-          bg: "#00000011",
-          backdropFilter: "blur(8px)",
+          // bg: "#00000011",
+          // backdropFilter: "blur(8px)",
         },
         header: {
           p: 0,
@@ -344,7 +344,7 @@ export const globalTheme = extendTheme({
         bg: "#252525ee",
         color: "white !important",
         "--popper-arrow-bg": "#252525ee",
-        backdropFilter: "blur(40px)",
+        // backdropFilter: "blur(40px)",
         border: "1px solid var(--divider3)",
         borderRadius: 8,
         px: 4,

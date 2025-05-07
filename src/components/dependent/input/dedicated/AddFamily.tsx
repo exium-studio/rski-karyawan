@@ -4,12 +4,9 @@ import {
   Checkbox,
   FormControl,
   FormErrorMessage,
-  FormHelperText,
   FormLabel,
   HStack,
   Icon,
-  InputGroup,
-  InputLeftElement,
   Text,
   useDisclosure,
   useToast,
@@ -25,6 +22,9 @@ import BackOnCloseButton from "../../../independent/BackOnCloseButton";
 import CustomDrawer from "../../../independent/wrapper/CustomDrawer";
 import DatePickerDrawer from "../DatePickerDrawer";
 import StringInput from "../StringInput";
+import SelectGoldar from "./SIngleSelectGoldar";
+import SelectAgama from "./SingleSelectAgama";
+import SelectGender from "./SingleSelectGender";
 import SelectHubunganKeluarga from "./SingleSelectHubunganKeluarga";
 import SingleSelectPendidikan from "./SingleSelectPendidikan";
 import SelectStatusHidup from "./SingleSelectStatusHidup";
@@ -51,28 +51,58 @@ export default function AddFamily({
     validateOnChange: false,
 
     initialValues: {
+      nama_keluarga: "",
       hubungan: undefined as any,
-      nama_keluarga: "" as any,
       status_hidup: undefined as any,
-      pendidikan_terakhir: "" as any,
-      pekerjaan: "" as any,
-      no_hp: "" as any,
-      email: "" as any,
-      is_bpjs: true,
+      jenis_kelamin: undefined as any,
+      tempat_lahir: "",
       tgl_lahir: undefined as any,
-      is_menikah: undefined as any,
+      pendidikan_terakhir: undefined as any,
+      agama: undefined as any,
+      goldar: undefined as any,
+      pekerjaan: "",
+      no_hp: "",
+      email: "",
+      no_rm: "",
+      is_bpjs: false,
+      is_menikah: false,
+      // hubungan: undefined as any,
+      // nama_keluarga: "" as any,
+      // status_hidup: undefined as any,
+      // pendidikan_terakhir: "" as any,
+      // pekerjaan: "" as any,
+      // no_hp: "" as any,
+      // email: "" as any,
+      // is_bpjs: true,
+      // tgl_lahir: undefined as any,
+      // is_menikah: undefined as any,
     },
     validationSchema: yup.object().shape({
-      hubungan: yup.object().required("Harus diisi"),
       nama_keluarga: yup.string().required("Harus diisi"),
+      hubungan: yup.object().required("Harus diisi"),
       status_hidup: yup.object().required("Harus diisi"),
+      jenis_kelamin: yup.object().required("Harus diisi"),
+      tempat_lahir: yup.string().required("Harus diisi"),
+      tgl_lahir: yup.string().required("Harus diisi"),
       pendidikan_terakhir: yup.object().required("Harus diisi"),
-      pekerjaan: yup.string().required("Harus diisi"),
-      no_hp: yup.string().required("Harus diisi"),
+      agama: yup.object(),
+      goldar: yup.object(),
+      pekerjaan: yup.string(),
+      no_hp: yup.string(),
       email: yup.string(),
+      no_rm: yup.string(),
       is_bpjs: yup.boolean(),
-      tgl_lahir: yup.string().required(),
       is_menikah: yup.boolean(),
+      // hubungan: yup.object().required("Harus diisi"),
+      // nama_keluarga: yup.string().required("Harus diisi"),
+      // status_hidup: yup.object().required("Harus diisi"),
+      // pendidikan_terakhir: yup.object().required("Harus diisi"),
+      // pekerjaan: yup.string().required("Harus diisi"),
+      // no_hp: yup.string().required("Harus diisi"),
+      // email: yup.string(),
+      // is_bpjs: yup.boolean(),
+      // tgl_lahir: yup.string().required(),
+      // is_menikah: yup.boolean(),
     }),
     onSubmit: (values, { resetForm }) => {
       onConfirm(values);
@@ -130,19 +160,36 @@ export default function AddFamily({
       >
         <Box px={6}>
           <form id="tambahDataKeluargaForm" onSubmit={formik.handleSubmit}>
+            <FormControl mb={4} isInvalid={!!formik.errors.nama_keluarga}>
+              <FormLabel>
+                Nama Keluarga
+                <RequiredForm />
+              </FormLabel>
+              <StringInput
+                name="nama_keluarga"
+                placeholder="Yeli Kurniawan"
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("nama_keluarga", input);
+                }}
+                inputValue={formik.values.nama_keluarga}
+              />
+              <FormErrorMessage>
+                {formik.errors.nama_keluarga as string}
+              </FormErrorMessage>
+            </FormControl>
+
             <FormControl mb={4} isInvalid={!!formik.errors.hubungan}>
               <FormLabel>
-                Hubungan Keluarga
+                Hubungan
                 <RequiredForm />
               </FormLabel>
               <SelectHubunganKeluarga
-                id="lengkapi-data-user-2-select-hubungan-keluarga"
+                id="hubungan"
                 name="hubungan"
-                onConfirm={(inputValue) => {
-                  formik.setFieldValue("hubungan", inputValue);
+                onConfirm={(input) => {
+                  formik.setFieldValue("hubungan", input);
                 }}
                 inputValue={formik.values.hubungan}
-                placeholder="Pilih Hubungan Keluarga"
                 isError={!!formik.errors.hubungan}
               />
               <FormErrorMessage>
@@ -150,18 +197,56 @@ export default function AddFamily({
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl mb={4} isInvalid={!!formik.errors.nama_keluarga}>
+            <FormControl mb={4} isInvalid={!!formik.errors.status_hidup}>
               <FormLabel>
-                Nama
+                Status Hidup
+                <RequiredForm />
+              </FormLabel>
+              <SelectStatusHidup
+                id="status_hidup"
+                name="status_hidup"
+                onConfirm={(input) => {
+                  formik.setFieldValue("status_hidup", input);
+                }}
+                inputValue={formik.values.status_hidup}
+                isError={!!formik.errors.status_hidup}
+              />
+              <FormErrorMessage>
+                {formik.errors.status_hidup as string}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl mb={4} isInvalid={!!formik.errors.jenis_kelamin}>
+              <FormLabel>
+                Jenis Kelamin
+                <RequiredForm />
+              </FormLabel>
+              <SelectGender
+                id="jenis_kelamin"
+                name="jenis_kelamin"
+                onConfirm={(input) => {
+                  formik.setFieldValue("jenis_kelamin", input);
+                }}
+                inputValue={formik.values.jenis_kelamin}
+                isError={!!formik.errors.jenis_kelamin}
+              />
+              <FormErrorMessage>
+                {formik.errors.hubungan as string}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl mb={4} isInvalid={!!formik.errors.tempat_lahir}>
+              <FormLabel>
+                Tempat Lahir
                 <RequiredForm />
               </FormLabel>
               <StringInput
-                name="nama_keluarga"
-                placeholder="Karlitos Kurniawan"
+                name="tempat_lahir"
+                placeholder="Surakarta"
                 onChangeSetter={(input) => {
-                  formik.setFieldValue("nama_keluarga", input);
+                  formik.setFieldValue("tempat_lahir", input);
                 }}
-                inputValue={formik.values.nama_keluarga}
+                inputValue={formik.values.tempat_lahir}
               />
               <FormErrorMessage>
                 {formik.errors.nama_keluarga as string}
@@ -174,7 +259,7 @@ export default function AddFamily({
                 <RequiredForm />
               </FormLabel>
               <DatePickerDrawer
-                id={`tgl_lahir-${id}`}
+                id={`date-picker-tgl-lahir`}
                 name="tgl_lahir"
                 onConfirm={(input) => {
                   formik.setFieldValue("tgl_lahir", input);
@@ -187,46 +272,14 @@ export default function AddFamily({
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl mb={4} isInvalid={!!formik.errors.status_hidup}>
-              <FormLabel>
-                Status Hidup
-                <RequiredForm />
-              </FormLabel>
-              <SelectStatusHidup
-                id="lengkapi-data-user-2-select-status-hidup"
-                name="status_hidup"
-                onConfirm={(inputValue) => {
-                  formik.setFieldValue("status_hidup", inputValue);
-                }}
-                inputValue={formik.values.status_hidup}
-                placeholder="Pilih Status Hidup"
-                isError={!!formik.errors.status_hidup}
-              />
-              <FormErrorMessage>
-                {formik.errors.status_hidup as string}
-              </FormErrorMessage>
-            </FormControl>
-
-            <FormControl
-              mb={4}
-              isInvalid={formik.errors.pendidikan_terakhir ? true : false}
-            >
+            <FormControl mb={4} isInvalid={!!formik.errors.pendidikan_terakhir}>
               <FormLabel>
                 Pendidikan Terakhir
                 <RequiredForm />
               </FormLabel>
-              {/* <StringInput
-                name="pendidikan_terakhir"
-                placeholder="S1 Akuntansi"
-                onChangeSetter={(input) => {
-                  formik.setFieldValue("pendidikan_terakhir", input);
-                }}
-                inputValue={formik.values.pendidikan_terakhir}
-              /> */}
               <SingleSelectPendidikan
-                id={`edit-family-${formik.values.nama_keluarga}`}
+                id="pendidikan_terakhir"
                 name="pendidikan_terakhir"
-                placeholder="Sarjana 1"
                 onConfirm={(input) => {
                   formik.setFieldValue("pendidikan_terakhir", input);
                 }}
@@ -238,18 +291,47 @@ export default function AddFamily({
               </FormErrorMessage>
             </FormControl>
 
+            <FormControl mb={4} isInvalid={!!formik.errors.agama}>
+              <FormLabel>Agama</FormLabel>
+              <SelectAgama
+                id="agama"
+                name="agama"
+                onConfirm={(input) => {
+                  formik.setFieldValue("agama", input);
+                }}
+                inputValue={formik.values.agama}
+                isError={!!formik.errors.agama}
+              />
+              <FormErrorMessage>
+                {formik.errors.hubungan as string}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl mb={4} isInvalid={!!formik.errors.goldar}>
+              <FormLabel>Golongan Darah</FormLabel>
+              <SelectGoldar
+                id="goldar"
+                name="goldar"
+                onConfirm={(input) => {
+                  formik.setFieldValue("goldar", input);
+                }}
+                inputValue={formik.values.goldar}
+                isError={!!formik.errors.goldar}
+              />
+              <FormErrorMessage>
+                {formik.errors.hubungan as string}
+              </FormErrorMessage>
+            </FormControl>
+
             <FormControl mb={4} isInvalid={!!formik.errors.pekerjaan}>
-              <FormLabel>
-                Pekerjaan
-                <RequiredForm />
-              </FormLabel>
+              <FormLabel>Pekerjaan </FormLabel>
               <StringInput
                 name="pekerjaan"
-                placeholder="Dokter"
                 onChangeSetter={(input) => {
                   formik.setFieldValue("pekerjaan", input);
                 }}
                 inputValue={formik.values.pekerjaan}
+                placeholder="Dokter"
               />
               <FormErrorMessage>
                 {formik.errors.pekerjaan as string}
@@ -257,52 +339,55 @@ export default function AddFamily({
             </FormControl>
 
             <FormControl mb={4} isInvalid={!!formik.errors.no_hp}>
-              <FormLabel>
-                Nomor Telepon
-                <RequiredForm />
-              </FormLabel>
-              <InputGroup>
-                <InputLeftElement ml={2}>
-                  <Text>+62</Text>
-                </InputLeftElement>
-                <StringInput
-                  pl={12}
-                  name="no_hp"
-                  placeholder="8***********"
-                  onChangeSetter={(input) => {
-                    formik.setFieldValue("no_hp", input);
-                  }}
-                  inputValue={formik.values.no_hp}
-                />
-              </InputGroup>
+              <FormLabel>No.Telp</FormLabel>
+              <StringInput
+                name="no_hp"
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("no_hp", input);
+                }}
+                inputValue={formik.values.no_hp}
+                placeholder="08**********"
+              />
               <FormErrorMessage>
                 {formik.errors.no_hp as string}
               </FormErrorMessage>
             </FormControl>
 
             <FormControl mb={4} isInvalid={!!formik.errors.email}>
-              <FormLabel>
-                Email
-                {/* <RequiredForm /> */}
-              </FormLabel>
+              <FormLabel>Email</FormLabel>
               <StringInput
                 name="email"
-                placeholder="contoh@email.com"
                 onChangeSetter={(input) => {
                   formik.setFieldValue("email", input);
                 }}
                 inputValue={formik.values.email}
+                placeholder="example@email.com"
               />
               <FormErrorMessage>
                 {formik.errors.email as string}
               </FormErrorMessage>
             </FormControl>
 
+            <FormControl mb={4} isInvalid={!!formik.errors.no_rm}>
+              <FormLabel>No. Rekam Medis</FormLabel>
+              <StringInput
+                name="no_rm"
+                placeholder="3301*******"
+                onChangeSetter={(input) => {
+                  formik.setFieldValue("no_rm", input);
+                }}
+                inputValue={formik.values.no_rm}
+              />
+              <FormErrorMessage>
+                {formik.errors.nama_keluarga as string}
+              </FormErrorMessage>
+            </FormControl>
+
             <FormControl isInvalid={!!formik.errors.is_menikah} mb={4}>
               {/* <FormLabel>
-                Tanggungan BPJS
-                 <RequiredForm />
-              </FormLabel> */}
+                                Tanggungan BPJS
+                                 <RequiredForm />
+                              </FormLabel> */}
 
               <Checkbox
                 colorScheme="ap"
@@ -310,41 +395,25 @@ export default function AddFamily({
                   formik.setFieldValue("is_menikah", e.target.checked);
                 }}
                 isChecked={formik.values.is_menikah}
-                isDisabled={!formik.values.status_hidup?.value}
               >
                 <Text mt={"-2.5px"}>Sudah Menikah</Text>
               </Checkbox>
-              <FormHelperText mt={2}>
-                Jika anggota keluarga sudah menikah, harap centang.
-              </FormHelperText>
 
               <FormErrorMessage>
                 {formik.errors.is_menikah as string}
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl isInvalid={!!formik.errors.is_bpjs}>
-              {/* <FormLabel>
-                Tanggungan BPJS
-                <RequiredForm />
-              </FormLabel> */}
-
+            <FormControl mt={4} isInvalid={!!formik.errors.is_bpjs}>
               <Checkbox
                 colorScheme="ap"
+                isChecked={formik.values.is_bpjs}
                 onChange={(e) => {
                   formik.setFieldValue("is_bpjs", e.target.checked);
                 }}
-                isChecked={formik.values.is_bpjs}
-                isDisabled={!formik.values.status_hidup?.value}
               >
-                <Text mt={"-2.5px"}>Tanggungan BPJS</Text>
+                <Text mt={"-3px"}>Tanggungan BPJS</Text>
               </Checkbox>
-              <FormHelperText mt={2}>
-                Jika anggota keluarga masih hidup dan tanggungan BPJS dicentang,
-                BPJS anggota keluarga akan ditanggung oleh karyawan dan akan
-                dikalkulasikan sebagai potongan dalam penggajian.
-              </FormHelperText>
-
               <FormErrorMessage>
                 {formik.errors.is_bpjs as string}
               </FormErrorMessage>

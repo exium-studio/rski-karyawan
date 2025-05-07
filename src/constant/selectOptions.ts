@@ -65,12 +65,12 @@ const optionsJenisAktivitasPresensi = [
 
 const optionsJenisKelamin = [
   {
-    value: 0,
-    label: "Perempuan",
-  },
-  {
     value: 1,
     label: "Laki - Laki",
+  },
+  {
+    value: 0,
+    label: "Perempuan",
   },
 ];
 

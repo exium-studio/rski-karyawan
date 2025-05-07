@@ -38,7 +38,7 @@ const UbahDataForm = ({ data }: any) => {
         </Text>
       </Alert>
 
-      <CContainer flex={0} borderRadius={12}>
+      <CContainer flex={1} borderRadius={12}>
         <UbahDataKeluargaForm data={data} />
       </CContainer>
     </>

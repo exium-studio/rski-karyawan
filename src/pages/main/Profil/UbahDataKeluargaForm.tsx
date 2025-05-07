@@ -295,6 +295,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
               <RequestPatchDataButton
                 validator={() => {
                   formik.validateField("keluarga");
+                  formik.resetForm();
                 }}
                 column="keluarga"
                 payload={JSON.stringify(remappedData)}
