@@ -17,12 +17,14 @@ import useAutoNavigate from "../../hooks/useAutoNavigate";
 import req from "../../lib/req";
 import PasswordInput from "../dependent/input/PasswordInput";
 import StringInput from "../dependent/input/StringInput";
+import useMedicAlert from "../../hooks/useMedicAlert";
 
 export default function LoginForm() {
   const toast = useToast();
   const [loading, setLoading] = useState<boolean>(false);
   const { setDcs, setStatusAktif, setJenisKaryawan } = useAuth();
   const autoNavigate = useAutoNavigate();
+  const { onOpen, setData } = useMedicAlert();
 
   const formik = useFormik({
     validateOnChange: false,
@@ -44,6 +46,8 @@ export default function LoginForm() {
         .then((r) => {
           if (r.status === 200) {
             const userData = r.data.data;
+
+            console.log("data", r.data.data);
 
             // console.log(userData);
 
@@ -71,6 +75,18 @@ export default function LoginForm() {
               position: "top",
               isClosable: true,
             });
+
+            // Handle alert sip str
+            const masaBerlakuStr = r.data.data.data_karyawan.masa_berlaku_str;
+            const masaBerlakuSip = r.data.data.data_karyawan.masa_berlaku_sip;
+
+            if (masaBerlakuStr || masaBerlakuSip) {
+              onOpen();
+              setData({
+                masa_str: masaBerlakuStr,
+                masa_sip: masaBerlakuSip,
+              });
+            }
           }
         })
         .catch((e) => {

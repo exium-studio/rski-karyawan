@@ -24,8 +24,6 @@ const SIPSTRAlert = () => {
   const { isOpen, onOpen, onClose, data } = useMedicAlert();
   useBackOnClose(`alert-str-sip`, isOpen, onOpen, onClose);
 
-  console.log(data);
-
   return (
     <Modal isOpen={isOpen} onClose={backOnClose} isCentered size={"sm"}>
       <ModalOverlay />
@@ -61,8 +59,14 @@ const SIPSTRAlert = () => {
                 <HStack justify={"center"}>
                   <Text textAlign={"center"}>{formatDate(data?.masa_str)}</Text>
                   <Text textAlign={"center"} color={"red.400"}>
-                    ({formatNumber(monthDiff(new Date(), data?.masa_str))} bulan
-                    lagi)
+                    (
+                    {formatNumber(
+                      monthDiff(
+                        new Date(),
+                        formatDate(data?.masa_str, "short2")
+                      )
+                    )}{" "}
+                    bulan lagi)
                   </Text>
                 </HStack>
               </VStack>
@@ -76,8 +80,14 @@ const SIPSTRAlert = () => {
                 <HStack justify={"center"}>
                   <Text textAlign={"center"}>{formatDate(data?.masa_sip)}</Text>
                   <Text textAlign={"center"} color={"red.400"}>
-                    ({formatNumber(monthDiff(new Date(), data?.masa_sip))} bulan
-                    lagi)
+                    (
+                    {formatNumber(
+                      monthDiff(
+                        new Date(),
+                        formatDate(data?.masa_sip, "short2")
+                      )
+                    )}{" "}
+                    bulan lagi)
                   </Text>
                 </HStack>
               </VStack>

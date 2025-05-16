@@ -24,6 +24,8 @@ export default function AuthMiddleware({
   const userDataRef = useRef(userData);
   const authToken = getAuthToken();
 
+  // console.log("authToken", authToken);
+
   const { onOpen, setData } = useMedicAlert();
 
   const {
