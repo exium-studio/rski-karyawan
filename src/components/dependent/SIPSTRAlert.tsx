@@ -14,7 +14,6 @@ import {
 import useBackOnClose from "../../hooks/useBackOnClose";
 import useMedicAlert from "../../hooks/useMedicAlert";
 import backOnClose from "../../lib/backOnClose";
-import { useEffect } from "react";
 import formatDate from "../../lib/formatDate";
 import formatNumber from "../../lib/formatNumber";
 import monthDiff from "../../lib/monthDiff";

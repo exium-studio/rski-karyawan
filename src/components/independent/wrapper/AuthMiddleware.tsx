@@ -98,6 +98,8 @@ export default function AuthMiddleware({
     setStatusAktif,
     navigate,
     setJenisKaryawan,
+    onOpen,
+    setData,
   ]);
 
   // console.log(statusAktif, dcs);
