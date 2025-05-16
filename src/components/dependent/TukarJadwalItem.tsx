@@ -256,13 +256,13 @@ export default function TukarJadwalItem({ data }: Props) {
               <Avatar
                 name={
                   userPengajuan
-                    ? data.user_ditukar.nama
-                    : data.user_pengajuan.nama
+                    ? data?.user_ditukar?.nama
+                    : data?.user_pengajuan?.nama
                 }
                 src={
                   userPengajuan
-                    ? data.user_ditukar.foto_profil
-                    : data.user_pengajuan.foto_profil
+                    ? data?.user_ditukar?.foto_profil
+                    : data?.user_pengajuan?.foto_profil
                 }
                 size={"xl"}
                 mx={"auto"}
@@ -302,7 +302,9 @@ export default function TukarJadwalItem({ data }: Props) {
               <HStack gap={1} flex={0}>
                 <Text opacity={0.4}>Disetujui Karyawan</Text>
                 <FlexLine />
-                <StatusTukarJadwalApprovalKaryawanBadge data={data?.acc_user_ditukar} />
+                <StatusTukarJadwalApprovalKaryawanBadge
+                  data={data?.acc_user_ditukar}
+                />
               </HStack>
 
               {/* <HStack gap={1} flex={0}>

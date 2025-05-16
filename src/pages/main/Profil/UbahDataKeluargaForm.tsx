@@ -47,21 +47,20 @@ export default function UbahDataKeluargaForm({ data }: Props) {
     },
   });
 
-  // SX
-
+  // For API sent
   const remappedData = formik.values.keluarga.map((anggota) => ({
-    data_keluarga_id: anggota.id, // Mengubah data_keluarga_id
-    hubungan: anggota?.hubungan?.label || anggota.hubungan, // Mengambil label dari hubungan
-    pendidikan_terakhir: {
-      id:
-        anggota?.pendidikan_terakhir?.id || anggota.pendidikan_terakhir?.value, // Mengambil id pendidikan terakhir
-      label: anggota?.pendidikan_terakhir?.label || "", // Mengambil label pendidikan terakhir
-    },
-    nama_keluarga: anggota.nama_keluarga, // Menyalin nama_keluarga
+    data_keluarga_id: anggota?.id,
+    hubungan: anggota?.hubungan?.label || anggota.hubungan,
     status_hidup:
       anggota.status_hidup?.value !== undefined
         ? anggota.status_hidup.value
         : anggota.status_hidup,
+    pendidikan_terakhir: {
+      id:
+        anggota?.pendidikan_terakhir?.id || anggota.pendidikan_terakhir?.value,
+      label: anggota?.pendidikan_terakhir?.label || "",
+    },
+    nama_keluarga: anggota.nama_keluarga,
     tgl_lahir: formatDate(anggota.tgl_lahir, "short2"),
     pekerjaan: anggota.pekerjaan,
     no_hp: anggota.no_hp,

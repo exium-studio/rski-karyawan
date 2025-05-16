@@ -115,8 +115,8 @@ export default function JadwalItem({
             {data.assignees.map((assignee, i) => (
               <Avatar
                 key={i}
-                name={assignee.user.nama}
-                src={assignee.user.foto_profil || ""}
+                name={assignee?.user?.nama}
+                src={assignee?.user?.foto_profil || ""}
               />
             ))}
           </AvatarGroup>

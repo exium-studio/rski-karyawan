@@ -142,7 +142,7 @@ export default function DetailTukarJadwal() {
             >
               <Avatar
                 name={data?.user_ditukar.nama}
-                src={data?.user_ditukar.foto_profil || ""}
+                src={data?.user_ditukar?.foto_profil || ""}
                 mx={"auto"}
                 size={"xl"}
                 mb={4}

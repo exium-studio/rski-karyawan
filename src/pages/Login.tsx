@@ -91,7 +91,8 @@ export default function Login() {
 
               <CContainer bg={"var(--divider)"} p={4} borderRadius={8}>
                 <HStack gap={4}>
-                  <Avatar src={user?.foto_profil} name={user?.foto_profil} />
+                  <Avatar src={user?.foto_profil || ""} name={user?.nama} />
+
                   <CContainer>
                     <Text>{user?.nama}</Text>
                     <Text opacity={0.4}>
