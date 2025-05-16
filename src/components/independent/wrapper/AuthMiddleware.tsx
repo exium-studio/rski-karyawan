@@ -7,13 +7,14 @@ import getAuthToken from "../../../lib/getAuthToken";
 import getUserData from "../../../lib/getUserData";
 import req from "../../../lib/req";
 import ComponentSpinner from "../ComponentSpinner";
+import useMedicAlert from "../../../hooks/useMedicAlert";
+import SIPSTRAlert from "../../dependent/SIPSTRAlert";
 
 interface Props {
   ldp?: number;
   children?: ReactNode;
   allowedJenisKaryawan?: number[];
 }
-
 export default function AuthMiddleware({
   ldp,
   children,
@@ -22,6 +23,8 @@ export default function AuthMiddleware({
   const userData = getUserData();
   const userDataRef = useRef(userData);
   const authToken = getAuthToken();
+
+  const { onOpen, setData } = useMedicAlert();
 
   const {
     dcs,
@@ -53,6 +56,20 @@ export default function AuthMiddleware({
             setDcs(newDcs);
             setStatusAktif(r.data.data.user.status_aktif);
             setJenisKaryawan(r.data.data.unit_kerja?.jenis_karyawan);
+
+            // Handle alert sip str
+            const masaBerlakuStr =
+              r.data.data.user.data_karyawan.masa_berlaku_str;
+            const masaBerlakuSip =
+              r.data.data.user.data_karyawan.masa_berlaku_sip;
+
+            if (masaBerlakuStr || masaBerlakuSip) {
+              onOpen();
+              setData({
+                masa_str: masaBerlakuStr,
+                masa_sip: masaBerlakuSip,
+              });
+            }
           }
         })
         .catch((e) => {
@@ -111,6 +128,8 @@ export default function AuthMiddleware({
 
       {!loading && (
         <>
+          <SIPSTRAlert />
+
           {pathname === "/login" ? (
             children
           ) : (

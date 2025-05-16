@@ -85,6 +85,7 @@ export const App = () => {
   const [firstLoad, setFirstLoad] = useState<boolean>(true);
   const toast = useToast();
 
+  // Handle connection toast (online/offline)
   useEffect(() => {
     const handleOnline = () => {
       if (!firstLoad) {
@@ -120,8 +121,6 @@ export const App = () => {
       window.removeEventListener("offline", handleOffline);
     };
   }, [toast, firstLoad]);
-
-  // Hindari toast pertama kali
   useEffect(() => {
     if (firstLoad) {
       setFirstLoad(false);
