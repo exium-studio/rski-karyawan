@@ -65,10 +65,12 @@ export default function EditFamily({
         : { value: 0, label: "Perempuan" },
       tempat_lahir: data?.tempat_lahir,
       tgl_lahir: new Date(data?.tgl_lahir),
-      pendidikan_terakhir: {
-        value: data?.pendidikan_terakhir?.id,
-        label: data?.pendidikan_terakhir?.label,
-      },
+      pendidikan_terakhir: data?.pendidikan_terakhir
+        ? {
+            value: data?.pendidikan_terakhir?.id,
+            label: data?.pendidikan_terakhir?.label,
+          }
+        : undefined,
       agama: data?.agama
         ? {
             value: data?.agama?.id,
@@ -118,7 +120,7 @@ export default function EditFamily({
       jenis_kelamin: yup.object().required("Harus diisi"),
       tempat_lahir: yup.string().required("Harus diisi"),
       tgl_lahir: yup.string().required("Harus diisi"),
-      pendidikan_terakhir: yup.object().required("Harus diisi"),
+      pendidikan_terakhir: yup.object(),
       agama: yup.object(),
       goldar: yup.object(),
       pekerjaan: yup.string(),
@@ -290,7 +292,7 @@ export default function EditFamily({
             <FormControl mb={4} isInvalid={!!formik.errors.pendidikan_terakhir}>
               <FormLabel>
                 Pendidikan Terakhir
-                <RequiredForm />
+                {/* <RequiredForm /> */}
               </FormLabel>
               <SingleSelectPendidikan
                 id="pendidikan_terakhir"

@@ -11,7 +11,7 @@ interface Props {
 
 const useMedicAlert = create<Props>((set) => {
   return {
-    isOpen: true,
+    isOpen: false,
     setIsOpen: (newState) => set({ isOpen: newState }),
     onOpen: () => set({ isOpen: true }),
     onClose: () => set({ isOpen: false }),

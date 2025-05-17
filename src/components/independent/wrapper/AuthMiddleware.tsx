@@ -104,9 +104,6 @@ export default function AuthMiddleware({
     setData,
   ]);
 
-  // console.log(statusAktif, dcs);
-  // console.log(ldp, dcs, statusAktif, allowedJenisKaryawan, jenisKaryawan);
-
   const location = useLocation();
   const pathname = location.pathname;
 

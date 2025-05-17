@@ -54,7 +54,7 @@ const SIPSTRAlert = () => {
             {data?.masa_str && (
               <VStack gap={1}>
                 <Text textAlign={"center"} opacity={0.4}>
-                  Masa berakhir STR :
+                  Tanggal berakhir STR :
                 </Text>
                 <HStack justify={"center"}>
                   <Text textAlign={"center"}>{formatDate(data?.masa_str)}</Text>
@@ -75,7 +75,7 @@ const SIPSTRAlert = () => {
             {data?.masa_sip && (
               <VStack gap={1}>
                 <Text textAlign={"center"} opacity={0.4}>
-                  Masa berakhir SIP :
+                  Tanggal berakhir SIP :
                 </Text>
                 <HStack justify={"center"}>
                   <Text textAlign={"center"}>{formatDate(data?.masa_sip)}</Text>

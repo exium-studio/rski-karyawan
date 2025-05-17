@@ -77,8 +77,8 @@ export default function LoginForm() {
             });
 
             // Handle alert sip str
-            const masaBerlakuStr = r.data.data.data_karyawan.masa_berlaku_str;
-            const masaBerlakuSip = r.data.data.data_karyawan.masa_berlaku_sip;
+            const masaBerlakuStr = r.data.data.masa_berlaku_str;
+            const masaBerlakuSip = r.data.data.masa_berlaku_sip;
 
             if (masaBerlakuStr || masaBerlakuSip) {
               onOpen();

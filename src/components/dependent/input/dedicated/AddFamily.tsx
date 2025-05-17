@@ -84,7 +84,7 @@ export default function AddFamily({
       jenis_kelamin: yup.object().required("Harus diisi"),
       tempat_lahir: yup.string().required("Harus diisi"),
       tgl_lahir: yup.string().required("Harus diisi"),
-      pendidikan_terakhir: yup.object().required("Harus diisi"),
+      pendidikan_terakhir: yup.object(),
       agama: yup.object(),
       goldar: yup.object(),
       pekerjaan: yup.string(),
@@ -275,7 +275,7 @@ export default function AddFamily({
             <FormControl mb={4} isInvalid={!!formik.errors.pendidikan_terakhir}>
               <FormLabel>
                 Pendidikan Terakhir
-                <RequiredForm />
+                {/* <RequiredForm /> */}
               </FormLabel>
               <SingleSelectPendidikan
                 id="pendidikan_terakhir"

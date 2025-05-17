@@ -47,28 +47,41 @@ export default function UbahDataKeluargaForm({ data }: Props) {
     },
   });
 
+  // nama_keluarga: "",
+  // hubungan: undefined as any,
+  // status_hidup: undefined as any,
+  // jenis_kelamin: undefined as any,
+  // tempat_lahir: "",
+  // tgl_lahir: undefined as any,
+  // pendidikan_terakhir: undefined as any,
+  // agama: undefined as any,
+  // goldar: undefined as any,
+  // pekerjaan: "",
+  // no_hp: "",
+  // email: "",
+  // no_rm: "",
+  // is_bpjs: false,
+  // is_menikah: false,
+
   // For API sent
   const remappedData = formik.values.keluarga.map((anggota) => ({
     data_keluarga_id: anggota?.id,
-    hubungan: anggota?.hubungan?.label || anggota.hubungan,
-    status_hidup:
-      anggota.status_hidup?.value !== undefined
-        ? anggota.status_hidup.value
-        : anggota.status_hidup,
-    pendidikan_terakhir: {
-      id:
-        anggota?.pendidikan_terakhir?.id || anggota.pendidikan_terakhir?.value,
-      label: anggota?.pendidikan_terakhir?.label || "",
-    },
     nama_keluarga: anggota.nama_keluarga,
+    hubungan: anggota?.hubungan?.label || anggota.hubungan,
+    status_hidup: anggota?.status_hidup?.value,
+    jenis_kelamin: anggota?.jenis_kelamin?.value,
     tgl_lahir: formatDate(anggota.tgl_lahir, "short2"),
+    tempat_lahir: anggota?.tempat_lahir,
+    pendidikan_terakhir: anggota?.pendidikan_terakhir?.id,
+    agama: anggota.agama?.value,
+    goldar: anggota.goldar?.value,
     pekerjaan: anggota.pekerjaan,
-    no_hp: anggota.no_hp,
-    email: anggota.email,
-    status_keluarga_id: anggota.status_keluarga_id,
-    is_bpjs: anggota.is_bpjs,
-    is_menikah: anggota.is_bpjs,
-    verifikator_1: anggota.verifikator_1,
+    no_hp: anggota?.no_hp,
+    email: anggota?.email,
+    status_keluarga_id: anggota?.status_keluarga_id,
+    is_bpjs: anggota?.is_bpjs,
+    is_menikah: anggota?.is_menikah,
+    verifikator_1: anggota?.verifikator_1,
     alasan: anggota.alasan,
     created_at: anggota.created_at,
     updated_at: anggota.updated_at,
@@ -104,7 +117,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                     <Text fontWeight={600} fontSize={16}>
                       {anggota.nama_keluarga}
                     </Text>
-
+? 
                     <HStack>
                       <EditFamily
                         data={anggota}
@@ -156,7 +169,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                         textOverflow={"ellipsis"}
                         maxW={"140px"}
                       >
-                        {anggota.hubungan?.label || anggota?.hubungan}
+                        {anggota?.hubungan?.label || anggota?.hubungan}
                       </Text>
                     </HStack>
                     <HStack>
@@ -169,7 +182,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                         textOverflow={"ellipsis"}
                         maxW={"140px"}
                       >
-                        {anggota.status_hidup ? "Hidup" : "Meniggal"}
+                        {anggota.status_hidup?.value ? "Hidup" : "Meniggal"}
                       </Text>
                     </HStack>
                     <HStack>
@@ -199,7 +212,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                         textOverflow={"ellipsis"}
                         maxW={"140px"}
                       >
-                        {anggota.pekerjaan}
+                        {anggota?.pekerjaan}
                       </Text>
                     </HStack>
                     <HStack>
@@ -212,7 +225,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                         textOverflow={"ellipsis"}
                         maxW={"140px"}
                       >
-                        {anggota.pendidikan_terakhir?.label}
+                        {anggota?.pendidikan_terakhir?.label}
                       </Text>
                     </HStack>
                     <HStack>
@@ -225,7 +238,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                         textOverflow={"ellipsis"}
                         maxW={"140px"}
                       >
-                        {anggota.no_hp}
+                        {anggota?.no_hp}
                       </Text>
                     </HStack>
                     <HStack>
