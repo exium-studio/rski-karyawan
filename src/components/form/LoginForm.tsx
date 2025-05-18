@@ -47,9 +47,7 @@ export default function LoginForm() {
           if (r.status === 200) {
             const userData = r.data.data;
 
-            console.log("data", r.data.data);
-
-            // console.log(userData);
+            // console.log("data", r.data.data);
 
             setDcs(userData.data_completion_step);
             setStatusAktif(userData.status_aktif);
