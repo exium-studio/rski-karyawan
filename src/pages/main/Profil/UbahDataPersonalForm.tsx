@@ -49,19 +49,19 @@ export default function EditDataPersonalForm({ data }: Props) {
     validateOnChange: false,
     initialValues: {
       foto_profil: data?.user?.foto_profil || undefined,
-      tempat_lahir: data?.tempat_lahir,
+      tempat_lahir: data?.tempat_lahir || "",
       tgl_lahir: data?.tanggal_lahir
         ? new Date(formatDate(data?.tanggal_lahir, "iso"))
         : undefined,
-      telepon: data?.no_hp,
+      telepon: data?.no_hp || "",
       jenis_kelamin: data?.jenis_kelamin
         ? {
             value: data.jenis_kelamin,
             label: data.jenis_kelamin === 1 ? "Laki - laki" : "Permpuan",
           }
         : undefined,
-      nik_ktp: data?.nik_ktp,
-      no_kk: data?.no_kk,
+      nik_ktp: data?.nik_ktp || "",
+      no_kk: data?.no_kk || "",
       agama: data?.agama
         ? {
             value: data.agama.id,
@@ -76,19 +76,19 @@ export default function EditDataPersonalForm({ data }: Props) {
         : undefined,
       tinggi_badan: data?.tinggi_badan,
       berat_badan: data?.berat_badan,
-      alamat: data?.alamat,
-      no_ijazah: data?.no_ijasah,
+      alamat: data?.alamat || "",
+      no_ijazah: data?.no_ijasah || "",
       pendidikan_terakhir: data?.pendidikan_terakhir
         ? {
             value: data?.pendidikan_terakhir?.id,
             label: data?.pendidikan_terakhir?.label,
           }
         : undefined,
-      tahun_lulus: data?.tahun_lulus?.toString(),
-      gelar_depan: data?.gelar_depan,
-      gelar_belakang: data?.gelar_belakang,
-      asal_sekolah: data?.asal_sekolah,
-      riwayat_penyakit: data?.riwayat_penyakit,
+      tahun_lulus: data?.tahun_lulus?.toString() || "",
+      gelar_depan: data?.gelar_depan || "",
+      gelar_belakang: data?.gelar_belakang || "",
+      asal_sekolah: data?.asal_sekolah || "",
+      riwayat_penyakit: data?.riwayat_penyakit || "",
     },
     validationSchema: yup.object().shape({
       foto_profil: yup.mixed().required("Harus diisi"),
