@@ -101,6 +101,7 @@ export default function RequestPatchDataButton({
               w={"100%"}
               className="btn-solid divider clicky"
               isDisabled={loading}
+              onClick={backOnClose}
             >
               Tidak
             </Button>

@@ -1,6 +1,7 @@
 import { ButtonProps } from "@chakra-ui/react";
 import { Interface__SelectOption } from "../../../../constant/interfaces";
 import SingleSelectDrawer from "../SingleSelectDrawer";
+import { optionsStatusHidup } from "../../../../constant/selectOptions";
 
 interface Props extends ButtonProps {
   id: string;
@@ -28,16 +29,11 @@ export default function SelectStatusHidup({
   nonNullable,
   ...props
 }: Props) {
-  const options = [
-    { value: true, label: "Aktif" },
-    { value: false, label: "Tidak Aktif" },
-  ];
-
   return (
     <SingleSelectDrawer
       id={id}
       name={name}
-      options={options}
+      options={optionsStatusHidup}
       onConfirm={onConfirm}
       inputValue={inputValue}
       withSearch={withSearch}

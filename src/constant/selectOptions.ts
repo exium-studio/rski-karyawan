@@ -1,4 +1,4 @@
-const optionsAgama = [
+export const optionsAgama = [
   { value: 1, label: "Islam" },
   { value: 2, label: "Kristen" },
   { value: 3, label: "Khatolik" },
@@ -7,7 +7,7 @@ const optionsAgama = [
   { value: 6, label: "Konghucu" },
 ];
 
-const optionsHubunganKeluarga = [
+export const optionsHubunganKeluarga = [
   { value: "Suami", label: "Suami" },
   { value: "Istri", label: "Istri" },
   { value: "Anak Ke-1", label: "Anak Ke-1" },
@@ -23,47 +23,52 @@ const optionsHubunganKeluarga = [
   // { value: "Kakek", label: "Kakek" },
 ];
 
-const optionsKategoriCuti = [
+export const optionsKategoriCuti = [
   { value: 1, label: "Tahunan" },
   { value: 2, label: "Kelahiran" },
   { value: 3, label: "Pribadi" },
 ];
 
-const optionsKategoriTukarJadwal = [
+export const optionsKategoriTukarJadwal = [
   { value: 1, label: "Tukar Shift" },
   { value: 2, label: "Tukar Libur" },
 ];
 
-const optionsStatusTukarJadwal = [
+export const optionsStatusTukarJadwal = [
   { value: null, label: "Menunggu" },
   { value: true, label: "Disetujui" },
   { value: false, label: "Tidak Disetujui" },
 ];
 
-const optionsStatusKerja = [
+export const optionsStatusHidup = [
+  { value: true, label: "Aktif" },
+  { value: false, label: "Tidak Aktif" },
+];
+
+export const optionsStatusKerja = [
   { value: 1, label: "Kerja" },
   { value: 2, label: "Cuti" },
   { value: 3, label: "Izin" },
   { value: 4, label: "Libur" },
 ];
 
-const optionsStatusKaryawan = [
+export const optionsStatusKaryawan = [
   { value: 1, label: "Tetap" },
   { value: 2, label: "Kontrak" },
   { value: 3, label: "Training" },
 ];
 
-const optionsJenisKaryawan = [
+export const optionsJenisKaryawan = [
   { value: true, label: "Shift" },
   { value: false, label: "Non-Shift" },
 ];
 
-const optionsJenisAktivitasPresensi = [
+export const optionsJenisAktivitasPresensi = [
   { value: 1, label: "Masuk" },
   { value: 2, label: "Keluar" },
 ];
 
-const optionsJenisKelamin = [
+export const optionsJenisKelamin = [
   {
     value: 1,
     label: "Laki - Laki",
@@ -74,7 +79,7 @@ const optionsJenisKelamin = [
   },
 ];
 
-const optionsInboxType = [
+export const optionsInboxType = [
   {
     id: 1,
     label: "Cuti",
@@ -137,7 +142,7 @@ const optionsInboxType = [
   },
 ];
 
-const optionsPendidikan = [
+export const optionsPendidikan = [
   {
     value: 1,
     label: "SD",
@@ -187,18 +192,3 @@ const optionsPendidikan = [
     label: "Pendidikan Non-Formal",
   },
 ];
-
-export {
-  optionsPendidikan,
-  optionsStatusKaryawan,
-  optionsAgama,
-  optionsKategoriCuti,
-  optionsKategoriTukarJadwal,
-  optionsStatusTukarJadwal,
-  optionsStatusKerja,
-  optionsJenisKaryawan,
-  optionsJenisAktivitasPresensi,
-  optionsJenisKelamin,
-  optionsInboxType,
-  optionsHubunganKeluarga,
-};

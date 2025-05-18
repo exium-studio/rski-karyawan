@@ -1,5 +1,4 @@
 import {
-  Badge,
   Button,
   FormControl,
   FormErrorMessage,
@@ -13,6 +12,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import BooleanBadge from "../../components/dependent/BooleanBadge";
 import DeleteAnggotaKeluarga from "../../components/dependent/DeleteAnggotaKeluarga";
 import HorizontalSliderIndicator from "../../components/dependent/HorizontalSliderIndicator";
 import AddFamily from "../../components/dependent/input/dedicated/AddFamily";
@@ -21,10 +21,10 @@ import LengkapiDataUserHeader from "../../components/dependent/LengkapiDataUserH
 import FlexLine from "../../components/independent/FlexLine";
 import CContainer from "../../components/independent/wrapper/CContainer";
 import Container from "../../components/independent/wrapper/Container";
-import useScrollToTop from "../../hooks/useScrollToTop";
-import req from "../../lib/req";
 import useDcs from "../../global/useAuth";
+import useScrollToTop from "../../hooks/useScrollToTop";
 import formatDate from "../../lib/formatDate";
+import req from "../../lib/req";
 
 export default function LengkapiDataUser2() {
   useScrollToTop();
@@ -198,113 +198,84 @@ export default function LengkapiDataUser2() {
                       <HStack>
                         <Text opacity={0.4}>Hubungan Keluarga</Text>
                         <FlexLine />
-                        <Text
-                          textAlign={"right"}
-                          whiteSpace={"nowrap"}
-                          overflow={"hidden"}
-                          textOverflow={"ellipsis"}
-                          maxW={"140px"}
-                        >
-                          {anggota?.hubungan?.label}
-                        </Text>
+                        <Text>{anggota?.hubungan}</Text>
                       </HStack>
                       <HStack>
                         <Text opacity={0.4}>Status Hidup</Text>
                         <FlexLine />
-                        <Text
-                          textAlign={"right"}
-                          whiteSpace={"nowrap"}
-                          overflow={"hidden"}
-                          textOverflow={"ellipsis"}
-                          maxW={"140px"}
-                        >
-                          {anggota?.status_hidup?.label}
+                        <Text>
+                          {anggota?.status_hidup ? "Aktif" : "Tidak Aktif"}
                         </Text>
                       </HStack>
                       <HStack>
-                        <Text opacity={0.4}>Tangal Lahir</Text>
+                        <Text opacity={0.4}>Jenis Kelamin</Text>
                         <FlexLine />
-                        <Text
-                          textAlign={"right"}
-                          whiteSpace={"nowrap"}
-                          overflow={"hidden"}
-                          textOverflow={"ellipsis"}
-                          maxW={"140px"}
-                        >
-                          {formatDate(anggota?.tgl_lahir)}
+                        <Text>
+                          {anggota?.jenis_kelamin ? "Laki-laki" : "Perempuan"}
                         </Text>
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>Tempat Lahir</Text>
+                        <FlexLine />
+                        <Text>{anggota?.tempat_lahir}</Text>
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>Tanggal Lahir</Text>
+                        <FlexLine />
+                        <Text>{formatDate(anggota?.tgl_lahir)}</Text>
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>Pendidikan Terakhir</Text>
+                        <FlexLine />
+                        <Text>{anggota?.pendidikan_terakhir?.label}</Text>
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>Agama</Text>
+                        <FlexLine />
+                        <Text>{anggota?.agama?.label}</Text>
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>Golongan Darah</Text>
+                        <FlexLine />
+                        <Text>{anggota?.kategori_darah?.label}</Text>
                       </HStack>
                       <HStack>
                         <Text opacity={0.4}>Pekerjaan</Text>
                         <FlexLine />
-                        <Text
-                          textAlign={"right"}
-                          whiteSpace={"nowrap"}
-                          overflow={"hidden"}
-                          textOverflow={"ellipsis"}
-                          maxW={"140px"}
-                        >
-                          {anggota?.pekerjaan}
-                        </Text>
-                      </HStack>
-                      <HStack>
-                        <Text opacity={0.4}>Pendidikan</Text>
-                        <FlexLine />
-                        <Text
-                          textAlign={"right"}
-                          whiteSpace={"nowrap"}
-                          overflow={"hidden"}
-                          textOverflow={"ellipsis"}
-                          maxW={"140px"}
-                        >
-                          {anggota?.pendidikan_terakhir?.label}
-                        </Text>
+                        <Text>{anggota?.pekerjaan}</Text>
                       </HStack>
                       <HStack>
                         <Text opacity={0.4}>Nomor Telepon</Text>
                         <FlexLine />
-                        <Text
-                          textAlign={"right"}
-                          whiteSpace={"nowrap"}
-                          overflow={"hidden"}
-                          textOverflow={"ellipsis"}
-                          maxW={"140px"}
-                        >
-                          {anggota?.no_hp}
-                        </Text>
+                        <Text>{anggota?.no_hp}</Text>
                       </HStack>
                       <HStack>
                         <Text opacity={0.4}>Email</Text>
                         <FlexLine />
-                        <Text
-                          textAlign={"right"}
-                          whiteSpace={"nowrap"}
-                          overflow={"hidden"}
-                          textOverflow={"ellipsis"}
-                          maxW={"140px"}
-                        >
-                          {anggota?.email}
-                        </Text>
+                        <Text>{anggota?.email}</Text>
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>No. Rekam Medis</Text>
+                        <FlexLine />
+                        <Text>{anggota?.no_rm}</Text>
                       </HStack>
                       <HStack>
                         <Text opacity={0.4}>Tanggungan BPJS</Text>
                         <FlexLine />
-                        <Badge
-                          borderRadius={"full"}
-                          colorScheme={anggota.is_bpjs ? "green" : "red"}
-                        >
-                          {anggota?.is_bpjs ? "Ditanggung" : "Tidak Ditanggung"}
-                        </Badge>
+                        <BooleanBadge
+                          data={anggota.is_bpjs}
+                          trueValue="Ditanggung"
+                          falseValue="Tidak Ditanggung"
+                        />
                       </HStack>
                       <HStack>
                         <Text opacity={0.4}>Sudah Menikah</Text>
                         <FlexLine />
-                        <Badge
-                          borderRadius={"full"}
-                          colorScheme={anggota.is_menikah ? "green" : "red"}
-                        >
-                          {anggota?.is_menikah ? "Menikah" : "Belum Menikah"}
-                        </Badge>
+                        <BooleanBadge
+                          data={anggota?.is_menikah}
+                          trueValue="Menikah"
+                          falseValue="Belum Menikah"
+                        />
                       </HStack>
                     </>
                   </VStack>

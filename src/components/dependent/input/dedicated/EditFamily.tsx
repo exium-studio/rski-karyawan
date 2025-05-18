@@ -83,35 +83,12 @@ export default function EditFamily({
             label: data?.kategori_darah?.label,
           }
         : (undefined as any),
-      pekerjaan: data?.pekerjaan,
-      no_hp: data?.no_hp,
+      pekerjaan: data?.pekerjaan || "",
+      no_hp: data?.no_hp || "",
       email: data?.email || "",
       no_rm: data?.no_rm || "",
-      is_bpjs: data.is_bpjs,
-      is_menikah: data.is_menikah,
-      // hubungan: data.hubungan
-      //   ? {
-      //       value: data.hubungan.value || data.hubungan,
-      //       label: data.hubungan.label || data.hubungan,
-      //     }
-      //   : undefined,
-      // nama_keluarga: data.nama_keluarga || "",
-      // status_hidup: {
-      //   value: data.status_hidup ? true : false,
-      //   label: data.status_hidup ? "Aktif" : "Tidak Aktif",
-      // },
-      // pendidikan_terakhir: data.pendidikan_terakhir
-      //   ? {
-      //       value: data.pendidikan_terakhir?.id,
-      //       label: data.pendidikan_terakhir?.label,
-      //     }
-      //   : undefined,
-      // pekerjaan: data.pekerjaan || "",
-      // no_hp: data.no_hp || "",
-      // email: data.email || "",
-      // is_bpjs: data.is_bpjs,
-      // tgl_lahir: data?.tgl_lahir,
-      // is_menikah: data?.is_menikah,
+      is_bpjs: data?.is_bpjs,
+      is_menikah: data?.is_menikah === "0" ? false : true,
     },
     validationSchema: yup.object().shape({
       nama_keluarga: yup.string().required("Harus diisi"),
@@ -135,6 +112,8 @@ export default function EditFamily({
       backOnClose();
     },
   });
+
+  console.log(formik.values);
 
   const formikRef = useRef(formik);
 
