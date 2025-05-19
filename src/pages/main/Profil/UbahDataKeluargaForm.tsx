@@ -73,7 +73,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
     tempat_lahir: anggota?.tempat_lahir,
     pendidikan_terakhir: anggota?.pendidikan_terakhir?.value,
     kategori_agama_id: anggota.agama?.value,
-    kategori_goldar_id: anggota.goldar?.value,
+    kategori_darah_id: anggota.goldar?.value,
     pekerjaan: anggota.pekerjaan,
     no_hp: anggota?.no_hp,
     email: anggota?.email,
@@ -196,7 +196,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                     <HStack>
                       <Text opacity={0.4}>Agama</Text>
                       <FlexLine />
-                      <Text>{anggota?.agama?.label}</Text>
+                      <Text>{anggota?.kategori_agama?.label}</Text>
                     </HStack>
                     <HStack>
                       <Text opacity={0.4}>Golongan Darah</Text>

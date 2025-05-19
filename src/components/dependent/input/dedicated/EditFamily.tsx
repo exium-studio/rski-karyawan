@@ -379,7 +379,7 @@ export default function EditFamily({
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl isInvalid={!!formik.errors.is_menikah} mb={4}>
+            <FormControl isInvalid={!!formik.errors.is_menikah} mb={2}>
               {/* <FormLabel>
                   Tanggungan BPJS
                     <RequiredForm />
@@ -400,7 +400,7 @@ export default function EditFamily({
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl mt={4} isInvalid={!!formik.errors.is_bpjs}>
+            <FormControl isInvalid={!!formik.errors.is_bpjs}>
               <Checkbox
                 colorScheme="ap"
                 isChecked={formik.values.is_bpjs}
