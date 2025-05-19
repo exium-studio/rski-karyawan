@@ -110,7 +110,7 @@ const ListKeluargaDrawer = ({ data, index }: any) => {
                   <HStack>
                     <Text opacity={0.4}>Agama</Text>
                     <FlexLine />
-                    <Text>{anggota?.kategori_agama?.label}</Text>
+                    <Text>{anggota?.kategori_agama_id?.label}</Text>
                   </HStack>
                   <HStack>
                     <Text opacity={0.4}>Golongan Darah</Text>

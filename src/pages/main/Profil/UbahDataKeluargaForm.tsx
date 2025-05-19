@@ -87,7 +87,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
     updated_at: anggota.updated_at,
   }));
 
-  // console.log(remappedData);
+  console.log("remappedData", remappedData);
 
   return (
     <>
