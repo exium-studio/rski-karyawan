@@ -66,14 +66,14 @@ export default function UbahDataKeluargaForm({ data }: Props) {
   const remappedData = formik.values.keluarga.map((anggota) => ({
     data_keluarga_id: anggota?.id,
     nama_keluarga: anggota.nama_keluarga,
-    hubungan: anggota?.hubungan?.label || anggota.hubungan,
+    hubungan: anggota?.hubungan?.value,
     status_hidup: anggota?.status_hidup?.value,
     jenis_kelamin: anggota?.jenis_kelamin?.value,
     tgl_lahir: formatDate(anggota.tgl_lahir, "short2"),
     tempat_lahir: anggota?.tempat_lahir,
     pendidikan_terakhir: anggota?.pendidikan_terakhir?.value,
-    agama: anggota.agama?.value,
-    goldar: anggota.goldar?.value,
+    kategori_agama_id: anggota.agama?.value,
+    kategori_goldar_id: anggota.goldar?.value,
     pekerjaan: anggota.pekerjaan,
     no_hp: anggota?.no_hp,
     email: anggota?.email,
@@ -162,7 +162,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                     <HStack>
                       <Text opacity={0.4}>Hubungan Keluarga</Text>
                       <FlexLine />
-                      <Text>{anggota?.hubungan}</Text>
+                      <Text>{anggota?.hubungan?.value}</Text>
                     </HStack>
                     <HStack>
                       <Text opacity={0.4}>Status Hidup</Text>
