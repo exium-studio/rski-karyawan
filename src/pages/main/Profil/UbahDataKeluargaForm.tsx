@@ -71,7 +71,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
     jenis_kelamin: anggota?.jenis_kelamin?.value,
     tgl_lahir: formatDate(anggota.tgl_lahir, "short2"),
     tempat_lahir: anggota?.tempat_lahir,
-    pendidikan_terakhir: anggota?.pendidikan_terakhir?.id,
+    pendidikan_terakhir: anggota?.pendidikan_terakhir?.value,
     agama: anggota.agama?.value,
     goldar: anggota.goldar?.value,
     pekerjaan: anggota.pekerjaan,
@@ -80,6 +80,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
     status_keluarga_id: anggota?.status_keluarga_id,
     is_bpjs: anggota?.is_bpjs,
     is_menikah: anggota?.is_menikah,
+    no_rm: anggota?.no_rm,
     verifikator_1: anggota?.verifikator_1,
     alasan: anggota.alasan,
     created_at: anggota.created_at,
@@ -161,7 +162,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                     <HStack>
                       <Text opacity={0.4}>Hubungan Keluarga</Text>
                       <FlexLine />
-                      <Text>{anggota?.hubungan?.label}</Text>
+                      <Text>{anggota?.hubungan}</Text>
                     </HStack>
                     <HStack>
                       <Text opacity={0.4}>Status Hidup</Text>
