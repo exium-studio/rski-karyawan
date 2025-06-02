@@ -50,7 +50,7 @@ export default function AuthMiddleware({
           if (r.status === 200) {
             const newUnitKerja = r.data.data.unit_kerja;
             const newUserData = {
-              ...userDataRef,
+              ...userDataRef.current,
               unit_kerja: [newUnitKerja],
             };
             // console.log("newUserData", newUserData);
