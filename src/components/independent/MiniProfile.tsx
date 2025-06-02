@@ -151,7 +151,7 @@ const InfoPresensi = () => {
 export default function MiniProfile({ data, ...props }: Props) {
   return (
     <HStack gap={3} w={"100%"} {...props}>
-      <Avatar name={data?.nama} src={data?.foto_profil || ""} />
+      <Avatar name={data?.nama} src={data?.fotoprofil?.path || ""} />
       <Box>
         <Text fontWeight={600} noOfLines={1}>
           {data?.nama}

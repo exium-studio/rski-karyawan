@@ -48,10 +48,12 @@ interface Props {
 export default function EditDataPersonalForm({ data }: Props) {
   const userData = getUserData();
 
+  const user = getUserData();
+
   const formik = useFormik({
     validateOnChange: false,
     initialValues: {
-      foto_profil: data?.user?.foto_profil || undefined,
+      foto_profil: user?.fotoprofil?.path || undefined,
       tempat_lahir: data?.tempat_lahir || "",
       tgl_lahir: data?.tanggal_lahir
         ? new Date(formatDate(data?.tanggal_lahir, "iso"))

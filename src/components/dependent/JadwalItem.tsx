@@ -116,7 +116,7 @@ export default function JadwalItem({
               <Avatar
                 key={i}
                 name={assignee?.user?.nama}
-                src={assignee?.user?.foto_profil || ""}
+                src={assignee?.user?.foto_profil?.path || ""}
               />
             ))}
           </AvatarGroup>

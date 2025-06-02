@@ -3,12 +3,12 @@ import { RiShieldUserFill } from "@remixicon/react";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../global/useAuth";
+import useMedicAlert from "../../../hooks/useMedicAlert";
 import getAuthToken from "../../../lib/getAuthToken";
 import getUserData from "../../../lib/getUserData";
 import req from "../../../lib/req";
-import ComponentSpinner from "../ComponentSpinner";
-import useMedicAlert from "../../../hooks/useMedicAlert";
 import SIPSTRAlert from "../../dependent/SIPSTRAlert";
+import ComponentSpinner from "../ComponentSpinner";
 
 interface Props {
   ldp?: number;
@@ -50,9 +50,10 @@ export default function AuthMiddleware({
           if (r.status === 200) {
             const newUnitKerja = r.data.data.unit_kerja;
             const newUserData = {
-              ...userDataRef.current,
+              ...userDataRef,
               unit_kerja: [newUnitKerja],
             };
+            // console.log("newUserData", newUserData);
             localStorage.setItem("__user_data", JSON.stringify(newUserData));
             const newDcs = r.data.data.user.data_completion_step;
             setDcs(newDcs);

@@ -145,7 +145,7 @@ export default function Profil() {
           position={"relative"}
         >
           <HStack p={4} gap={3}>
-            <Avatar name={user?.nama} src={user?.foto_profil || ""} />
+            <Avatar name={user?.nama} src={user?.fotoprofil?.path || ""} />
             <CContainer justify={"center"}>
               <Text fontSize={14} fontWeight={500} mb={"2px"}>
                 {user.nama}

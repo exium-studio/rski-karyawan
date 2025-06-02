@@ -88,7 +88,8 @@ export interface Interface__User {
   username: string;
   email_verified_at: Date | string | null;
   role_id: number | null;
-  foto_profil: string | null;
+  foto_profil: any | null;
+  fotoprofil?: any | null;
   data_completion_step: number;
   unit_kerja?: Interface__UnitKerja[];
   status_aktif: number;
