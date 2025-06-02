@@ -57,7 +57,7 @@ export default function StatistikCutiItem({
 
         <HStack align={"end"} gap={1}>
           <Text fontSize={24} lineHeight={1} fontWeight={600} mt={"auto"}>
-            {data.used}
+            {data.used_kuota}
           </Text>
           {data.kuota ? (
             <>
