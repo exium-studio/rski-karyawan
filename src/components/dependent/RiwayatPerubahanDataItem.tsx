@@ -64,8 +64,7 @@ const ListKeluargaDrawer = ({ data, index }: any) => {
                   key={i}
                   borderBottom={
                     i !== data?.length - 1 ? "1px solid var(--divider)" : ""
-                  }
-                  // pt={i !== 0 ? 4 : 0}
+                  } // pt={i !== 0 ? 4 : 0}
                   // pb={i !== data?.length - 1 ? 4 : 0}
                   p={4}
                   borderRadius={8}

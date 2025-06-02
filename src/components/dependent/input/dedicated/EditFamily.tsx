@@ -113,8 +113,6 @@ export default function EditFamily({
     },
   });
 
-  console.log(formik.values);
-
   const formikRef = useRef(formik);
 
   const statusHidup = formik.values?.status_hidup;

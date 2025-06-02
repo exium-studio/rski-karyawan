@@ -66,8 +66,8 @@ export default function UbahDataKeluargaForm({ data }: Props) {
   const remappedData = formik.values.keluarga.map((anggota) => ({
     data_keluarga_id: anggota?.id,
     nama_keluarga: anggota.nama_keluarga,
-    hubungan: anggota?.hubungan?.value,
-    status_hidup: anggota?.status_hidup?.value,
+    hubungan: anggota?.hubungan,
+    status_hidup: anggota?.status_hidup?.value ? 1 : 0,
     jenis_kelamin: anggota?.jenis_kelamin?.value,
     tgl_lahir: formatDate(anggota.tgl_lahir, "short2"),
     tempat_lahir: anggota?.tempat_lahir,
@@ -87,7 +87,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
     updated_at: anggota.updated_at,
   }));
 
-  console.log("remappedData", remappedData);
+  // console.log("remappedData", remappedData);
 
   return (
     <>
@@ -95,156 +95,167 @@ export default function UbahDataKeluargaForm({ data }: Props) {
         <AnimatePresence>
           {formik.values.keluarga &&
             formik.values.keluarga.length > 0 &&
-            formik.values.keluarga.map((anggota, i) => (
-              <motion.div
-                key={anggota.id}
-                initial={{
-                  opacity: newItemAdded ? 0 : 1,
-                  scale: newItemAdded ? 0.5 : 1,
-                  background: newItemAdded ? "p.500 !important" : "",
-                }}
-                animate={{ opacity: 1, scale: 1, height: "auto" }}
-                exit={{ opacity: 0, scale: 0.5, height: 0 }}
-                transition={{ duration: newItemAdded ? 0.5 : 0.3 }}
-              >
-                <VStack
-                  align={"stretch"}
-                  borderRadius={8}
-                  p={4}
-                  bg={"var(--divider)"}
+            formik.values.keluarga.map((anggota, i) => {
+              console.log("anggota", anggota);
+              return (
+                <motion.div
+                  key={anggota.id}
+                  initial={{
+                    opacity: newItemAdded ? 0 : 1,
+                    scale: newItemAdded ? 0.5 : 1,
+                    background: newItemAdded ? "p.500 !important" : "",
+                  }}
+                  animate={{ opacity: 1, scale: 1, height: "auto" }}
+                  exit={{ opacity: 0, scale: 0.5, height: 0 }}
+                  transition={{ duration: newItemAdded ? 0.5 : 0.3 }}
                 >
-                  <HStack justify={"space-between"} mr={-1}>
-                    <Text fontWeight={600} fontSize={16}>
-                      {anggota.nama_keluarga}
-                    </Text>
-                    ?
-                    <HStack>
-                      <EditFamily
-                        data={anggota}
-                        id={`lengkapi-data-user-2-edit-data-keluarga-${anggota.id}`}
-                        name="keluarga"
-                        onConfirm={(inputValue) => {
-                          const newKeluarga = [...formik.values.keluarga];
-                          const index = newKeluarga.findIndex(
-                            (item) => item.id === anggota.id
-                          );
-                          console.log("editted", inputValue);
-
-                          if (index !== -1) {
-                            newKeluarga[index] = {
-                              ...inputValue,
-                              id: anggota.id,
-                            };
-                            formik.setFieldValue("keluarga", newKeluarga);
-                          }
-                        }}
-                      />
-
-                      <DeleteAnggotaKeluarga
-                        index={i}
-                        data={anggota}
-                        onDelete={(index) => {
-                          setNewItemAdded(false);
-                          setTimeout(() => {
-                            formik.setFieldValue(
-                              "keluarga",
-                              formik.values.keluarga.filter(
-                                (_, i) => i !== index
-                              )
+                  <VStack
+                    align={"stretch"}
+                    borderRadius={8}
+                    p={4}
+                    bg={"var(--divider)"}
+                  >
+                    <HStack justify={"space-between"} mr={-1}>
+                      <Text fontWeight={600} fontSize={16}>
+                        {anggota.nama_keluarga}
+                      </Text>
+                      ?
+                      <HStack>
+                        <EditFamily
+                          data={anggota}
+                          id={`lengkapi-data-user-2-edit-data-keluarga-${anggota.id}`}
+                          name="keluarga"
+                          onConfirm={(inputValue) => {
+                            const newKeluarga = [...formik.values.keluarga];
+                            const index = newKeluarga.findIndex(
+                              (item) => item.id === anggota.id
                             );
-                          }, 50);
-                        }}
-                      />
-                    </HStack>
-                  </HStack>
+                            console.log("editted", inputValue);
 
-                  <>
-                    <HStack>
-                      <Text opacity={0.4}>Hubungan Keluarga</Text>
-                      <FlexLine />
-                      <Text>{anggota?.hubungan?.value}</Text>
+                            if (index !== -1) {
+                              newKeluarga[index] = {
+                                ...inputValue,
+                                id: anggota.id,
+                              };
+                              formik.setFieldValue("keluarga", newKeluarga);
+                            }
+                          }}
+                        />
+
+                        <DeleteAnggotaKeluarga
+                          index={i}
+                          data={anggota}
+                          onDelete={(index) => {
+                            setNewItemAdded(false);
+                            setTimeout(() => {
+                              formik.setFieldValue(
+                                "keluarga",
+                                formik.values.keluarga.filter(
+                                  (_, i) => i !== index
+                                )
+                              );
+                            }, 50);
+                          }}
+                        />
+                      </HStack>
                     </HStack>
-                    <HStack>
-                      <Text opacity={0.4}>Status Hidup</Text>
-                      <FlexLine />
-                      <Text>
-                        {anggota?.status_hidup ? "Aktif" : "Tidak Aktif"}
-                      </Text>
-                    </HStack>
-                    <HStack>
-                      <Text opacity={0.4}>Jenis Kelamin</Text>
-                      <FlexLine />
-                      <Text>
-                        {anggota?.jenis_kelamin ? "Laki-laki" : "Perempuan"}
-                      </Text>
-                    </HStack>
-                    <HStack>
-                      <Text opacity={0.4}>Tempat Lahir</Text>
-                      <FlexLine />
-                      <Text>{anggota?.tempat_lahir}</Text>
-                    </HStack>
-                    <HStack>
-                      <Text opacity={0.4}>Tanggal Lahir</Text>
-                      <FlexLine />
-                      <Text>{formatDate(anggota?.tgl_lahir)}</Text>
-                    </HStack>
-                    <HStack>
-                      <Text opacity={0.4}>Pendidikan Terakhir</Text>
-                      <FlexLine />
-                      <Text>{anggota?.pendidikan_terakhir?.label}</Text>
-                    </HStack>
-                    <HStack>
-                      <Text opacity={0.4}>Agama</Text>
-                      <FlexLine />
-                      <Text>{anggota?.kategori_agama?.label}</Text>
-                    </HStack>
-                    <HStack>
-                      <Text opacity={0.4}>Golongan Darah</Text>
-                      <FlexLine />
-                      <Text>{anggota?.kategori_darah?.label}</Text>
-                    </HStack>
-                    <HStack>
-                      <Text opacity={0.4}>Pekerjaan</Text>
-                      <FlexLine />
-                      <Text>{anggota?.pekerjaan}</Text>
-                    </HStack>
-                    <HStack>
-                      <Text opacity={0.4}>Nomor Telepon</Text>
-                      <FlexLine />
-                      <Text>{anggota?.no_hp}</Text>
-                    </HStack>
-                    <HStack>
-                      <Text opacity={0.4}>Email</Text>
-                      <FlexLine />
-                      <Text>{anggota?.email}</Text>
-                    </HStack>
-                    <HStack>
-                      <Text opacity={0.4}>No. Rekam Medis</Text>
-                      <FlexLine />
-                      <Text>{anggota?.no_rm}</Text>
-                    </HStack>
-                    <HStack>
-                      <Text opacity={0.4}>Tanggungan BPJS</Text>
-                      <FlexLine />
-                      <BooleanBadge
-                        data={anggota.is_bpjs}
-                        trueValue="Ditanggung"
-                        falseValue="Tidak Ditanggung"
-                      />
-                    </HStack>
-                    <HStack>
-                      <Text opacity={0.4}>Sudah Menikah</Text>
-                      <FlexLine />
-                      <BooleanBadge
-                        data={anggota?.is_menikah}
-                        trueValue="Menikah"
-                        falseValue="Belum Menikah"
-                      />
-                    </HStack>
-                  </>
-                </VStack>
-              </motion.div>
-            ))}
+
+                    <>
+                      <HStack>
+                        <Text opacity={0.4}>Hubungan Keluarga</Text>
+                        <FlexLine />
+                        <Text align={"right"}>{anggota?.hubungan}</Text>
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>Status Hidup</Text>
+                        <FlexLine />
+                        <Text align={"right"}>
+                          {anggota?.status_hidup?.label}
+                        </Text>
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>Jenis Kelamin</Text>
+                        <FlexLine />
+                        <Text align={"right"}>
+                          {anggota?.jenis_kelamin ? "Laki-laki" : "Perempuan"}
+                        </Text>
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>Tempat Lahir</Text>
+                        <FlexLine />
+                        <Text align={"right"}>{anggota?.tempat_lahir}</Text>
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>Tanggal Lahir</Text>
+                        <FlexLine />
+                        <Text align={"right"}>
+                          {formatDate(anggota?.tgl_lahir)}
+                        </Text>
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>Pendidikan Terakhir</Text>
+                        <FlexLine />
+                        <Text align={"right"}>
+                          {anggota?.pendidikan_terakhir?.label}
+                        </Text>
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>Agama</Text>
+                        <FlexLine />
+                        <Text align={"right"}>
+                          {anggota?.kategori_agama?.label}
+                        </Text>
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>Golongan Darah</Text>
+                        <FlexLine />
+                        <Text align={"right"}>
+                          {anggota?.kategori_darah?.label}
+                        </Text>
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>Pekerjaan</Text>
+                        <FlexLine />
+                        <Text align={"right"}>{anggota?.pekerjaan}</Text>
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>Nomor Telepon</Text>
+                        <FlexLine />
+                        <Text align={"right"}>{anggota?.no_hp}</Text>
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>Email</Text>
+                        <FlexLine />
+                        <Text align={"right"}>{anggota?.email}</Text>
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>No. Rekam Medis</Text>
+                        <FlexLine />
+                        <Text align={"right"}>{anggota?.no_rm}</Text>
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>Tanggungan BPJS</Text>
+                        <FlexLine />
+                        <BooleanBadge
+                          data={anggota.is_bpjs}
+                          trueValue="Ditanggung"
+                          falseValue="Tidak Ditanggung"
+                        />
+                      </HStack>
+                      <HStack>
+                        <Text opacity={0.4}>Sudah Menikah</Text>
+                        <FlexLine />
+                        <BooleanBadge
+                          data={anggota?.is_menikah}
+                          trueValue="Menikah"
+                          falseValue="Belum Menikah"
+                        />
+                      </HStack>
+                    </>
+                  </VStack>
+                </motion.div>
+              );
+            })}
         </AnimatePresence>
       </CContainer>
 
