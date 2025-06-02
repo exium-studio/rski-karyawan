@@ -13,8 +13,9 @@ import {
   InputRightElement,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
-import { RiEditLine } from "@remixicon/react";
+import { RiArrowUpCircleLine, RiEditLine } from "@remixicon/react";
 import { useFormik } from "formik";
 import { useState } from "react";
 import * as yup from "yup";
@@ -32,11 +33,13 @@ import RequiredForm from "../../../components/form/RequiredForm";
 import CContainer from "../../../components/independent/wrapper/CContainer";
 import CustomDrawer from "../../../components/independent/wrapper/CustomDrawer";
 import { useLightDarkColor } from "../../../constant/colors";
+import { iconSize } from "../../../constant/sizes";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
 import formatNumber from "../../../lib/formatNumber";
 import getUserData from "../../../lib/getUserData";
 import parseNumber from "../../../lib/parseNumber";
+import req from "../../../lib/req";
 
 interface Props {
   data: any;
@@ -120,8 +123,53 @@ export default function EditDataPersonalForm({ data }: Props) {
   const lightDarkColor = useLightDarkColor();
 
   const FileInputDrawer = () => {
+    // Hooks
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const toast = useToast();
+
+    // States
     const [avatar, setAvatar] = useState<any>(undefined);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    // Utils
+    function requestPatchData() {
+      setLoading(true);
+
+      const url = `/api/update-data-personal`;
+      const payload = new FormData();
+      payload.append("kolom_diubah", "foto_profil");
+      payload.append("value_diubah", avatar);
+
+      req
+        .post(url, payload)
+        .then((r) => {
+          if (r.status === 200 || r.status === 201) {
+            backOnClose();
+            toast({
+              status: "success",
+              title: r.data.message,
+              position: "top",
+              isClosable: true,
+            });
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          toast({
+            status: "error",
+            title:
+              (typeof e?.response?.data?.message === "string" &&
+                (e?.response?.data?.message as string)) ||
+              "Terjadi kendala, silahkan periksa jaringan atau hubungi SIM RS",
+            position: "top",
+            isClosable: true,
+          });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+      // console.log(JSON.stringify(payload));
+    }
 
     return (
       <>
@@ -162,12 +210,12 @@ export default function EditDataPersonalForm({ data }: Props) {
             <Button
               colorScheme="ap"
               className="btn-ap clicky"
-              onClick={() => {
-                backOnClose();
-              }}
-              // leftIcon={<Icon as={RiArrowUpCircleLine} fontSize={iconSize} />}
+              onClick={requestPatchData}
+              isLoading={loading}
+              isDisabled={!avatar}
+              leftIcon={<Icon as={RiArrowUpCircleLine} fontSize={iconSize} />}
             >
-              Simpan
+              Ajukan
             </Button>
           }
         >
@@ -181,7 +229,7 @@ export default function EditDataPersonalForm({ data }: Props) {
               onChangeSetter={(input) => {
                 setAvatar(input);
               }}
-              accept=".png .jpg .jpeg .HEIC"
+              accept="image/*"
               inputValue={avatar}
             />
           </CContainer>
