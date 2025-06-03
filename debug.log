@@ -59,3 +59,4 @@
 [0111/035503.464:ERROR:crashpad_client_win.cc(810)] not connected
 [0516/142905.777:ERROR:third_party\crashpad\crashpad\client\crashpad_client_win.cc:811] not connected
 [0517/143149.161:ERROR:third_party\crashpad\crashpad\client\crashpad_client_win.cc:811] not connected
+[0603/084849.187:ERROR:third_party\crashpad\crashpad\client\crashpad_client_win.cc:811] not connected

@@ -53,8 +53,14 @@ export default function EditFamily({
     initialValues: {
       nama_keluarga: data?.nama_keluarga,
       hubungan: {
-        value: data?.hubungan,
-        label: data?.hubungan,
+        value:
+          typeof data?.hubungan === "string"
+            ? data.hubungan
+            : data?.hubungan?.label,
+        label:
+          typeof data?.hubungan === "string"
+            ? data.hubungan
+            : data?.hubungan?.label,
       },
       status_hidup: {
         value: data?.status_hidup,
@@ -71,10 +77,10 @@ export default function EditFamily({
             label: data?.pendidikan_terakhir?.label,
           }
         : undefined,
-      agama: data?.agama
+      agama: data?.kategori_agama
         ? {
-            value: data?.agama?.id,
-            label: data?.agama?.label,
+            value: data?.kategori_agama?.id,
+            label: data?.kategori_agama?.label,
           }
         : (undefined as any),
       goldar: data?.kategori_darah

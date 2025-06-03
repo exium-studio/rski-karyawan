@@ -46,27 +46,11 @@ export default function UbahDataKeluargaForm({ data }: Props) {
     },
   });
 
-  // nama_keluarga: "",
-  // hubungan: undefined as any,
-  // status_hidup: undefined as any,
-  // jenis_kelamin: undefined as any,
-  // tempat_lahir: "",
-  // tgl_lahir: undefined as any,
-  // pendidikan_terakhir: undefined as any,
-  // agama: undefined as any,
-  // goldar: undefined as any,
-  // pekerjaan: "",
-  // no_hp: "",
-  // email: "",
-  // no_rm: "",
-  // is_bpjs: false,
-  // is_menikah: false,
-
-  // For API sent
+  // For Payload
   const remappedData = formik.values.keluarga.map((anggota) => ({
     data_keluarga_id: anggota?.id,
     nama_keluarga: anggota.nama_keluarga,
-    hubungan: anggota?.hubungan,
+    hubungan: anggota?.hubungan?.value,
     status_hidup: anggota?.status_hidup?.value ? 1 : 0,
     jenis_kelamin: anggota?.jenis_kelamin?.value,
     tgl_lahir: formatDate(anggota.tgl_lahir, "short2"),
@@ -87,7 +71,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
     updated_at: anggota.updated_at,
   }));
 
-  // console.log("remappedData", remappedData);
+  console.log("remappedData", remappedData);
 
   return (
     <>
@@ -97,6 +81,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
             formik.values.keluarga.length > 0 &&
             formik.values.keluarga.map((anggota, i) => {
               console.log("anggota", anggota);
+
               return (
                 <motion.div
                   key={anggota.id}
@@ -130,12 +115,20 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                             const index = newKeluarga.findIndex(
                               (item) => item.id === anggota.id
                             );
-                            console.log("editted", inputValue);
+                            // console.log("editted", inputValue);
 
                             if (index !== -1) {
                               newKeluarga[index] = {
                                 ...inputValue,
                                 id: anggota.id,
+                                kategori_agama: {
+                                  value: anggota?.agama?.value,
+                                  label: anggota?.agama?.label,
+                                },
+                                kategori_darah: {
+                                  value: anggota?.goldar?.value,
+                                  label: anggota?.goldar?.label,
+                                },
                               };
                               formik.setFieldValue("keluarga", newKeluarga);
                             }
@@ -164,13 +157,21 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                       <HStack>
                         <Text opacity={0.4}>Hubungan Keluarga</Text>
                         <FlexLine />
-                        <Text align={"right"}>{anggota?.hubungan}</Text>
+                        <Text align={"right"}>
+                          {typeof anggota?.hubungan === "string"
+                            ? anggota.hubungan
+                            : anggota?.hubungan?.label}
+                        </Text>
                       </HStack>
                       <HStack>
                         <Text opacity={0.4}>Status Hidup</Text>
                         <FlexLine />
                         <Text align={"right"}>
-                          {anggota?.status_hidup?.label}
+                          {typeof anggota?.status_hidup === "number"
+                            ? anggota?.status_hidup
+                              ? "Aktif"
+                              : "Tidak Aktif"
+                            : anggota?.status_hidup?.label}
                         </Text>
                       </HStack>
                       <HStack>
