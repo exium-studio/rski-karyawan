@@ -62,6 +62,8 @@ export default function Login() {
       });
   }
 
+  console.log(user);
+
   return (
     <Container px={5}>
       <CContainer flex={1}>

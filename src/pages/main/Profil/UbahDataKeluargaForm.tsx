@@ -178,7 +178,10 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                         <Text opacity={0.4}>Jenis Kelamin</Text>
                         <FlexLine />
                         <Text align={"right"}>
-                          {anggota?.jenis_kelamin ? "Laki-laki" : "Perempuan"}
+                          {anggota?.jenis_kelamin?.label ||
+                          anggota?.jenis_kelamin
+                            ? "Laki-laki"
+                            : "Perempuan"}
                         </Text>
                       </HStack>
                       <HStack>
