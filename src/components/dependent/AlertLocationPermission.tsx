@@ -16,7 +16,7 @@ import backOnClose from "../../lib/backOnClose";
 
 export default function AlertLocationPermission() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  useBackOnClose("alert_location_permission_modal", isOpen, onOpen, onClose);
+  useBackOnClose("alert_location_permission", isOpen, onOpen, onClose);
 
   const initialRef = useRef(null);
 
