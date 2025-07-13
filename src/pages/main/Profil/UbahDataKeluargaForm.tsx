@@ -50,7 +50,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
   const remappedData = formik.values.keluarga.map((anggota) => ({
     data_keluarga_id: anggota?.id,
     nama_keluarga: anggota.nama_keluarga,
-    hubungan: anggota?.hubungan?.value,
+    hubungan: anggota?.hubungan?.value || anggota?.hubungan,
     status_hidup: anggota?.status_hidup?.value ? 1 : 0,
     jenis_kelamin: anggota?.jenis_kelamin?.value,
     tgl_lahir: formatDate(anggota.tgl_lahir, "short2"),
