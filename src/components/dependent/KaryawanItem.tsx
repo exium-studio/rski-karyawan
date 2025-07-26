@@ -33,7 +33,10 @@ export default function KaryawanItem({
       {...props}
     >
       <HStack flex={1} maxW={"calc(100% - 100px)"} overflow={"hidden"}>
-        <Avatar name={data?.user?.nama} src={data?.user?.foto_profil || ""} />
+        <Avatar
+          name={data?.user?.nama}
+          src={data?.user?.foto_profil || undefined}
+        />
 
         <CContainer flex={1} overflow="hidden">
           <Text

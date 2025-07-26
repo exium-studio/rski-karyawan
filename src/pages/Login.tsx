@@ -62,8 +62,6 @@ export default function Login() {
       });
   }
 
-  console.log(user);
-
   return (
     <Container px={5}>
       <CContainer flex={1}>
@@ -94,7 +92,7 @@ export default function Login() {
               <CContainer bg={"var(--divider)"} p={4} borderRadius={8}>
                 <HStack gap={4}>
                   <Avatar
-                    src={user?.fotoprofil?.path || ""}
+                    src={user?.fotoprofil?.path || undefined}
                     name={user?.nama}
                   />
 

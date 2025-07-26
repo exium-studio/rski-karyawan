@@ -26,7 +26,7 @@ export default function AvatarAndNameTableData({
     <HStack flex={1} {...props}>
       <Avatar
         cursor={"pointer"}
-        src={data?.foto_profil || ""}
+        src={data?.foto_profil || undefined}
         name={data?.nama}
         size={"xs"}
       />

@@ -185,7 +185,7 @@ export default function EditDataPersonalForm({ data }: Props) {
           onClick={onOpen}
         >
           <Avatar
-            src={formik.values?.foto_profil || ""}
+            src={formik.values?.foto_profil || undefined}
             name={data?.user?.nama}
             bg={"gray"}
           />
