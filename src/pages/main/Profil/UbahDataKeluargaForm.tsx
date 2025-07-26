@@ -75,7 +75,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
   }));
 
   // console.log("formik.values.keluarga", formik.values.keluarga);
-  console.log("remappedData", remappedData);
+  // console.log("remappedData", remappedData);
 
   return (
     <>
