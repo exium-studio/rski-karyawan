@@ -31,7 +31,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
     validateOnChange: false,
 
     initialValues: {
-      keluarga: (data as any[]) || [],
+      keluarga: data ? [...(data as any[])] : [],
     },
 
     validationSchema: yup.object().shape({
@@ -114,7 +114,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                       <HStack>
                         <EditFamily
                           data={anggota}
-                          id={`lengkapi-data-user-2-edit-data-keluarga-${anggota_keluarga_id}`}
+                          id={`profile-edit-data-keluarga-${anggota_keluarga_id}`}
                           name="keluarga"
                           onConfirm={(inputValue) => {
                             const newKeluarga = [...formik.values.keluarga];
@@ -208,14 +208,16 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                         <Text opacity={0.4}>Agama</Text>
                         <FlexLine />
                         <Text align={"right"}>
-                          {anggota?.kategori_agama?.label}
+                          {anggota?.kategori_agama?.label ||
+                            anggota?.agama?.label}
                         </Text>
                       </HStack>
                       <HStack>
                         <Text opacity={0.4}>Golongan Darah</Text>
                         <FlexLine />
                         <Text align={"right"}>
-                          {anggota?.kategori_darah?.label}
+                          {anggota?.kategori_darah?.label ||
+                            anggota?.goldar?.label}
                         </Text>
                       </HStack>
                       <HStack>

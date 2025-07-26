@@ -59,12 +59,16 @@ export default function EditDataPersonalForm({ data }: Props) {
         ? new Date(formatDate(data?.tanggal_lahir, "iso"))
         : undefined,
       telepon: data?.no_hp || "",
-      jenis_kelamin: data?.jenis_kelamin
-        ? {
-            value: data.jenis_kelamin,
-            label: data.jenis_kelamin === 1 ? "Laki - laki" : "Permpuan",
-          }
-        : undefined,
+      jenis_kelamin:
+        typeof data?.jenis_kelamin === "number"
+          ? {
+              value: data.jenis_kelamin,
+              label: data.jenis_kelamin === 1 ? "Laki - laki" : "Permpuan",
+            }
+          : {
+              value: data.jenis_kelamin?.value,
+              label: data.jenis_kelamin?.label,
+            },
       nik_ktp: data?.nik_ktp || "",
       no_kk: data?.no_kk || "",
       agama: data?.agama

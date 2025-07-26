@@ -94,13 +94,13 @@ export default function EditFamily({
             label: data?.pendidikan_terakhir?.label,
           }
         : (undefined as any),
-      agama: data?.kategori_agama
+      kategori_agama: data?.kategori_agama
         ? {
             value: data?.kategori_agama?.id,
             label: data?.kategori_agama?.label,
           }
         : (undefined as any),
-      goldar: data?.kategori_darah
+      kategori_darah: data?.kategori_darah
         ? {
             value: data?.kategori_darah?.id,
             label: data?.kategori_darah?.label,
@@ -308,32 +308,32 @@ export default function EditFamily({
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl mb={4} isInvalid={!!formik.errors.agama}>
+            <FormControl mb={4} isInvalid={!!formik.errors.kategori_agama}>
               <FormLabel>Agama</FormLabel>
               <SelectAgama
-                id="agama"
-                name="agama"
+                id="kategori_agama"
+                name="kategori_agama"
                 onConfirm={(input) => {
-                  formik.setFieldValue("agama", input);
+                  formik.setFieldValue("kategori_agama", input);
                 }}
-                inputValue={formik.values.agama}
-                isError={!!formik.errors.agama}
+                inputValue={formik.values.kategori_agama}
+                isError={!!formik.errors.kategori_agama}
               />
               <FormErrorMessage>
                 {formik.errors.hubungan as string}
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl mb={4} isInvalid={!!formik.errors.goldar}>
+            <FormControl mb={4} isInvalid={!!formik.errors.kategori_darah}>
               <FormLabel>Golongan Darah</FormLabel>
               <SelectGoldar
-                id="goldar"
-                name="goldar"
+                id="kategori_darah"
+                name="kategori_darah"
                 onConfirm={(input) => {
-                  formik.setFieldValue("goldar", input);
+                  formik.setFieldValue("kategori_darah", input);
                 }}
-                inputValue={formik.values.goldar}
-                isError={!!formik.errors.goldar}
+                inputValue={formik.values.kategori_darah}
+                isError={!!formik.errors.kategori_darah}
               />
               <FormErrorMessage>
                 {formik.errors.hubungan as string}
