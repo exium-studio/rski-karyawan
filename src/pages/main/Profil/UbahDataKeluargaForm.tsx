@@ -46,32 +46,36 @@ export default function UbahDataKeluargaForm({ data }: Props) {
     },
   });
 
-  // For Payload
+  // For Payload, from component format to payload format
   const remappedData = formik.values.keluarga.map((anggota) => ({
-    data_keluarga_id: anggota?.id,
-    nama_keluarga: anggota.nama_keluarga,
+    data_keluarga_id: anggota?.data_keluarga_id || anggota?.id,
     hubungan: anggota?.hubungan?.value || anggota?.hubungan,
-    status_hidup: anggota?.status_hidup?.value ? 1 : 0,
-    jenis_kelamin: anggota?.jenis_kelamin?.value,
-    tgl_lahir: formatDate(anggota.tgl_lahir, "short2"),
+    nama_keluarga: anggota.nama_keluarga,
+    status_hidup: anggota?.status_hidup?.value || anggota?.status_hidup ? 1 : 0,
+    pendidikan_terakhir_id:
+      anggota?.pendidikan_terakhir?.value || anggota?.pendidikan_terakhir?.id,
     tempat_lahir: anggota?.tempat_lahir,
-    pendidikan_terakhir: anggota?.pendidikan_terakhir?.value,
-    kategori_agama_id: anggota.agama?.value,
-    kategori_darah_id: anggota.goldar?.value,
-    pekerjaan: anggota.pekerjaan,
-    no_hp: anggota?.no_hp,
-    email: anggota?.email,
-    status_keluarga_id: anggota?.status_keluarga_id,
-    is_bpjs: anggota?.is_bpjs,
-    is_menikah: anggota?.is_menikah,
-    no_rm: anggota?.no_rm,
-    verifikator_1: anggota?.verifikator_1,
-    alasan: anggota.alasan,
-    created_at: anggota.created_at,
-    updated_at: anggota.updated_at,
+    tgl_lahir: formatDate(anggota.tgl_lahir, "short2"),
+    jenis_kelamin:
+      anggota?.jenis_kelamin?.value || anggota?.jenis_kelamin ? 1 : 0,
+    kategori_agama_id: anggota.agama?.value || anggota.kategori_agama?.id,
+    kategori_darah_id: anggota.goldar?.value || anggota.kategori_darah?.id,
+    pekerjaan: anggota.pekerjaan || "",
+    no_rm: anggota?.no_rm || "",
+    no_hp: anggota?.no_hp || "",
+    email: anggota?.email || "",
+    is_bpjs: anggota?.is_bpjs ? 1 : 0,
+    is_menikah: anggota?.is_menikah ? 1 : 0,
+    //! UNUSED
+    // status_keluarga_id: anggota?.status_keluarga_id,
+    // verifikator_1: anggota?.verifikator_1,
+    // alasan: anggota.alasan,
+    // created_at: anggota.created_at,
+    // updated_at: anggota.updated_at,
   }));
 
-  console.log("remappedData", remappedData);
+  // console.log("formik.values.keluarga", formik.values.keluarga);
+  // console.log("remappedData", remappedData);
 
   return (
     <>
@@ -80,7 +84,7 @@ export default function UbahDataKeluargaForm({ data }: Props) {
           {formik.values.keluarga &&
             formik.values.keluarga.length > 0 &&
             formik.values.keluarga.map((anggota, i) => {
-              console.log("anggota", anggota);
+              // console.log("anggota", anggota);
 
               return (
                 <motion.div
@@ -108,27 +112,29 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                       <HStack>
                         <EditFamily
                           data={anggota}
-                          id={`lengkapi-data-user-2-edit-data-keluarga-${anggota.id}`}
+                          id={`lengkapi-data-user-2-edit-data-keluarga-${anggota.data_keluarga_id}`}
                           name="keluarga"
                           onConfirm={(inputValue) => {
                             const newKeluarga = [...formik.values.keluarga];
                             const index = newKeluarga.findIndex(
-                              (item) => item.id === anggota.id
+                              (item) =>
+                                item.data_keluarga_id ===
+                                anggota.data_keluarga_id
                             );
                             // console.log("editted", inputValue);
 
                             if (index !== -1) {
                               newKeluarga[index] = {
                                 ...inputValue,
-                                id: anggota.id,
-                                kategori_agama: {
-                                  value: anggota?.agama?.value,
-                                  label: anggota?.agama?.label,
-                                },
-                                kategori_darah: {
-                                  value: anggota?.goldar?.value,
-                                  label: anggota?.goldar?.label,
-                                },
+                                data_keluarga_id: anggota.data_keluarga_id,
+                                // kategori_agama: {
+                                //   value: anggota?.agama?.value,
+                                //   label: anggota?.agama?.label,
+                                // },
+                                // kategori_darah: {
+                                //   value: anggota?.goldar?.value,
+                                //   label: anggota?.goldar?.label,
+                                // },
                               };
                               formik.setFieldValue("keluarga", newKeluarga);
                             }

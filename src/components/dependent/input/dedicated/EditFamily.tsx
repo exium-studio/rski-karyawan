@@ -63,12 +63,29 @@ export default function EditFamily({
             : data?.hubungan?.label,
       },
       status_hidup: {
-        value: data?.status_hidup,
-        label: data?.status_hidup ? "Aktif" : "Tidak Aktif",
+        value:
+          typeof data?.status_hidup === "number"
+            ? data.status_hidup
+            : data?.status_hidup?.value,
+        label:
+          typeof data?.status_hidup === "number"
+            ? data?.status_hidup
+              ? "Aktif"
+              : "Tidak Aktif"
+            : data?.status_hidup?.label,
       },
-      jenis_kelamin: data?.jenis_kelamin
-        ? { value: 1, label: "Laki - laki" }
-        : { value: 0, label: "Perempuan" },
+      jenis_kelamin: {
+        value:
+          typeof data?.jenis_kelamin === "number"
+            ? data.jenis_kelamin
+            : data?.jenis_kelamin?.value,
+        label:
+          typeof data?.jenis_kelamin === "number"
+            ? data?.jenis_kelamin
+              ? "Laki - laki"
+              : "Perempuan"
+            : data?.jenis_kelamin?.label,
+      },
       tempat_lahir: data?.tempat_lahir,
       tgl_lahir: new Date(data?.tgl_lahir),
       pendidikan_terakhir: data?.pendidikan_terakhir
@@ -76,7 +93,7 @@ export default function EditFamily({
             value: data?.pendidikan_terakhir?.id,
             label: data?.pendidikan_terakhir?.label,
           }
-        : undefined,
+        : (undefined as any),
       agama: data?.kategori_agama
         ? {
             value: data?.kategori_agama?.id,
@@ -93,8 +110,8 @@ export default function EditFamily({
       no_hp: data?.no_hp || "",
       email: data?.email || "",
       no_rm: data?.no_rm || "",
-      is_bpjs: data?.is_bpjs,
-      is_menikah: data?.is_menikah === "0" ? false : true,
+      is_bpjs: !!data?.is_bpjs,
+      is_menikah: !!data?.is_menikah,
     },
     validationSchema: yup.object().shape({
       nama_keluarga: yup.string().required("Harus diisi"),
