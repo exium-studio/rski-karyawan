@@ -57,8 +57,8 @@ import CustomDrawer from "../independent/wrapper/CustomDrawer";
 import DisclosureHeader from "./DisclosureHeader";
 import DrawerHeader from "./DrawerHeader";
 import FileTypeIcon from "./FileTypeIcon";
-import FileViewer from "./FileViewer";
 import StringInput from "./input/StringInput";
+import { PDFViewer } from "./PDFViewer";
 
 const DeleteConfirmation = ({ data }: any) => {
   // SX
@@ -409,12 +409,14 @@ export default function DokumenFileItem({
                 </Box>
               </Alert>
             )}
+
             <CContainer flex={1} px={5} justify={"center"}>
               <Text mb={4} textAlign={"center"} opacity={0.4}>
                 {title || data?.label || data?.nama}
               </Text>
+
               <CContainer my={"auto"} flex={1} justify={"center"}>
-                <FileViewer fileUrl={data?.path} fileType={dataType} />
+                <PDFViewer fileUrl={data?.path} />
               </CContainer>
             </CContainer>
           </ModalBody>
