@@ -1,11 +1,10 @@
 import { Icon, useToast, VStack } from "@chakra-ui/react";
 import { RiShieldUserFill } from "@remixicon/react";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../global/useAuth";
 import useMedicAlert from "../../../hooks/useMedicAlert";
 import getAuthToken from "../../../lib/getAuthToken";
-import getUserData from "../../../lib/getUserData";
 import req from "../../../lib/req";
 import SIPSTRAlert from "../../dependent/SIPSTRAlert";
 import ComponentSpinner from "../ComponentSpinner";
@@ -20,8 +19,6 @@ export default function AuthMiddleware({
   children,
   allowedJenisKaryawan,
 }: Props) {
-  const userData = getUserData();
-  const userDataRef = useRef(userData);
   const authToken = getAuthToken();
 
   // console.log("authToken", authToken);
@@ -50,7 +47,7 @@ export default function AuthMiddleware({
           if (r.status === 200) {
             const newUnitKerja = r.data.data.unit_kerja;
             const newUserData = {
-              ...userDataRef.current,
+              ...r.data.data.user,
               unit_kerja: [newUnitKerja],
             };
             // console.log("newUserData", newUserData);
