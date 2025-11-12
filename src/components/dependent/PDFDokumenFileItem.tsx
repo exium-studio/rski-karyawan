@@ -57,8 +57,8 @@ import CustomDrawer from "../independent/wrapper/CustomDrawer";
 import DisclosureHeader from "./DisclosureHeader";
 import DrawerHeader from "./DrawerHeader";
 import FileTypeIcon from "./FileTypeIcon";
-import FileViewer from "./FileViewer";
 import StringInput from "./input/StringInput";
+import { PDFViewer } from "./PDFViewer";
 
 const DeleteConfirmation = ({ data }: any) => {
   // SX
@@ -307,7 +307,7 @@ interface Props extends StackProps {
   noOptions?: boolean;
   title?: string;
 }
-export default function DokumenFileItem({
+export default function PDFDokumenFileItem({
   data,
   noOptions = false,
   title,
@@ -343,15 +343,14 @@ export default function DokumenFileItem({
         overflow={"clip"}
         {...props}
       >
-        <HStack justify={"space-between"} pl={3} pr={0} py={1} w={"100%"}>
+        <HStack justify={"space-between"} pl={3} pr={0} py={1}>
           <HStack h={"32px"}>
             <Icon
               as={RiVerifiedBadgeFill}
               color={statusColor}
               fontSize={iconSize}
             />
-
-            <Text fontSize={12} fontWeight={500} noOfLines={1} maxW={"70px"}>
+            <Text fontSize={12} fontWeight={500} noOfLines={1}>
               {title || data?.label || data?.nama}
             </Text>
           </HStack>
@@ -417,7 +416,7 @@ export default function DokumenFileItem({
               </Text>
 
               <CContainer my={"auto"} flex={1} justify={"center"}>
-                <FileViewer fileUrl={data?.path} fileType={dataType} />
+                <PDFViewer fileUrl={`${data?.path}.pdf`} />
               </CContainer>
             </CContainer>
           </ModalBody>
