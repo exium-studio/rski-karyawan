@@ -58,8 +58,14 @@ export default function UbahDataKeluargaForm({ data }: Props) {
     tgl_lahir: formatDate(anggota.tgl_lahir, "short2"),
     jenis_kelamin:
       anggota?.jenis_kelamin?.value || anggota?.jenis_kelamin ? 1 : 0,
-    kategori_agama_id: anggota.agama?.value || anggota.kategori_agama?.id,
-    kategori_darah_id: anggota.goldar?.value || anggota.kategori_darah?.id,
+    kategori_agama_id:
+      anggota.agama?.value ||
+      anggota.kategori_agama?.value ||
+      anggota.kategori_agama?.id,
+    kategori_darah_id:
+      anggota.goldar?.value ||
+      anggota.kategori_darah?.value ||
+      anggota.kategori_darah?.id,
     pekerjaan: anggota.pekerjaan || "",
     no_rm: anggota?.no_rm || "",
     no_hp: anggota?.no_hp || "",
