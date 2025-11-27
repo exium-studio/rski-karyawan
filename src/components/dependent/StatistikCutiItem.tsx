@@ -32,6 +32,8 @@ export default function StatistikCutiItem({
   // SX
   const lightDarkColor = useLightDarkColor();
 
+  const isUnlimited = data?.tipecuti?.is_unlimited === "1";
+
   return (
     <>
       <CContainer
@@ -59,13 +61,13 @@ export default function StatistikCutiItem({
           <Text fontSize={24} lineHeight={1} fontWeight={600} mt={"auto"}>
             {data.used_kuota}
           </Text>
-          {data.kuota ? (
+          {data.kuota && !isUnlimited ? (
             <>
               <Text lineHeight={1.4} opacity={0.4} fontSize={12}>
                 /
               </Text>
               <Text lineHeight={1.4} opacity={0.4} fontSize={12}>
-                {data.kuota} hari
+                {`${data.kuota} hari`}
               </Text>
             </>
           ) : (
@@ -127,16 +129,16 @@ export default function StatistikCutiItem({
 
             <HStack align={"end"} gap={1}>
               <Text fontSize={52} lineHeight={1} fontWeight={600} mt={"auto"}>
-                {data.used}
+                {data.used_kuota}
               </Text>
 
-              {data.kuota ? (
+              {data.kuota && !isUnlimited ? (
                 <>
                   <Text fontSize={16} opacity={0.4}>
                     /
                   </Text>
                   <Text fontSize={16} opacity={0.4}>
-                    {data.kuota} hari
+                    {`${data.kuota} hari`}
                   </Text>
                 </>
               ) : (

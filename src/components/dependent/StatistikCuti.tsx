@@ -8,7 +8,6 @@ import StatistikCutiItem from "./StatistikCutiItem";
 
 export default function StatistikCuti() {
   // SX
-
   const { error, notFound, loading, data, retry } = useDataState<any>({
     initialData: undefined,
     url: "/api/get-statistik-cuti",
