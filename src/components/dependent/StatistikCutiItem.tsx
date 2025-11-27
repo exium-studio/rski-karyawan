@@ -59,9 +59,9 @@ export default function StatistikCutiItem({
 
         <HStack align={"end"} gap={1}>
           <Text fontSize={24} lineHeight={1} fontWeight={600} mt={"auto"}>
-            {data.used_kuota}
+            {data.kuota}
           </Text>
-          {data.kuota && !isUnlimited ? (
+          {/* {data.kuota && !isUnlimited ? (
             <>
               <Text lineHeight={1.4} opacity={0.4} fontSize={12}>
                 /
@@ -74,7 +74,7 @@ export default function StatistikCutiItem({
             <Text lineHeight={1.4} opacity={0.4} fontSize={12}>
               kali
             </Text>
-          )}
+          )} */}
         </HStack>
       </CContainer>
 
@@ -148,9 +148,9 @@ export default function StatistikCutiItem({
               )}
             </HStack>
 
-            <Text ml={"auto"} fontWeight={500}>
+            {/* <Text ml={"auto"} fontWeight={500}>
               Terpakai
-            </Text>
+            </Text> */}
           </HStack>
         </CContainer>
       </CustomDrawer>

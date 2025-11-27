@@ -31,7 +31,7 @@ export default function Cuti() {
 
       <CContainer flex={1} p={5} pb={"calc(92px)"} bg={contentBgColor}>
         <Text mx={1} fontWeight={600} mb={2}>
-          Statistik Cuti
+          Kuota Cuti
         </Text>
 
         <StatistikCuti />
