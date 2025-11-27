@@ -329,6 +329,18 @@ export default function AktivitasItem({ initialData }: Props) {
 
                           <HStack justify={"space-between"}>
                             <Box opacity={0.6}>
+                              <Text>Biometrik</Text>
+                            </Box>
+                            <FlexLine />
+                            <Text fontWeight={500} textAlign={"right"}>
+                              {data?.data_presensi?.biometrik_masuk ||
+                                data?.data_presensi?.biometrik_keluar ||
+                                "-"}
+                            </Text>
+                          </HStack>
+
+                          <HStack justify={"space-between"}>
+                            <Box opacity={0.6}>
                               <Text>Durasi</Text>
                             </Box>
                             <FlexLine />
