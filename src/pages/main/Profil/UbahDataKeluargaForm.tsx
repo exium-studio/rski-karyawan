@@ -46,6 +46,8 @@ export default function UbahDataKeluargaForm({ data }: Props) {
     },
   });
 
+  // console.debug(formik.values.keluarga);
+
   // For Payload, from component format to payload format
   const remappedData = formik.values.keluarga.map((anggota) => ({
     data_keluarga_id: anggota?.data_keluarga_id || anggota?.id,
