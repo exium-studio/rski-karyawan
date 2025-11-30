@@ -413,7 +413,7 @@ export default function DokumenFileItem({
               </Alert>
             )}
 
-            <CContainer flex={1} px={5} justify={"center"}>
+            <CContainer flex={1} justify={"center"}>
               <Text mb={4} textAlign={"center"} opacity={0.4}>
                 {title || data?.label || data?.nama}
               </Text>
