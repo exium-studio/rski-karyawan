@@ -1,19 +1,28 @@
+"use client";
+
+import { forwardRef } from "react";
 import { StackProps, VStack } from "@chakra-ui/react";
 
 interface Props extends StackProps {
-  children?: any;
+  children?: React.ReactNode;
 }
 
-export default function CContainer({ children, ...props }: Props) {
+const CContainer = forwardRef<HTMLDivElement, Props>((props, ref) => {
+  // Props
+  const { children, ...restProps } = props;
+
   return (
     <VStack
+      ref={ref}
+      className={"CContainer"}
       gap={0}
       align={"stretch"}
-      w={"100%"}
-      // flex={1}
-      {...props}
+      w={"full"}
+      {...restProps}
     >
       {children}
     </VStack>
   );
-}
+});
+
+export default CContainer;

@@ -54,6 +54,7 @@ import req from "../../lib/req";
 import RequiredForm from "../form/RequiredForm";
 import CContainer from "../independent/wrapper/CContainer";
 import CustomDrawer from "../independent/wrapper/CustomDrawer";
+import PDFViewer from "../PDFViewer";
 import DisclosureHeader from "./DisclosureHeader";
 import DrawerHeader from "./DrawerHeader";
 import FileTypeIcon from "./FileTypeIcon";
@@ -321,8 +322,9 @@ export default function DokumenFileItem({
   const initialRef = useRef(null);
   useBackOnClose(`file-viewer-${data?.path}`, isOpen, onOpen, onClose);
 
-  // const dataType = data.path.split(".").pop().toLowerCase();
   const dataType = data?.ext;
+
+  // console.debug(dataType);
 
   const statusColor =
     data?.status_berkas?.id === 1
@@ -416,8 +418,12 @@ export default function DokumenFileItem({
                 {title || data?.label || data?.nama}
               </Text>
 
-              <CContainer my={"auto"} flex={1} justify={"center"}>
-                <FileViewer fileUrl={data?.path} fileType={dataType} />
+              <CContainer my={"auto"} flex={1}>
+                {dataType === "pdf" ? (
+                  <PDFViewer fileUrl={"/dummy-pdf.pdf"} />
+                ) : (
+                  <FileViewer fileUrl={data?.path} fileType={dataType} />
+                )}
               </CContainer>
             </CContainer>
           </ModalBody>
