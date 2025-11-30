@@ -420,7 +420,7 @@ export default function DokumenFileItem({
 
               <CContainer my={"auto"} flex={1}>
                 {dataType === "pdf" ? (
-                  <PDFViewer fileUrl={"/dummy-pdf.pdf"} />
+                  <PDFViewer fileUrl={data?.path} />
                 ) : (
                   <FileViewer fileUrl={data?.path} fileType={dataType} />
                 )}
