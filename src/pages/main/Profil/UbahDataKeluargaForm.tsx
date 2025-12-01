@@ -59,7 +59,9 @@ export default function UbahDataKeluargaForm({ data }: Props) {
     tempat_lahir: anggota?.tempat_lahir,
     tgl_lahir: formatDate(anggota.tgl_lahir, "short2"),
     jenis_kelamin:
-      anggota?.jenis_kelamin?.value || anggota?.jenis_kelamin ? 1 : 0,
+      typeof anggota?.jenis_kelamin !== "object"
+        ? anggota?.jenis_kelamin
+        : anggota?.jenis_kelamin?.value,
     kategori_agama_id:
       anggota.agama?.value ||
       anggota.kategori_agama?.value ||
@@ -187,10 +189,11 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                         <Text opacity={0.4}>Jenis Kelamin</Text>
                         <FlexLine />
                         <Text align={"right"}>
-                          {anggota?.jenis_kelamin?.label ||
-                          anggota?.jenis_kelamin
-                            ? "Laki-laki"
-                            : "Perempuan"}
+                          {typeof anggota?.jenis_kelamin !== "object"
+                            ? anggota?.jenis_kelamin
+                              ? "Laki-laki"
+                              : "Perempuan"
+                            : anggota?.jenis_kelamin?.label}
                         </Text>
                       </HStack>
                       <HStack>
