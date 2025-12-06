@@ -77,8 +77,15 @@ a {
   text-decoration: none !important;
 }
 
-p {
+p,
+ol,
+ul,
+li {
   font-size: 14px;
+}
+ol,
+ul {
+  padding-left: 24px;
 }
 label {
   font-size: 14px !important;
@@ -709,7 +716,10 @@ img[alt="Google"] {
   a {
     font-size: 16px !important;
   }
-  p {
+  p,
+  ol,
+  ul,
+  li {
     font-size: 16px;
   }
   label {

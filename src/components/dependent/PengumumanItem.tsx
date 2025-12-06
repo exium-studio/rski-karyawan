@@ -12,6 +12,7 @@ import timeSince from "../../lib/timeSince";
 import CContainer from "../independent/wrapper/CContainer";
 import CustomDrawer from "../independent/wrapper/CustomDrawer";
 import DrawerHeader from "./DrawerHeader";
+import SafeHtml from "./safe-html";
 
 interface Props extends StackProps {
   data: any;
@@ -40,7 +41,7 @@ export default function PengumumanItem({ data, ...props }: Props) {
         <Text fontSize={16} fontWeight={550}>
           {data.judul}
         </Text>
-        <Text noOfLines={props.noOfLines || 2}>{data.konten}</Text>
+        {/* <Text noOfLines={props.noOfLines || 2}>{data.konten}</Text> */}
         <HStack mt={"auto"} pt={2} justify={"space-between"}>
           <Text fontSize={12} opacity={0.4}>
             {timeSince(data.created_at)}
@@ -69,7 +70,10 @@ export default function PengumumanItem({ data, ...props }: Props) {
           <Text fontWeight={550} fontSize={16}>
             {data.judul}
           </Text>
-          <Text>{data.konten}</Text>
+
+          <CContainer>
+            <SafeHtml html={data.konten} />
+          </CContainer>
 
           <HStack mt={"auto"} pt={2} justify={"space-between"}>
             <Text fontSize={12} opacity={0.4}>
