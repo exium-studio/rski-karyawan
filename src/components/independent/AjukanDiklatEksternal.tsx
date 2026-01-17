@@ -69,11 +69,11 @@ export default function AjukanDiklatEksternal() {
       payload.append("deskripsi", values.deskripsi);
       payload.append(
         "tgl_mulai",
-        formatDate(values?.date_range?.from, "short2")
+        formatDate(values?.date_range?.from, "short2"),
       );
       payload.append(
         "tgl_selesai",
-        formatDate(values?.date_range?.to, "short2")
+        formatDate(values?.date_range?.to, "short2"),
       );
       payload.append("jam_mulai", values.jam_mulai);
       payload.append("jam_selesai", values.jam_selesai);
@@ -269,6 +269,7 @@ export default function AjukanDiklatEksternal() {
 
             <FormControl mb={6} isInvalid={!!formik.errors.dokumen}>
               <FormLabel>Sertifikat</FormLabel>
+              <RequiredForm />
               <FileInput
                 id="ajukan-diklat"
                 name="dokumen"
