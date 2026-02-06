@@ -53,7 +53,10 @@ export default function UbahDataKeluargaForm({ data }: Props) {
     data_keluarga_id: anggota?.data_keluarga_id || anggota?.id,
     hubungan: anggota?.hubungan?.value || anggota?.hubungan,
     nama_keluarga: anggota.nama_keluarga,
-    status_hidup: anggota?.status_hidup?.value || anggota?.status_hidup ? 1 : 0,
+    status_hidup:
+      typeof anggota?.status_hidup !== "object"
+        ? anggota?.status_hidup
+        : anggota?.status_hidup?.value,
     pendidikan_terakhir_id:
       anggota?.pendidikan_terakhir?.value || anggota?.pendidikan_terakhir?.id,
     tempat_lahir: anggota?.tempat_lahir,
@@ -155,8 +158,8 @@ export default function UbahDataKeluargaForm({ data }: Props) {
                               formik.setFieldValue(
                                 "keluarga",
                                 formik.values.keluarga.filter(
-                                  (_, i) => i !== index
-                                )
+                                  (_, i) => i !== index,
+                                ),
                               );
                             }, 50);
                           }}
